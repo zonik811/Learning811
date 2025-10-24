@@ -379,24 +379,30 @@
     <!-- JavaScript Integrado -->
     <script>
         // ====== DARK MODE TOGGLE ======
-        const darkModeToggle = document.getElementById('darkModeToggle');
+const darkModeToggle = document.getElementById('darkModeToggle');
 
-        // Verificar preferencia guardada en localStorage
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
-        }
+// SIEMPRE iniciar en modo oscuro salvo que el usuario ya haya guardado su preferencia en localStorage
+if (localStorage.getItem('darkMode') === 'disabled') {
+  // user eligió modo claro antes
+  document.body.classList.remove('dark-mode');
+  darkModeToggle.checked = false;
+} else {
+  // modo oscuro por defecto
+  document.body.classList.add('dark-mode');
+  darkModeToggle.checked = true;
+  localStorage.setItem('darkMode', 'enabled');
+}
 
-        // Escuchar cambios en el toggle
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
+// Escuchar cambios en el toggle
+darkModeToggle.addEventListener('change', () => {
+  if (darkModeToggle.checked) {
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', 'disabled');
+  }
+});
 
         // ====== PARALLAX SCROLL EFFECT ======
         let lastScrollY = window.scrollY;

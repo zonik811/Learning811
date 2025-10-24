@@ -1,75 +1,420 @@
-/* --------- RESPONSIVE DESIGN --------- */
+/* --------- RESPONSIVE DESIGN MEJORADO --------- */
 
-/* Tablets medianos y pantallas menores a 900px */
+/* Tablets y pantallas medianas (768px - 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .intro-grid {
+    grid-template-columns: 1fr 1.8fr;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+  
+  .intro-image img {
+    max-width: 110px;
+  }
+}
+
+/* Tablets menores (600px - 900px) */
 @media (max-width: 900px) {
   .container {
-    padding: 1.2rem;
+    padding: 1.2rem 0.8rem;
   }
+  
+  /* Intro/Presentación */
+  .intro-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+  }
+  
+  .intro-image {
+    order: -1;
+  }
+  
+  .intro-image img {
+    max-width: 140px;
+  }
+  
+  /* Razones, Competencias, Modalidades, Beneficios */
   .razones,
-  .competencias,
+  .competencias-grid,
   .modalidades,
   .beneficios {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
+  
+  .tech-stack {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  .tech-item {
+    min-width: 90px;
+    padding: 0.9rem 0.4rem;
+  }
+  
+  .tech-item img {
+    width: 42px;
+    height: 42px;
+  }
+  
   .plan,
-  .competencias-col,
   .razon,
   .beneficio {
-    margin-bottom: 1rem;
-    padding: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 1.3rem;
   }
+  
   details.semana {
     font-size: 0.98rem;
   }
-  .tecnologias img {
-    width: 38px;
-    height: 38px;
-  }
-  .contacto-section,
+  
   section {
-    padding: 1.4rem 0.5rem;
+    padding: 2rem 1.2rem;
+  }
+  
+  h2, .section-title {
+    font-size: 1.5rem;
   }
 }
 
-/* Teléfonos pequeños, menores a 600px */
+/* Móviles (menores a 600px) */
 @media (max-width: 600px) {
-  header {
-    font-size: 1.05rem;
-    padding: 1rem;
+  /* Container sin márgenes laterales (CONSOLIDADO) */
+  .container {
+    padding: 0.6rem 0.4rem;
+    margin: 0;
+    width: 100%;
   }
+  
+  /* Header y Nav */
+  header {
+    font-size: 0.95rem;
+    padding: 1.2rem 0.6rem;
+    margin: 0;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  header h1 {
+    font-size: 1.4rem;
+  }
+  
+  header p {
+    font-size: 0.9rem;
+  }
+  
+  nav {
+    padding: 0.6rem 0.4rem;
+    margin: 0;
+  }
+  
   nav ul {
     flex-direction: column;
-    gap: .6rem;
+    gap: 0.4rem;
+    padding: 0.6rem;
   }
-  .container,
-  .contacto-section,
+  
+  nav a {
+    font-size: 0.95rem;
+    padding: 0.5em 0.8em;
+  }
+  
+  /* Sections con padding mínimo */
   section {
-    padding: 0.45rem;
-    font-size: .97em;
+    padding: 1.3rem 0.7rem;
+    margin: 0.8rem 0;
+    border-radius: 12px;
   }
+  
+  /* Títulos */
   h2, .section-title {
-    font-size: 1.19rem;
-    border-left-width: 2px;
-    padding-left: .4rem;
+    font-size: 1.25rem;
+    border-left-width: 3px;
+    padding-left: 0.6rem;
+    margin-bottom: 1.2rem;
   }
-  .razones,
-  .beneficios,
+  
+  h3 {
+    font-size: 1.05rem;
+  }
+  
+  h4 {
+    font-size: 1rem;
+  }
+  
+  /* Intro/Presentación */
+  .intro-grid {
+    padding: 1.3rem 0.8rem;
+    gap: 1.2rem;
+    margin: 0;
+  }
+  
+  .intro-image img {
+    max-width: 100px;
+  }
+  
+  .intro-content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .intro-content h3 {
+    font-size: 1rem;
+  }
+  
+  .intro-content p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .intro-content ul {
+    margin: 0.6rem 0 0.6rem 0.8rem;
+  }
+  
+  .intro-content li {
+    font-size: 0.92rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Pensum y Semanas */
+  details.semana {
+    font-size: 0.9rem;
+    padding: 0;
+    margin: 0 0 0.8rem 0;
+  }
+  
+  details.semana summary {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.95rem;
+  }
+  
+  details.semana > *:not(summary) {
+    padding: 0 0.9rem 1rem 0.9rem;
+  }
+  
+  /* Competencias */
+  .competencias-intro p {
+    font-size: 0.95rem;
+  }
+  
+  .tech-stack {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .tech-item {
+    min-width: auto;
+    padding: 0.8rem 0.3rem;
+  }
+  
+  .tech-item img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .tech-item span {
+    font-size: 0.8rem;
+  }
+  
+  .skills-list li {
+    font-size: 0.92rem;
+    padding-left: 1.5rem;
+  }
+  
+  /* Razones */
+  .razones {
+    gap: 1rem;
+  }
+  
+  .razon {
+    padding: 1.2rem 0.9rem;
+  }
+  
+  .razon h4 {
+    font-size: 1rem;
+  }
+  
+  .razon p {
+    font-size: 0.9rem;
+  }
+  
+  /* Modalidades */
   .modalidades {
-    grid-template-columns: 1fr;
+    padding: 1rem 0.5rem;
+    gap: 1.2rem;
+    margin: 0;
   }
-  .tecnologias { gap: 1rem;}
-  .tecnologias img { width: 28px; height: 28px;}
-  .botones { flex-direction: column; }
-  .btn { width: 100%; }
-  .plan, .competencias-col, .razon, .beneficio { margin-bottom: .6rem;}
+  
+  .plan {
+    padding: 1.3rem 1rem;
+  }
+  
+  .plan h3 {
+    font-size: 1.05rem;
+  }
+  
+  .plan p,
+  .plan li {
+    font-size: 0.9rem;
+  }
+  
+  .precio {
+    font-size: 1.5rem;
+  }
+  
+  .badge-recomendado {
+    font-size: 0.85rem;
+    padding: 0.3rem 1rem;
+    top: -15px;
+    right: 15px;
+  }
+  
+  /* Beneficios */
+  .beneficios {
+    gap: 1rem;
+  }
+  
+  .beneficio {
+    padding: 1rem 0.8rem;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .beneficio-icon {
+    font-size: 1.8rem;
+  }
+  
+  .beneficio strong {
+    font-size: 0.95rem;
+  }
+  
+  .beneficio p {
+    font-size: 0.88rem;
+  }
+  
+  /* Contacto */
+  .contacto-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .contacto-section h2 {
+    font-size: 1.3rem;
+  }
+  
+  .contacto-section p {
+    font-size: 0.95rem;
+  }
+  
+  .botones {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Footer */
+  footer {
+    padding: 1.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Flotante y Scroll-top */
+  .flotante {
+    width: 55px;
+    height: 55px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .scroll-top {
+    width: 45px;
+    height: 45px;
+    bottom: 85px;
+    right: 20px;
+    font-size: 1.4rem;
+  }
+  
+  /* Theme toggle */
+  .theme-toggle {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .toggle-label {
+    padding: 8px 18px;
+    font-size: 1rem;
+  }
+  
+  .sun, .moon {
+    font-size: 1.3rem;
+  }
 }
 
-/* Scroll-top & flotante adaptan posición */
-@media (max-width: 500px) {
-  .flotante,
-  .scroll-top {
-    right: 10px;
-    bottom: 16px;
+/* Móviles muy pequeños (menores a 400px) */
+@media (max-width: 400px) {
+  .container {
+    padding: 0.3rem 0.2rem;
   }
-  .scroll-top { bottom: 68px; }
+  
+  header {
+    padding: 1rem 0.5rem;
+  }
+  
+  header h1 {
+    font-size: 1.2rem;
+  }
+  
+  header p {
+    font-size: 0.85rem;
+  }
+  
+  section {
+    padding: 1rem 0.5rem;
+  }
+  
+  h2, .section-title {
+    font-size: 1.1rem;
+  }
+  
+  .intro-grid {
+    padding: 1rem 0.6rem;
+  }
+  
+  .intro-image img {
+    max-width: 80px;
+  }
+  
+  .tech-stack {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tech-item img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .plan,
+  .razon,
+  .beneficio {
+    padding: 0.9rem 0.6rem;
+  }
+  
+  .flotante {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .scroll-top {
+    width: 40px;
+    height: 40px;
+    bottom: 75px;
+  }
 }
