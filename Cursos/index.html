@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Programación y Diseño Digital - Pokédex Interactiva</title>
+    <meta name="description" content="Curso de programación y diseño digital para jóvenes. Aprende HTML, CSS, JavaScript, IA creando una Pokédex interactiva en 4 semanas.">
+    
+    <!-- CSS Integrado -->
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Botón de Dark Mode -->
+    <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle">
+        <label for="darkModeToggle" class="toggle-label">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+        </label>
+    </div>
+
+    <header class="parallax-header">
+        <h1>🎮 Del Concepto al Código</h1>
+        <p>Creando tu Primera Pokédex Interactiva | Programación + Diseño + IA</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#pensum">Pensum</a></li>
+            <li><a href="#por-que">¿Por qué?</a></li>
+            <li><a href="#modalidades">Modalidades</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+<section id="inicio" class="intro-section">
+  <div class="intro-grid">
+    <div class="intro-image">
+      <!-- Cambia src="img/tu-imagen.png" por tu archivo real -->
+      <img src="img/intro.png" alt="Inspiración Pokémon" />
+    </div>
+    <div class="intro-content">
+      <h2>🎯 Presentación del Programa</h2>
+      <h3>¿Por qué este curso es diferente?</h3>
+      <p>
+        En un mundo donde la tecnología evoluciona constantemente, tu hijo no solo aprenderá a usar herramientas digitales, sino a <strong>crearlas</strong>.<br>
+        Nuestro programa combina programación, diseño gráfico e inteligencia artificial de manera práctica y motivadora.
+      </p>
+      <h4>Metodología Innovadora: Aprender Haciendo</h4>
+      <ul>
+        <li><strong>100% práctica:</strong> Desde el primer día construyen su proyecto</li>
+        <li><strong>Motivador:</strong> Pokédex interactiva en tiempo real</li>
+        <li><strong>Actual:</strong> Tecnologías de Netflix, Instagram, videojuegos</li>
+        <li><strong>24/7:</strong> Plataforma Milaulas con recursos siempre disponibles</li>
+        <li><strong>Certificado:</strong> Documento profesional validado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+       <section id="pensum">
+  <h2>📚 Pensum Académico - 4 Semanas</h2>
+
+  <details class="semana" open>
+    <summary>📌 SEMANA 1: Descubriendo el Mundo Tech</summary>
+    <p><strong>Objetivo:</strong> Entender el ecosistema digital y comenzar a crear</p>
+    <ul>
+      <li><strong>Día 1:</strong> Panorama profesional • Roles en tech • Cómo funcionan Netflix, Amazon, videojuegos</li>
+      <li><strong>Días 2-3:</strong> Fundamentos de HTML • Estructura de páginas • Primera versión de tarjetas Pokémon</li>
+      <li><strong>Días 4-5:</strong> CSS y diseño visual • Sprites animados • Pokédex visualmente atractiva</li>
+    </ul>
+  </details>
+  <details class="semana">
+    <summary>⚡ SEMANA 2: Interactividad y Frameworks</summary>
+    <p><strong>Objetivo:</strong> Agregar funcionalidad e interactividad profesional</p>
+    <ul>
+      <li><strong>Días 6-7:</strong> JavaScript Fundamentals • Manipulación del DOM • Funcionalidad de evolución</li>
+      <li><strong>Días 8-9:</strong> Bootstrap/Tailwind • Animaciones 2D • Transiciones fluidas</li>
+      <li><strong>Día 10:</strong> Integración • Funcionalidades adicionales • Presentación de avances</li>
+    </ul>
+  </details>
+  <details class="semana">
+    <summary>🔧 SEMANA 3: Backend y Bases de Datos</summary>
+    <p><strong>Objetivo:</strong> Entender la arquitectura completa de aplicaciones</p>
+    <ul>
+      <li><strong>Días 11-12:</strong> Conceptos de backend • localStorage • Sistema de favoritos</li>
+      <li><strong>Días 13-14:</strong> Fundamentos SQL • APIs reales (PokéAPI) • Comunicación front-back</li>
+      <li><strong>Día 15:</strong> Proyecto backend integrado • Pokédex completamente funcional</li>
+    </ul>
+  </details>
+  <details class="semana">
+    <summary>🤖 SEMANA 4: IA y Proyecto Final</summary>
+    <p><strong>Objetivo:</strong> Integrar IA y completar proyecto profesional</p>
+    <ul>
+      <li><strong>Días 16-17:</strong> Fundamentos IA • Generación de imágenes • Pokémon personalizados con IA</li>
+      <li><strong>Días 18-19:</strong> Desarrollo avanzado • Optimización • Presentación técnica</li>
+      <li><strong>Día 20:</strong> 🏆 Presentaciones finales • Demostración de competencias • Certificación</li>
+    </ul>
+  </details>
+</section>
+
+       <section id="competencias">
+  <h2>🏆 Competencias Desarrolladas</h2>
+  
+  <div class="competencias-intro">
+    <p>Durante el curso dominarás estas tecnologías profesionales usadas por las mejores empresas del mundo:</p>
+  </div>
+
+  <div class="competencias-grid">
+    <!-- Técnicas -->
+    <div class="competencias-col">
+      <h4>🔧 Técnicas</h4>
+      <div class="tech-stack">
+        <div class="tech-item">
+          <img src="img/html.png" alt="HTML5" />
+          <span>HTML5</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/css.png" alt="CSS3" />
+          <span>CSS3</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/js.png" alt="JavaScript" />
+          <span>JavaScript ES6+</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/bootstrap.png" alt="Bootstrap" />
+          <span>Bootstrap</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/tailwind.png" alt="Tailwind" />
+          <span>Tailwind CSS</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/sql.png" alt="SQL" />
+          <span>SQL</span>
+        </div>
+        <div class="tech-item">
+          <img src="img/git.png" alt="Git" />
+          <span>Git</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transversales -->
+    <div class="competencias-col">
+      <h4>💡 Transversales</h4>
+      <ul class="skills-list">
+        <li>Resolución de problemas y debugging</li>
+        <li>Pensamiento lógico y crítico</li>
+        <li>Creatividad digital y UX/UI</li>
+        <li>Presentación técnica efectiva</li>
+        <li>Trabajo colaborativo en equipo</li>
+        <li>Aprendizaje autónomo y autodidacta</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+        <section id="por-que">
+            <h2>🌟 ¿Por qué elegir nuestro programa?</h2>
+            <div class="razones">
+                <div class="razon">
+                    <h4>📊 Metodología Probada</h4>
+                    <p>Pedagogía activa, aprendizaje por proyectos, ritmo adaptado a adolescentes, balance 20% teoría - 80% práctica</p>
+                </div>
+                <div class="razon">
+                    <h4>💻 Tecnologías Actuales</h4>
+                    <p>Stack usado por empresas reales, herramientas de la industria, integración de IA del futuro</p>
+                </div>
+                <div class="razon">
+                    <h4>🎁 Proyecto Tangible</h4>
+                    <p>Portfolio profesional inicial, creación real, conexión emocional con el aprendizaje</p>
+                </div>
+                <div class="razon">
+                    <h4>🌐 Plataforma 24/7</h4>
+                    <p>Milaulas con videos, ejercicios, recursos, comunidad, seguimiento personalizado</p>
+                </div>
+                <div class="razon">
+                    <h4>📜 Certificación Válida</h4>
+                    <p>Documento oficial de 30 horas, detalle de competencias, respaldo académico</p>
+                </div>
+                <div class="razon">
+                    <h4>🚀 Orientación Profesional</h4>
+                    <p>Salidas laborales en tech, conexión con mercado real, inspiración académica</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="modalidades">
+            <h2>👥 Modalidades y Planes</h2>
+
+            <div class="modalidades">
+                <div class="plan">
+                    <h3>👤 Sesiones Personalizadas (1:1)</h3>
+                    <p>Atención 100% personalizada para máximo aprendizaje</p>
+                    <ul>
+                        <li>Horarios totalmente flexibles</li>
+                        <li>Ritmo adaptado a necesidades individuales</li>
+                        <li>Atención exclusiva del instructor</li>
+                        <li>Enfoque en áreas de interés</li>
+                    </ul>
+                    <p><strong>Duración:</strong> 30 horas (40 sesiones de 45 min)</p>
+                    <div class="precio">
+                        <span class="precio-original">$1.050.000</span><br>
+                        $800.000
+                    </div>
+                    <p style="text-align: center; font-size: 0.9rem;">$35.000 por sesión</p>
+                </div>
+
+                <div class="plan destacado">
+                    <div class="badge-recomendado"><span>⭐ RECOMENDADO</span></div>
+                    <h3>👥 Grupos Reducidos (Max 3)</h3>
+                    <p>Aprende colaborando como en equipos tech reales</p>
+                    <ul>
+                        <li>Colaboración y code review</li>
+                        <li>Problem solving en equipo</li>
+                        <li>Comunicación técnica</li>
+                        <li>Networking temprano</li>
+                        <li>Motivación grupal</li>
+                    </ul>
+                    <p><strong>Duración:</strong> 30 horas (20 sesiones, 5 días/semana, 4 semanas)</p>
+                    <div class="precio">$550.000</div>
+                    <p style="text-align: center; font-size: 0.9rem;">Por estudiante</p>
+                </div>
+            </div>
+
+            <div class="modalidades">
+                <div class="plan especial">
+                    <h3>🎁 Plan Multinivel - Descuento Especial</h3>
+                    <p><strong>Compromiso con Nivel 2:</strong> Obtén descuento en ambos niveles</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1rem 0;">
+                        <div>
+                            <p><strong>Precio por nivel:</strong></p>
+                            <div class="precio">$470.000</div>
+                            <p style="text-align: center; font-size: 0.9rem;">Ahorro: $80.000 por nivel</p>
+                        </div>
+                        <div>
+                            <p><strong>Total 2 niveles:</strong></p>
+                            <div class="precio">$940.000</div>
+                            <p style="text-align: center; font-size: 0.9rem;">Ahorro total: $160.000</p>
+                        </div>
+                    </div>
+                    <p><strong>Nivel 2 incluye:</strong> React, Node.js, bases de datos avanzadas, deploy en nube, proyectos complejos</p>
+                </div>
+            </div>
+
+            <h3>💼 Incluido en todas las modalidades</h3>
+            <div class="beneficios">
+                <div class="beneficio">
+                    <div class="beneficio-icon">📖</div>
+                    <div>
+                        <strong>Contenido Académico</strong>
+                        <p>30 horas de formación práctica, 20 sesiones presenciales, proyecto completo guiado</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio-icon">🌐</div>
+                    <div>
+                        <strong>Plataforma Milaulas 24/7</strong>
+                        <p>Acceso de por vida, videos, ejercicios, recursos descargables, biblioteca de tutoriales</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio-icon">🛠️</div>
+                    <div>
+                        <strong>Soporte Técnico</strong>
+                        <p>Ayuda durante el curso, foro de dudas, mentoría individual, comunidad exclusiva</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio-icon">🏆</div>
+                    <div>
+                        <strong>Certificación Profesional</strong>
+                        <p>Documento oficial, competencias técnicas detalladas, proyecto para portfolio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="incluye">
+            <h2>✅ Requisitos e Información</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h3>Requisitos Técnicos</h3>
+                    <ul>
+                        <li>Computadora con internet estable</li>
+                        <li>Navegador web actualizado</li>
+                        <li>No requiere software especializado</li>
+                        <li>Instalamos todo en clase</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Perfil del Estudiante</h3>
+                    <ul>
+                        <li>Edad: 13-17 años</li>
+                        <li>Nivel: Principiante</li>
+                        <li>No requiere experiencia previa</li>
+                        <li>Actitud: Curiosidad y ganas de crear</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Horarios Disponibles</h3>
+            <ul>
+                <li><strong>Modalidad 1:1:</strong> Totalmente flexibles según disponibilidad</li>
+                <li><strong>Modalidad Grupal:</strong> Lunes a viernes, 1 hora , 30 minutos</li>
+                <li style="margin-left: 1.5rem;">• Opción tarde 1 : 6:30 PM - 8:00 PM</li>
+                <li style="margin-left: 1.5rem;">• Opción tarde 2: 4:30 PM - 6:00 PM</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">Facilidades de Pago</h3>
+            <ul>
+                <li>Pago completo con descuento adicional del 5%</li>
+                <li>2 pagos: 50% inicial, 50% a mitad del curso</li>
+                <li>Transferencia bancaria, Nequi, Daviplata</li>
+            </ul>
+        </section>
+
+        <section id="contacto" class="contacto-section">
+            <h2>📞 ¡Cupos Limitados!</h2>
+            <p style="font-size: 1.1rem; margin: 1rem 0;">
+                <strong>Modalidad 1:1:</strong> Solo 5 estudiantes por mes<br>
+                <strong>Modalidad Grupal:</strong> Máximo 3 alumnos por grupo<br>
+                <strong>Próximo inicio:</strong> [Próxima disponibilidad]
+            </p>
+
+            <h3 style="color: white; margin-top: 2rem;">Proceso de Inscripción</h3>
+            <ol style="text-align: left; max-width: 600px; margin: 1.5rem auto;">
+                <li>Contacto inicial por WhatsApp o email</li>
+                <li>Sesión informativa de 20 minutos (sin compromiso)</li>
+                <li>Evaluación de expectativas y objetivos</li>
+                <li>Reserva de cupo con 50% de anticipo</li>
+                <li>Acceso inmediato a plataforma Milaulas</li>
+                <li>¡Inicio de clases según calendario!</li>
+            </ol>
+
+            <div class="botones">
+                <a href="https://wa.me/573053976431?text=Hola%20me%20interesa%20información%20sobre%20el%20curso%20de%20programación" class="btn btn-whatsapp">
+                    💬 Contáctanos por WhatsApp
+                </a>
+                <a href="mailto:oscarcubillos811@gmail.com" class="btn btn-secondary">
+                    📧 Enviar Email
+                </a>
+            </div>
+        </section>
+
+        <section style="text-align: center; border: none; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);">
+            <h2 style="border: none; padding: 0;">🚀 Próximos Pasos</h2>
+            <ol style="display: inline-block; text-align: left; margin: 2rem 0;">
+                <li>Contáctanos por WhatsApp o email</li>
+                <li>Agenda tu sesión informativa gratuita</li>
+                <li>Conoce el programa y resuelve dudas</li>
+                <li>Reserva el cupo de tu hijo</li>
+                <li>¡Comienza a crear su futuro digital!</li>
+            </ol>
+            <p style="font-size: 1.3rem; font-weight: bold; margin-top: 2rem;">
+                "No solo enseñamos tecnología, formamos creadores del futuro digital"
+            </p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Curso de Programación y Diseño Digital | Del Concepto al Código</p>
+        <p>Creando el futuro tech de la próxima generación</p>
+    </footer>
+
+<a href="https://wa.me/573053976431?text=Hola%20me%20interesa%20información%20sobre%20el%20curso%20de%20programación" class="flotante" title="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
+  <img src="img/whatsapp.png" alt="WhatsApp" />
+</a>
+
+    <div class="scroll-top" id="scrollTop">
+        ↑
+    </div>
+
+    <!-- JavaScript Integrado -->
+    <script>
+        // ====== DARK MODE TOGGLE ======
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Verificar preferencia guardada en localStorage
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+
+        // Escuchar cambios en el toggle
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // ====== PARALLAX SCROLL EFFECT ======
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const header = document.querySelector('header');
+            // Parallax para las semanas con velocidades variables
+            const weeks = document.querySelectorAll('.week');
+            weeks.forEach((week, index) => {
+                const speed = 0.1 + (index * 0.05);
+                const yPos = -(scrollY * speed);
+                week.style.transform = `translateY(${yPos}px)`;
+            });
+            
+            lastScrollY = scrollY;
+        });
+
+        // ====== SCROLL ANIMATIONS CON INTERSECTION OBSERVER ======
+        const animateElements = document.querySelectorAll('section, .week, .razon, .plan, .beneficio');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Agregar clase con delay para efecto escalonado
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Agregar clase de animación y observar elementos
+        // Agregar clase de animación y observar elementos
+animateElements.forEach((element, index) => {
+    // Variar el tipo de animación según el índice
+    const animationTypes = ['animate-fade', 'animate-left', 'animate-right', 'animate-fade'];
+    const animationType = animationTypes[index % 4];
+    
+    element.classList.add('animate-on-scroll');
+    if (animationType) {
+        element.classList.add(animationType);
+    }
+    observer.observe(element);
+});
+
+
+        // ====== SMOOTH SCROLL PARA NAVEGACIÓN ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            });
+        });
+
+        // ====== BOTÓN SCROLL TO TOP ======
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        });
+document.querySelectorAll('.semana').forEach(semana => {
+  semana.addEventListener('mousemove', e => {
+    const rect = semana.getBoundingClientRect();
+    semana.style.setProperty('--x', ((e.clientX - rect.left) / rect.width * 100) + '%');
+    semana.style.setProperty('--y', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    semana.classList.add('hovered');
+  });
+  semana.addEventListener('mouseleave', () => {
+    semana.classList.remove('hovered');
+    semana.style.removeProperty('--x');
+    semana.style.removeProperty('--y');
+  });
+});
+    </script>
+</body>
+</html>

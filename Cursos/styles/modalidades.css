@@ -1,0 +1,131 @@
+/* -------- SECCIÓN MODALIDADES Y PLANES ---------- */
+
+/* Contenedor general */
+.modalidades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  background: linear-gradient(120deg,#262147 60%,#1d1a2c 100%);
+  padding: 2rem 1rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px var(--color-principal)13;
+  position: relative;
+}
+
+/* Cards de modalidad */
+.plan {
+  position: relative;
+  background: linear-gradient(135deg, #251c36 0%, #4734a219 100%);
+  padding: 2rem;
+  border-radius: 14px;
+  border: 2.5px solid #8f7eff;
+  transition: box-shadow 0.3s, background 0.4s, transform 0.2s, border-color 0.25s;
+  box-shadow: 0 2px 22px #141a3044;
+  overflow: visible;
+  cursor: pointer;
+  color: var(--color-text);
+}
+.plan:hover {
+  box-shadow: 0 0 52px var(--color-principal)bf, 0 0 2px #fff3 !important;
+  background: linear-gradient(135deg,#4b42a415 0,#4734a219 100%);
+  transform: translateY(-7px) scale(1.04) rotate(-1deg);
+  border-color: var(--color-principal);
+}
+.plan:after {
+  content: '';
+  position: absolute;
+  top: -60%; left:-50%;
+  width: 200%; height: 220%;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%), var(--color-principal)44 0, transparent 70%);
+  pointer-events: none;
+  opacity: .28;
+  z-index: 0;
+  transition: background-position 0.3s;
+}
+.plan.hovered {
+  box-shadow: 0 0 52px var(--color-principal)88, 0 0 2px #fff3 !important;
+  border-color: var(--color-acento);
+}
+
+/* Card destacada - RECOMENDADO */
+.plan.destacado {
+  border: 2.5px solid var(--color-principal);
+  background: #262147;
+}
+
+/* Card especial de oferta */
+.plan.especial {
+  background: linear-gradient(135deg, #ffd70022 0%, #ffed4e11 100%);
+  grid-column: 1 / -1;
+  transform: scale(1.02);
+  border: 2px solid var(--color-acento);
+}
+
+/* Badge recomendado */
+.badge-recomendado {
+  position: absolute;
+  top: -18px;
+  right: 20px;
+  z-index: 2;
+  background: linear-gradient(90deg, #ffe641 0%, #ffed4e 66%, #ffc062 100%);
+  color: #31217c;
+  padding: 0.40rem 1.3rem 0.48rem 1.3rem;
+  border-radius: 16px 16px 26px 26px / 30px 30px 26px 26px;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 6px 24px #ffed4e33, 0 2px 8px #31217c11;
+  letter-spacing: 1px;
+  border: 1.2px solid #fff8b2;
+  pointer-events: none;
+  transition: box-shadow 0.23s, background 0.2s;
+}
+.badge-recomendado:hover,
+.badge-recomendado.glow {
+  box-shadow: 0 0 32px var(--color-acento)cc, 0 0 8px var(--color-principal)99;
+  background: linear-gradient(85deg, #ffed4e 0%, #ffe641 50%, #b8a4ff 100%);
+}
+
+/* Título y listas en las cards */
+.plan h3 {
+  color: var(--color-principal);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.plan ul {
+  list-style: none;
+  margin: 1rem 0;
+}
+.plan li {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.plan li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-principal);
+  font-weight: bold;
+}
+
+/* Precios */
+.precio {
+  font-size: 1.7rem;
+  color: var(--color-acento);
+  font-weight: bold;
+  margin: 1.1rem 0;
+  text-align: center;
+}
+.precio-original {
+  text-decoration: line-through;
+  color: #aaafc7;
+  font-size: 1.01rem;
+  font-weight: normal;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .modalidades { grid-template-columns: 1fr; padding: 1.5rem 0.5rem;}
+  .plan { padding: 1.2rem; }
+}

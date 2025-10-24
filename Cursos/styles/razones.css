@@ -1,0 +1,38 @@
+/* -------- SECCIÓN RAZONES/¿POR QUÉ? --------- */
+
+.razones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin: 1.8rem 0;
+}
+
+.razon {
+  background: linear-gradient(135deg, #31217c22 20%, #b8a4ff18 100%);
+  padding: 1.5rem;
+  border-radius: 13px;
+  border-top: 3px solid var(--color-principal);
+  text-align: center;
+  box-shadow: 0 0 28px #4734a21a;
+  transition: background 0.4s, box-shadow 0.3s, transform 0.3s, border-top-color 0.18s;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-text);
+}
+.razon h4 {
+  color: var(--color-acento);
+  font-size: 1.12em;
+  margin-bottom: 0.5rem;
+}
+.razon:hover {
+  background: linear-gradient(135deg, #4b3bb325 10%, #b8a4ff39 100%);
+  box-shadow: 0 0 54px var(--color-acento)88;
+  transform: scale(1.035) rotate(-1.3deg);
+  border-top-color: var(--color-acento);
+}
+
+@media (max-width: 900px) {
+  .razones { grid-template-columns: 1fr; }
+  .razon { margin-bottom: 1rem; }
+}
+
