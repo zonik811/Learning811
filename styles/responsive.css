@@ -1,0 +1,75 @@
+/* --------- RESPONSIVE DESIGN --------- */
+
+/* Tablets medianos y pantallas menores a 900px */
+@media (max-width: 900px) {
+  .container {
+    padding: 1.2rem;
+  }
+  .razones,
+  .competencias,
+  .modalidades,
+  .beneficios {
+    grid-template-columns: 1fr;
+  }
+  .plan,
+  .competencias-col,
+  .razon,
+  .beneficio {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  details.semana {
+    font-size: 0.98rem;
+  }
+  .tecnologias img {
+    width: 38px;
+    height: 38px;
+  }
+  .contacto-section,
+  section {
+    padding: 1.4rem 0.5rem;
+  }
+}
+
+/* Teléfonos pequeños, menores a 600px */
+@media (max-width: 600px) {
+  header {
+    font-size: 1.05rem;
+    padding: 1rem;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .container,
+  .contacto-section,
+  section {
+    padding: 0.45rem;
+    font-size: .97em;
+  }
+  h2, .section-title {
+    font-size: 1.19rem;
+    border-left-width: 2px;
+    padding-left: .4rem;
+  }
+  .razones,
+  .beneficios,
+  .modalidades {
+    grid-template-columns: 1fr;
+  }
+  .tecnologias { gap: 1rem;}
+  .tecnologias img { width: 28px; height: 28px;}
+  .botones { flex-direction: column; }
+  .btn { width: 100%; }
+  .plan, .competencias-col, .razon, .beneficio { margin-bottom: .6rem;}
+}
+
+/* Scroll-top & flotante adaptan posición */
+@media (max-width: 500px) {
+  .flotante,
+  .scroll-top {
+    right: 10px;
+    bottom: 16px;
+  }
+  .scroll-top { bottom: 68px; }
+}

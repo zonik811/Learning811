@@ -1,0 +1,11 @@
+@import url('./base.css');
+@import url('./pensum.css');
+@import url('./modalidades.css');
+@import url('./razones.css');
+@import url('./beneficios.css');
+@import url('./contacto.css');
+@import url('./darkmode.css');
+@import url('./animations.css');
+@import url('./responsive.css');
+
+/* Si usas algún archivo utilitario extra, agrégalo aquí */

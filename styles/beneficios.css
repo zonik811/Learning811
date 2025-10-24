@@ -1,0 +1,48 @@
+/* -------- SECCIÓN BENEFICIOS (INCLUIDO EN TODOS LOS PLANES) ---------- */
+
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.3rem;
+  margin: 1.5rem 0;
+}
+
+.beneficio {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: linear-gradient(120deg, #211c37ee 0%, #1d1a2c66 100%);
+  border-radius: 11px;
+  box-shadow: 0 2px 18px #2f23b222;
+  padding: 1.1rem 1.2rem;
+  transition: background 0.25s, transform 0.23s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-text);
+}
+.beneficio:hover {
+  background: linear-gradient(120deg, #31217c 0%, #b8a4ff44 100%);
+  transform: scale(1.055) rotate(-1deg);
+  box-shadow: 0 0 22px var(--color-acento)55;
+}
+
+/* Icono destacado */
+.beneficio-icon {
+  color: var(--color-principal);
+  font-size: 1.65rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 6px #ffed4e44);
+  margin-top: 0.13em;
+}
+
+/* Título y párrafo en card */
+.beneficio strong {
+  color: var(--color-principal);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 700px) {
+  .beneficios { grid-template-columns: 1fr; gap: 0.7rem;}
+  .beneficio { padding: 0.85rem 0.7rem; }
+}
