@@ -19,10 +19,14 @@
         </label>
     </div>
 
-    <header class="parallax-header">
-        <h1>🎮 Del Concepto al Código</h1>
-        <p>Creando tu Primera Pokédex Interactiva | Programación + Diseño + IA</p>
-    </header>
+<header class="parallax-header">
+  <div class="parallax-bg"></div>
+  <div class="parallax-overlay"></div>
+  <div class="header-content">
+    <h1>🎮 Del Concepto al Código</h1>
+    <p>Creando tu Primera Pokédex Interactiva | Programación + Diseño + IA</p>
+  </div>
+</header>
 
     <nav>
         <ul>
@@ -500,6 +504,18 @@ document.querySelectorAll('.semana').forEach(semana => {
     semana.style.removeProperty('--y');
   });
 });
+// ====== PARALLAX HEADER BACKGROUND ======
+window.addEventListener('scroll', () => {
+  const parallaxBg = document.querySelector('.parallax-bg');
+  if (!parallaxBg) return;
+  
+  const scrollY = window.pageYOffset;
+  const speed = 0.5; // Velocidad del parallax (menor = más lento)
+  
+  parallaxBg.style.transform = `translateY(${scrollY * speed}px)`;
+});
+
+
     </script>
 </body>
 </html>

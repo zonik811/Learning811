@@ -2,35 +2,62 @@
 /* Activa con body.dark-mode o con la clase/preferencia que uses */
 
 body.dark-mode {
-  background: linear-gradient(120deg, #191a33 0%, #232347 100%);
+  /* IMAGEN DE FONDO en lugar de gradiente sólido */
+  background-image: url('../img/tech-background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #191a33; /* Color de respaldo */
   color: #e0ddff;
+}
+
+/* Overlay para dark mode (ligero) */
+body.dark-mode::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25, 26, 51, 0.40); /* 40% de opacidad */
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Header modo oscuro */
 body.dark-mode header {
-  background: linear-gradient(135deg, #2d3561 0%, #1f1f3d 100%);
+  background: transparent; /* Sin fondo, deja ver la imagen */
   color: #e0ddff;
 }
+
 body.dark-mode header::before {
   background: radial-gradient(circle 900px at 50% 10%, #b8a4ff33 10%, transparent 100%);
 }
 
 /* Nav modo oscuro */
 body.dark-mode nav {
-  background-color: #1a1c36;
+  background-color: rgba(26, 28, 54, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
+
 body.dark-mode nav a {
   color: #b8a4ff;
 }
+
 body.dark-mode nav a:hover {
   color: #ffed4e;
 }
 
-/* Section general modo oscuro */
+/* Section general modo oscuro con backdrop blur */
 body.dark-mode section {
-  background: linear-gradient(100deg, #16182e 0%, #22233a 100%);
+  background: rgba(22, 24, 46, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 22px #0008;
   color: #e0ddff;
+  border: 1px solid rgba(184, 164, 255, 0.15);
 }
 
 /* #pensum y DRILLDOWN */
@@ -38,32 +65,45 @@ body.dark-mode #pensum h2 {
   color: #b8a4ff;
   border-left-color: #ffed4e;
 }
+
 body.dark-mode .semana,
 body.dark-mode details.semana {
-  background: linear-gradient(135deg, #15152c 0%, #2d3071 100%);
+  background: rgba(21, 21, 44, 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-color: #31217c;
   color: #e0ddff;
 }
+
 body.dark-mode details.semana[open] {
-  background: #22224acc;
+  background: rgba(34, 34, 74, 0.90);
   box-shadow: 0 0 22px #b8a4ff55;
 }
 
 /* Modalidades cards */
 body.dark-mode .modalidades {
-  background: linear-gradient(135deg, #232347 60%,#322a53 100%);
+  background: rgba(35, 35, 71, 0.80);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 32px #120d28bb;
 }
+
 body.dark-mode .plan,
 body.dark-mode .plan.destacado {
-  background: linear-gradient(135deg, #251c36 0%, #1f1f3d 100%);
+  background: rgba(37, 28, 54, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-color: #b8a4ff;
   color: #e0ddff;
 }
+
 body.dark-mode .plan.especial {
-  background: linear-gradient(135deg, #2c2677ee 0%, #544ba2 100%);
+  background: rgba(44, 38, 119, 0.90);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-color: #ffed4e;
 }
+
 body.dark-mode .badge-recomendado {
   background: linear-gradient(90deg, #b8a4ff 0%, #ffed4e 100%);
   color: #232347;
@@ -71,18 +111,24 @@ body.dark-mode .badge-recomendado {
 
 /* Razones / Por qué */
 body.dark-mode .razon {
-  background: linear-gradient(135deg, #23234c15 10%, #1a1b34 100%);
+  background: rgba(35, 35, 76, 0.70);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-top-color: #b8a4ff;
 }
+
 body.dark-mode .razon h4 {
   color: #ffed4e;
 }
 
 /* Beneficios */
 body.dark-mode .beneficio {
-  background: linear-gradient(120deg, #232347cc 0%, #322a53ee 100%);
+  background: rgba(35, 35, 71, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #e0ddff;
 }
+
 body.dark-mode .beneficio strong,
 body.dark-mode .beneficio-icon {
   color: #b8a4ff;
@@ -90,37 +136,49 @@ body.dark-mode .beneficio-icon {
 
 /* Contacto & Footer */
 body.dark-mode .contacto-section {
-  background: linear-gradient(135deg, #262147 0%, #322a53 100%);
+  background: rgba(38, 33, 71, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #e0ddff;
 }
+
 body.dark-mode .contacto-section h2 {
   color: #ffed4e;
 }
 
 /* Botones */
 body.dark-mode .btn {
-  background: #251c36;
+  background: rgba(37, 28, 54, 0.90);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: #e0ddff;
 }
+
 body.dark-mode .btn-secondary {
-  background: linear-gradient(90deg,#31217c 0,#b8a4ff 90%);
+  background: linear-gradient(90deg, #31217c 0, #b8a4ff 90%);
   color: #fff7d8;
 }
+
 body.dark-mode .btn-secondary:hover {
-  background: linear-gradient(90deg,#ffed4e 0,#b8a4ff 90%);
+  background: linear-gradient(90deg, #ffed4e 0, #b8a4ff 90%);
   color: #31217c;
 }
 
 /* Footer */
 body.dark-mode footer {
-  background: #13132c;
+  background: rgba(19, 19, 44, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #b8a4ff;
 }
 
 body.dark-mode .flotante {
-  background: #302e44;
+  background: rgba(48, 46, 68, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #25d366;
 }
+
 body.dark-mode .flotante:hover {
   background: #25d366;
   color: #13132c;
