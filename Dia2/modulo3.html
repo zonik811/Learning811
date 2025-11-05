@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 2 - Módulo 3: Maestría en DevTools (F12)</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-icon {
+            font-size: 3rem;
+        }
+
+        .day-title h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-badge {
+            background: var(--color-success);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-primary);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tab-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .tab-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-icon {
+            font-size: 2.5rem;
+        }
+
+        .tab-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .content-block {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block h3 {
+            color: var(--color-accent);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .content-block h4 {
+            color: var(--color-primary);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .content-block ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-block li {
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.15);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .exercise-box {
+            background: rgba(72, 187, 120, 0.1);
+            border: 2px solid var(--color-success);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exercise-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-success);
+            margin-bottom: 1rem;
+        }
+
+        .exercise-steps {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .exercise-steps li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .exercise-steps li:before {
+            content: "→ ";
+            color: var(--color-success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .shortcut-table {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .shortcut-row:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-key {
+            font-family: 'Courier New', monospace;
+            background: rgba(102, 126, 234, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .shortcut-desc {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .code-example {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            color: #a6e22e;
+            overflow-x: auto;
+            font-size: 0.95rem;
+        }
+
+        .alert {
+            background: rgba(237, 137, 54, 0.15);
+            border: 1px solid rgba(237, 137, 54, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--color-warning);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box {
+            background: rgba(72, 187, 120, 0.1);
+            border-left: 4px solid var(--color-success);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: var(--color-success);
+            margin-bottom: 0.5rem;
+        }
+
+        .complete-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(72, 187, 120, 0.3);
+            margin-top: 3rem;
+        }
+
+        .complete-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .complete-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .complete-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="day-info">
+                <div class="day-icon">🔍</div>
+                <div class="day-title">
+                    <span class="module-badge">Módulo 3: DevTools Completo</span>
+                    <h1>Maestría en Developer Tools (F12)</h1>
+                    <p class="day-subtitle">Día 2: Setup y Configuración</p>
+                </div>
+            </div>
+            <a href="../menu.html" class="back-button">← Volver al Menú</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>🎯 Objetivo del Módulo</h2>
+            <p>
+                Domina completamente las <strong>Developer Tools (DevTools)</strong> del navegador. 
+                Aprenderás a usar TODAS las pestañas y herramientas que todo desarrollador profesional usa a diario 
+                para inspeccionar, depurar y optimizar páginas web.
+            </p>
+            <p>
+                <strong>⏱️ Duración:</strong> 45-60 minutos<br>
+                <strong>🛠️ Herramienta:</strong> Navegador Chrome, Edge, Firefox o cualquier navegador moderno
+            </p>
+            
+            <div class="highlight-box">
+                <div class="highlight-box-title">💡 ¿Cómo abrir DevTools?</div>
+                <strong>Método 1:</strong> Presiona <strong>F12</strong> en tu teclado<br>
+                <strong>Método 2:</strong> Click derecho → <strong>"Inspeccionar"</strong> o <strong>"Inspect"</strong><br>
+                <strong>Método 3:</strong> <strong>Ctrl + Shift + I</strong> (Windows/Linux) / <strong>Cmd + Option + I</strong> (Mac)<br>
+                <strong>Método 4:</strong> Menú del navegador → Más herramientas → Herramientas para desarrolladores
+            </div>
+        </div>
+
+        <!-- ELEMENTS TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">📄</div>
+                <h2 class="tab-title">1. Elements (Elementos)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    La pestaña <strong>Elements</strong> muestra el <strong>HTML y CSS en tiempo real</strong> de la página. 
+                    Es como tener "rayos X" para ver la estructura interna de cualquier sitio web.
+                </p>
+
+                <h3>🔍 ¿Qué puedes hacer?</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🖱️</div>
+                        <div class="feature-name">Selector de Elementos</div>
+                        <div class="feature-desc">
+                            Click en el icono de puntero y selecciona cualquier elemento de la página para verlo en el código
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">✏️</div>
+                        <div class="feature-name">Editar HTML</div>
+                        <div class="feature-desc">
+                            Doble-click en cualquier etiqueta o texto para editarlo en vivo. Los cambios se ven instantáneamente
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-name">Modificar CSS</div>
+                        <div class="feature-desc">
+                            En el panel derecho (Styles), cambia colores, tamaños, fuentes y cualquier propiedad CSS
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-name">Box Model</div>
+                        <div class="feature-desc">
+                            Ve el margin, border, padding y content de cada elemento visualmente
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">➕</div>
+                        <div class="feature-name">Añadir Estilos</div>
+                        <div class="feature-desc">
+                            Click en el + para agregar nuevas reglas CSS temporales y probar diseños
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🗑️</div>
+                        <div class="feature-name">Eliminar Elementos</div>
+                        <div class="feature-desc">
+                            Click derecho → Delete element para quitar temporalmente cualquier parte de la página
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #1: Inspeccionar y Modificar</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">🔍 Hackea esta página (temporalmente)</div>
+                    <ul class="exercise-steps">
+                        <li>Presiona F12 para abrir DevTools</li>
+                        <li>Click en el icono de selector (📍 en la esquina superior izquierda)</li>
+                        <li>Haz hover sobre el título principal de esta página y haz click</li>
+                        <li>En el panel derecho (Styles), busca la propiedad "color"</li>
+                        <li>Cámbiala a <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">color: red;</code></li>
+                        <li>Cambia también <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">font-size: 3rem;</code></li>
+                        <li>¡Mira los cambios en tiempo real!</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Pro Tip:</div>
+                    Usa <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">Ctrl + Z</code> (o Cmd + Z) para deshacer cambios en Elements
+                </div>
+            </div>
+        </div>
+
+        <!-- CONSOLE TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">💻</div>
+                <h2 class="tab-title">2. Console (Consola)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    La <strong>Console</strong> es una terminal de JavaScript en vivo. Puedes ejecutar código, ver errores, 
+                    hacer cálculos y probar funciones instantáneamente.
+                </p>
+
+                <h3>🚀 Funcionalidades principales:</h3>
+
+                <h4>📝 console.log() - Tu mejor amigo</h4>
+                <p>Imprime mensajes, variables y objetos en la consola:</p>
+                <div class="code-example">
+console.log("¡Hola Mundo!");
+console.log(5 + 3);
+console.log({nombre: "Juan", edad: 25});
+                </div>
+
+                <h4>⚠️ console.warn() y console.error()</h4>
+                <div class="code-example">
+console.warn("Esto es una advertencia");
+console.error("Esto es un error");
+                </div>
+
+                <h4>📊 console.table() - Datos organizados</h4>
+                <div class="code-example">
+const usuarios = [
+    {nombre: "Ana", edad: 23},
+    {nombre: "Luis", edad: 30}
+];
+console.table(usuarios);
+                </div>
+
+                <h4>⏱️ console.time() - Medir rendimiento</h4>
+                <div class="code-example">
+console.time("miCodigo");
+// ... tu código aquí
+console.timeEnd("miCodigo");
+                </div>
+
+                <h4>🧹 console.clear() - Limpiar consola</h4>
+                <div class="code-example">
+console.clear();
+                </div>
+
+                <h3>🎓 Ejercicio práctico #2: Juega con JavaScript</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">💻 Experimenta con la Console</div>
+                    <ul class="exercise-steps">
+                        <li>Abre DevTools (F12) y ve a la pestaña "Console"</li>
+                        <li>Escribe: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">console.log("Mi nombre es [tu nombre]")</code></li>
+                        <li>Prueba: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">10 * 5 + 3</code></li>
+                        <li>Escribe: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">alert("¡Funciona!")</code></li>
+                        <li>Prueba: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">document.title = "Mi Página"</code></li>
+                        <li>Limpia con: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">console.clear()</code></li>
+                    </ul>
+                </div>
+
+                <div class="alert">
+                    <div class="alert-title">⚠️ Advertencia de Seguridad:</div>
+                    NUNCA copies y pegues código de desconocidos en la consola. Podrías exponer tu información o ser víctima de ataques.
+                </div>
+            </div>
+        </div>
+
+        <!-- NETWORK TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">🌐</div>
+                <h2 class="tab-title">3. Network (Red)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Network</strong> muestra TODAS las peticiones HTTP que hace la página: HTML, CSS, JavaScript, imágenes, 
+                    APIs, fuentes, etc. Es esencial para debugging y optimización.
+                </p>
+
+                <h3>📊 ¿Qué información ves?</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📁</div>
+                        <div class="feature-name">Nombre del Archivo</div>
+                        <div class="feature-desc">
+                            Cada recurso cargado (ej: style.css, app.js, logo.png)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-name">Tamaño</div>
+                        <div class="feature-desc">
+                            Peso de cada archivo (importante para optimización)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-name">Tiempo de Carga</div>
+                        <div class="feature-desc">
+                            Cuánto tardó en cargar cada recurso
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-name">Status Code</div>
+                        <div class="feature-desc">
+                            200 (OK), 404 (No encontrado), 500 (Error del servidor), etc.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <div class="feature-name">Tipo de Petición</div>
+                        <div class="feature-desc">
+                            GET, POST, PUT, DELETE, etc.
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📡</div>
+                        <div class="feature-name">Waterfall</div>
+                        <div class="feature-desc">
+                            Visualización temporal de cuándo se cargó cada recurso
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔍 Filtros útiles:</h3>
+                <div class="shortcut-table">
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">All</span>
+                        <span class="shortcut-desc">Todas las peticiones</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">XHR</span>
+                        <span class="shortcut-desc">Peticiones AJAX/Fetch (APIs)</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">JS</span>
+                        <span class="shortcut-desc">Solo archivos JavaScript</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">CSS</span>
+                        <span class="shortcut-desc">Solo hojas de estilo</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Img</span>
+                        <span class="shortcut-desc">Solo imágenes</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Doc</span>
+                        <span class="shortcut-desc">Documentos HTML</span>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #3: Analiza una web</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">🌐 Investiga qué carga una página</div>
+                    <ul class="exercise-steps">
+                        <li>Abre DevTools (F12) y ve a la pestaña "Network"</li>
+                        <li>Recarga la página (F5 o Ctrl+R)</li>
+                        <li>Observa TODAS las peticiones que se hacen</li>
+                        <li>Click en el filtro "Img" para ver solo imágenes</li>
+                        <li>Click en cualquier archivo para ver detalles (Headers, Preview, Response)</li>
+                        <li>Busca el archivo más pesado - ¿cuánto pesa?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOURCES TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">📂</div>
+                <h2 class="tab-title">4. Sources (Fuentes)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Sources</strong> muestra todos los archivos de código fuente del sitio: HTML, CSS, JavaScript. 
+                    Aquí puedes <strong>debuggear código paso a paso con breakpoints</strong>.
+                </p>
+
+                <h3>🛠️ Características principales:</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📁</div>
+                        <div class="feature-name">File Navigator</div>
+                        <div class="feature-desc">
+                            Árbol de archivos del sitio - explora toda la estructura
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔴</div>
+                        <div class="feature-name">Breakpoints</div>
+                        <div class="feature-desc">
+                            Pausa la ejecución del código en líneas específicas para debugging
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏯️</div>
+                        <div class="feature-name">Step Controls</div>
+                        <div class="feature-desc">
+                            Ejecuta código línea por línea (Step Over, Step Into, Step Out)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👁️</div>
+                        <div class="feature-name">Watch Expressions</div>
+                        <div class="feature-desc">
+                            Vigila el valor de variables en tiempo real durante debugging
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📍</div>
+                        <div class="feature-name">Call Stack</div>
+                        <div class="feature-desc">
+                            Ve la pila de llamadas de funciones activas
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💾</div>
+                        <div class="feature-name">Local Overrides</div>
+                        <div class="feature-desc">
+                            Guarda cambios temporales en archivos locales
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Pro Tip:</div>
+                    Click en el número de línea para poner un breakpoint. El código se pausará ahí cuando se ejecute.
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATION TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">📱</div>
+                <h2 class="tab-title">5. Application (Aplicación)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Application</strong> gestiona el almacenamiento local, cookies, Service Workers, y recursos offline de la página.
+                </p>
+
+                <h3>💾 ¿Qué puedes ver y modificar?</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💾</div>
+                        <div class="feature-name">Local Storage</div>
+                        <div class="feature-desc">
+                            Almacenamiento persistente clave-valor (no expira)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏳</div>
+                        <div class="feature-name">Session Storage</div>
+                        <div class="feature-desc">
+                            Almacenamiento temporal (expira al cerrar pestaña)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🍪</div>
+                        <div class="feature-name">Cookies</div>
+                        <div class="feature-desc">
+                            Ve, edita y elimina cookies del sitio
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🗄️</div>
+                        <div class="feature-name">IndexedDB</div>
+                        <div class="feature-desc">
+                            Base de datos del navegador para datos estructurados
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-name">Cache Storage</div>
+                        <div class="feature-desc">
+                            Recursos cacheados para funcionamiento offline
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-name">Service Workers</div>
+                        <div class="feature-desc">
+                            Scripts que corren en segundo plano (PWAs)
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #4: Explora localStorage</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">💾 Gestiona datos locales</div>
+                    <ul class="exercise-steps">
+                        <li>Abre DevTools → Application → Local Storage</li>
+                        <li>Busca el dominio de esta página</li>
+                        <li>Ve los datos guardados (userName, completedDays, etc.)</li>
+                        <li>Haz doble-click en un valor para editarlo</li>
+                        <li>Click derecho → Delete para borrar un item</li>
+                        <li>También explora Cookies y Session Storage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">📊</div>
+                <h2 class="tab-title">6. Performance (Rendimiento)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Performance</strong> graba y analiza el rendimiento de la página: tiempos de carga, 
+                    uso de CPU, frames por segundo, y cuellos de botella.
+                </p>
+
+                <h3>⚡ Métricas importantes:</h3>
+                <ul>
+                    <li><strong>FPS (Frames Per Second):</strong> Fluidez de animaciones (objetivo: 60 FPS)</li>
+                    <li><strong>CPU Usage:</strong> Cuánto procesador consume el código JavaScript</li>
+                    <li><strong>Network:</strong> Tiempos de descarga de recursos</li>
+                    <li><strong>Scripting:</strong> Tiempo de ejecución de JavaScript</li>
+                    <li><strong>Rendering:</strong> Tiempo de pintar elementos en pantalla</li>
+                    <li><strong>Painting:</strong> Actualización visual de elementos</li>
+                </ul>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Cuándo usarlo:</div>
+                    Usa Performance cuando tu página se siente lenta, las animaciones no son fluidas, 
+                    o quieres optimizar tiempos de carga.
+                </div>
+            </div>
+        </div>
+
+        <!-- LIGHTHOUSE TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">💡</div>
+                <h2 class="tab-title">7. Lighthouse (Auditoría)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Lighthouse</strong> audita tu sitio web y te da un <strong>score de 0-100</strong> en 5 categorías:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-name">Performance</div>
+                        <div class="feature-desc">
+                            Velocidad de carga y métricas de rendimiento
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">♿</div>
+                        <div class="feature-name">Accessibility</div>
+                        <div class="feature-desc">
+                            Accesibilidad para personas con discapacidades
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-name">Best Practices</div>
+                        <div class="feature-desc">
+                            Mejores prácticas de desarrollo web moderno
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-name">SEO</div>
+                        <div class="feature-desc">
+                            Optimización para motores de búsqueda (Google)
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-name">PWA</div>
+                        <div class="feature-desc">
+                            Progressive Web App - funcionalidades de app móvil
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #5: Audita esta página</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">💡 Genera un reporte completo</div>
+                    <ul class="exercise-steps">
+                        <li>Abre DevTools → Lighthouse</li>
+                        <li>Selecciona "Desktop" o "Mobile"</li>
+                        <li>Marca todas las categorías</li>
+                        <li>Click en "Generate report"</li>
+                        <li>Espera 30-60 segundos</li>
+                        <li>Revisa los scores y recomendaciones</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY TAB -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">🔒</div>
+                <h2 class="tab-title">8. Security (Seguridad)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>Security</strong> muestra información sobre la seguridad de la conexión: certificados SSL, 
+                    recursos no seguros, y problemas de seguridad.
+                </p>
+
+                <h3>🔐 ¿Qué verifica?</h3>
+                <ul>
+                    <li><strong>HTTPS:</strong> Si el sitio usa conexión segura</li>
+                    <li><strong>Certificado SSL:</strong> Validez del certificado de seguridad</li>
+                    <li><strong>Mixed Content:</strong> Recursos HTTP en una página HTTPS (inseguro)</li>
+                    <li><strong>Secure Cookies:</strong> Si las cookies están protegidas</li>
+                </ul>
+
+                <div class="alert">
+                    <div class="alert-title">⚠️ Importante:</div>
+                    Siempre desarrolla y despliega sitios con HTTPS. Los navegadores marcan sitios HTTP como "No seguro".
+                </div>
+            </div>
+        </div>
+
+        <!-- RESPONSIVE DESIGN MODE -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">📱</div>
+                <h2 class="tab-title">9. Device Toolbar (Modo Responsive)</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    Simula cómo se ve tu página en diferentes dispositivos móviles y tablets.
+                </p>
+
+                <div class="highlight-box">
+                    <div class="highlight-box-title">💡 ¿Cómo activarlo?</div>
+                    Click en el icono de dispositivos (📱) en la esquina superior izquierda de DevTools<br>
+                    O presiona <strong>Ctrl + Shift + M</strong> (Windows) / <strong>Cmd + Shift + M</strong> (Mac)
+                </div>
+
+                <h3>📱 Dispositivos pre-configurados:</h3>
+                <ul>
+                    <li><strong>iPhone 12/13/14 Pro</strong> - 390 x 844px</li>
+                    <li><strong>iPhone SE</strong> - 375 x 667px</li>
+                    <li><strong>Pixel 5</strong> - 393 x 851px</li>
+                    <li><strong>Samsung Galaxy S20</strong> - 360 x 800px</li>
+                    <li><strong>iPad Air</strong> - 820 x 1180px</li>
+                    <li><strong>iPad Mini</strong> - 768 x 1024px</li>
+                    <li><strong>Responsive</strong> - Tamaño personalizado</li>
+                </ul>
+
+                <h3>🎓 Ejercicio práctico #6: Prueba responsive</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">📱 Ve tu página en diferentes dispositivos</div>
+                    <ul class="exercise-steps">
+                        <li>Activa Device Toolbar (Ctrl + Shift + M)</li>
+                        <li>Selecciona "iPhone 12 Pro" en el menú desplegable</li>
+                        <li>Observa cómo se ve la página</li>
+                        <li>Cambia a "iPad Air"</li>
+                        <li>Cambia a "Responsive" y arrastra para redimensionar</li>
+                        <li>Prueba la orientación Portrait/Landscape</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHORTCUTS -->
+        <div class="tab-section">
+            <div class="tab-header">
+                <div class="tab-icon">⌨️</div>
+                <h2 class="tab-title">10. Atajos de Teclado Esenciales</h2>
+            </div>
+            <div class="content-block">
+                <h3>🚀 Atajos que todo desarrollador debe conocer:</h3>
+
+                <div class="shortcut-table">
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">F12</span>
+                        <span class="shortcut-desc">Abrir/Cerrar DevTools</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + Shift + C</span>
+                        <span class="shortcut-desc">Selector de elementos (Element Picker)</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + Shift + M</span>
+                        <span class="shortcut-desc">Toggle Device Toolbar (Responsive Mode)</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + Shift + P</span>
+                        <span class="shortcut-desc">Command Menu (busca cualquier función)</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + [</span>
+                        <span class="shortcut-desc">Ir a la pestaña anterior</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + ]</span>
+                        <span class="shortcut-desc">Ir a la siguiente pestaña</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Esc</span>
+                        <span class="shortcut-desc">Mostrar/ocultar Console drawer</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + F</span>
+                        <span class="shortcut-desc">Buscar en el código fuente</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + Shift + F</span>
+                        <span class="shortcut-desc">Buscar en todos los archivos</span>
+                    </div>
+                    <div class="shortcut-row">
+                        <span class="shortcut-key">Ctrl + P</span>
+                        <span class="shortcut-desc">Abrir archivo rápidamente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLETE SECTION -->
+        <div class="complete-section">
+            <div class="complete-icon">🎉</div>
+            <h2 class="complete-title">¡Dominio Completo de DevTools!</h2>
+            <p class="complete-text">
+                Has aprendido a usar TODAS las herramientas esenciales de Developer Tools (F12). 
+                Ahora puedes inspeccionar cualquier sitio web, depurar código, analizar rendimiento, 
+                auditar calidad, y optimizar tus proyectos como un profesional.<br><br>
+                <strong>Pero aún falta un módulo más: CMD y PowerShell básico.</strong>
+            </p>
+            <button class="complete-button" onclick="goToNextModule()">
+                Continuar al Módulo 4: CMD y PowerShell →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function goToNextModule() {
+            window.location.href = 'modulo4.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📚 Módulo 3 DevTools cargado completamente');
+        });
+    </script>
+</body>
+</html>

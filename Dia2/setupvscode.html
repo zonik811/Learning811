@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Instalación y Configuración del Entorno</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-teal: #33808d;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+            --color-danger: #f56565;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .module-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .module-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 40%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 4px;
+            animation: progressPulse 2s ease infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius-xl);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.3));
+        }
+
+        .steps-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .step {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border-left: 4px solid var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: rgba(50, 50, 50, 0.8);
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            background: var(--color-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-content {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-left: 3rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-primary);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--color-secondary);
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: rgba(72, 187, 120, 0.1);
+            border-color: var(--color-success);
+            color: var(--color-success);
+        }
+
+        .alert-warning {
+            background: rgba(237, 137, 54, 0.1);
+            border-color: var(--color-warning);
+            color: var(--color-warning);
+        }
+
+        .alert-info {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        .extensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .extension-card {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .extension-card:hover {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .extension-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .extension-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .quiz-section {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-indicators {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-indicator.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            transform: scale(1.2);
+        }
+
+        .quiz-indicator.completed {
+            background: #48bb78;
+            border-color: #48bb78;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: #f56565;
+            background: rgba(245, 101, 101, 0.1);
+        }
+
+        .nav-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .next-module-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-button {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .module-title {
+                font-size: 2rem;
+            }
+            .extensions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="header">
+        <h1 class="module-title">⚙️ Instalación y Configuración del Entorno</h1>
+        <p class="module-subtitle">Prepara tu computadora para programar como un profesional</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <p style="margin-top: 1rem; color: rgba(255,255,255,0.6);">Módulo 2 de 6 • Días 6-10</p>
+    </div>
+
+    <div class="container">
+        <!-- Sección VS Code -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📝</span>
+                Instalación de Visual Studio Code
+            </h2>
+            
+            <div class="alert alert-info">
+                <strong>💡 ¿Qué es VS Code?</strong><br>
+                Visual Studio Code es tu "oficina virtual" para programar. Es gratis, potente y usado por millones de desarrolladores en todo el mundo.
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Descargar VS Code
+                    </div>
+                    <div class="step-content">
+                        <p>Ve a <strong>https://code.visualstudio.com</strong> y descarga la versión para tu sistema operativo (Windows, Mac, Linux).</p>
+                        <div class="alert alert-warning">
+                            ⚠️ <strong>Importante:</strong> Descarga siempre desde el sitio oficial para evitar virus.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Instalar el programa
+                    </div>
+                    <div class="step-content">
+                        <p><strong>En Windows:</strong> Ejecuta el archivo <code>.exe</code> y sigue el asistente.</p>
+                        <p><strong>En Mac:</strong> Abre el archivo <code>.dmg</code> y arrastra VS Code a Aplicaciones.</p>
+                        <div class="alert alert-success">
+                            ✅ <strong>Tip:</strong> Marca la opción "Add to PATH" durante la instalación para usar VS Code desde la terminal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Verificar instalación
+                    </div>
+                    <div class="step-content">
+                        <p>Abre VS Code y verifica que se abra correctamente. Deberías ver la pantalla de bienvenida.</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre>// Para abrir VS Code desde terminal (opcional)
+code .</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Python -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🐍</span>
+                Instalación de Python
+            </h2>
+            
+            <div class="alert alert-info">
+                <strong>💡 ¿Por qué Python?</strong><br>
+                Python es uno de los lenguajes más populares y fáciles de aprender. Lo usaremos para automatización y backend más adelante.
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Descargar Python
+                    </div>
+                    <div class="step-content">
+                        <p>Ve a <strong>https://python.org/downloads</strong> y descarga la versión más reciente (Python 3.12+).</p>
+                        <div class="alert alert-warning">
+                            ⚠️ <strong>Importante:</strong> Asegúrate de descargar Python 3, no Python 2 (ya es obsoleto).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Instalar Python
+                    </div>
+                    <div class="step-content">
+                        <p><strong>¡MUY IMPORTANTE!</strong> Durante la instalación:</p>
+                        <ul style="margin: 1rem 0; padding-left: 2rem;">
+                            <li>✅ Marca "Add Python to PATH"</li>
+                            <li>✅ Marca "Install for all users" (opcional)</li>
+                            <li>✅ Click en "Install Now"</li>
+                        </ul>
+                        <div class="alert alert-success">
+                            ✅ <strong>PATH</strong> permite usar Python desde cualquier carpeta en la terminal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Verificar instalación
+                    </div>
+                    <div class="step-content">
+                        <p>Abre la terminal (cmd en Windows, Terminal en Mac/Linux) y escribe:</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre>python --version</pre>
+                        </div>
+                        <p>Deberías ver algo como: <code>Python 3.12.1</code></p>
+                        <div class="alert alert-warning">
+                            ⚠️ Si no funciona, es probable que no se agregó al PATH. Reinstala marcando esa opción.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Extensiones -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🧩</span>
+                Extensiones Esenciales de VS Code
+            </h2>
+            
+            <div class="alert alert-info">
+                <strong>💡 ¿Qué son las extensiones?</strong><br>
+                Son como "apps" que agregan nuevas funciones a VS Code. Las instalas una vez y mejoran tu experiencia para siempre.
+            </div>
+
+            <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.8);">
+                Para instalar: Ve a Extensions (Ctrl+Shift+X), busca el nombre y click en "Install"
+            </p>
+
+            <div class="extensions-grid">
+                <div class="extension-card">
+                    <div class="extension-name">🔴 Live Server</div>
+                    <div class="extension-description">
+                        Crea un servidor local para ver tu página web en tiempo real. Cada vez que guardas, la página se actualiza automáticamente.
+                    </div>
+                </div>
+
+                <div class="extension-card">
+                    <div class="extension-name">✨ Prettier - Code formatter</div>
+                    <div class="extension-description">
+                        Formatea tu código automáticamente para que se vea bonito y ordenado. Como tener un asistente que organiza tu escritorio.
+                    </div>
+                </div>
+
+                <div class="extension-card">
+                    <div class="extension-name">🏷️ HTML CSS Support</div>
+                    <div class="extension-description">
+                        Te ayuda a escribir HTML y CSS sugiriendo etiquetas y propiedades. Reduce errores y acelera tu programación.
+                    </div>
+                </div>
+
+                <div class="extension-card">
+                    <div class="extension-name">⚡ JavaScript (ES6) code snippets</div>
+                    <div class="extension-description">
+                        Atajos para escribir código JavaScript común rápidamente. Escribes "log" + Tab y aparece console.log().
+                    </div>
+                </div>
+
+                <div class="extension-card">
+                    <div class="extension-name">🔄 Auto Rename Tag</div>
+                    <div class="extension-description">
+                        Cuando cambias una etiqueta HTML, automáticamente cambia la de cierre. Evita errores tontos.
+                    </div>
+                </div>
+
+                <div class="extension-card">
+                    <div class="extension-name">🌈 Bracket Pair Colorizer 2</div>
+                    <div class="extension-description">
+                        Colorea los paréntesis y corchetes para que sea fácil ver qué va con qué. Especialmente útil en JavaScript.
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                ✅ <strong>Tip Pro:</strong> Después de instalar todas, reinicia VS Code para que funcionen correctamente.
+            </div>
+        </div>
+
+        <!-- Sección Configuración -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">⚙️</span>
+                Configuración Inicial de VS Code
+            </h2>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Configurar formato automático
+                    </div>
+                    <div class="step-content">
+                        <p>Ve a File → Preferences → Settings y busca "format on save", actívalo.</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre>{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "on"
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Configurar Live Server
+                    </div>
+                    <div class="step-content">
+                        <p>Busca en Settings "live server" y configura:</p>
+                        <ul style="margin: 1rem 0; padding-left: 2rem;">
+                            <li>Port: 5500 (por defecto está bien)</li>
+                            <li>Auto reload: Activado</li>
+                            <li>Open in browser: Automático</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Crear carpeta de trabajo
+                    </div>
+                    <div class="step-content">
+                        <p>Crea una carpeta llamada "curso-programacion" en tu escritorio donde guardarás todos tus proyectos.</p>
+                        <div class="alert alert-info">
+                            💡 <strong>Tip:</strong> Mantén todo organizado desde el inicio. Tu yo del futuro te lo agradecerá.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Hello World -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🌍</span>
+                Tu Primer "Hello World" en HTML
+            </h2>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Crear archivo HTML
+                    </div>
+                    <div class="step-content">
+                        <p>Abre VS Code, File → New File, guarda como "index.html"</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Escribir código HTML básico
+                    </div>
+                    <div class="step-content">
+                        <p>Escribe este código (o usa el atajo "!" + Tab para crear la estructura):</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Primera Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;¡Hola Mundo!&lt;/h1&gt;
+    &lt;p&gt;Esta es mi primera página web 🎉&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Probar con Live Server
+                    </div>
+                    <div class="step-content">
+                        <p>Click derecho en el archivo → "Open with Live Server". Tu página se abrirá en el navegador automáticamente.</p>
+                        <div class="alert alert-success">
+                            🎉 <strong>¡Felicidades!</strong> Acabas de crear tu primera página web. Ahora cada cambio que hagas se verá instantáneamente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h3 style="color: white; margin-bottom: 2rem; font-size: 1.5rem;">🧠 Quiz de Configuración</h3>
+            <div class="quiz-indicators">
+                <div class="quiz-indicator" data-question="0">1</div>
+                <div class="quiz-indicator" data-question="1">2</div>
+                <div class="quiz-indicator" data-question="2">3</div>
+                <div class="quiz-indicator" data-question="3">4</div>
+                <div class="quiz-indicator" data-question="4">5</div>
+            </div>
+            
+            <div id="quiz-container">
+                <!-- Las preguntas se cargarán dinámicamente aquí -->
+            </div>
+            
+            <div class="quiz-navigation" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                <button id="prev-btn" class="nav-button" onclick="previousQuestion()" style="display: none;">
+                    ⬅️ Anterior
+                </button>
+                <button id="next-btn" class="nav-button" onclick="nextQuestion()" style="display: none;">
+                    Siguiente ➡️
+                </button>
+            </div>
+            
+            <div id="quiz-result" style="margin-top: 2rem;"></div>
+        </div>
+
+        <div class="next-module-section">
+            <h3 style="color: white; font-size: 2rem; margin-bottom: 1rem;">🛠️ ¡Entorno Configurado!</h3>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 1rem;">
+                Tu computadora está lista para programar como un profesional
+            </p>
+            <p style="color: rgba(255,255,255,0.7);">
+                Próximo: HTML Básico - Construyendo tu primera página web
+            </p>
+            <a href="modulo3-html.html" class="next-button">🚀 Siguiente Módulo</a>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('pre');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text);
+            
+            button.textContent = '✅ Copiado';
+            setTimeout(() => {
+                button.textContent = 'Copiar';
+            }, 2000);
+        }
+
+        const quizData = [
+            {
+                question: "¿Qué opción es MUY IMPORTANTE marcar al instalar Python?",
+                options: [
+                    "Install games",
+                    "Add Python to PATH",
+                    "Install documentation", 
+                    "Create shortcuts"
+                ],
+                correct: 1,
+                explanation: "'Add Python to PATH' permite usar Python desde cualquier carpeta en la terminal. Sin esto, Python no funcionará correctamente."
+            },
+            {
+                question: "¿Cuál es la extensión que te permite ver tu página web en tiempo real?",
+                options: [
+                    "Prettier",
+                    "HTML CSS Support",
+                    "Live Server",
+                    "Auto Rename Tag"
+                ],
+                correct: 2,
+                explanation: "Live Server crea un servidor local y actualiza la página automáticamente cada vez que guardas cambios en tu código."
+            },
+            {
+                question: "¿Qué comando usas para verificar que Python está instalado correctamente?",
+                options: [
+                    "python --help",
+                    "python --version",
+                    "python --check",
+                    "python --test"
+                ],
+                correct: 1,
+                explanation: "'python --version' muestra la versión instalada de Python, confirmando que está funcionando correctamente."
+            },
+            {
+                question: "¿Para qué sirve la extensión Prettier en VS Code?",
+                options: [
+                    "Para crear servidores locales",
+                    "Para formatear y ordenar tu código automáticamente",
+                    "Para colorear el código",
+                    "Para traducir idiomas"
+                ],
+                correct: 1,
+                explanation: "Prettier formatea tu código automáticamente para que se vea ordenado y consistente, siguiendo las mejores prácticas de programación."
+            },
+            {
+                question: "¿Cuál es el atajo de teclado para abrir las extensiones en VS Code?",
+                options: [
+                    "Ctrl + P",
+                    "Ctrl + Shift + P",
+                    "Ctrl + Shift + X",
+                    "Ctrl + Alt + X"
+                ],
+                correct: 2,
+                explanation: "Ctrl+Shift+X (o Cmd+Shift+X en Mac) abre el panel de extensiones donde puedes buscar e instalar nuevas extensiones."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function loadQuestion(index) {
+            const container = document.getElementById('quiz-container');
+            const question = quizData[index];
+            
+            container.innerHTML = `
+                <div class="quiz-question">
+                    Pregunta ${index + 1} de ${quizData.length}: ${question.question}
+                </div>
+                <div class="quiz-options">
+                    ${question.options.map((option, i) => `
+                        <div class="quiz-option ${userAnswers[index] === i ? (i === question.correct ? 'correct' : 'wrong') : ''}" 
+                             onclick="selectAnswer(${i})"
+                             ${userAnswers[index] !== null ? 'style="pointer-events: none;"' : ''}>
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                ${userAnswers[index] !== null ? `
+                    <div style="color: ${userAnswers[index] === question.correct ? '#48bb78' : '#f56565'}; font-weight: 600; margin-top: 1rem; padding: 1rem; background: rgba(40,40,40,0.8); border-radius: 12px;">
+                        ${userAnswers[index] === question.correct ? '✅ ¡Correcto!' : '❌ Incorrecto.'} ${question.explanation}
+                    </div>
+                ` : ''}
+            `;
+
+            // Update indicators
+            document.querySelectorAll('.quiz-indicator').forEach((indicator, i) => {
+                indicator.classList.remove('active', 'completed');
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else if (userAnswers[i] !== null) {
+                    indicator.classList.add('completed');
+                }
+            });
+
+            // Update navigation buttons
+            document.getElementById('prev-btn').style.display = index > 0 ? 'block' : 'none';
+            document.getElementById('next-btn').style.display = userAnswers[index] !== null && index < quizData.length - 1 ? 'block' : 'none';
+
+            // Show final results if all answered
+            if (userAnswers.every(answer => answer !== null) && index === quizData.length - 1) {
+                showFinalResults();
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizData[currentQuestion];
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+            
+            loadQuestion(currentQuestion);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function showFinalResults() {
+            const percentage = (score / quizData.length) * 100;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            let message = '';
+            let color = '';
+            
+            if (percentage >= 80) {
+                message = '🎉 ¡Perfecto! Tu entorno está listo';
+                color = '#48bb78';
+            } else if (percentage >= 60) {
+                message = '👍 ¡Bien! Repasa los conceptos que fallaste';
+                color = '#ed8936';
+            } else {
+                message = '📚 Necesitas repasar la configuración';
+                color = '#f56565';
+            }
+            
+            resultDiv.innerHTML = `
+                <div style="background: rgba(40,40,40,0.9); padding: 2rem; border-radius: 16px; border: 2px solid ${color}; text-align: center; margin-top: 2rem;">
+                    <h3 style="color: ${color}; font-size: 2rem; margin-bottom: 1rem;">${message}</h3>
+                    <p style="font-size: 1.5rem; color: white; margin-bottom: 0.5rem;">
+                        Puntuación: ${score} / ${quizData.length}
+                    </p>
+                    <p style="font-size: 1.2rem; color: rgba(255,255,255,0.7);">
+                        ${percentage.toFixed(0)}% correcto
+                    </p>
+                </div>
+            `;
+        }
+
+        // Initialize quiz on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestion(0);
+        });
+
+        // Add click handlers to indicators
+        document.querySelectorAll('.quiz-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentQuestion = index;
+                loadQuestion(currentQuestion);
+            });
+        });
+
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.section, .quiz-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

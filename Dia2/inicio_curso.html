@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 2 - Módulo 1: Herramientas de Desarrollo</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-icon {
+            font-size: 3rem;
+        }
+
+        .day-title h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-badge {
+            background: var(--color-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-primary);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .concept-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .concept-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .concept-icon {
+            font-size: 3rem;
+        }
+
+        .concept-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .concept-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .concept-content h3 {
+            color: var(--color-accent);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .concept-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .concept-content li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.15);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-card {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .comparison-card h4 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .comparison-card li:before {
+            content: "✓ ";
+            color: var(--color-success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .extension-details {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .extension-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .extension-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .extension-why {
+            background: rgba(72, 187, 120, 0.1);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+            padding: 0.8rem;
+            border-radius: 8px;
+            color: var(--color-success);
+            font-size: 0.95rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .nav-button {
+            flex: 1;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .video-embed {
+            width: 100%;
+            max-width: 800px;
+            margin: 1.5rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="day-info">
+                <div class="day-icon">🛠️</div>
+                <div class="day-title">
+                    <span class="module-badge">Módulo 1 de 2</span>
+                    <h1>Herramientas de Desarrollo</h1>
+                    <p class="day-subtitle">Día 2: Setup y Configuración</p>
+                </div>
+            </div>
+            <a href="../menu.html" class="back-button">← Volver al Menú</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>🎯 Objetivo del Módulo</h2>
+            <p>
+                Antes de instalar las herramientas, es fundamental entender <strong>qué son</strong> y <strong>para qué sirven</strong>. 
+                En este módulo aprenderás los conceptos detrás de cada herramienta que usarás como desarrollador.
+            </p>
+            <p>
+                <strong>⏱️ Duración:</strong> 30-40 minutos
+            </p>
+        </div>
+
+        <!-- VS CODE -->
+        <div class="concept-card">
+            <div class="concept-header">
+                <div class="concept-icon">💻</div>
+                <h2 class="concept-title">¿Qué es Visual Studio Code?</h2>
+            </div>
+            <div class="concept-content">
+                <p>
+                    <strong>Visual Studio Code (VS Code)</strong> es un <strong>editor de código fuente</strong> desarrollado por Microsoft. 
+                    Piensa en él como un "Microsoft Word" pero diseñado específicamente para escribir código de programación.
+                </p>
+
+                <h3>🤔 ¿Por qué NO usar Notepad o Word?</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>❌ Editores básicos (Notepad)</h4>
+                        <ul>
+                            <li>Sin colores para el código</li>
+                            <li>Sin autocompletado</li>
+                            <li>Sin detección de errores</li>
+                            <li>Difícil navegar entre archivos</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>✅ VS Code</h4>
+                        <ul>
+                            <li>Resalta sintaxis con colores</li>
+                            <li>Autocompleta código</li>
+                            <li>Detecta errores en tiempo real</li>
+                            <li>Integrado con Git y terminal</li>
+                            <li>Miles de extensiones</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-box-title">💡 Analogía perfecta:</div>
+                    Es como la diferencia entre escribir una receta en una servilleta vs. usar una app de cocina que te sugiere ingredientes, 
+                    te avisa si falta algo y te muestra fotos del resultado final.
+                </div>
+
+                <h3>🌟 Características principales:</h3>
+                <ul>
+                    <li><strong>IntelliSense:</strong> Autocompletado inteligente que sugiere código mientras escribes</li>
+                    <li><strong>Debugging:</strong> Encuentra y corrige errores fácilmente</li>
+                    <li><strong>Terminal integrada:</strong> Ejecuta comandos sin salir del editor</li>
+                    <li><strong>Control de versiones:</strong> Integración con Git para guardar cambios</li>
+                    <li><strong>Extensiones:</strong> Añade superpoderes con plugins</li>
+                    <li><strong>Multi-lenguaje:</strong> Soporta HTML, CSS, JavaScript, Python, y 100+ lenguajes más</li>
+                </ul>
+
+                <h3>📊 Dato curioso:</h3>
+                <p>
+                    VS Code es el editor más popular del mundo, usado por más de <strong>14 millones de desarrolladores</strong>. 
+                    Es gratuito, de código abierto y funciona en Windows, Mac y Linux.
+                </p>
+            </div>
+        </div>
+
+        <!-- PYTHON -->
+        <div class="concept-card">
+            <div class="concept-header">
+                <div class="concept-icon">🐍</div>
+                <h2 class="concept-title">¿Qué es Python?</h2>
+            </div>
+            <div class="concept-content">
+                <p>
+                    <strong>Python</strong> es un <strong>lenguaje de programación</strong> de alto nivel, interpretado y de propósito general. 
+                    Es uno de los lenguajes más populares y fáciles de aprender.
+                </p>
+
+                <h3>🤔 ¿Qué significa "lenguaje de programación"?</h3>
+                <p>
+                    Un lenguaje de programación es un idioma que las computadoras pueden entender. Así como hablas español con personas, 
+                    usas Python (o JavaScript, Java, etc.) para "hablar" con computadoras y decirles qué hacer.
+                </p>
+
+                <div class="highlight-box">
+                    <div class="highlight-box-title">💡 Ejemplo simple:</div>
+                    En español dices: <em>"Suma 5 + 3"</em><br>
+                    En Python escribes: <code style="color: #a6e22e; background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">resultado = 5 + 3</code>
+                </div>
+
+                <h3>🌟 ¿Por qué Python es tan popular?</h3>
+                <ul>
+                    <li><strong>Fácil de leer:</strong> Su sintaxis es clara y parecida al inglés</li>
+                    <li><strong>Versátil:</strong> Sirve para web, ciencia de datos, IA, automatización, etc.</li>
+                    <li><strong>Gran comunidad:</strong> Millones de desarrolladores y recursos gratuitos</li>
+                    <li><strong>Librerías poderosas:</strong> Miles de herramientas pre-hechas</li>
+                    <li><strong>Usado por gigantes:</strong> Google, Netflix, Instagram, NASA lo usan</li>
+                </ul>
+
+                <h3>🚀 ¿Para qué usaremos Python en este curso?</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Backend/Servidor</h4>
+                        <ul>
+                            <li>Crear APIs</li>
+                            <li>Manejar bases de datos</li>
+                            <li>Lógica del servidor</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Automatización</h4>
+                        <ul>
+                            <li>Scripts útiles</li>
+                            <li>Procesamiento de datos</li>
+                            <li>Tareas repetitivas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>📈 Dato del mercado:</h3>
+                <p>
+                    Python es el 2do lenguaje más demandado en el mundo laboral. Los desarrolladores Python ganan en promedio 
+                    <strong>$80,000-$120,000 USD/año</strong> a nivel global.
+                </p>
+            </div>
+        </div>
+
+        <!-- EXTENSIONES -->
+        <div class="concept-card">
+            <div class="concept-header">
+                <div class="concept-icon">🧩</div>
+                <h2 class="concept-title">¿Qué son las Extensiones?</h2>
+            </div>
+            <div class="concept-content">
+                <p>
+                    Las <strong>extensiones</strong> (o plugins) son como "apps" que le agregas a VS Code para darle nuevas funcionalidades. 
+                    Es similar a instalar apps en tu celular.
+                </p>
+
+                <div class="highlight-box">
+                    <div class="highlight-box-title">💡 Analogía:</div>
+                    VS Code es como un smartphone básico. Las extensiones son las apps que le instalas para hacerlo más poderoso: 
+                    cámara mejorada, editor de fotos, traductor, etc.
+                </div>
+
+                <h3>🔌 Extensiones esenciales que instalaremos:</h3>
+
+                <div class="extension-details">
+                    <div class="extension-name">🐍 Python (Microsoft)</div>
+                    <div class="extension-desc">
+                        Agrega soporte completo para Python: resaltado de sintaxis, debugging, IntelliSense, ejecución de código, 
+                        y mucho más. Sin esta extensión, VS Code no "entiende" Python.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para escribir y ejecutar código Python directamente en VS Code.
+                    </div>
+                </div>
+
+                <div class="extension-details">
+                    <div class="extension-name">🌐 Live Server</div>
+                    <div class="extension-desc">
+                        Crea un servidor local que recarga automáticamente tu página web cada vez que guardas cambios. 
+                        Es como tener "vista en vivo" de tu código.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para ver tus páginas HTML/CSS/JS sin tener que refrescar manualmente el navegador.
+                    </div>
+                </div>
+
+                <div class="extension-details">
+                    <div class="extension-name">🎨 Prettier</div>
+                    <div class="extension-desc">
+                        Formateador automático de código. Organiza y "embellece" tu código siguiendo las mejores prácticas, 
+                        arreglando indentación, espacios, y formato.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para mantener tu código limpio y profesional sin esfuerzo.
+                    </div>
+                </div>
+
+                <div class="extension-details">
+                    <div class="extension-name">🖌️ HTML CSS Support</div>
+                    <div class="extension-desc">
+                        Autocompletado inteligente para HTML y CSS. Te sugiere etiquetas, atributos, clases y propiedades mientras escribes.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para escribir HTML/CSS más rápido y sin errores de sintaxis.
+                    </div>
+                </div>
+
+                <div class="extension-details">
+                    <div class="extension-name">🔍 Path Intellisense</div>
+                    <div class="extension-desc">
+                        Autocompleta rutas de archivos cuando vinculas imágenes, CSS, JavaScript, etc. Te muestra qué archivos están disponibles.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para evitar errores de rutas rotas (ej: imagen no se muestra).
+                    </div>
+                </div>
+
+                <div class="extension-details">
+                    <div class="extension-name">🎭 Indent Rainbow</div>
+                    <div class="extension-desc">
+                        Colorea la indentación de tu código con colores diferentes para cada nivel. Hace más fácil ver la estructura del código.
+                    </div>
+                    <div class="extension-why">
+                        <strong>¿Por qué la necesitas?</strong> Para visualizar mejor la estructura y jerarquía de tu código.
+                    </div>
+                </div>
+
+                <h3>🎯 Resultado final:</h3>
+                <p>
+                    Con estas 6 extensiones, tendrás un entorno de desarrollo profesional que te hará 
+                    <strong>3-5 veces más productivo</strong> que usar solo VS Code básico.
+                </p>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="navigation-buttons">
+            <a href="../menu.html" class="nav-button" style="background: rgba(102, 126, 234, 0.2); border: 2px solid var(--color-primary);">
+                ← Volver al Menú
+            </a>
+            <a href="modulo2.html" class="nav-button">
+                Continuar al Módulo 2 →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Marcar progreso del módulo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📚 Módulo 1 cargado - Conceptos de herramientas');
+        });
+    </script>
+</body>
+</html>

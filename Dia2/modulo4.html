@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 2 - Módulo 4: CMD y PowerShell</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-icon {
+            font-size: 3rem;
+        }
+
+        .day-title h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-badge {
+            background: var(--color-warning);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-primary);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .content-block {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block h3 {
+            color: var(--color-accent);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .content-block ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-block li {
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.15);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .command-card {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .command-name {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .command-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .command-example {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 6px;
+            padding: 0.8rem;
+            font-family: 'Courier New', monospace;
+            color: #a6e22e;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-row:first-child {
+            font-weight: 700;
+            color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .exercise-box {
+            background: rgba(72, 187, 120, 0.1);
+            border: 2px solid var(--color-success);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exercise-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-success);
+            margin-bottom: 1rem;
+        }
+
+        .exercise-steps {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .exercise-steps li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .exercise-steps li:before {
+            content: "→ ";
+            color: var(--color-success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .tip-box {
+            background: rgba(72, 187, 120, 0.1);
+            border-left: 4px solid var(--color-success);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: var(--color-success);
+            margin-bottom: 0.5rem;
+        }
+
+        .alert {
+            background: rgba(237, 137, 54, 0.15);
+            border: 1px solid rgba(237, 137, 54, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--color-warning);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .complete-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(72, 187, 120, 0.3);
+            margin-top: 3rem;
+        }
+
+        .complete-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .complete-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .complete-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="day-info">
+                <div class="day-icon">⌨️</div>
+                <div class="day-title">
+                    <span class="module-badge">Módulo 4 Final: Terminal</span>
+                    <h1>CMD y PowerShell Básico</h1>
+                    <p class="day-subtitle">Día 2: Setup y Configuración</p>
+                </div>
+            </div>
+            <a href="../menu.html" class="back-button">← Volver al Menú</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>🎯 Objetivo del Módulo</h2>
+            <p>
+                Domina los fundamentos de la <strong>terminal/línea de comandos</strong> en Windows. 
+                Aprenderás a usar tanto <strong>CMD</strong> como <strong>PowerShell</strong>, las dos interfaces de comandos principales, 
+                y los comandos esenciales que todo desarrollador debe conocer.
+            </p>
+            <p>
+                <strong>⏱️ Duración:</strong> 30-40 minutos<br>
+                <strong>🛠️ Herramientas:</strong> CMD, PowerShell, Windows Terminal (opcional)
+            </p>
+            
+            <div class="highlight-box">
+                <div class="highlight-box-title">💡 ¿Cómo abrir la terminal?</div>
+                <strong>CMD:</strong> Win + R → escribe "cmd" → Enter<br>
+                <strong>PowerShell:</strong> Win + X → "Windows PowerShell"<br>
+                <strong>VS Code:</strong> View → Terminal (o Ctrl + `)<br>
+                <strong>Windows Terminal:</strong> Busca en el menú inicio (si está instalado)
+            </div>
+        </div>
+
+        <!-- QUÉ ES LA TERMINAL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">💻</div>
+                <h2 class="section-title">¿Qué es la Terminal?</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    La <strong>terminal</strong> (o línea de comandos) es una interfaz de texto que te permite controlar tu computadora 
+                    escribiendo comandos en lugar de hacer clicks. Es más <strong>rápida, precisa y poderosa</strong> que la interfaz gráfica.
+                </p>
+
+                <h3>🤔 ¿Por qué usar la terminal?</h3>
+                <ul>
+                    <li><strong>Velocidad:</strong> Ejecuta tareas en segundos que tomarían minutos con clicks</li>
+                    <li><strong>Automatización:</strong> Crea scripts para tareas repetitivas</li>
+                    <li><strong>Desarrollo:</strong> Ejecuta código, instala librerías, gestiona proyectos</li>
+                    <li><strong>Servidores:</strong> Muchos servidores solo tienen terminal (no interfaz gráfica)</li>
+                    <li><strong>Git:</strong> Control de versiones se usa principalmente por terminal</li>
+                    <li><strong>Profesional:</strong> Todos los desarrolladores la usan diariamente</li>
+                </ul>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Analogía:</div>
+                    La interfaz gráfica es como hablar con alguien señalando cosas. 
+                    La terminal es como darle instrucciones escritas precisas - más rápido y sin ambigüedades.
+                </div>
+            </div>
+        </div>
+
+        <!-- CMD VS POWERSHELL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔄</div>
+                <h2 class="section-title">CMD vs PowerShell: ¿Cuál usar?</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    Windows tiene DOS terminales principales. Aquí te explico las diferencias:
+                </p>
+
+                <div class="comparison-table">
+                    <div class="comparison-row">
+                        <div>Característica</div>
+                        <div>CMD</div>
+                        <div>PowerShell</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Año de lanzamiento</div>
+                        <div>1981</div>
+                        <div>2006</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Lenguaje</div>
+                        <div>Comandos básicos</div>
+                        <div>Lenguaje completo</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Poder</div>
+                        <div>Limitado</div>
+                        <div>Muy potente</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Sintaxis</div>
+                        <div>Simple</div>
+                        <div>Más compleja</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Colores</div>
+                        <div>Básico</div>
+                        <div>Mejorado</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Recomendado para</div>
+                        <div>Tareas simples</div>
+                        <div>Desarrollo profesional</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-box-title">🎯 Recomendación:</div>
+                    Aprende <strong>ambos</strong>. CMD para comandos rápidos básicos, PowerShell para desarrollo avanzado. 
+                    La mayoría de comandos funcionan en ambos.
+                </div>
+            </div>
+        </div>
+
+        <!-- COMANDOS BÁSICOS ESENCIALES -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <h2 class="section-title">Comandos Esenciales (CMD)</h2>
+            </div>
+            <div class="content-block">
+                <h3>🗂️ Navegación y Exploración:</h3>
+
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-name">cd [carpeta]</div>
+                        <div class="command-desc">
+                            <strong>Change Directory</strong> - Cambia de carpeta/directorio
+                        </div>
+                        <div class="command-example">
+cd Desktop<br>
+cd ..<br>
+cd C:\Users\TuNombre\Documents
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">dir</div>
+                        <div class="command-desc">
+                            <strong>Directory</strong> - Lista el contenido de la carpeta actual
+                        </div>
+                        <div class="command-example">
+dir<br>
+dir /w (vista ancha)<br>
+dir *.txt (solo archivos .txt)
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">mkdir [nombre]</div>
+                        <div class="command-desc">
+                            <strong>Make Directory</strong> - Crea una nueva carpeta
+                        </div>
+                        <div class="command-example">
+mkdir mi-proyecto<br>
+mkdir "Carpeta con espacios"
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">rmdir [nombre]</div>
+                        <div class="command-desc">
+                            <strong>Remove Directory</strong> - Elimina una carpeta vacía
+                        </div>
+                        <div class="command-example">
+rmdir mi-carpeta<br>
+rmdir /s mi-carpeta (con contenido)
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">copy [origen] [destino]</div>
+                        <div class="command-desc">
+                            <strong>Copy</strong> - Copia archivos
+                        </div>
+                        <div class="command-example">
+copy archivo.txt backup.txt<br>
+copy *.txt D:\Backup
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">move [origen] [destino]</div>
+                        <div class="command-desc">
+                            <strong>Move</strong> - Mueve o renombra archivos
+                        </div>
+                        <div class="command-example">
+move archivo.txt D:\Documentos<br>
+move viejo.txt nuevo.txt
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">del [archivo]</div>
+                        <div class="command-desc">
+                            <strong>Delete</strong> - Elimina archivos
+                        </div>
+                        <div class="command-example">
+del archivo.txt<br>
+del *.tmp (todos los .tmp)
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">type [archivo]</div>
+                        <div class="command-desc">
+                            <strong>Type</strong> - Muestra el contenido de un archivo de texto
+                        </div>
+                        <div class="command-example">
+type archivo.txt<br>
+type script.py
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">cls</div>
+                        <div class="command-desc">
+                            <strong>Clear Screen</strong> - Limpia la pantalla de la terminal
+                        </div>
+                        <div class="command-example">
+cls
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">exit</div>
+                        <div class="command-desc">
+                            <strong>Exit</strong> - Cierra la ventana de CMD
+                        </div>
+                        <div class="command-example">
+exit
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #1: Navegación básica</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">⌨️ Practica navegando por carpetas</div>
+                    <ul class="exercise-steps">
+                        <li>Abre CMD (Win + R → cmd)</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">dir</code> para ver dónde estás</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">cd Desktop</code> para ir al escritorio</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">mkdir curso-web</code> para crear carpeta</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">cd curso-web</code> para entrar</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">cd ..</code> para volver atrás</li>
+                        <li>Escribe <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">cls</code> para limpiar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMANDOS DE DESARROLLO -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔧</div>
+                <h2 class="section-title">Comandos para Desarrollo</h2>
+            </div>
+            <div class="content-block">
+                <h3>💻 Comandos que usarás constantemente:</h3>
+
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-name">python --version</div>
+                        <div class="command-desc">
+                            Verifica la versión de Python instalada
+                        </div>
+                        <div class="command-example">
+python --version<br>
+# Salida: Python 3.12.0
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">python [archivo.py]</div>
+                        <div class="command-desc">
+                            Ejecuta un script de Python
+                        </div>
+                        <div class="command-example">
+python mi_programa.py<br>
+python app.py
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">pip install [paquete]</div>
+                        <div class="command-desc">
+                            Instala librerías/paquetes de Python
+                        </div>
+                        <div class="command-example">
+pip install requests<br>
+pip install flask
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">pip list</div>
+                        <div class="command-desc">
+                            Lista todos los paquetes de Python instalados
+                        </div>
+                        <div class="command-example">
+pip list
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">code .</div>
+                        <div class="command-desc">
+                            Abre VS Code en la carpeta actual
+                        </div>
+                        <div class="command-example">
+code .<br>
+code archivo.html
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">git --version</div>
+                        <div class="command-desc">
+                            Verifica la versión de Git (lo usaremos más adelante)
+                        </div>
+                        <div class="command-example">
+git --version<br>
+# Salida: git version 2.42.0
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎓 Ejercicio práctico #2: Verifica tus herramientas</h3>
+                <div class="exercise-box">
+                    <div class="exercise-title">✅ Confirma que todo está instalado</div>
+                    <ul class="exercise-steps">
+                        <li>Abre CMD o PowerShell</li>
+                        <li>Escribe: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">python --version</code></li>
+                        <li>Si ves "Python 3.X.X" → ✅ Perfecto</li>
+                        <li>Escribe: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">pip --version</code></li>
+                        <li>Escribe: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">code --version</code></li>
+                        <li>Si todos funcionan, ¡estás listo para programar!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- POWERSHELL ESPECÍFICO -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">⚡</div>
+                <h2 class="section-title">PowerShell: Comandos Avanzados</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    PowerShell usa <strong>cmdlets</strong> (command-lets) con sintaxis tipo "Verb-Noun". 
+                    Son más poderosos que los comandos CMD tradicionales.
+                </p>
+
+                <h3>🚀 Equivalencias PowerShell vs CMD:</h3>
+
+                <div class="comparison-table">
+                    <div class="comparison-row">
+                        <div>Función</div>
+                        <div>CMD</div>
+                        <div>PowerShell</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Listar archivos</div>
+                        <div>dir</div>
+                        <div>Get-ChildItem (alias: ls, dir)</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Cambiar carpeta</div>
+                        <div>cd</div>
+                        <div>Set-Location (alias: cd)</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Copiar archivos</div>
+                        <div>copy</div>
+                        <div>Copy-Item (alias: cp, copy)</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Mover archivos</div>
+                        <div>move</div>
+                        <div>Move-Item (alias: mv, move)</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Eliminar archivos</div>
+                        <div>del</div>
+                        <div>Remove-Item (alias: rm, del)</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div>Limpiar pantalla</div>
+                        <div>cls</div>
+                        <div>Clear-Host (alias: cls, clear)</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Pro Tip:</div>
+                    En PowerShell puedes usar tanto los comandos CMD tradicionales (dir, cd, cls) 
+                    como los cmdlets de PowerShell (Get-ChildItem, Set-Location). ¡Ambos funcionan!
+                </div>
+
+                <h3>⚡ Comandos PowerShell únicos (muy útiles):</h3>
+
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-name">Get-Help [comando]</div>
+                        <div class="command-desc">
+                            Muestra ayuda sobre cualquier comando
+                        </div>
+                        <div class="command-example">
+Get-Help Get-ChildItem<br>
+Get-Help cd -Examples
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">Get-Command</div>
+                        <div class="command-desc">
+                            Lista TODOS los comandos disponibles
+                        </div>
+                        <div class="command-example">
+Get-Command<br>
+Get-Command *service*
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">Get-Process</div>
+                        <div class="command-desc">
+                            Muestra todos los procesos en ejecución
+                        </div>
+                        <div class="command-example">
+Get-Process<br>
+Get-Process -Name chrome
+                        </div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-name">Get-History</div>
+                        <div class="command-desc">
+                            Muestra el historial de comandos ejecutados
+                        </div>
+                        <div class="command-example">
+Get-History<br>
+h (atajo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIABLES DE ENTORNO -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔐</div>
+                <h2 class="section-title">Variables de Entorno y PATH</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    Recuerda: las <strong>variables de entorno</strong> son configuraciones globales del sistema. 
+                    <strong>PATH</strong> es la más importante porque le dice al sistema dónde buscar programas ejecutables.
+                </p>
+
+                <h3>🔍 Ver variables de entorno:</h3>
+
+                <div class="command-example" style="margin: 1rem 0;">
+# CMD:<br>
+echo %PATH%<br>
+set<br>
+<br>
+# PowerShell:<br>
+$env:PATH<br>
+Get-ChildItem Env:
+                </div>
+
+                <h3>⚠️ ¿Por qué importa el PATH?</h3>
+                <ul>
+                    <li>Cuando escribes <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem;">python</code>, el sistema busca en las carpetas del PATH</li>
+                    <li>Si Python NO está en PATH → error "no se reconoce como comando"</li>
+                    <li>Si Python SÍ está en PATH → se ejecuta desde cualquier carpeta</li>
+                </ul>
+
+                <div class="alert">
+                    <div class="alert-title">⚠️ Problema Común:</div>
+                    Si ves "python no se reconoce como comando", significa que Python NO está en tu PATH. 
+                    Solución: Reinstala Python y marca "Add Python to PATH" durante la instalación.
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLETE SECTION -->
+        <div class="complete-section">
+            <div class="complete-icon">🎉</div>
+            <h2 class="complete-title">¡Día 2 Completado! 🚀</h2>
+            <p class="complete-text">
+                Has terminado el <strong>Día 2 completo</strong> del curso. Ahora dominas:<br><br>
+                ✅ VS Code y sus funcionalidades<br>
+                ✅ Python y su instalación<br>
+                ✅ Extensiones esenciales<br>
+                ✅ Developer Tools (F12) - TODAS las pestañas<br>
+                ✅ CMD y PowerShell - Comandos básicos y avanzados<br>
+                ✅ Variables de entorno y PATH<br><br>
+                <strong>Estás 100% preparado para comenzar a programar. El Día 3 te espera con HTML desde cero.</strong>
+            </p>
+
+                        <button class="complete-button" onclick="goToNextModule()">
+                 ✅ Completar Día 2 y Ver Resumen Final
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            console.log('📚 Módulo 4 CMD y PowerShell cargado');
+
+        });
+                function goToNextModule() {
+            window.location.href = 'final_dia2.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 2: Setup y Configuración</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-icon {
+            font-size: 3rem;
+        }
+
+        .day-title h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-primary);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .step-card {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            background: var(--color-primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .step-content {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .download-button:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .code-block {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            color: #a6e22e;
+            overflow-x: auto;
+        }
+
+        .checklist {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .checklist-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: rgba(50, 50, 50, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .checklist-item.completed {
+            background: rgba(72, 187, 120, 0.1);
+            border-left: 4px solid var(--color-success);
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item.completed .checkbox {
+            background: var(--color-success);
+            border-color: var(--color-success);
+        }
+
+        .checkbox-icon {
+            display: none;
+        }
+
+        .checklist-item.completed .checkbox-icon {
+            display: block;
+            color: white;
+            font-weight: bold;
+        }
+
+        .checklist-text {
+            flex: 1;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .checklist-item.completed .checklist-text {
+            color: var(--color-success);
+        }
+
+        .extensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .extension-card {
+            background: rgba(50, 50, 50, 0.6);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .extension-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .extension-name {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .extension-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .complete-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .complete-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .complete-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .complete-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.4);
+        }
+
+        .complete-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            background: rgba(237, 137, 54, 0.15);
+            border: 1px solid rgba(237, 137, 54, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: var(--color-warning);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .extensions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="day-info">
+                <div class="day-icon">🛠️</div>
+                <div class="day-title">
+                    <h1>Día 2: Setup y Configuración</h1>
+                    <p class="day-subtitle">Instala y configura las herramientas necesarias</p>
+                </div>
+            </div>
+            <a href="../menu.html" class="back-button">← Volver al Menú</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>🎯 Objetivo del Día</h2>
+            <p>
+                Hoy vamos a preparar tu entorno de desarrollo completo. Instalarás VS Code (tu editor de código), 
+                Python (lenguaje de programación) y las extensiones esenciales que te harán más productivo.
+            </p>
+            <p>
+                <strong>⏱️ Duración estimada:</strong> 60 minutos
+            </p>
+        </div>
+
+        <!-- VS CODE SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">💻</div>
+                <h2 class="section-title">1. Instalar Visual Studio Code</h2>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Descarga VS Code</h3>
+                </div>
+                <p class="step-content">
+                    VS Code es el editor de código más popular del mundo. Es gratuito, potente y tiene miles de extensiones.
+                </p>
+                <a href="https://code.visualstudio.com/download" target="_blank" class="download-button">
+                    📥 Descargar VS Code
+                </a>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Instala el programa</h3>
+                </div>
+                <p class="step-content">
+                    Una vez descargado, ejecuta el instalador y sigue estos pasos:
+                </p>
+                <ul style="color: rgba(255,255,255,0.8); margin-left: 2rem; line-height: 1.8;">
+                    <li>Acepta los términos de licencia</li>
+                    <li>✅ Marca "Agregar a PATH" (importante)</li>
+                    <li>✅ Marca "Crear icono en escritorio"</li>
+                    <li>✅ Marca "Agregar acción 'Abrir con Code' al menú contextual"</li>
+                    <li>Click en "Instalar"</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Verifica la instalación</h3>
+                </div>
+                <p class="step-content">
+                    Abre VS Code y verifica que se abra correctamente. Debería verse una pantalla de bienvenida.
+                </p>
+            </div>
+        </div>
+
+        <!-- PYTHON SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🐍</div>
+                <h2 class="section-title">2. Instalar Python</h2>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Descarga Python</h3>
+                </div>
+                <p class="step-content">
+                    Python es un lenguaje de programación versátil y fácil de aprender. Usaremos la versión más reciente.
+                </p>
+                <a href="https://www.python.org/downloads/" target="_blank" class="download-button">
+                    📥 Descargar Python
+                </a>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Instala Python</h3>
+                </div>
+                <div class="alert">
+                    <div class="alert-title">⚠️ ¡Importante!</div>
+                    Al instalar Python, asegúrate de marcar la opción <strong>"Add Python to PATH"</strong> antes de continuar.
+                </div>
+                <ul style="color: rgba(255,255,255,0.8); margin-left: 2rem; line-height: 1.8;">
+                    <li>✅ Marca "Add Python to PATH" (CRÍTICO)</li>
+                    <li>Click en "Install Now"</li>
+                    <li>Espera a que termine la instalación</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Verifica la instalación</h3>
+                </div>
+                <p class="step-content">
+                    Abre la terminal/cmd y verifica que Python esté instalado correctamente:
+                </p>
+                <div class="code-block">
+                    python --version
+                </div>
+                <p class="step-content">
+                    Deberías ver algo como: <code style="color: #f093fb;">Python 3.12.0</code>
+                </p>
+            </div>
+        </div>
+
+        <!-- EXTENSIONS SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🧩</div>
+                <h2 class="section-title">3. Extensiones de VS Code</h2>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Cómo instalar extensiones</h3>
+                </div>
+                <p class="step-content">
+                    En VS Code, haz click en el ícono de extensiones en la barra lateral izquierda (o presiona <code style="color: #f093fb;">Ctrl+Shift+X</code>).
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Extensiones Esenciales</h3>
+                </div>
+                <p class="step-content">
+                    Instala estas extensiones buscándolas por nombre:
+                </p>
+                <div class="extensions-grid">
+                    <div class="extension-card">
+                        <div class="extension-name">🐍 Python</div>
+                        <div class="extension-desc">Soporte completo para Python (Microsoft)</div>
+                    </div>
+                    <div class="extension-card">
+                        <div class="extension-name">🌐 Live Server</div>
+                        <div class="extension-desc">Servidor local para desarrollo web</div>
+                    </div>
+                    <div class="extension-card">
+                        <div class="extension-name">🎨 Prettier</div>
+                        <div class="extension-desc">Formateador de código automático</div>
+                    </div>
+                    <div class="extension-card">
+                        <div class="extension-name">🖌️ HTML CSS Support</div>
+                        <div class="extension-desc">Autocompletado para HTML y CSS</div>
+                    </div>
+                    <div class="extension-card">
+                        <div class="extension-name">🔍 Path Intellisense</div>
+                        <div class="extension-desc">Autocompletado de rutas de archivos</div>
+                    </div>
+                    <div class="extension-card">
+                        <div class="extension-name">🎭 Indent Rainbow</div>
+                        <div class="extension-desc">Colorea la indentación del código</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">✅</div>
+                <h2 class="section-title">Checklist de Verificación</h2>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-title">Marca cada item cuando lo completes:</div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">VS Code instalado y abierto correctamente</div>
+                </div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">Python instalado (verificado con python --version)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">Extensión Python instalada en VS Code</div>
+                </div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">Extensión Live Server instalada</div>
+                </div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">Extensión Prettier instalada</div>
+                </div>
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checkbox">
+                        <span class="checkbox-icon">✓</span>
+                    </div>
+                    <div class="checklist-text">Extensiones adicionales instaladas</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLETE SECTION -->
+        <div class="complete-section">
+            <div class="complete-icon">🎉</div>
+            <h2 class="complete-title">¡Excelente trabajo!</h2>
+            <p class="complete-text">
+                Has configurado tu entorno de desarrollo completo. Ahora estás listo para comenzar a programar.<br>
+                Marca este día como completado para desbloquear el Día 3.
+            </p>
+            <button class="complete-button" onclick="completeDay()" id="completeBtn">
+                ✅ Marcar Día 2 como Completado
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle checklist items
+        function toggleChecklistItem(element) {
+            element.classList.toggle('completed');
+            checkAllCompleted();
+        }
+
+        // Check if all checklist items are completed
+        function checkAllCompleted() {
+            const items = document.querySelectorAll('.checklist-item');
+            const completed = document.querySelectorAll('.checklist-item.completed');
+            
+            const allCompleted = items.length === completed.length;
+            const completeBtn = document.getElementById('completeBtn');
+            
+            if (allCompleted) {
+                completeBtn.disabled = false;
+                completeBtn.textContent = '✅ Marcar Día 2 como Completado';
+            } else {
+                completeBtn.disabled = true;
+                completeBtn.textContent = `🔒 Completa el checklist (${completed.length}/${items.length})`;
+            }
+        }
+
+        // Complete day and redirect
+        function completeDay() {
+            // Mark day 2 as completed in localStorage
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            
+            if (!completedDays.includes(2)) {
+                completedDays.push(2);
+                completedDays.sort((a, b) => a - b);
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+                console.log('✅ Día 2 completado');
+            }
+
+            // Show success message
+            alert('🎉 ¡Felicitaciones! Día 2 completado.\n\nDía 3 desbloqueado: HTML desde Cero');
+
+            // Redirect to menu
+            setTimeout(() => {
+                window.location.href = '../menu.html';
+            }, 1000);
+        }
+
+        // Initialize button state
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAllCompleted();
+            
+            // Check if day is already completed
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            if (completedDays.includes(2)) {
+                const completeBtn = document.getElementById('completeBtn');
+                completeBtn.textContent = '✅ Día Completado - Volver al Menú';
+                completeBtn.onclick = () => window.location.href = '../menu.html';
+            }
+        });
+    </script>
+</body>
+</html>
