@@ -3,519 +3,572 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de Programación y Diseño Digital - Pokédex Interactiva</title>
-    <meta name="description" content="Curso de programación y diseño digital para jóvenes. Aprende HTML, CSS, JavaScript, IA creando una Pokédex interactiva en 4 semanas.">
-    
-    <!-- CSS Integrado -->
-<link rel="stylesheet" href="styles/main.css">
+    <title>Login - Curso de Programación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Partículas flotantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Login Container */
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.95rem 1.2rem;
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(50, 50, 50, 0.9);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: rgba(245, 101, 101, 0.15);
+            border: 1px solid rgba(245, 101, 101, 0.3);
+            color: #f56565;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .demo-credentials {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+        }
+
+        .demo-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .demo-user {
+            background: rgba(40, 40, 40, 0.6);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-user:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+
+        .demo-user strong {
+            color: #f093fb;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .welcome-content {
+            text-align: center;
+            animation: zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .welcome-icon {
+            font-size: 8rem;
+            margin-bottom: 2rem;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .welcome-text {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-name {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-name {
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            .welcome-text {
+                font-size: 2rem;
+            }
+            .welcome-name {
+                font-size: 3rem;
+            }
+            .course-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Botón de Dark Mode -->
-    <div class="theme-toggle">
-        <input type="checkbox" id="darkModeToggle">
-        <label for="darkModeToggle" class="toggle-label">
-            <span class="sun">☀️</span>
-            <span class="moon">🌙</span>
-        </label>
-    </div>
+    <div class="background-animation"></div>
+    
+    <!-- Partículas flotantes -->
+    <div class="particles" id="particles"></div>
 
-<header class="parallax-header">
-  <div class="parallax-bg"></div>
-  <div class="parallax-overlay"></div>
-  <div class="header-content">
-    <h1>🎮 Del Concepto al Código</h1>
-    <p>Creando tu Primera Pokédex Interactiva | Programación + Diseño + IA</p>
-  </div>
-</header>
-
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#pensum">Pensum</a></li>
-            <li><a href="#por-que">¿Por qué?</a></li>
-            <li><a href="#modalidades">Modalidades</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-<section id="inicio" class="intro-section">
-  <div class="intro-grid">
-    <div class="intro-image">
-      <!-- Cambia src="img/tu-imagen.png" por tu archivo real -->
-      <img src="img/intro.png" alt="Inspiración Pokémon" />
-    </div>
-    <div class="intro-content">
-      <h2>🎯 Presentación del Programa</h2>
-      <h3>¿Por qué este curso es diferente?</h3>
-      <p>
-        En un mundo donde la tecnología evoluciona constantemente, tu hijo no solo aprenderá a usar herramientas digitales, sino a <strong>crearlas</strong>.<br>
-        Nuestro programa combina programación, diseño gráfico e inteligencia artificial de manera práctica y motivadora.
-      </p>
-      <h4>Metodología Innovadora: Aprender Haciendo</h4>
-      <ul>
-        <li><strong>100% práctica:</strong> Desde el primer día construyen su proyecto</li>
-        <li><strong>Motivador:</strong> Pokédex interactiva en tiempo real</li>
-        <li><strong>Actual:</strong> Tecnologías de Netflix, Instagram, videojuegos</li>
-        <li><strong>24/7:</strong> Plataforma Milaulas con recursos siempre disponibles</li>
-        <li><strong>Certificado:</strong> Documento profesional validado</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-       <section id="pensum">
-  <h2>📚 Pensum Académico - 4 Semanas</h2>
-
-  <details class="semana" open>
-    <summary>📌 SEMANA 1: Descubriendo el Mundo Tech</summary>
-    <p><strong>Objetivo:</strong> Entender el ecosistema digital y comenzar a crear</p>
-    <ul>
-      <li><strong>Día 1:</strong> Panorama profesional • Roles en tech • Cómo funcionan Netflix, Amazon, videojuegos</li>
-      <li><strong>Días 2-3:</strong> Fundamentos de HTML • Estructura de páginas • Primera versión de tarjetas Pokémon</li>
-      <li><strong>Días 4-5:</strong> CSS y diseño visual • Sprites animados • Pokédex visualmente atractiva</li>
-    </ul>
-  </details>
-  <details class="semana">
-    <summary>⚡ SEMANA 2: Interactividad y Frameworks</summary>
-    <p><strong>Objetivo:</strong> Agregar funcionalidad e interactividad profesional</p>
-    <ul>
-      <li><strong>Días 6-7:</strong> JavaScript Fundamentals • Manipulación del DOM • Funcionalidad de evolución</li>
-      <li><strong>Días 8-9:</strong> Bootstrap/Tailwind • Animaciones 2D • Transiciones fluidas</li>
-      <li><strong>Día 10:</strong> Integración • Funcionalidades adicionales • Presentación de avances</li>
-    </ul>
-  </details>
-  <details class="semana">
-    <summary>🔧 SEMANA 3: Backend y Bases de Datos</summary>
-    <p><strong>Objetivo:</strong> Entender la arquitectura completa de aplicaciones</p>
-    <ul>
-      <li><strong>Días 11-12:</strong> Conceptos de backend • localStorage • Sistema de favoritos</li>
-      <li><strong>Días 13-14:</strong> Fundamentos SQL • APIs reales (PokéAPI) • Comunicación front-back</li>
-      <li><strong>Día 15:</strong> Proyecto backend integrado • Pokédex completamente funcional</li>
-    </ul>
-  </details>
-  <details class="semana">
-    <summary>🤖 SEMANA 4: IA y Proyecto Final</summary>
-    <p><strong>Objetivo:</strong> Integrar IA y completar proyecto profesional</p>
-    <ul>
-      <li><strong>Días 16-17:</strong> Fundamentos IA • Generación de imágenes • Pokémon personalizados con IA</li>
-      <li><strong>Días 18-19:</strong> Desarrollo avanzado • Optimización • Presentación técnica</li>
-      <li><strong>Día 20:</strong> 🏆 Presentaciones finales • Demostración de competencias • Certificación</li>
-    </ul>
-  </details>
-</section>
-
-       <section id="competencias">
-  <h2>🏆 Competencias Desarrolladas</h2>
-  
-  <div class="competencias-intro">
-    <p>Durante el curso dominarás estas tecnologías profesionales usadas por las mejores empresas del mundo:</p>
-  </div>
-
-  <div class="competencias-grid">
-    <!-- Técnicas -->
-    <div class="competencias-col">
-      <h4>🔧 Técnicas</h4>
-      <div class="tech-stack">
-        <div class="tech-item">
-          <img src="img/html.png" alt="HTML5" />
-          <span>HTML5</span>
+    <!-- Login Form -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-header">
+            <div class="logo">💻</div>
+            <h1 class="login-title">Curso de Programación</h1>
+            <p class="login-subtitle">Ingresa tus credenciales para comenzar</p>
         </div>
-        <div class="tech-item">
-          <img src="img/css.png" alt="CSS3" />
-          <span>CSS3</span>
-        </div>
-        <div class="tech-item">
-          <img src="img/js.png" alt="JavaScript" />
-          <span>JavaScript ES6+</span>
-        </div>
-        <div class="tech-item">
-          <img src="img/bootstrap.png" alt="Bootstrap" />
-          <span>Bootstrap</span>
-        </div>
-        <div class="tech-item">
-          <img src="img/tailwind.png" alt="Tailwind" />
-          <span>Tailwind CSS</span>
-        </div>
-        <div class="tech-item">
-          <img src="img/sql.png" alt="SQL" />
-          <span>SQL</span>
-        </div>
-        <div class="tech-item">
-          <img src="img/git.png" alt="Git" />
-          <span>Git</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Transversales -->
-    <div class="competencias-col">
-      <h4>💡 Transversales</h4>
-      <ul class="skills-list">
-        <li>Resolución de problemas y debugging</li>
-        <li>Pensamiento lógico y crítico</li>
-        <li>Creatividad digital y UX/UI</li>
-        <li>Presentación técnica efectiva</li>
-        <li>Trabajo colaborativo en equipo</li>
-        <li>Aprendizaje autónomo y autodidacta</li>
-      </ul>
-    </div>
-  </div>
-</section>
+        <div class="error-message" id="errorMessage">
+            ❌ Usuario o contraseña incorrectos
+        </div>
 
-        <section id="por-que">
-            <h2>🌟 ¿Por qué elegir nuestro programa?</h2>
-            <div class="razones">
-                <div class="razon">
-                    <h4>📊 Metodología Probada</h4>
-                    <p>Pedagogía activa, aprendizaje por proyectos, ritmo adaptado a adolescentes, balance 20% teoría - 80% práctica</p>
-                </div>
-                <div class="razon">
-                    <h4>💻 Tecnologías Actuales</h4>
-                    <p>Stack usado por empresas reales, herramientas de la industria, integración de IA del futuro</p>
-                </div>
-                <div class="razon">
-                    <h4>🎁 Proyecto Tangible</h4>
-                    <p>Portfolio profesional inicial, creación real, conexión emocional con el aprendizaje</p>
-                </div>
-                <div class="razon">
-                    <h4>🌐 Plataforma 24/7</h4>
-                    <p>Milaulas con videos, ejercicios, recursos, comunidad, seguimiento personalizado</p>
-                </div>
-                <div class="razon">
-                    <h4>📜 Certificación Válida</h4>
-                    <p>Documento oficial de 30 horas, detalle de competencias, respaldo académico</p>
-                </div>
-                <div class="razon">
-                    <h4>🚀 Orientación Profesional</h4>
-                    <p>Salidas laborales en tech, conexión con mercado real, inspiración académica</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="modalidades">
-            <h2>👥 Modalidades y Planes</h2>
-
-            <div class="modalidades">
-                <div class="plan">
-                    <h3>👤 Sesiones Personalizadas (1:1)</h3>
-                    <p>Atención 100% personalizada para máximo aprendizaje</p>
-                    <ul>
-                        <li>Horarios totalmente flexibles</li>
-                        <li>Ritmo adaptado a necesidades individuales</li>
-                        <li>Atención exclusiva del instructor</li>
-                        <li>Enfoque en áreas de interés</li>
-                    </ul>
-                    <p><strong>Duración:</strong> 30 horas (40 sesiones de 45 min)</p>
-                    <div class="precio">
-                        <span class="precio-original">$1.050.000</span><br>
-                        $800.000
-                    </div>
-                    <p style="text-align: center; font-size: 0.9rem;">$35.000 por sesión</p>
-                </div>
-
-                <div class="plan destacado">
-                    <div class="badge-recomendado"><span>⭐ RECOMENDADO</span></div>
-                    <h3>👥 Grupos Reducidos (Max 3)</h3>
-                    <p>Aprende colaborando como en equipos tech reales</p>
-                    <ul>
-                        <li>Colaboración y code review</li>
-                        <li>Problem solving en equipo</li>
-                        <li>Comunicación técnica</li>
-                        <li>Networking temprano</li>
-                        <li>Motivación grupal</li>
-                    </ul>
-                    <p><strong>Duración:</strong> 30 horas (20 sesiones, 5 días/semana, 4 semanas)</p>
-                    <div class="precio">$550.000</div>
-                    <p style="text-align: center; font-size: 0.9rem;">Por estudiante</p>
-                </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="username">Usuario</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="form-input" 
+                    placeholder="Ingresa tu usuario"
+                    autocomplete="off"
+                    required
+                >
             </div>
 
-            <div class="modalidades">
-                <div class="plan especial">
-                    <h3>🎁 Plan Multinivel - Descuento Especial</h3>
-                    <p><strong>Compromiso con Nivel 2:</strong> Obtén descuento en ambos niveles</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1rem 0;">
-                        <div>
-                            <p><strong>Precio por nivel:</strong></p>
-                            <div class="precio">$470.000</div>
-                            <p style="text-align: center; font-size: 0.9rem;">Ahorro: $80.000 por nivel</p>
-                        </div>
-                        <div>
-                            <p><strong>Total 2 niveles:</strong></p>
-                            <div class="precio">$940.000</div>
-                            <p style="text-align: center; font-size: 0.9rem;">Ahorro total: $160.000</p>
-                        </div>
-                    </div>
-                    <p><strong>Nivel 2 incluye:</strong> React, Node.js, bases de datos avanzadas, deploy en nube, proyectos complejos</p>
-                </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Contraseña</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Ingresa tu contraseña"
+                    required
+                >
             </div>
 
-            <h3>💼 Incluido en todas las modalidades</h3>
-            <div class="beneficios">
-                <div class="beneficio">
-                    <div class="beneficio-icon">📖</div>
-                    <div>
-                        <strong>Contenido Académico</strong>
-                        <p>30 horas de formación práctica, 20 sesiones presenciales, proyecto completo guiado</p>
-                    </div>
-                </div>
-                <div class="beneficio">
-                    <div class="beneficio-icon">🌐</div>
-                    <div>
-                        <strong>Plataforma Milaulas 24/7</strong>
-                        <p>Acceso de por vida, videos, ejercicios, recursos descargables, biblioteca de tutoriales</p>
-                    </div>
-                </div>
-                <div class="beneficio">
-                    <div class="beneficio-icon">🛠️</div>
-                    <div>
-                        <strong>Soporte Técnico</strong>
-                        <p>Ayuda durante el curso, foro de dudas, mentoría individual, comunidad exclusiva</p>
-                    </div>
-                </div>
-                <div class="beneficio">
-                    <div class="beneficio-icon">🏆</div>
-                    <div>
-                        <strong>Certificación Profesional</strong>
-                        <p>Documento oficial, competencias técnicas detalladas, proyecto para portfolio</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <button type="submit" class="login-button">
+                🚀 Ingresar al Curso
+            </button>
+        </form>
 
-
-        <section id="incluye">
-            <h2>✅ Requisitos e Información</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div>
-                    <h3>Requisitos Técnicos</h3>
-                    <ul>
-                        <li>Computadora con internet estable</li>
-                        <li>Navegador web actualizado</li>
-                        <li>No requiere software especializado</li>
-                        <li>Instalamos todo en clase</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Perfil del Estudiante</h3>
-                    <ul>
-                        <li>Edad: 13-17 años</li>
-                        <li>Nivel: Principiante</li>
-                        <li>No requiere experiencia previa</li>
-                        <li>Actitud: Curiosidad y ganas de crear</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 2rem;">Horarios Disponibles</h3>
-            <ul>
-                <li><strong>Modalidad 1:1:</strong> Totalmente flexibles según disponibilidad</li>
-                <li><strong>Modalidad Grupal:</strong> Lunes a viernes, 1 hora , 30 minutos</li>
-                <li style="margin-left: 1.5rem;">• Opción tarde 1 : 6:30 PM - 8:00 PM</li>
-                <li style="margin-left: 1.5rem;">• Opción tarde 2: 4:30 PM - 6:00 PM</li>
-            </ul>
-
-            <h3 style="margin-top: 2rem;">Facilidades de Pago</h3>
-            <ul>
-                <li>Pago completo con descuento adicional del 5%</li>
-                <li>2 pagos: 50% inicial, 50% a mitad del curso</li>
-                <li>Transferencia bancaria, Nequi, Daviplata</li>
-            </ul>
-        </section>
-
-        <section id="contacto" class="contacto-section">
-            <h2>📞 ¡Cupos Limitados!</h2>
-            <p style="font-size: 1.1rem; margin: 1rem 0;">
-                <strong>Modalidad 1:1:</strong> Solo 5 estudiantes por mes<br>
-                <strong>Modalidad Grupal:</strong> Máximo 3 alumnos por grupo<br>
-                <strong>Próximo inicio:</strong> [Próxima disponibilidad]
-            </p>
-
-            <h3 style="color: white; margin-top: 2rem;">Proceso de Inscripción</h3>
-            <ol style="text-align: left; max-width: 600px; margin: 1.5rem auto;">
-                <li>Contacto inicial por WhatsApp o email</li>
-                <li>Sesión informativa de 20 minutos (sin compromiso)</li>
-                <li>Evaluación de expectativas y objetivos</li>
-                <li>Reserva de cupo con 50% de anticipo</li>
-                <li>Acceso inmediato a plataforma Milaulas</li>
-                <li>¡Inicio de clases según calendario!</li>
-            </ol>
-
-            <div class="botones">
-                <a href="https://wa.me/573209581733 ?text=Hola%20me%20interesa%20información%20sobre%20el%20curso%20de%20programación" class="btn btn-whatsapp">
-                    💬 Contáctanos por WhatsApp
-                </a>
-                <a href="mailto:altioragroup@gmail.com" class="btn btn-secondary">
-                    📧 Enviar Email
-                </a>
-            </div>
-        </section>
-
-        <section style="text-align: center; border: none; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);">
-            <h2 style="border: none; padding: 0;">🚀 Próximos Pasos</h2>
-            <ol style="display: inline-block; text-align: left; margin: 2rem 0;">
-                <li>Contáctanos por WhatsApp o email</li>
-                <li>Agenda tu sesión informativa gratuita</li>
-                <li>Conoce el programa y resuelve dudas</li>
-                <li>Reserva el cupo de tu hijo</li>
-                <li>¡Comienza a crear su futuro digital!</li>
-            </ol>
-            <p style="font-size: 1.3rem; font-weight: bold; margin-top: 2rem;">
-                "No solo enseñamos tecnología, formamos creadores del futuro digital"
-            </p>
-        </section>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Curso de Programación y Diseño Digital | Del Concepto al Código</p>
-        <p>Creando el futuro tech de la próxima generación</p>
-    </footer>
-
-<a href="https://wa.me/573209581733?text=Hola%20me%20interesa%20información%20sobre%20el%20curso%20de%20programación" class="flotante" title="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
-  <img src="img/whatsapp.png" alt="WhatsApp" />
-</a>
-
-    <div class="scroll-top" id="scrollTop">
-        ↑
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="welcome-icon">🎉</div>
+            <div class="welcome-text">¡Bienvenid@</div>
+            <div class="welcome-name" id="welcomeName"></div>
+            <div class="welcome-subtitle">al</div>
+            <div class="course-name">Primer Curso de Programación Web</div>
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
     </div>
 
-    <!-- JavaScript Integrado -->
     <script>
-        // ====== DARK MODE TOGGLE ======
-const darkModeToggle = document.getElementById('darkModeToggle');
-
-// SIEMPRE iniciar en modo oscuro salvo que el usuario ya haya guardado su preferencia en localStorage
-if (localStorage.getItem('darkMode') === 'disabled') {
-  // user eligió modo claro antes
-  document.body.classList.remove('dark-mode');
-  darkModeToggle.checked = false;
-} else {
-  // modo oscuro por defecto
-  document.body.classList.add('dark-mode');
-  darkModeToggle.checked = true;
-  localStorage.setItem('darkMode', 'enabled');
-}
-
-// Escuchar cambios en el toggle
-darkModeToggle.addEventListener('change', () => {
-  if (darkModeToggle.checked) {
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('darkMode', 'enabled');
-  } else {
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('darkMode', 'disabled');
-  }
-});
-
-        // ====== PARALLAX SCROLL EFFECT ======
-        let lastScrollY = window.scrollY;
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const header = document.querySelector('header');
-            // Parallax para las semanas con velocidades variables
-            const weeks = document.querySelectorAll('.week');
-            weeks.forEach((week, index) => {
-                const speed = 0.1 + (index * 0.05);
-                const yPos = -(scrollY * speed);
-                week.style.transform = `translateY(${yPos}px)`;
-            });
-            
-            lastScrollY = scrollY;
-        });
-
-        // ====== SCROLL ANIMATIONS CON INTERSECTION OBSERVER ======
-        const animateElements = document.querySelectorAll('section, .week, .razon, .plan, .beneficio');
-
-        const observerOptions = {
-            root: null,
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
+        // Base de datos de usuarios hardcodeados
+        const users = {
+            'sofia': {
+                password: 'Sofia2024!',
+                name: 'Sofía'
+            },
+            'daniel': {
+                password: 'Daniel2024!',
+                name: 'Daniel'
+            }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    // Agregar clase con delay para efecto escalonado
-                    setTimeout(() => {
-                        entry.target.classList.add('is-visible');
-                    }, index * 100);
-                }
+        // Crear partículas flotantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Llenar credenciales de demo
+        function fillCredentials(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            
+            // Pequeña animación visual
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.style.borderColor = '#667eea';
+                setTimeout(() => {
+                    input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }, 300);
             });
-        }, observerOptions);
+        }
 
-        // Agregar clase de animación y observar elementos
-        // Agregar clase de animación y observar elementos
-animateElements.forEach((element, index) => {
-    // Variar el tipo de animación según el índice
-    const animationTypes = ['animate-fade', 'animate-left', 'animate-right', 'animate-fade'];
-    const animationType = animationTypes[index % 4];
-    
-    element.classList.add('animate-on-scroll');
-    if (animationType) {
-        element.classList.add(animationType);
-    }
-    observer.observe(element);
-});
+        // Manejar el login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim().toLowerCase();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
 
-
-        // ====== SMOOTH SCROLL PARA NAVEGACIÓN ======
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                }
-            });
-        });
-
-        // ====== BOTÓN SCROLL TO TOP ======
-        const scrollTopBtn = document.getElementById('scrollTop');
-
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('show');
+            // Validar credenciales
+            if (users[username] && users[username].password === password) {
+                // Login exitoso
+                errorMessage.style.display = 'none';
+                
+                // Animar salida del login
+                const loginContainer = document.getElementById('loginContainer');
+                loginContainer.style.animation = 'slideOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                
+                // Mostrar pantalla de bienvenida después de un breve delay
+                setTimeout(() => {
+                    loginContainer.style.display = 'none';
+                    showWelcomeScreen(users[username].name);
+                }, 500);
+                
             } else {
-                scrollTopBtn.classList.remove('show');
+                // Login fallido
+                errorMessage.style.display = 'block';
+                
+                // Shake en los inputs
+                const inputs = document.querySelectorAll('.form-input');
+                inputs.forEach(input => {
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                });
             }
         });
 
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ 
-                top: 0, 
-                behavior: 'smooth' 
-            });
+        // Añadir animación de slideOut
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideOut {
+                to {
+                    opacity: 0;
+                    transform: translateY(-30px) scale(0.95);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Mostrar pantalla de bienvenida
+        function showWelcomeScreen(name) {
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const welcomeName = document.getElementById('welcomeName');
+    
+    welcomeName.textContent = name;
+    welcomeScreen.style.display = 'flex';
+    
+    // 🔥 GUARDAR EL NOMBRE EN LOCALSTORAGE 🔥
+    localStorage.setItem('userName', name);
+    
+    // Inicializar array de días completados si no existe
+    if (!localStorage.getItem('completedDays')) {
+        localStorage.setItem('completedDays', JSON.stringify([]));
+    }
+    
+    console.log('✅ Usuario guardado en localStorage:', name);
+    console.log('📦 LocalStorage inicializado');
+    
+    // Redirigir a menu.html después de 3 segundos
+    setTimeout(() => {
+        welcomeScreen.style.animation = 'fadeOut 0.5s ease forwards';
+        setTimeout(() => {
+            window.location.href = 'menu.html';
+        }, 500);
+    }, 3000);
+}
+        // Añadir animación fadeOut
+        const fadeOutStyle = document.createElement('style');
+        fadeOutStyle.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(fadeOutStyle);
+
+        // Focus automático en el campo de usuario
+        document.getElementById('username').focus();
+
+        // Permitir login con Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
         });
-document.querySelectorAll('.semana').forEach(semana => {
-  semana.addEventListener('mousemove', e => {
-    const rect = semana.getBoundingClientRect();
-    semana.style.setProperty('--x', ((e.clientX - rect.left) / rect.width * 100) + '%');
-    semana.style.setProperty('--y', ((e.clientY - rect.top) / rect.height * 100) + '%');
-    semana.classList.add('hovered');
-  });
-  semana.addEventListener('mouseleave', () => {
-    semana.classList.remove('hovered');
-    semana.style.removeProperty('--x');
-    semana.style.removeProperty('--y');
-  });
-});
-// ====== PARALLAX HEADER BACKGROUND ======
-window.addEventListener('scroll', () => {
-  const parallaxBg = document.querySelector('.parallax-bg');
-  if (!parallaxBg) return;
-  
-  const scrollY = window.pageYOffset;
-  const speed = 0.5; // Velocidad del parallax (menor = más lento)
-  
-  parallaxBg.style.transform = `translateY(${scrollY * speed}px)`;
-});
-
-
     </script>
 </body>
 </html>
