@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras en Tecnología</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .module-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .module-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 600px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 8px;
+            animation: progressPulse 2s ease infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .carousel-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            min-height: 700px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .career-card {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(40, 40, 40, 0.95));
+            border: 3px solid;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .career-card.career-frontend { border-color: #667eea; }
+        .career-card.career-backend { border-color: #f5576c; }
+        .career-card.career-database { border-color: #4facfe; }
+        .career-card.career-ai { border-color: #43e97b; }
+        .career-card.career-games { border-color: #fa709a; }
+        .career-card.career-design { border-color: #30cfd0; }
+        .career-card.career-data { border-color: #fed6e3; }
+        .career-card.career-sap { border-color: #ff9a56; }
+
+        .career-header-bar {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .career-type {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .career-hp {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .career-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .career-content {
+            padding: 2rem;
+        }
+
+        .career-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .career-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .career-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        .tools-section {
+            margin: 1.5rem 0;
+        }
+
+        .tools-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-tag {
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .roles-section {
+            margin: 1.5rem 0;
+        }
+
+        .roles-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .roles-list {
+            list-style: none;
+        }
+
+        .roles-list li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+        }
+
+        .roles-list li:before {
+            content: "→";
+            margin-right: 0.5rem;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .nav-arrow {
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid var(--color-primary);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-arrow:hover {
+            background: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--color-primary);
+            width: 32px;
+            border-radius: 999px;
+        }
+
+        .next-module-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-module-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        .next-button {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .module-title {
+                font-size: 2rem;
+            }
+            .carousel {
+                min-height: 800px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="header">
+        <h1 class="module-title">🚀 Carreras en Tecnología</h1>
+        <p class="module-subtitle">Explora las diferentes áreas profesionales del mundo tech</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); font-size: 1.1rem;">Módulo 4 de 4 • Día 1</p>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Frontend/UX -->
+                <div class="carousel-slide active">
+                    <div class="career-card career-frontend">
+                        <div class="career-header-bar">
+                            <span class="career-type">Frontend Developer</span>
+                            <span class="career-hp">HP 💻</span>
+                        </div>
+                        <div class="career-image">🎨</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Frontend & UX Design</h2>
+                            <p class="career-subtitle">Diseño de Experiencias Digitales</p>
+                            <p class="career-description">
+                                Crea interfaces visuales hermosas y funcionales que los usuarios aman. Combina diseño, código y creatividad para construir experiencias web interactivas.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$3M-8M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$50K-120K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">HTML & CSS</span>
+                                    <span class="tool-tag">JavaScript</span>
+                                    <span class="tool-tag">React</span>
+                                    <span class="tool-tag">Vue.js</span>
+                                    <span class="tool-tag">Figma</span>
+                                    <span class="tool-tag">Tailwind</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Frontend Developer Jr → Sr</li>
+                                    <li>UI/UX Developer</li>
+                                    <li>Web Designer</li>
+                                    <li>Frontend Architect</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="carousel-slide">
+                    <div class="career-card career-backend">
+                        <div class="career-header-bar">
+                            <span class="career-type">Backend Developer</span>
+                            <span class="career-hp">HP ⚡</span>
+                        </div>
+                        <div class="career-image">⚙️</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Backend & Servidores</h2>
+                            <p class="career-subtitle">Arquitectura y Lógica de Negocio</p>
+                            <p class="career-description">
+                                Construye la lógica detrás de las aplicaciones. Crea APIs, maneja bases de datos y garantiza que todo funcione a la perfección.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$4M-10M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$60K-150K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">Node.js</span>
+                                    <span class="tool-tag">FastAPI</span>
+                                    <span class="tool-tag">Docker</span>
+                                    <span class="tool-tag">AWS</span>
+                                    <span class="tool-tag">PostgreSQL</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Backend Developer Jr → Sr</li>
+                                    <li>API Developer</li>
+                                    <li>DevOps Engineer</li>
+                                    <li>Backend Architect</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="carousel-slide">
+                    <div class="career-card career-database">
+                        <div class="career-header-bar">
+                            <span class="career-type">Database Admin</span>
+                            <span class="career-hp">HP 💾</span>
+                        </div>
+                        <div class="career-image">💾</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Bases de Datos</h2>
+                            <p class="career-subtitle">Gestión y Optimización de Datos</p>
+                            <p class="career-description">
+                                Diseña, implementa y optimiza bases de datos. Garantiza que la información esté organizada, segura y accesible.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$4M-9M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$65K-140K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">SQL</span>
+                                    <span class="tool-tag">MySQL</span>
+                                    <span class="tool-tag">PostgreSQL</span>
+                                    <span class="tool-tag">MongoDB</span>
+                                    <span class="tool-tag">Redis</span>
+                                    <span class="tool-tag">Oracle</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Database Administrator (DBA)</li>
+                                    <li>Database Developer</li>
+                                    <li>Data Engineer</li>
+                                    <li>Database Architect</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI/ML -->
+                <div class="carousel-slide">
+                    <div class="career-card career-ai">
+                        <div class="career-header-bar">
+                            <span class="career-type">AI Engineer</span>
+                            <span class="career-hp">HP 🤖</span>
+                        </div>
+                        <div class="career-image">🤖</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Inteligencia Artificial</h2>
+                            <p class="career-subtitle">Machine Learning y Deep Learning</p>
+                            <p class="career-description">
+                                Desarrolla sistemas inteligentes que aprenden y mejoran. Desde reconocimiento de voz hasta recomendaciones personalizadas.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$5M-12M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$80K-180K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">TensorFlow</span>
+                                    <span class="tool-tag">PyTorch</span>
+                                    <span class="tool-tag">Scikit-learn</span>
+                                    <span class="tool-tag">Keras</span>
+                                    <span class="tool-tag">OpenAI</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>ML Engineer</li>
+                                    <li>AI Research Scientist</li>
+                                    <li>NLP Engineer</li>
+                                    <li>Computer Vision Engineer</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Dev -->
+                <div class="carousel-slide">
+                    <div class="career-card career-games">
+                        <div class="career-header-bar">
+                            <span class="career-type">Game Developer</span>
+                            <span class="career-hp">HP 🎮</span>
+                        </div>
+                        <div class="career-image">🎮</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Desarrollo de Videojuegos</h2>
+                            <p class="career-subtitle">Creación de Experiencias Interactivas</p>
+                            <p class="career-description">
+                                Crea mundos virtuales y experiencias de juego increíbles. Combina programación, diseño y creatividad.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$3M-8M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$55K-130K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">Unity</span>
+                                    <span class="tool-tag">Unreal Engine</span>
+                                    <span class="tool-tag">C#</span>
+                                    <span class="tool-tag">C++</span>
+                                    <span class="tool-tag">Blender</span>
+                                    <span class="tool-tag">Godot</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Game Developer</li>
+                                    <li>Game Designer</li>
+                                    <li>Gameplay Programmer</li>
+                                    <li>Technical Artist</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Analysis -->
+                <div class="carousel-slide">
+                    <div class="career-card career-data">
+                        <div class="career-header-bar">
+                            <span class="career-type">Data Analyst</span>
+                            <span class="career-hp">HP 📊</span>
+                        </div>
+                        <div class="career-image">📊</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Análisis de Datos</h2>
+                            <p class="career-subtitle">Decisiones Basadas en Información</p>
+                            <p class="career-description">
+                                Convierte datos en insights accionables. Ayuda a las empresas a tomar decisiones inteligentes mediante análisis.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$3.5M-9M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$55K-130K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">R</span>
+                                    <span class="tool-tag">SQL</span>
+                                    <span class="tool-tag">Power BI</span>
+                                    <span class="tool-tag">Tableau</span>
+                                    <span class="tool-tag">Excel</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Data Analyst</li>
+                                    <li>Business Analyst</li>
+                                    <li>BI Developer</li>
+                                    <li>Data Visualization Specialist</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Design -->
+                <div class="carousel-slide">
+                    <div class="career-card career-design">
+                        <div class="career-header-bar">
+                            <span class="career-type">Graphic Designer</span>
+                            <span class="career-hp">HP ✨</span>
+                        </div>
+                        <div class="career-image">✨</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Diseño Gráfico Digital</h2>
+                            <p class="career-subtitle">Comunicación Visual Creativa</p>
+                            <p class="career-description">
+                                Comunica ideas a través del diseño visual. Crea desde logos y branding hasta contenido para redes sociales.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$2.5M-7M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$40K-100K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">Photoshop</span>
+                                    <span class="tool-tag">Illustrator</span>
+                                    <span class="tool-tag">Figma</span>
+                                    <span class="tool-tag">After Effects</span>
+                                    <span class="tool-tag">Canva</span>
+                                    <span class="tool-tag">InDesign</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>Graphic Designer</li>
+                                    <li>Brand Designer</li>
+                                    <li>Motion Designer</li>
+                                    <li>Social Media Designer</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAP/Enterprise -->
+                <div class="carousel-slide">
+                    <div class="career-card career-sap">
+                        <div class="career-header-bar">
+                            <span class="career-type">SAP Consultant</span>
+                            <span class="career-hp">HP 🏢</span>
+                        </div>
+                        <div class="career-image">🏢</div>
+                        <div class="career-content">
+                            <h2 class="career-title">Software Empresarial (SAP)</h2>
+                            <p class="career-subtitle">Soluciones Globales de Negocio</p>
+                            <p class="career-description">
+                                Implementa y gestiona sistemas empresariales complejos. Trabaja con grandes corporaciones globales optimizando procesos.
+                            </p>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <div class="stat-value">$5M-12M</div>
+                                    <div class="stat-label">Salario Colombia</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">$70K-150K</div>
+                                    <div class="stat-label">Salario Global</div>
+                                </div>
+                            </div>
+
+                            <div class="tools-section">
+                                <h3>⚡ Tecnologías</h3>
+                                <div class="tools-list">
+                                    <span class="tool-tag">SAP ERP</span>
+                                    <span class="tool-tag">SAP S/4HANA</span>
+                                    <span class="tool-tag">ABAP</span>
+                                    <span class="tool-tag">Fiori</span>
+                                    <span class="tool-tag">SAP BW</span>
+                                    <span class="tool-tag">SAP MM</span>
+                                </div>
+                            </div>
+
+                            <div class="roles-section">
+                                <h3>🎖️ Evoluciones</h3>
+                                <ul class="roles-list">
+                                    <li>SAP Consultant</li>
+                                    <li>SAP Developer</li>
+                                    <li>ERP Functional Analyst</li>
+                                    <li>SAP Project Manager</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-nav">
+            <button class="nav-arrow" id="prevBtn">←</button>
+            <div class="carousel-dots" id="dotsContainer"></div>
+            <button class="nav-arrow" id="nextBtn">→</button>
+        </div>
+    </div>
+
+    <div class="next-module-section">
+        <h3 style="color: white; font-size: 2rem; margin-bottom: 1rem;">🎯 ¡Felicitaciones!</h3>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 1rem;">
+            Has completado todos los módulos del curso
+        </p>
+        <p style="color: rgba(255,255,255,0.7);">
+            Ahora conoces el ecosistema digital completo
+        </p>
+        <a href="dia1-completado.html" class="next-button"> Final</a>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const totalSlides = slides.length;
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+            });
+
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        });
+    </script>
+</body>
+</html>

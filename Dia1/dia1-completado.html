@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Día 1 Completado! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #667eea;
+            position: absolute;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .completion-card {
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .trophy-icon {
+            font-size: 6rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .congrats-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .congrats-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+            margin: 2rem 0;
+        }
+
+        .next-day-section {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            text-align: left;
+        }
+
+        .next-day-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .next-day-icon {
+            font-size: 3rem;
+        }
+
+        .next-day-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .next-day-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .preview-content {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .topics-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .topic-item {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topic-icon {
+            font-size: 1.5rem;
+        }
+
+        .topic-text {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .complete-button {
+            flex: 1;
+            max-width: 400px;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complete-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .complete-button:hover::before {
+            left: 100%;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(72, 187, 120, 0.4);
+        }
+
+        .complete-button:active {
+            transform: translateY(-1px);
+        }
+
+        .menu-button {
+            padding: 1rem 2rem;
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .progress-indicator {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .progress-text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            animation: slideIn 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .congrats-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .complete-button {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <!-- Confetti (generado dinámicamente) -->
+    <div id="confettiContainer"></div>
+
+    <div class="container">
+        <div class="completion-card">
+            <div class="trophy-icon">🏆</div>
+            <h1 class="congrats-title">¡Felicidades!</h1>
+            <p class="congrats-subtitle">Has completado exitosamente el Día 1 del curso</p>
+
+            <!-- Estadísticas del día -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Módulos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Completado</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value">90</div>
+                    <div class="stat-label">Minutos</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Preview Día 2 -->
+            <div class="next-day-section">
+                <div class="next-day-header">
+                    <div class="next-day-icon">🚀</div>
+                    <div>
+                        <div class="next-day-title">Próximo: Día 2</div>
+                        <div class="next-day-subtitle">HTML: Construyendo tu Primera Página Web</div>
+                    </div>
+                </div>
+
+                <div class="preview-content">
+                    En el Día 2 aprenderás los fundamentos de HTML, el lenguaje que estructura toda la web. Descubrirás cómo crear páginas desde cero y darles significado con etiquetas semánticas.
+                </div>
+
+                <div class="topics-list">
+                    <div class="topic-item">
+                        <div class="topic-icon">🏗️</div>
+                        <div class="topic-text">Estructura HTML</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon">📝</div>
+                        <div class="topic-text">Etiquetas Básicas</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon">🔗</div>
+                        <div class="topic-text">Enlaces y Rutas</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon">🖼️</div>
+                        <div class="topic-text">Imágenes y Media</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon">📋</div>
+                        <div class="topic-text">Listas y Tablas</div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-icon">📄</div>
+                        <div class="topic-text">Formularios</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progreso del curso -->
+            <div class="progress-indicator">
+                <div class="progress-text">Progreso del Curso: 1/20 días completados</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 5%"></div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="complete-button" onclick="completeDay1()">
+                    ✅ Marcar Día 1 como Completado y Continuar
+                </button>
+            </div>
+
+            <button class="menu-button" onclick="goToMenu()" style="margin-top: 1rem;">
+                📋 Volver al Menú Principal
+            </button>
+
+            <!-- Mensaje de éxito -->
+            <div class="success-message" id="successMessage">
+                🎉 ¡Día 1 marcado como completado! El Día 2 ha sido desbloqueado. Redirigiendo al menú...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crear confetti animado
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confettiContainer');
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#48bb78', '#ed8936'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        createConfetti();
+
+        // Función para marcar el Día 1 como completado
+        function completeDay1() {
+            const button = document.querySelector('.complete-button');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Deshabilitar botón
+            button.disabled = true;
+            button.style.opacity = '0.6';
+            button.textContent = '⏳ Guardando progreso...';
+            
+            // Simular guardado con delay (para efecto visual)
+            setTimeout(() => {
+                // Obtener días completados actuales
+                let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[1]');
+                
+                // Agregar Día 1 si no está
+                if (!completedDays.includes(1)) {
+                    completedDays.push(1);
+                    localStorage.setItem('completedDays', JSON.stringify(completedDays));
+                }
+                
+                // Mostrar mensaje de éxito
+                successMessage.style.display = 'block';
+                
+                // Redirigir al menú después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = '../menu.html';
+                }, 2000);
+            }, 800);
+        }
+
+        // Función para volver al menú sin marcar como completado
+        function goToMenu() {
+            window.location.href = '../menu.html';
+        }
+
+        // Detectar si la página está dentro de un iframe (para el sistema parent)
+        if (window.parent !== window) {
+            // Si está en iframe, agregar botón alternativo que usa el parent
+            const altButton = document.createElement('button');
+            altButton.className = 'menu-button';
+            altButton.textContent = '✨ Marcar como Completado (Modo Iframe)';
+            altButton.onclick = function() {
+                if (window.parent.completeDay) {
+                    window.parent.completeDay(1);
+                    setTimeout(() => {
+                        window.parent.location.reload();
+                    }, 1000);
+                }
+            };
+            altButton.style.marginTop = '1rem';
+            document.querySelector('.action-buttons').appendChild(altButton);
+        }
+
+        // Guardar estadísticas del día (opcional, para futuras features)
+        localStorage.setItem('day1Stats', JSON.stringify({
+            completed: true,
+            modules: 4,
+            timeSpent: 90,
+            completedAt: new Date().toISOString()
+        }));
+
+        // Logging para debug
+        console.log('Días completados actualmente:', localStorage.getItem('completedDays'));
+    </script>
+</body>
+</html>

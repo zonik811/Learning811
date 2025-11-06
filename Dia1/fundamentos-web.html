@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos de Desarrollo Web</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-html: #E34F26;
+            --color-css: #1572B6;
+            --color-js: #F7DF1E;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .module-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .module-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 600px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 8px;
+            animation: progressPulse 2s ease infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .concept-section {
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius-xl);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-section.html-section {
+            border-color: var(--color-html);
+        }
+
+        .concept-section.css-section {
+            border-color: var(--color-css);
+        }
+
+        .concept-section.js-section {
+            border-color: var(--color-js);
+        }
+
+        .concept-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .concept-icon {
+            font-size: 4rem;
+        }
+
+        .concept-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .html-section .concept-title {
+            color: var(--color-html);
+        }
+
+        .css-section .concept-title {
+            color: var(--color-css);
+        }
+
+        .js-section .concept-title {
+            color: var(--color-js);
+        }
+
+        .concept-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .code-example {
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .code-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-primary);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--color-secondary);
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .next-module-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-module-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        .next-button {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .analogy-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .key-point {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .key-point:hover {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .key-point-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-point-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .key-point-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-card {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 2px solid;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .static-card {
+            border-color: #48bb78;
+        }
+
+        .dynamic-card {
+            border-color: #667eea;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .dom-tree {
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .tree-node {
+            margin-left: 2rem;
+            padding: 0.5rem;
+            border-left: 2px solid var(--color-primary);
+            margin-top: 0.5rem;
+        }
+
+        .tree-node::before {
+            content: '└─';
+            color: var(--color-primary);
+            margin-right: 0.5rem;
+        }
+
+        .quiz-section {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-indicators {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-indicator.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            transform: scale(1.2);
+        }
+
+        .quiz-indicator.completed {
+            background: #48bb78;
+            border-color: #48bb78;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: #f56565;
+            background: rgba(245, 101, 101, 0.1);
+        }
+
+        .nav-button {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .module-title {
+                font-size: 2rem;
+            }
+            .concept-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="header">
+        <h1 class="module-title">📚 Fundamentos de Desarrollo Web</h1>
+        <p class="module-subtitle">HTML, CSS, JavaScript y los conceptos esenciales</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); font-size: 1.1rem;">Módulo 2 de 4 • Día 1</p>
+    </div>
+
+    <div class="container">
+        <!-- HTML SECTION -->
+        <div class="concept-section html-section">
+            <div class="concept-header">
+                <div class="concept-icon">🏗️</div>
+                <div>
+                    <h2 class="concept-title">HTML - La Estructura</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">HyperText Markup Language</p>
+                </div>
+            </div>
+
+            <div class="concept-description">
+                HTML es el <strong>esqueleto de la web</strong>. Define la estructura y el contenido de las páginas web usando "etiquetas" que indican qué es cada cosa: un título, un párrafo, una imagen, un enlace, etc.
+            </div>
+
+            <div class="analogy-box">
+                <div class="analogy-title">🏠 Analogía: Una Casa</div>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                    HTML es como <strong>la estructura de una casa</strong>: las paredes, las puertas, las ventanas, las habitaciones. Sin HTML, tu sitio web no existiría, pero sería aburrido y sin estilo, como una casa sin pintar ni decorar.
+                </p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-title">💻 Ejemplo de HTML Básico</div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;title&gt;Mi Primera Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;¡Hola Mundo!&lt;/h1&gt;
+    &lt;p&gt;Este es un párrafo de texto.&lt;/p&gt;
+    &lt;a href="https://google.com"&gt;Ir a Google&lt;/a&gt;
+    &lt;img src="foto.jpg" alt="Una foto"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.8rem; margin: 2rem 0 1rem;">🔑 Elementos Clave de HTML</h3>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-icon">📝</div>
+                    <div class="key-point-title">Etiquetas</div>
+                    <div class="key-point-text">
+                        Se escriben entre &lt; y &gt;. Ejemplo: &lt;h1&gt;Título&lt;/h1&gt;
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🏷️</div>
+                    <div class="key-point-title">Atributos</div>
+                    <div class="key-point-text">
+                        Información extra en las etiquetas. Ejemplo: &lt;img src="foto.jpg"&gt;
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🎯</div>
+                    <div class="key-point-title">Semántica</div>
+                    <div class="key-point-text">
+                        Usar etiquetas correctas: &lt;header&gt;, &lt;nav&gt;, &lt;article&gt;, &lt;footer&gt;
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🔗</div>
+                    <div class="key-point-title">Enlaces</div>
+                    <div class="key-point-text">
+                        Conectan páginas con &lt;a href="url"&gt;Texto&lt;/a&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSS SECTION -->
+        <div class="concept-section css-section">
+            <div class="concept-header">
+                <div class="concept-icon">🎨</div>
+                <div>
+                    <h2 class="concept-title">CSS - El Estilo</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Cascading Style Sheets</p>
+                </div>
+            </div>
+
+            <div class="concept-description">
+                CSS es el <strong>diseñador de la web</strong>. Controla cómo se ven las cosas: colores, tamaños, posiciones, fuentes, animaciones. Toma la estructura de HTML y la hace hermosa y atractiva.
+            </div>
+
+            <div class="analogy-box">
+                <div class="analogy-title">🏠 Analogía: Una Casa</div>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                    CSS es como <strong>la decoración de una casa</strong>: el color de las paredes, los muebles, las cortinas, las luces. Hace que la estructura (HTML) se vea bonita y profesional.
+                </p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-title">💻 Ejemplo de CSS Básico</div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    <pre>/* Cambiar color y tamaño del título */
+h1 {
+    color: blue;
+    font-size: 32px;
+    text-align: center;
+}
+
+/* Estilizar todos los párrafos */
+p {
+    color: gray;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+/* Crear una clase reutilizable */
+.boton {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}</pre>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.8rem; margin: 2rem 0 1rem;">🔑 Elementos Clave de CSS</h3>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-icon">🎯</div>
+                    <div class="key-point-title">Selectores</div>
+                    <div class="key-point-text">
+                        Eligen qué elementos estilizar: h1, .clase, #id
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🖌️</div>
+                    <div class="key-point-title">Propiedades</div>
+                    <div class="key-point-text">
+                        color, font-size, background, margin, padding
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">📦</div>
+                    <div class="key-point-title">Box Model</div>
+                    <div class="key-point-text">
+                        Todo es una caja: contenido, padding, border, margin
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">📱</div>
+                    <div class="key-point-title">Responsive</div>
+                    <div class="key-point-text">
+                        Media queries para adaptarse a móviles y tablets
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT SECTION -->
+        <div class="concept-section js-section">
+            <div class="concept-header">
+                <div class="concept-icon">⚡</div>
+                <div>
+                    <h2 class="concept-title">JavaScript - La Interactividad</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">El lenguaje de programación de la web</p>
+                </div>
+            </div>
+
+            <div class="concept-description">
+                JavaScript es el <strong>cerebro de la web</strong>. Hace que las cosas pasen: clicks, animaciones, validaciones, cargar datos, responder a usuarios. Sin JavaScript, tu sitio sería estático (sin movimiento).
+            </div>
+
+            <div class="analogy-box">
+                <div class="analogy-title">🏠 Analogía: Una Casa</div>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                    JavaScript es como <strong>la electricidad y los dispositivos inteligentes</strong> de una casa: encender luces, abrir puertas automáticas, ajustar temperatura. Hace que la casa responda a tus acciones.
+                </p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-title">💻 Ejemplo de JavaScript Básico</div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    <pre>// Cambiar texto al hacer click
+document.getElementById('miBoton').addEventListener('click', function() {
+    document.getElementById('texto').textContent = '¡Hiciste click!';
+});
+
+// Validar un formulario
+function validarEmail(email) {
+    if (email.includes('@')) {
+        return true;
+    } else {
+        alert('Email inválido');
+        return false;
+    }
+}
+
+// Traer datos de una API
+fetch('https://api.ejemplo.com/datos')
+    .then(response => response.json())
+    .then(data => console.log(data));</pre>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.8rem; margin: 2rem 0 1rem;">🔑 Elementos Clave de JavaScript</h3>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-icon">📦</div>
+                    <div class="key-point-title">Variables</div>
+                    <div class="key-point-text">
+                        Almacenan datos: let nombre = "Juan";
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🔧</div>
+                    <div class="key-point-title">Funciones</div>
+                    <div class="key-point-text">
+                        Bloques de código reutilizables que hacen tareas
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🎯</div>
+                    <div class="key-point-title">Eventos</div>
+                    <div class="key-point-text">
+                        Responden a acciones: click, hover, submit, scroll
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">🌐</div>
+                    <div class="key-point-title">DOM Manipulation</div>
+                    <div class="key-point-text">
+                        Cambia contenido y estilo de la página dinámicamente
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BROWSER SECTION -->
+        <div class="concept-section">
+            <div class="concept-header">
+                <div class="concept-icon">🌐</div>
+                <div>
+                    <h2 class="concept-title" style="color: var(--color-primary);">¿Qué es un Navegador?</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">El programa que interpreta y muestra páginas web</p>
+                </div>
+            </div>
+
+            <div class="concept-description">
+                Un navegador (Chrome, Firefox, Safari, Edge) es el <strong>intérprete</strong> que lee tu código HTML, CSS y JavaScript, y lo convierte en una página web visual que puedes ver e interactuar.
+            </div>
+
+            <div class="analogy-box">
+                <div class="analogy-title">📖 Analogía</div>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                    El navegador es como un <strong>traductor universal</strong>. Lee el "idioma" del código (HTML/CSS/JS) y lo traduce a algo visual que los humanos entendemos: texto, imágenes, botones, animaciones.
+                </p>
+            </div>
+
+            <h3 style="font-size: 1.8rem; margin: 2rem 0 1rem;">🔄 Proceso del Navegador</h3>
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-icon">1️⃣</div>
+                    <div class="key-point-title">Descarga HTML</div>
+                    <div class="key-point-text">
+                        Pide el archivo al servidor web
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">2️⃣</div>
+                    <div class="key-point-title">Parsea el código</div>
+                    <div class="key-point-text">
+                        Lee y entiende la estructura HTML
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">3️⃣</div>
+                    <div class="key-point-title">Aplica CSS</div>
+                    <div class="key-point-text">
+                        Añade colores, tamaños y posiciones
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <div class="key-point-icon">4️⃣</div>
+                    <div class="key-point-title">Ejecuta JavaScript</div>
+                    <div class="key-point-text">
+                        Corre el código para hacer la página interactiva
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOM SECTION -->
+        <div class="concept-section">
+            <div class="concept-header">
+                <div class="concept-icon">🌳</div>
+                <div>
+                    <h2 class="concept-title" style="color: var(--color-accent);">¿Qué es el DOM?</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Document Object Model</p>
+                </div>
+            </div>
+
+            <div class="concept-description">
+                El DOM es una <strong>representación en memoria</strong> de tu página HTML como un árbol de objetos. Cada etiqueta HTML se convierte en un "nodo" que JavaScript puede leer y modificar.
+            </div>
+
+            <div class="analogy-box">
+                <div class="analogy-title">🌳 Analogía: Un Árbol Familiar</div>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                    El DOM es como un <strong>árbol genealógico</strong>. El &lt;html&gt; es el abuelo, &lt;body&gt; es el padre, y dentro hay hijos (&lt;h1&gt;, &lt;p&gt;, etc.). JavaScript puede "visitar" cualquier miembro de la familia y cambiar sus propiedades.
+                </p>
+            </div>
+
+            <div class="dom-tree">
+                <div style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem; margin-bottom: 1rem;">
+                    📄 Estructura del DOM
+                </div>
+                <div style="color: white; font-family: 'Consolas', monospace;">
+                    Document (raíz)
+                    <div class="tree-node">html</div>
+                    <div class="tree-node" style="margin-left: 4rem;">head
+                        <div class="tree-node" style="margin-left: 6rem;">title → "Mi Página"</div>
+                    </div>
+                    <div class="tree-node" style="margin-left: 4rem;">body
+                        <div class="tree-node" style="margin-left: 6rem;">h1 → "Hola Mundo"</div>
+                        <div class="tree-node" style="margin-left: 6rem;">p → "Este es un texto"</div>
+                        <div class="tree-node" style="margin-left: 6rem;">button → "Click aquí"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <div class="code-title">💻 Manipulando el DOM con JavaScript</div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    <pre>// Seleccionar un elemento por ID
+let titulo = document.getElementById('miTitulo');
+
+// Cambiar su contenido
+titulo.textContent = 'Nuevo Título';
+
+// Cambiar su estilo
+titulo.style.color = 'red';
+titulo.style.fontSize = '40px';
+
+// Crear un nuevo elemento
+let nuevoParrafo = document.createElement('p');
+nuevoParrafo.textContent = 'Párrafo creado con JavaScript';
+document.body.appendChild(nuevoParrafo);</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATIC VS DYNAMIC SECTION -->
+        <div class="concept-section">
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 2rem; color: var(--color-primary);">
+                📄 Páginas Estáticas vs Dinámicas
+            </h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card static-card">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title" style="color: #48bb78;">Página Estática</div>
+                    <div class="card-description">
+                        Una página estática es como un <strong>documento impreso</strong>. El contenido es fijo y es igual para todos los visitantes. No cambia a menos que edites manualmente el código HTML.
+                    </div>
+                    <h4 style="margin: 1rem 0; color: white;">Características:</h4>
+                    <ul class="card-features">
+                        <li>✅ Mismo contenido para todos</li>
+                        <li>✅ Carga muy rápida</li>
+                        <li>✅ Fácil de crear y hostear</li>
+                        <li>✅ Más barata de mantener</li>
+                        <li>❌ No hay interacción con base de datos</li>
+                        <li>❌ Difícil actualizar contenido masivamente</li>
+                    </ul>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(72, 187, 120, 0.1); border-radius: 8px;">
+                        <strong>Ejemplos:</strong> Portafolio personal, Landing page, Blog simple, Sitio de documentación
+                    </div>
+                </div>
+
+                <div class="comparison-card dynamic-card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title" style="color: #667eea;">Página Dinámica</div>
+                    <div class="card-description">
+                        Una página dinámica es como una <strong>pantalla interactiva</strong>. El contenido cambia según el usuario, la hora, o datos de una base de datos. Se genera en el momento que la visitas.
+                    </div>
+                    <h4 style="margin: 1rem 0; color: white;">Características:</h4>
+                    <ul class="card-features">
+                        <li>✅ Contenido personalizado por usuario</li>
+                        <li>✅ Conectada a base de datos</li>
+                        <li>✅ Actualizaciones en tiempo real</li>
+                        <li>✅ Interacciones complejas (login, compras, etc.)</li>
+                        <li>❌ Más lenta de cargar</li>
+                        <li>❌ Más compleja de desarrollar</li>
+                    </ul>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                        <strong>Ejemplos:</strong> Facebook, Netflix, Amazon, Aplicaciones web, Sistemas de gestión
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example" style="margin-top: 3rem;">
+                <div class="code-title">💡 Diferencia Técnica</div>
+                <div style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-top: 1rem;">
+                    <p><strong>Página Estática:</strong></p>
+                    <p style="margin-left: 2rem;">Servidor → Envía archivo HTML completo → Navegador lo muestra</p>
+                    <br>
+                    <p><strong>Página Dinámica:</strong></p>
+                    <p style="margin-left: 2rem;">Navegador → Pide datos → Servidor consulta base de datos → Genera HTML personalizado → Navegador lo muestra</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION -->
+        <div class="quiz-section">
+            <h3 style="color: white; margin-bottom: 2rem; font-size: 1.5rem;">🧠 Quiz: ¿Entendiste los fundamentos?</h3>
+            <div class="quiz-indicators">
+                <div class="quiz-indicator" data-question="0">1</div>
+                <div class="quiz-indicator" data-question="1">2</div>
+                <div class="quiz-indicator" data-question="2">3</div>
+                <div class="quiz-indicator" data-question="3">4</div>
+                <div class="quiz-indicator" data-question="4">5</div>
+            </div>
+            
+            <div id="quiz-container"></div>
+            
+            <div class="quiz-navigation" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                <button id="prev-btn" class="nav-button" onclick="previousQuestion()" style="display: none;">
+                    ⬅️ Anterior
+                </button>
+                <button id="next-btn" class="nav-button" onclick="nextQuestion()" style="display: none;">
+                    Siguiente ➡️
+                </button>
+            </div>
+            
+            <div id="quiz-result" style="margin-top: 2rem;"></div>
+        </div>
+
+        <div class="next-module-section">
+            <h3 style="color: white; font-size: 2rem; margin-bottom: 1rem;">🎯 ¡Excelente trabajo!</h3>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 1rem;">
+                Has completado los fundamentos Web
+            </p>
+            <p style="color: rgba(255,255,255,0.7);">
+                Próximo: Funcionamiento de Plataformas 
+            </p>
+            <a href="plataformas-gigantes.html" class="next-button">🚀 Siguiente Módulo</a>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('pre');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text);
+            
+            button.textContent = '✅ Copiado';
+            setTimeout(() => {
+                button.textContent = 'Copiar';
+            }, 2000);
+        }
+
+        const quizData = [
+            {
+                question: "¿Cuál es la función principal de HTML en una página web?",
+                options: [
+                    "Dar color y estilo a la página",
+                    "Definir la estructura y el contenido",
+                    "Hacer que la página sea interactiva",
+                    "Conectarse a la base de datos"
+                ],
+                correct: 1,
+                explanation: "HTML (HyperText Markup Language) define la estructura y el contenido de la página usando etiquetas. Es el 'esqueleto' de la web."
+            },
+            {
+                question: "¿Qué hace CSS en el desarrollo web?",
+                options: [
+                    "Crea la estructura de la página",
+                    "Controla la apariencia visual: colores, tamaños, posiciones",
+                    "Maneja la lógica y la interactividad",
+                    "Almacena datos en el servidor"
+                ],
+                correct: 1,
+                explanation: "CSS (Cascading Style Sheets) controla cómo se ven las cosas: colores, fuentes, espaciado, layout. Es el 'diseñador' de la web."
+            },
+            {
+                question: "¿Qué es el DOM (Document Object Model)?",
+                options: [
+                    "Un lenguaje de programación",
+                    "Una base de datos",
+                    "Una representación en memoria de la página HTML como un árbol de objetos",
+                    "Un servidor web"
+                ],
+                correct: 2,
+                explanation: "El DOM es una representación de la página HTML como un árbol de nodos que JavaScript puede leer y modificar dinámicamente."
+            },
+            {
+                question: "¿Cuál es la diferencia principal entre una página estática y una dinámica?",
+                options: [
+                    "Las estáticas usan HTML y las dinámicas no",
+                    "Las estáticas tienen el mismo contenido para todos, las dinámicas cambian según el usuario o datos",
+                    "Las dinámicas no usan CSS",
+                    "Las estáticas son más caras de mantener"
+                ],
+                correct: 1,
+                explanation: "Las páginas estáticas tienen contenido fijo para todos, mientras que las dinámicas generan contenido personalizado basándose en bases de datos o interacciones del usuario."
+            },
+            {
+                question: "¿Qué hace JavaScript en una página web?",
+                options: [
+                    "Define la estructura HTML",
+                    "Cambia los colores y fuentes",
+                    "Añade interactividad: responde a clicks, valida formularios, actualiza contenido dinámicamente",
+                    "Guarda datos en el servidor"
+                ],
+                correct: 2,
+                explanation: "JavaScript es el lenguaje de programación que hace que las páginas sean interactivas: eventos, animaciones, validaciones, manipulación del DOM, llamadas a APIs."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function loadQuestion(index) {
+            const container = document.getElementById('quiz-container');
+            const question = quizData[index];
+            
+            container.innerHTML = `
+                <div class="quiz-question">
+                    Pregunta ${index + 1} de ${quizData.length}: ${question.question}
+                </div>
+                <div class="quiz-options">
+                    ${question.options.map((option, i) => `
+                        <div class="quiz-option ${userAnswers[index] === i ? (i === question.correct ? 'correct' : 'wrong') : ''}" 
+                             onclick="selectAnswer(${i})"
+                             ${userAnswers[index] !== null ? 'style="pointer-events: none;"' : ''}>
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                ${userAnswers[index] !== null ? `
+                    <div style="color: ${userAnswers[index] === question.correct ? '#48bb78' : '#f56565'}; font-weight: 600; margin-top: 1rem; padding: 1rem; background: rgba(40,40,40,0.8); border-radius: 12px;">
+                        ${userAnswers[index] === question.correct ? '✅ ¡Correcto!' : '❌ Incorrecto.'} ${question.explanation}
+                    </div>
+                ` : ''}
+            `;
+
+            document.querySelectorAll('.quiz-indicator').forEach((indicator, i) => {
+                indicator.classList.remove('active', 'completed');
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else if (userAnswers[i] !== null) {
+                    indicator.classList.add('completed');
+                }
+            });
+
+            document.getElementById('prev-btn').style.display = index > 0 ? 'block' : 'none';
+            document.getElementById('next-btn').style.display = userAnswers[index] !== null && index < quizData.length - 1 ? 'block' : 'none';
+
+            if (userAnswers.every(answer => answer !== null) && index === quizData.length - 1) {
+                showFinalResults();
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizData[currentQuestion];
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+            
+            loadQuestion(currentQuestion);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function showFinalResults() {
+            const percentage = (score / quizData.length) * 100;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            let message = '';
+            let color = '';
+            
+            if (percentage >= 80) {
+                message = '🎉 ¡Perfecto! Dominas los fundamentos';
+                color = '#48bb78';
+            } else if (percentage >= 60) {
+                message = '👍 ¡Bien! Repasa los conceptos que fallaste';
+                color = '#ed8936';
+            } else {
+                message = '📚 Necesitas repasar los fundamentos';
+                color = '#f56565';
+            }
+            
+            resultDiv.innerHTML = `
+                <div style="background: rgba(40,40,40,0.9); padding: 2rem; border-radius: 16px; border: 2px solid ${color}; text-align: center; margin-top: 2rem;">
+                    <h3 style="color: ${color}; font-size: 2rem; margin-bottom: 1rem;">${message}</h3>
+                    <p style="font-size: 1.5rem; color: white; margin-bottom: 0.5rem;">
+                        Puntuación: ${score} / ${quizData.length}
+                    </p>
+                    <p style="font-size: 1.2rem; color: rgba(255,255,255,0.7);">
+                        ${percentage.toFixed(0)}% correcto
+                    </p>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestion(0);
+        });
+
+        document.querySelectorAll('.quiz-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentQuestion = index;
+                loadQuestion(currentQuestion);
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.concept-section, .quiz-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Fundamentos del Ecosistema Digital</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-teal: #33808d;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .header {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .module-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .module-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 600px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 20%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 8px;
+            animation: progressPulse 2s ease infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .topic-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+        }
+
+        .topic-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .topic-description {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .topic-description strong {
+            color: #f093fb;
+            font-weight: 600;
+        }
+
+        .topic-concepts {
+            list-style: none;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .topic-concepts li {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.7;
+        }
+
+        .topic-concepts li:last-child {
+            border-bottom: none;
+        }
+
+        .topic-concepts li:before {
+            content: '✨';
+            margin-right: 1rem;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .topic-concepts strong {
+            color: #667eea;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        .beginner {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .intermediate {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+        }
+
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3.5rem;
+            margin: 4rem 0;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .demo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .web-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .diagram-element {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border: 3px solid var(--color-primary);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .diagram-element:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            transform: scale(1.08) translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .diagram-element .icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .diagram-element strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .diagram-element p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        #info-display {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2.5rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            line-height: 1.8;
+        }
+
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3.5rem;
+            margin: 4rem 0;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-question {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(8px);
+        }
+
+        .quiz-option.correct {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.2);
+        }
+
+        .quiz-option.wrong {
+            border-color: #f56565;
+            background: rgba(245, 101, 101, 0.2);
+        }
+
+        .quiz-indicator {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-indicator:hover {
+            transform: scale(1.15);
+        }
+
+        .quiz-indicator.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            transform: scale(1.25);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .quiz-indicator.completed {
+            background: #48bb78;
+            border-color: #48bb78;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .next-module-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .next-button {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1.3rem 3rem;
+            border-radius: 14px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .next-button:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .module-title {
+                font-size: 2.2rem;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .web-diagram {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="module-title">🌐 Fundamentos del Ecosistema Digital</h1>
+        <p class="module-subtitle">Descubre cómo funciona el mundo digital y la programación</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); font-size: 1.1rem;">Módulo 1 de 4 • Día 1</p>
+    </div>
+
+    <div class="container">
+        <div class="topics-grid">
+            <div class="topic-card">
+                <span class="topic-icon">🌍</span>
+                <h3 class="topic-title">¿Qué es Internet?</h3>
+                <p class="topic-description">
+                    Internet es una red gigante de computadoras conectadas entre sí en todo el mundo. Imagina que es como un sistema de carreteras donde cada computadora es una ciudad y los cables/señales wifi son las carreteras que las conectan.
+                </p>
+                <p class="topic-description">
+                    <strong>¿Cómo funciona?</strong><br>
+                    Cuando escribes una dirección web (como www.google.com), tu computadora envía un mensaje a través de esta red hasta encontrar el servidor que tiene la información que buscas. Es como enviar una carta que viaja por diferentes oficinas de correos hasta llegar a su destino.
+                </p>
+                <ul class="topic-concepts">
+                    <li><strong>Servidores:</strong> Computadoras especiales siempre encendidas que guardan sitios web</li>
+                    <li><strong>Clientes:</strong> Tu computadora o teléfono que pide información</li>
+                    <li><strong>URLs:</strong> Las direcciones únicas de cada página web (como tu dirección de casa)</li>
+                    <li><strong>HTTP/HTTPS:</strong> El "idioma" que usan las computadoras para comunicarse</li>
+                    <li><strong>DNS:</strong> Como una agenda telefónica que traduce nombres a direcciones</li>
+                    <li><strong>Ancho de banda:</strong> Qué tan rápido pueden viajar los datos</li>
+                </ul>
+                <span class="difficulty-badge beginner">Principiante</span>
+            </div>
+
+            <div class="topic-card">
+                <span class="topic-icon">💻</span>
+                <h3 class="topic-title">¿Qué es Programar?</h3>
+                <p class="topic-description">
+                    Programar es darle instrucciones precisas a una computadora para que haga lo que tú quieres. Es como escribir una receta de cocina super detallada: debes decirle cada paso exactamente, en orden, sin asumir nada.
+                </p>
+                <p class="topic-description">
+                    <strong>Ejemplo:</strong><br>
+                    Si le dices a un humano "prepara café", él sabe qué hacer. Pero a una computadora debes decirle: "1. Toma la cafetera, 2. Llénala con 500ml de agua, 3. Agrega 2 cucharadas de café, 4. Enciende el fuego..." y así cada detalle.
+                </p>
+                <ul class="topic-concepts">
+                    <li><strong>Lenguajes de programación:</strong> Como idiomas (inglés, español) pero para computadoras (HTML, JavaScript, Python)</li>
+                    <li><strong>Algoritmos:</strong> Secuencia de pasos para resolver un problema</li>
+                    <li><strong>Variables:</strong> Cajas donde guardas información (como tu edad, nombre, etc.)</li>
+                    <li><strong>Funciones:</strong> Bloques de código reutilizables (como recetas guardadas)</li>
+                    <li><strong>Condicionales:</strong> Decisiones (si pasa X, haz Y, si no, haz Z)</li>
+                    <li><strong>Loops:</strong> Repetir acciones muchas veces automáticamente</li>
+                </ul>
+                <span class="difficulty-badge beginner">Principiante</span>
+            </div>
+
+            <div class="topic-card">
+                <span class="topic-icon">🏗️</span>
+                <h3 class="topic-title">Frontend vs Backend</h3>
+                <p class="topic-description">
+                    <strong>Frontend</strong> es todo lo que VES y con lo que INTERACTÚAS en una página web: botones, colores, textos, animaciones. Es como el escenario y decorado de un teatro que el público puede ver.
+                </p>
+                <p class="topic-description">
+                    <strong>Backend</strong> es todo lo que NO VES pero hace que todo funcione: bases de datos, autenticación, procesamiento de pagos. Es como el equipo detrás del escenario: electricistas, tramoyistas, directores.
+                </p>
+                <p class="topic-description">
+                    <strong>Ejemplo real:</strong><br>
+                    Cuando haces clic en "Me gusta" en Instagram:<br>
+                    • <strong>Frontend:</strong> El corazón se pone rojo (animación visual)<br>
+                    • <strong>Backend:</strong> Se guarda en la base de datos que a ti te gustó esa foto, se notifica al dueño, se actualiza el contador
+                </p>
+                <ul class="topic-concepts">
+                    <li><strong>Frontend usa:</strong> HTML (estructura), CSS (diseño), JavaScript (interactividad)</li>
+                    <li><strong>Backend usa:</strong> Python, Node.js, Java, bases de datos (MySQL, MongoDB)</li>
+                    <li><strong>Fullstack:</strong> Programadores que saben hacer ambas cosas</li>
+                    <li><strong>APIs:</strong> Puentes que conectan Frontend con Backend</li>
+                    <li><strong>UI/UX:</strong> Diseño de interfaces y experiencia de usuario</li>
+                </ul>
+                <span class="difficulty-badge intermediate">Intermedio</span>
+            </div>
+
+            <div class="topic-card">
+                <span class="topic-icon">🛠️</span>
+                <h3 class="topic-title">Herramientas del Desarrollador</h3>
+                <p class="topic-description">
+                    Así como un carpintero necesita martillo y sierra, los programadores necesitan herramientas especiales. Son programas que hacen tu vida más fácil y te ayudan a escribir código mejor y más rápido.
+                </p>
+                <p class="topic-description">
+                    <strong>Las herramientas principales son:</strong>
+                </p>
+                <ul class="topic-concepts">
+                    <li><strong>VS Code (Editor):</strong> Donde escribes tu código. Es como Microsoft Word pero para programadores, con colores que ayudan a leer mejor</li>
+                    <li><strong>Navegadores web:</strong> Chrome, Firefox, Safari - donde pruebas tu página web</li>
+                    <li><strong>DevTools:</strong> Herramientas ocultas en el navegador (F12) para inspeccionar páginas y encontrar errores</li>
+                    <li><strong>Terminal:</strong> Ventana negra con texto donde das comandos rápidos (como buscar archivos, instalar programas)</li>
+                    <li><strong>Git/GitHub:</strong> Para guardar versiones de tu código (como "Ctrl+Z" ultra poderoso) y colaborar con otros</li>
+                    <li><strong>Extensiones:</strong> Plugins que mejoran VS Code (corrector, colores, atajos)</li>
+                </ul>
+                <span class="difficulty-badge beginner">Principiante</span>
+            </div>
+        </div>
+
+        <div class="interactive-demo">
+            <h3 class="demo-title">🔄 Cómo funciona una página web</h3>
+            <div class="web-diagram">
+                <div class="diagram-element" onclick="showInfo('user')">
+                    <span class="icon">👤</span>
+                    <strong>Usuario</strong>
+                    <p>Tú navegando</p>
+                </div>
+                
+                <div class="diagram-element" onclick="showInfo('browser')">
+                    <span class="icon">🌐</span>
+                    <strong>Navegador</strong>
+                    <p>Chrome, Firefox</p>
+                </div>
+                
+                <div class="diagram-element" onclick="showInfo('server')">
+                    <span class="icon">🖥️</span>
+                    <strong>Servidor</strong>
+                    <p>Computadora remota</p>
+                </div>
+                
+                <div class="diagram-element" onclick="showInfo('database')">
+                    <span class="icon">💾</span>
+                    <strong>Base de Datos</strong>
+                    <p>Almacena información</p>
+                </div>
+            </div>
+            <div id="info-display">
+                Haz clic en cualquier elemento para aprender más 👆
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <h3 style="color: white; margin-bottom: 2.5rem; font-size: 2rem; font-weight: 700;">🧠 Quiz de Conocimientos</h3>
+            <div style="margin-bottom: 3rem; display: flex; gap: 1rem; justify-content: center;">
+                <div class="quiz-indicator" data-question="0">1</div>
+                <div class="quiz-indicator" data-question="1">2</div>
+                <div class="quiz-indicator" data-question="2">3</div>
+                <div class="quiz-indicator" data-question="3">4</div>
+                <div class="quiz-indicator" data-question="4">5</div>
+            </div>
+            
+            <div id="quiz-container"></div>
+            
+            <div class="quiz-navigation" style="display: flex; justify-content: space-between; margin-top: 2.5rem;">
+                <button id="prev-btn" class="nav-button" onclick="previousQuestion()" style="display: none;">
+                    ⬅️ Anterior
+                </button>
+                <button id="next-btn" class="nav-button" onclick="nextQuestion()" style="display: none;">
+                    Siguiente ➡️
+                </button>
+            </div>
+            
+            <div id="quiz-result" style="margin-top: 2rem;"></div>
+        </div>
+
+        <div class="next-module-section">
+            <h3 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 700;">🎯 ¡Excelente trabajo!</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 500;">
+                Has completado los fundamentos del ecosistema digital
+            </p>
+            <p style="color: rgba(255,255,255,0.85); font-size: 1.1rem;">
+                Próximo: Fundamentos de HTML, CSS y JavaScript
+            </p>
+            <a href="fundamentos-web.html" class="next-button">🚀 Siguiente Módulo</a>
+        </div>
+    </div>
+
+    <script>
+        function showInfo(element) {
+            const infoDisplay = document.getElementById('info-display');
+            const info = {
+                user: "👤 <strong>Usuario</strong><br>Eres tú, navegando por internet desde tu computadora o teléfono. Escribes una URL o haces clic en un enlace.",
+                browser: "🌐 <strong>Navegador</strong><br>Tu navegador (Chrome, Firefox, Safari) es como un traductor. Toma tu petición y la envía al servidor correcto en internet.",
+                server: "🖥️ <strong>Servidor</strong><br>Una computadora especial que está siempre encendida, esperando peticiones. Aquí vive el código de la página web que quieres ver.",
+                database: "💾 <strong>Base de Datos</strong><br>Como un archivo gigante organizado donde se guarda toda la información: usuarios, posts, fotos, comentarios, etc."
+            };
+            
+            infoDisplay.innerHTML = info[element];
+            infoDisplay.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3))';
+            infoDisplay.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+        }
+
+        const quizData = [
+            {
+                question: "¿Qué es Internet?",
+                options: [
+                    "Una red de computadoras conectadas en todo el mundo",
+                    "Un programa de computadora",
+                    "Un tipo de teléfono",
+                    "Una empresa de tecnología"
+                ],
+                correct: 0,
+                explanation: "Internet es una red gigante que conecta millones de computadoras alrededor del mundo, permitiéndoles comunicarse entre sí."
+            },
+            {
+                question: "¿Qué hace un servidor?",
+                options: [
+                    "Navega por internet",
+                    "Guarda y envía páginas web cuando se las piden",
+                    "Escribe código",
+                    "Diseña páginas web"
+                ],
+                correct: 1,
+                explanation: "Un servidor es una computadora especial que está siempre encendida, esperando peticiones y enviando páginas web a quien las solicite."
+            },
+            {
+                question: "¿Cuál es la diferencia principal entre Frontend y Backend?",
+                options: [
+                    "Frontend maneja bases de datos, Backend la interfaz",
+                    "Frontend es lo que ve el usuario, Backend es la lógica del servidor",
+                    "Frontend es más difícil que Backend",
+                    "No hay diferencia entre ellos"
+                ],
+                correct: 1,
+                explanation: "Frontend es todo lo visual que ves e interactúas (botones, colores). Backend es la lógica invisible que hace que todo funcione (bases de datos, autenticación)."
+            },
+            {
+                question: "¿Qué es una variable en programación?",
+                options: [
+                    "Un error en el código",
+                    "Una caja donde guardas información",
+                    "Un tipo de computadora",
+                    "Un lenguaje de programación"
+                ],
+                correct: 1,
+                explanation: "Una variable es como una caja con nombre donde guardas datos (números, texto, etc.) que puedes usar y cambiar más tarde en tu programa."
+            },
+            {
+                question: "¿Para qué sirve VS Code?",
+                options: [
+                    "Para navegar en internet",
+                    "Para escribir y editar código de programación",
+                    "Para diseñar imágenes",
+                    "Para jugar videojuegos"
+                ],
+                correct: 1,
+                explanation: "VS Code es un editor de código donde los programadores escriben sus programas. Es como Word pero especializado para código, con colores y herramientas útiles."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function loadQuestion(index) {
+            const container = document.getElementById('quiz-container');
+            const question = quizData[index];
+            
+            container.innerHTML = `
+                <div class="quiz-question">
+                    Pregunta ${index + 1} de ${quizData.length}: ${question.question}
+                </div>
+                <div class="quiz-options">
+                    ${question.options.map((option, i) => `
+                        <div class="quiz-option ${userAnswers[index] === i ? (i === question.correct ? 'correct' : 'wrong') : ''}" 
+                             onclick="selectAnswer(${i})"
+                             ${userAnswers[index] !== null ? 'style="pointer-events: none;"' : ''}>
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                ${userAnswers[index] !== null ? `
+                    <div style="color: ${userAnswers[index] === question.correct ? '#48bb78' : '#f56565'}; font-weight: 600; margin-top: 1.5rem; padding: 1.5rem; background: rgba(40,40,40,0.6); border-radius: 12px; font-size: 1.1rem;">
+                        ${userAnswers[index] === question.correct ? '✅ ¡Correcto!' : '❌ Incorrecto.'} ${question.explanation}
+                    </div>
+                ` : ''}
+            `;
+
+            document.querySelectorAll('.quiz-indicator').forEach((indicator, i) => {
+                indicator.classList.remove('active', 'completed');
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else if (userAnswers[i] !== null) {
+                    indicator.classList.add('completed');
+                }
+            });
+
+            document.getElementById('prev-btn').style.display = index > 0 ? 'block' : 'none';
+            document.getElementById('next-btn').style.display = userAnswers[index] !== null && index < quizData.length - 1 ? 'block' : 'none';
+
+            if (userAnswers.every(answer => answer !== null) && index === quizData.length - 1) {
+                showFinalResults();
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizData[currentQuestion];
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+            
+            loadQuestion(currentQuestion);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function showFinalResults() {
+            const percentage = (score / quizData.length) * 100;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            let message = '';
+            let color = '';
+            
+            if (percentage >= 80) {
+                message = '🎉 ¡Excelente! Dominas los fundamentos';
+                color = '#48bb78';
+            } else if (percentage >= 60) {
+                message = '👍 ¡Bien hecho! Vas por buen camino';
+                color = '#ed8936';
+            } else {
+                message = '📚 Sigue practicando, puedes mejorar';
+                color = '#f56565';
+            }
+            
+            resultDiv.innerHTML = `
+                <div style="background: rgba(40,40,40,0.8); padding: 2.5rem; border-radius: 20px; border: 3px solid ${color}; text-align: center; margin-top: 2rem;">
+                    <h3 style="color: ${color}; font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 700;">${message}</h3>
+                    <p style="font-size: 1.8rem; color: white; margin-bottom: 0.8rem; font-weight: 600;">
+                        Puntuación: ${score} / ${quizData.length}
+                    </p>
+                    <p style="font-size: 1.3rem; color: rgba(255,255,255,0.8);">
+                        ${percentage.toFixed(0)}% correcto
+                    </p>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestion(0);
+        });
+
+        document.querySelectorAll('.quiz-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentQuestion = index;
+                loadQuestion(currentQuestion);
+            });
+        });
+    </script>
+</body>
+</html>
