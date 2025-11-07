@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 6 - Módulo 2: Tipos de Datos</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .module-header {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 48px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+
+        .module-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .module-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 12px;
+        }
+
+        .module-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 12px;
+        }
+
+        .subsection-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concept-card {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 24px;
+        }
+
+        .concept-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .concept-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .important-box {
+            background: rgba(102,126,234,0.1);
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .important-box strong {
+            color: #667eea;
+        }
+
+        .note-box {
+            background: rgba(72,187,120,0.1);
+            border-left: 4px solid #48bb78;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .note-box strong {
+            color: #48bb78;
+        }
+
+        .warning-box {
+            background: rgba(245,101,101,0.1);
+            border-left: 4px solid #f56565;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .warning-box strong {
+            color: #f56565;
+        }
+
+        .code-example {
+            background: rgba(0,0,0,0.7);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .type-card {
+            background: rgba(50,50,50,0.95);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(102,126,234,0.2);
+            margin-bottom: 20px;
+        }
+
+        .type-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .type-description {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .comparison-box {
+            background: rgba(50,50,50,0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+
+        .comparison-box.good {
+            border-color: #48bb78;
+        }
+
+        .comparison-box.bad {
+            border-color: #f56565;
+        }
+
+        .comparison-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+        }
+
+        .comparison-box.good h4 {
+            color: #48bb78;
+        }
+
+        .comparison-box.bad h4 {
+            color: #f56565;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-input {
+            background: rgba(50,50,50,0.8);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(102,126,234,0.3);
+        }
+
+        .demo-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+            font-size: 14px;
+        }
+
+        .demo-input input,
+        .demo-input select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(30,30,30,0.9);
+            border: 1px solid rgba(102,126,234,0.3);
+            color: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .demo-input input:focus,
+        .demo-input select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .demo-output {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff00;
+        }
+
+        .demo-output h4 {
+            margin: 0 0 12px 0;
+            color: #00ff00;
+            font-size: 14px;
+        }
+
+        .output-line {
+            color: rgba(255,255,255,0.8);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+
+        .interactive-demo {
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid rgba(102,126,234,0.2);
+            margin: 24px 0;
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        button.btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 100%;
+        }
+
+        button.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 64px 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .learning-points {
+            background: rgba(50,50,50,0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .learning-points ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .learning-points li {
+            margin: 8px 0;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="module-header">
+            <div class="module-icon">🔤</div>
+            <h1 class="module-title">Tipos de Datos</h1>
+            <p class="module-subtitle">JavaScript tiene varios tipos de información</p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.8;">
+                Todo dato en JavaScript pertenece a un tipo. Entender los tipos de datos es esencial para escribir código correcto 
+                y evitar errores. En este módulo aprenderás todos los tipos primitivos y cómo funcionan.
+            </p>
+        </div>
+
+        <!-- 1. ¿QUÉ SON LOS TIPOS DE DATOS? -->
+        <section>
+            <h2 class="section-title">1️⃣ ¿Qué Son los Tipos de Datos?</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🤔 Definición</div>
+                <div class="concept-text">
+                    Los <strong>tipos de datos</strong> especifican <strong>qué clase de información</strong> puede contener una variable. 
+                    Cada tipo tiene características y comportamientos diferentes. JavaScript es un lenguaje "débilmente tipado", 
+                    lo que significa que una variable puede cambiar de tipo durante la ejecución del programa.
+                </div>
+                <div class="important-box">
+                    <strong>💡 Analógía:</strong> Es como clasificar objetos en una casa. No es lo mismo una "manzana" (fruta) 
+                    que un "plato" (objeto). Cada tipo tiene propiedades y comportamientos distintos.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📊 Los 7 Tipos Primitivos de JavaScript</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>String:</strong> Texto. Ejemplos: "Hola", 'JavaScript'</li>
+                        <li><strong>Number:</strong> Números enteros y decimales. Ejemplos: 42, 3.14, -100</li>
+                        <li><strong>Boolean:</strong> Verdadero o falso. Ejemplos: true, false</li>
+                        <li><strong>null:</strong> Representa "sin valor" intencionalmente</li>
+                        <li><strong>undefined:</strong> Variable sin valor asignado</li>
+                        <li><strong>Symbol:</strong> Identificador único (avanzado, poco usado)</li>
+                        <li><strong>BigInt:</strong> Números muy grandes (avanzado)</li>
+                    </ul>
+                </div>
+                <div class="note-box">
+                    <strong>📝 Nota:</strong> En este módulo nos enfocamos en los 5 primeros que usarás regularmente. 
+                    Symbol y BigInt los verás en cursos avanzados.
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. STRING (TEXTO) -->
+        <section>
+            <h2 class="section-title">2️⃣ STRING: Trabajar con Texto</h2>
+            
+            <div class="type-card">
+                <div class="type-name">📝 ¿Qué es un String?</div>
+                <div class="type-description">
+                    Un <strong>string</strong> es un <strong>texto</strong>. Puede contener letras, números, espacios, símbolos, 
+                    emojis, etc. SIEMPRE debe estar entre comillas (simples, dobles o backticks).
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">3️⃣ Formas de Definir un String</div>
+                <div class="comparison-grid">
+                    <div class="comparison-box good">
+                        <h4>✅ Comillas Simples</h4>
+                        <div class="code-example">
+let nombre = 'Sofia';<br>
+let mensaje = 'Hola mundo';<br>
+let vacio = '';
+                        </div>
+                    </div>
+                    <div class="comparison-box good">
+                        <h4>✅ Comillas Dobles</h4>
+                        <div class="code-example">
+let nombre = "Sofia";<br>
+let mensaje = "Hola mundo";<br>
+let vacio = "";
+                        </div>
+                    </div>
+                    <div class="comparison-box good">
+                        <h4>✅ Template Literals (Backticks)</h4>
+                        <div class="code-example">
+let nombre = `Sofia`;<br>
+let edad = 25;<br>
+let saludo = `Hola, soy ${nombre}`;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="important-box">
+                    <strong>💡 Diferencia principal:</strong> Template literals (backticks) permiten insertar variables 
+                    con <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">${variable}</code>. 
+                    Son más poderosos y fáciles de leer. <strong>Recomendación: usa template literals.</strong>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos de Strings</div>
+                <div class="code-example">
+// Texto simple<br>
+const nombre = "Sofia";<br>
+<br>
+// Texto con números (sigue siendo string)<br>
+const codigo = "25ABC";<br>
+<br>
+// Texto con símbolos<br>
+const email = "sofia@email.com";<br>
+<br>
+// Texto vacío<br>
+const vacio = "";<br>
+<br>
+// Múltiples líneas (solo con backticks)<br>
+const parrafo = `Esta es una<br>
+línea 2<br>
+línea 3`;<br>
+<br>
+// Insertar variables<br>
+const edad = 25;<br>
+const presentacion = `Tengo ${edad} años`;  // "Tengo 25 años"
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Error Común:</strong> Olvidar las comillas
+                <div class="code-example">
+let nombre = Sofia;   // ❌ ERROR - JavaScript busca variable "Sofia"<br>
+let nombre = "Sofia"; // ✅ CORRECTO - Es un texto
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. NUMBER (NÚMEROS) -->
+        <section>
+            <h2 class="section-title">3️⃣ NUMBER: Trabajar con Números</h2>
+            
+            <div class="type-card">
+                <div class="type-name">🔢 ¿Qué es un Number?</div>
+                <div class="type-description">
+                    Un <strong>number</strong> es un <strong>número</strong>. Puede ser positivo, negativo, entero o decimal. 
+                    <strong>NO lleva comillas.</strong> Si lo pones entre comillas, se convierte en string.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Tipos de Numbers</div>
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <h4>📌 Enteros</h4>
+                        <div class="code-example">
+const edad = 25;<br>
+const cantidad = 100;<br>
+const negativo = -5;
+                        </div>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>📌 Decimales</h4>
+                        <div class="code-example">
+const pi = 3.14159;<br>
+const precio = 19.99;<br>
+const pequeño = 0.5;
+                        </div>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>📌 Especiales</h4>
+                        <div class="code-example">
+const infinito = Infinity;<br>
+const menosInfinito = -Infinity;<br>
+const noNumero = NaN;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos y Operaciones</div>
+                <div class="code-example">
+// Números simples<br>
+const edad = 25;<br>
+const precio = 99.99;<br>
+const temperatura = -5;<br>
+<br>
+// Operaciones matemáticas<br>
+const suma = 5 + 3;        // 8<br>
+const resta = 10 - 4;      // 6<br>
+const multiplicacion = 7 * 2;  // 14<br>
+const division = 20 / 4;   // 5<br>
+const modulo = 10 % 3;     // 1 (residuo)<br>
+const potencia = 2 ** 3;   // 8<br>
+<br>
+// Números especiales<br>
+const resultado = 0 / 0;   // NaN (Not a Number)<br>
+const infinito = 1 / 0;    // Infinity
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Error Común:</strong> String vs Number
+                <div class="code-example">
+5 + 3 = 8              // ✅ Suma numérica<br>
+"5" + 3 = "53"         // ❌ Concatenación (string)<br>
+"5" - 3 = 2            // ✅ Resta convierte a número<br>
+"precio" + 5 = "precio5"  // ❌ Concatenación
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. BOOLEAN (VERDADERO/FALSO) -->
+        <section>
+            <h2 class="section-title">4️⃣ BOOLEAN: Verdadero o Falso</h2>
+            
+            <div class="type-card">
+                <div class="type-name">✅ ¿Qué es un Boolean?</div>
+                <div class="type-description">
+                    Un <strong>boolean</strong> es un valor que solo puede ser <strong>true (verdadero)</strong> o 
+                    <strong>false (falso)</strong>. Es fundamental para tomar decisiones en código (que veremos en Condicionales).
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Los Dos Únicos Valores</div>
+                <div class="comparison-grid">
+                    <div class="comparison-box good">
+                        <h4>✅ Verdadero</h4>
+                        <div class="code-example">
+const esActivo = true;<br>
+const isAdmin = true;<br>
+const hasPermiso = true;
+                        </div>
+                    </div>
+                    <div class="comparison-box bad">
+                        <h4>❌ Falso</h4>
+                        <div class="code-example">
+const esActivo = false;<br>
+const isAdmin = false;<br>
+const hasPermiso = false;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Booleans con Comparaciones</div>
+                <div class="code-example">
+// Comparaciones dan true o false<br>
+const resultado1 = 5 > 3;     // true<br>
+const resultado2 = 5 < 3;     // false<br>
+const resultado3 = 5 === 5;   // true<br>
+const resultado4 = "hola" === "adios";  // false<br>
+<br>
+// Guardar en variables<br>
+const esAdulto = edad >= 18;      // true o false<br>
+const esEstudiante = true;<br>
+const esEmpleado = false;<br>
+<br>
+// Uso en console.log<br>
+console.log(esEstudiante);   // true<br>
+console.log(!esEstudiante);  // false (! invierte el valor)
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. NULL vs UNDEFINED -->
+        <section>
+            <h2 class="section-title">5️⃣ NULL vs UNDEFINED: "Sin Valor"</h2>
+            
+            <div class="comparison-grid">
+                <div class="type-card">
+                    <div class="type-name" style="color: #f56565;">❌ NULL</div>
+                    <div class="type-description">
+                        Representa <strong>"sin valor" intencionalmente</strong>. LO ASIGNAS TÚ. Es una decisión consciente 
+                        de que "aquí no hay nada".
+                    </div>
+                    <div class="code-example">
+let usuario = null;  // Yo decidí que no hay usuario<br>
+let resultado = null; // El proceso no produjo resultado<br>
+<br>
+typeof null  // "object" (característica rara de JS)
+                    </div>
+                    <div class="note-box" style="margin-top: 12px; border-left-color: #f56565;">
+                        <strong>🔴 Deliberado:</strong> El programador lo pone
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-name" style="color: #ed8936;">⚠️ UNDEFINED</div>
+                    <div class="type-description">
+                        Representa que la variable <strong>no tiene un valor definido</strong>. <strong>JAVASCRIPT LO PONE AUTOMÁTICAMENTE.</strong> 
+                        Es como si dijeras "todavía no tengo esa información".
+                    </div>
+                    <div class="code-example">
+let x;               // undefined (no asignamos)<br>
+let y;               // undefined<br>
+<br>
+typeof undefined  // "undefined"<br>
+<br>
+console.log(x);  // undefined (automático)
+                    </div>
+                    <div class="note-box" style="margin-top: 12px; border-left-color: #ed8936;">
+                        <strong>🟠 Automático:</strong> JavaScript lo pone
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Diferencia Clave:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">null</code> = "Yo decidí que no hay valor"</li>
+                    <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">undefined</code> = "Aún no hay valor asignado"</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 6. TYPEOF: VERIFICAR EL TIPO -->
+        <section>
+            <h2 class="section-title">6️⃣ typeof: ¿Qué Tipo Es?</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔍 El Operador typeof</div>
+                <div class="concept-text">
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">typeof</code> es un operador que te dice 
+                    qué tipo de dato es una variable. Es útil para verificar o depurar código.
+                </div>
+                <div class="code-example">
+typeof "Sofia"       // "string"<br>
+typeof 25            // "number"<br>
+typeof true          // "boolean"<br>
+typeof undefined     // "undefined"<br>
+typeof null          // "object" (característica rara)<br>
+typeof {}            // "object"<br>
+<br>
+// Con variables<br>
+const nombre = "Ana";<br>
+console.log(typeof nombre);  // "string"<br>
+<br>
+let edad;<br>
+console.log(typeof edad);    // "undefined"
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. DEMO INTERACTIVA -->
+        <section>
+            <h2 class="section-title">🎮 Demo Interactiva: Explora Tipos</h2>
+            
+            <div class="interactive-demo">
+                <div class="demo-title">Descubre el Tipo de Dato</div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 16px;">
+                    Ingresa valores de diferentes tipos y ve cómo JavaScript los clasifica.
+                </p>
+                <div class="demo-grid">
+                    <div class="demo-input">
+                        <label>Elige el tipo de dato:</label>
+                        <select id="tipoSelector" onchange="updateTypeDemo()" style="margin-bottom: 12px;">
+                            <option value="string">String (Texto)</option>
+                            <option value="number">Number (Número)</option>
+                            <option value="boolean">Boolean (Verdadero/Falso)</option>
+                            <option value="null">Null</option>
+                            <option value="undefined">Undefined</option>
+                        </select>
+
+                        <label>Ingresa un valor:</label>
+                        <input type="text" id="valorInput" placeholder="Ingresa aquí" value="Sofia" style="margin-bottom: 12px;" onchange="updateTypeDemo()">
+                        
+                        <button class="btn-primary" style="background: linear-gradient(135deg, #667eea, #764ba2);" onclick="updateTypeDemo()">
+                            🔍 Analizar Tipo
+                        </button>
+                    </div>
+
+                    <div class="demo-output">
+                        <h4>📊 Análisis del Valor</h4>
+                        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">Variable:</p>
+                            <div class="output-line" style="margin: 8px 0 0 0;">
+                                <code id="typeCode"></code>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">Valor:</p>
+                            <div class="output-line" style="margin: 8px 0 0 0;">
+                                <code id="typeValue"></code>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">typeof dice:</p>
+                            <div class="output-line" style="margin: 8px 0 0 0;">
+                                <code id="typeOf"></code>
+                            </div>
+                        </div>
+                        <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 6px;">
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">Descripción:</p>
+                            <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);" id="typeDescription"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. TABLA RESUMEN -->
+        <section>
+            <div class="concept-card">
+                <div class="concept-title">📊 Tabla Resumen de Tipos</div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                        <thead>
+                            <tr style="background: rgba(102,126,234,0.1);">
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">Tipo</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">Ejemplo</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">typeof</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">String</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"Hola"</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"string"</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Texto entre comillas</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Number</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">42, 3.14</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"number"</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Números sin comillas</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Boolean</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">true / false</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"boolean"</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Verdadero o falso</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">null</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">null</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"object"*</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Sin valor (intencional)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">undefined</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">undefined</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">"undefined"</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Sin valor (automático)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="note-box" style="margin-top: 12px;">
+                    <strong>📝 Nota:</strong> <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">typeof null</code> 
+                    retorna "object" - es un bug histórico de JavaScript que no se puede cambiar.
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section>
+            <div class="concept-card" style="background: linear-gradient(135deg, rgba(72,187,120,0.1), rgba(102,126,234,0.1)); border-left: 4px solid #48bb78;">
+                <div class="concept-title" style="color: #48bb78;">✅ Checklist - ¿Entendiste?</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        ✓ Qué son los tipos de datos
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Los 5 tipos principales
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Cómo crear strings (3 formas)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Números enteros y decimales
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Booleanos y comparaciones
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Diferencia null vs undefined
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Usar typeof para verificar
+                    </div>
+                    <div class="checklist-item">
+                        ✓ String vs Number en operaciones
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- EJERCICIOS PRÁCTICOS: TIPOS DE DATOS -->
+        <section>
+            <h2 class="section-title">💪 Ejercicios Prácticos: Aplica lo Aprendido</h2>
+            
+            <div class="concept-card" style="background: rgba(102,126,234,0.1); border-left-color: #667eea;">
+                <div class="concept-title" style="color: #667eea;">📖 Cómo Usar Esta Sección</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>1. Lee la descripción:</strong> Entiende exactamente qué debes hacer y por qué</li>
+                        <li><strong>2. Escribe el código:</strong> En el editor de la izquierda. Prueba cosas, comete errores, ¡es normal!</li>
+                        <li><strong>3. Usa los botones:</strong>
+                            <ul style="margin-top: 8px;">
+                                <li>💡 <strong>Pista:</strong> Te da una ayuda sin revelar la solución</li>
+                                <li>✓ <strong>Verificar:</strong> Ejecuta tu código y te dice si es correcto</li>
+                                <li>🔑 <strong>Solución:</strong> Muestra el código correcto con explicación completa</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. Aprende:</strong> Compara tu código con la solución y entiende las diferencias</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 1: Identificar Tipos -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 1: Identificar Tipos de Datos</h3>
+                        <span style="display: inline-block; background: rgba(72,187,120,0.2); color: #48bb78; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟢 Fácil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> En este ejercicio practicarás identificar qué tipo de dato representa cada valor. 
+                    Esto es fundamental porque en programación necesitas saber exactamente qué tipo de información estás manejando. 
+                    Crearás variables de diferentes tipos y usarás <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">typeof</code> 
+                    para verificar cada una.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Crear 5 variables de diferentes tipos y mostrar sus tipos con typeof
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Una variable de tipo <strong>string</strong> (texto)</li>
+                        <li>Una variable de tipo <strong>number</strong> (número)</li>
+                        <li>Una variable de tipo <strong>boolean</strong> (verdadero/falso)</li>
+                        <li>Una variable de tipo <strong>null</strong></li>
+                        <li>Una variable de tipo <strong>undefined</strong></li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex1-code" placeholder="const nombre = 'Sofia';&#10;const edad = 25;&#10;// ... más variables&#10;&#10;console.log(typeof nombre);&#10;console.log(typeof edad);&#10;// ... verificar los demás" style="height: 200px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex1-output" style="height: 200px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(1)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(1)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(1)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex1-feedback"></div>
+
+                <div id="ex1-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+// Crear variables de cada tipo<br>
+const nombre = "Sofia";    // String<br>
+const edad = 25;           // Number<br>
+const isActivo = true;     // Boolean<br>
+const sinValor = null;     // Null<br>
+let noDefinido;            // Undefined<br>
+<br>
+// Verificar tipos con typeof<br>
+console.log(typeof nombre);      // "string"<br>
+console.log(typeof edad);        // "number"<br>
+console.log(typeof isActivo);    // "boolean"<br>
+console.log(typeof sinValor);    // "object" (bug histórico)<br>
+console.log(typeof noDefinido);  // "undefined"
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>String:</strong> "Sofia" está entre comillas, por eso es string</li>
+                            <li><strong>Number:</strong> 25 sin comillas es un número</li>
+                            <li><strong>Boolean:</strong> true es uno de los dos únicos valores booleanos</li>
+                            <li><strong>Null:</strong> Lo asignamos intencionalmente como "sin valor"</li>
+                            <li><strong>Undefined:</strong> Declaramos pero no asignamos, JavaScript lo pone automáticamente</li>
+                            <li><strong>typeof:</strong> Nos muestra el tipo entre comillas (string de resultado)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 2: String vs Number -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 2: Diferencia entre String y Number</h3>
+                        <span style="display: inline-block; background: rgba(240,147,251,0.2); color: #f093fb; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟡 Medio</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Este es uno de los errores más comunes en JavaScript. 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">"5"</code> (con comillas) se ve igual que 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">5</code> (sin comillas), 
+                    pero uno es text y otro es número. Cuando sumas un string con un número, JavaScript no suma matemáticamente sino que concatena (junta textos).
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Demostrar la diferencia entre "5" y 5 usando operaciones
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Crea <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">numeroString = "5"</code></li>
+                        <li>Crea <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">numeroReal = 5</code></li>
+                        <li>Suma: numeroString + numeroReal (concatena: "55")</li>
+                        <li>Suma: numeroReal + numeroReal (suma: 10)</li>
+                        <li>Muestra los resultados y sus tipos</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex2-code" placeholder="const numeroString = '5';&#10;const numeroReal = 5;&#10;&#10;const resultado1 = numeroString + numeroReal;&#10;const resultado2 = numeroReal + numeroReal;&#10;&#10;console.log(resultado1);&#10;console.log(resultado2);" style="height: 200px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex2-output" style="height: 200px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(2)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(2)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(2)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex2-feedback"></div>
+
+                <div id="ex2-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+const numeroString = "5";  // String<br>
+const numeroReal = 5;      // Number<br>
+<br>
+// Sumar string + number = concatenación<br>
+const resultado1 = numeroString + numeroReal;<br>
+console.log(resultado1);   // "55" (concatena)<br>
+console.log(typeof resultado1);  // "string"<br>
+<br>
+// Sumar número + número = suma matemática<br>
+const resultado2 = numeroReal + numeroReal;<br>
+console.log(resultado2);   // 10 (suma matemática)<br>
+console.log(typeof resultado2);  // "number"
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>"5" + 5:</strong> Cuando hay un string, JavaScript concatena (junta). Resultado: "55"</li>
+                            <li><strong>5 + 5:</strong> Dos números, JavaScript suma matemáticamente. Resultado: 10</li>
+                            <li><strong>typeof "55":</strong> String, porque el resultado de concatenar es siempre string</li>
+                            <li><strong>typeof 10:</strong> Number, porque sumamos dos números</li>
+                            <li><strong>Lección:</strong> ¡Siempre verifica los tipos! Un string que parece número es peligroso</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 3: Combinación de Tipos -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 3: Combinación de Tipos</h3>
+                        <span style="display: inline-block; background: rgba(245,101,101,0.2); color: #f56565; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🔴 Difícil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> En aplicaciones reales, trabajarás con múltiples tipos simultáneamente. 
+                    Este ejercicio simula una situación práctica: guardar información de un estudiante (nombre, edad, promedio, activo) 
+                    de diferentes tipos y mostrar todo junto con sus tipos verificados.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Crear un "perfil" de estudiante con varios tipos de datos
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">nombreEstudiante</code> = un nombre (string)</li>
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">edadEstudiante</code> = una edad (number)</li>
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">promedio</code> = un promedio (number decimal)</li>
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">esActivo</code> = si está activo (boolean)</li>
+                        <li>Muestra toda la información con sus tipos</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex3-code" placeholder="const nombreEstudiante = 'Sofia';&#10;const edadEstudiante = 20;&#10;const promedio = 8.5;&#10;const esActivo = true;&#10;&#10;console.log(nombreEstudiante, typeof nombreEstudiante);&#10;// ... más líneas" style="height: 200px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex3-output" style="height: 200px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(3)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(3)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(3)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex3-feedback"></div>
+
+                <div id="ex3-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+// Datos de estudiante (múltiples tipos)<br>
+const nombreEstudiante = "Sofia";<br>
+const edadEstudiante = 20;<br>
+const promedio = 8.5;<br>
+const esActivo = true;<br>
+<br>
+// Mostrar cada dato con su tipo<br>
+console.log("Nombre:", nombreEstudiante, "Tipo:", typeof nombreEstudiante);<br>
+console.log("Edad:", edadEstudiante, "Tipo:", typeof edadEstudiante);<br>
+console.log("Promedio:", promedio, "Tipo:", typeof promedio);<br>
+console.log("Activo:", esActivo, "Tipo:", typeof esActivo);<br>
+<br>
+// O con template literal (más profesional)<br>
+console.log(`${nombreEstudiante} (${typeof nombreEstudiante})`);<br>
+console.log(`${edadEstudiante} (${typeof edadEstudiante})`);<br>
+console.log(`${promedio} (${typeof promedio})`);<br>
+console.log(`${esActivo} (${typeof esActivo}`);
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>Uso de const:</strong> Estos datos no cambiarán, así que usamos const</li>
+                            <li><strong>Nombres descriptivos:</strong> nombreEstudiante es claro; x no lo sería</li>
+                            <li><strong>Tipos variados:</strong> String, números (entero y decimal), boolean</li>
+                            <li><strong>Template literals:</strong> Hacen más fácil mostrar múltiples datos juntos</li>
+                            <li><strong>typeof en cada línea:</strong> Verifica que el tipo sea el esperado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JAVASCRIPT PARA EJERCICIOS -->
+        <script>
+            const hints = {
+                1: '💡 Necesitas 5 console.log con typeof. Ejemplo: console.log(typeof "texto"); console.log(typeof 42); etc.',
+                2: '💡 "5" + 5 concatena (resultado string). 5 + 5 suma (resultado number). Muestra ambos con console.log',
+                3: '💡 Crea 4 variables (nombre, edad, promedio, booleano) y luego 4 console.log mostrando cada una con typeof'
+            };
+
+            function showHint(exerciseNum) {
+                alert(hints[exerciseNum]);
+            }
+
+            function checkExercise(exerciseNum) {
+                const codeId = `ex${exerciseNum}-code`;
+                const outputId = `ex${exerciseNum}-output`;
+                const feedbackId = `ex${exerciseNum}-feedback`;
+                
+                const code = document.getElementById(codeId).value;
+                const output = document.getElementById(outputId);
+                const feedback = document.getElementById(feedbackId);
+
+                try {
+                    const logs = [];
+                    const originalLog = console.log;
+                    console.log = (...args) => {
+                        logs.push(args.join(' '));
+                    };
+
+                    eval(code);
+
+                    console.log = originalLog;
+
+                    if (logs.length > 0) {
+                        output.innerHTML = logs.map(log => `<div>${log}</div>`).join('');
+                        
+                        feedback.innerHTML = `
+                            <div style="background: rgba(72,187,120,0.2); border: 2px solid #48bb78; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #48bb78; font-size: 14px;">✅ ¡Código ejecutado correctamente!</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    Verifica que los resultados sean lo que esperabas. Si no estás seguro, haz clic en "Solución" 
+                                    para ver la respuesta correcta y aprender de ella.
+                                </p>
+                            </div>
+                        `;
+                    } else {
+                        output.innerHTML = 'Sin salida';
+                        feedback.innerHTML = `
+                            <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #f56565; font-size: 14px;">⚠️ El código se ejecutó pero no hay salida.</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    ¿Incluiste console.log()? Verifica que estés mostrando los valores en la consola.
+                                </p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    output.innerHTML = `Error: ${error.message}`;
+                    feedback.innerHTML = `
+                        <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                            <strong style="color: #f56565; font-size: 14px;">❌ Error en el código:</strong>
+                            <p style="margin: 8px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.8); font-family: 'Courier New', monospace;">
+                                ${error.message}
+                            </p>
+                            <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                Revisa: ¿comillas correctas? ¿Nombres de variables exactos? ¿Sintaxis válida?
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+
+            function showSolution(exerciseNum) {
+                const solutionId = `ex${exerciseNum}-solution`;
+                const solution = document.getElementById(solutionId);
+                solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="dia6-m3-operaciones.html" class="next-button">
+                Siguiente: Operaciones con Variables →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function updateTypeDemo() {
+            const tipo = document.getElementById('tipoSelector').value;
+            const input = document.getElementById('valorInput').value;
+
+            let code = '';
+            let value = '';
+            let typeOf = '';
+            let description = '';
+
+            switch(tipo) {
+                case 'string':
+                    code = `let variable = "${input}";`;
+                    value = `"${input}"`;
+                    typeOf = 'typeof variable → "string"';
+                    description = 'Es texto. Se define entre comillas. Para insertar variables usa backticks: `Hola ${nombre}`';
+                    break;
+                case 'number':
+                    const num = parseFloat(input) || 0;
+                    code = `let variable = ${num};`;
+                    value = `${num}`;
+                    typeOf = 'typeof variable → "number"';
+                    description = 'Es un número. Sin comillas. Puede ser positivo, negativo, entero o decimal.';
+                    break;
+                case 'boolean':
+                    code = `let variable = true;`;
+                    value = 'true';
+                    typeOf = 'typeof variable → "boolean"';
+                    description = 'Solo puede ser true o false. Se usa en decisiones condicionales.';
+                    break;
+                case 'null':
+                    code = `let variable = null;`;
+                    value = 'null';
+                    typeOf = 'typeof variable → "object" (es un bug histórico)';
+                    description = 'Representa "sin valor" intencionalmente. Lo asignas tú cuando quieres indicar que no hay nada.';
+                    break;
+                case 'undefined':
+                    code = `let variable;`;
+                    value = 'undefined';
+                    typeOf = 'typeof variable → "undefined"';
+                    description = 'Variable sin asignar. JavaScript automáticamente lo pone. Significa "aún no tiene valor".';
+                    break;
+            }
+
+            document.getElementById('typeCode').textContent = code;
+            document.getElementById('typeValue').textContent = value;
+            document.getElementById('typeOf').textContent = typeOf;
+            document.getElementById('typeDescription').textContent = description;
+        }
+
+        // Inicializar
+        updateTypeDemo();
+    </script>
+</body>
+</html>

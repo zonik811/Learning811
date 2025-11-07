@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 3 - Quiz Final</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-html: #e34c26;
+            --color-success: #48bb78;
+            --color-error: #f56565;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quiz-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #e34c26, #f06529, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            text-align: center;
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-html);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 999px;
+            height: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e34c26, #f06529, #ff6b35);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(227, 76, 38, 0.6);
+        }
+
+        .progress-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .question-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-number {
+            color: var(--color-html);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            border-color: var(--color-html);
+            background: rgba(227, 76, 38, 0.1);
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: var(--color-html);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: var(--color-success);
+            background: rgba(72, 187, 120, 0.15);
+        }
+
+        .option.correct .option-letter {
+            background: var(--color-success);
+        }
+
+        .option.incorrect {
+            border-color: var(--color-error);
+            background: rgba(245, 101, 101, 0.15);
+        }
+
+        .option.incorrect .option-letter {
+            background: var(--color-error);
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feedback.correct {
+            background: rgba(72, 187, 120, 0.15);
+            border: 1px solid var(--color-success);
+            color: var(--color-success);
+        }
+
+        .feedback.incorrect {
+            background: rgba(245, 101, 101, 0.15);
+            border: 1px solid var(--color-error);
+            color: var(--color-error);
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            width: 100%;
+            display: none;
+        }
+
+        .next-button.show {
+            display: block;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(227, 76, 38, 0.4);
+        }
+
+        .results-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(72, 187, 120, 0.3);
+            text-align: center;
+            display: none;
+        }
+
+        .results-card.show {
+            display: block;
+            animation: zoomIn 0.6s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .results-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .results-message {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .complete-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .complete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.4);
+        }
+
+        .retry-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .retry-button:hover {
+            background: var(--color-html);
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="quiz-icon">🎯</div>
+            <h1 class="header-title">Quiz Final - Día 3</h1>
+            <p class="header-subtitle">Demuestra tu dominio de HTML</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card" id="introCard">
+            <h2>🚀 ¿Listo para el desafío final?</h2>
+            <p>
+                Responde 8 preguntas sobre todo lo que aprendiste en el Día 3:<br>
+                Historia de HTML, estructura básica, etiquetas fundamentales y mejores prácticas.
+            </p>
+            <p>
+                <strong>Necesitas al menos 6/8 correctas para aprobar.</strong><br>
+                ¡Tómate tu tiempo y piensa bien cada respuesta!
+            </p>
+            <button class="complete-button" onclick="startQuiz()" style="margin-top: 1.5rem;">
+                Comenzar Quiz 🎯
+            </button>
+        </div>
+
+        <div class="progress-bar" id="progressBar" style="display: none;">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText" style="display: none;"></div>
+
+        <div id="questionsContainer"></div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon">🎉</div>
+            <h2 class="results-title" id="resultsTitle">¡Felicitaciones!</h2>
+            <div class="results-score" id="resultsScore">8/8</div>
+            <p class="results-message" id="resultsMessage">
+                Excelente trabajo. Has demostrado dominio total del Día 3.
+            </p>
+            <button class="complete-button" onclick="completeDay()" id="completeBtn">
+                ✅ Completar Día 3 y Volver al Menú
+            </button>
+            <button class="retry-button" onclick="retryQuiz()" id="retryBtn" style="display: none;">
+                🔄 Reintentar Quiz
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Quién creó HTML y en qué año?",
+                options: [
+                    "Bill Gates en 1985",
+                    "Tim Berners-Lee en 1991",
+                    "Steve Jobs en 1990",
+                    "Mark Zuckerberg en 2004"
+                ],
+                correct: 1,
+                explanation: "Tim Berners-Lee creó HTML en 1991 mientras trabajaba en el CERN para compartir documentos entre científicos."
+            },
+            {
+                question: "¿Qué significa HTML?",
+                options: [
+                    "HyperText Markup Language",
+                    "High Tech Modern Language",
+                    "Home Tool Management Language",
+                    "Hyperlink and Text Markup Language"
+                ],
+                correct: 0,
+                explanation: "HTML significa HyperText Markup Language: HyperText (texto con enlaces), Markup (marcado con etiquetas), Language (lenguaje de reglas)."
+            },
+            {
+                question: "¿Por qué los archivos HTML terminan en .html?",
+                options: [
+                    "Es solo una convención sin propósito",
+                    "Para que el navegador sepa que debe interpretar el contenido como HTML",
+                    "Para que ocupen menos espacio",
+                    "Para que se vean más profesionales"
+                ],
+                correct: 1,
+                explanation: "La extensión .html identifica el archivo como contenido HTML, permitiendo que navegadores y sistemas operativos lo reconozcan y abran correctamente."
+            },
+            {
+                question: "¿Qué etiqueta contiene TODO el contenido visible de una página?",
+                options: [
+                    "&lt;head&gt;",
+                    "&lt;html&gt;",
+                    "&lt;body&gt;",
+                    "&lt;title&gt;"
+                ],
+                correct: 2,
+                explanation: "El &lt;body&gt; contiene TODO el contenido visible: textos, imágenes, videos, botones, formularios, etc."
+            },
+            {
+                question: "¿Cuál es la diferencia entre &lt;ul&gt; y &lt;ol&gt;?",
+                options: [
+                    "No hay diferencia, son lo mismo",
+                    "&lt;ul&gt; es para listas con viñetas, &lt;ol&gt; para listas numeradas",
+                    "&lt;ul&gt; es para enlaces, &lt;ol&gt; para imágenes",
+                    "&lt;ul&gt; es más moderna que &lt;ol&gt;"
+                ],
+                correct: 1,
+                explanation: "&lt;ul&gt; (unordered list) crea listas con viñetas. &lt;ol&gt; (ordered list) crea listas numeradas, perfectas para instrucciones paso a paso."
+            },
+            {
+                question: "¿Qué atributo se usa en &lt;a&gt; para especificar la URL de destino?",
+                options: [
+                    "src",
+                    "link",
+                    "href",
+                    "url"
+                ],
+                correct: 2,
+                explanation: "El atributo 'href' (hypertext reference) en &lt;a&gt; especifica la URL de destino del enlace."
+            },
+            {
+                question: "¿Cuál etiqueta NO requiere etiqueta de cierre?",
+                options: [
+                    "&lt;p&gt;",
+                    "&lt;div&gt;",
+                    "&lt;br&gt;",
+                    "&lt;h1&gt;"
+                ],
+                correct: 2,
+                explanation: "&lt;br&gt; (salto de línea) y &lt;hr&gt; (línea horizontal) son etiquetas auto-cerradas que no necesitan etiqueta de cierre."
+            },
+            {
+                question: "¿Qué hace el &lt;!DOCTYPE html&gt;?",
+                options: [
+                    "Crea un título para la página",
+                    "Declara que el documento es HTML5",
+                    "Cierra todas las etiquetas automáticamente",
+                    "Hace la página más rápida"
+                ],
+                correct: 1,
+                explanation: "&lt;!DOCTYPE html&gt; declara que el documento usa HTML5 (la versión actual). Siempre va en la primera línea del archivo."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            document.getElementById('introCard').style.display = 'none';
+            document.getElementById('progressBar').style.display = 'block';
+            document.getElementById('progressText').style.display = 'block';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const q = questions[currentQuestion];
+            
+            const questionHTML = `
+                <div class="question-card active" id="question${currentQuestion}">
+                    <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options${currentQuestion}">
+                        ${q.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})" data-index="${index}">
+                                <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                                <div class="option-text">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback${currentQuestion}">
+                        <div class="feedback-title" id="feedbackTitle${currentQuestion}"></div>
+                        <div id="feedbackText${currentQuestion}"></div>
+                    </div>
+                    <button class="next-button" id="nextBtn${currentQuestion}" onclick="nextQuestion()">
+                        ${currentQuestion < questions.length - 1 ? 'Siguiente Pregunta →' : 'Ver Resultados 🎯'}
+                    </button>
+                </div>
+            `;
+            
+            container.innerHTML += questionHTML;
+            updateProgress();
+            answered = false;
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            
+            answered = true;
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll(`#question${currentQuestion} .option`);
+            const feedback = document.getElementById(`feedback${currentQuestion}`);
+            const feedbackTitle = document.getElementById(`feedbackTitle${currentQuestion}`);
+            const feedbackText = document.getElementById(`feedbackText${currentQuestion}`);
+            const nextBtn = document.getElementById(`nextBtn${currentQuestion}`);
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            if (index === q.correct) {
+                score++;
+                options[index].classList.add('correct');
+                feedback.classList.add('correct', 'show');
+                feedbackTitle.textContent = '✅ ¡Correcto!';
+                feedbackText.textContent = q.explanation;
+            } else {
+                options[index].classList.add('incorrect');
+                options[q.correct].classList.add('correct');
+                feedback.classList.add('incorrect', 'show');
+                feedbackTitle.textContent = '❌ Incorrecto';
+                feedbackText.textContent = `La respuesta correcta es: ${q.options[q.correct]}. ${q.explanation}`;
+            }
+            
+            nextBtn.classList.add('show');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            updateProgress();
+            
+            if (currentQuestion < questions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Pregunta ${currentQuestion} de ${questions.length}`;
+        }
+
+        function showResults() {
+            document.getElementById('progressBar').style.display = 'none';
+            document.getElementById('progressText').style.display = 'none';
+            document.getElementById('questionsContainer').style.display = 'none';
+            
+            const resultsCard = document.getElementById('resultsCard');
+            const resultsIcon = document.getElementById('resultsIcon');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsScore = document.getElementById('resultsScore');
+            const resultsMessage = document.getElementById('resultsMessage');
+            const completeBtn = document.getElementById('completeBtn');
+            const retryBtn = document.getElementById('retryBtn');
+            
+            resultsScore.textContent = `${score}/${questions.length}`;
+            
+            const percentage = (score / questions.length) * 100;
+            
+            if (percentage >= 87.5) {
+                resultsIcon.textContent = '🏆';
+                resultsTitle.textContent = '¡Excelente!';
+                resultsMessage.textContent = `Puntuación perfecta o casi perfecta (${score}/${questions.length}). Has dominado completamente HTML. ¡Eres un crack!`;
+                completeBtn.style.display = 'block';
+                retryBtn.style.display = 'none';
+            } else if (percentage >= 75) {
+                resultsIcon.textContent = '🎉';
+                resultsTitle.textContent = '¡Aprobado!';
+                resultsMessage.textContent = `Buen trabajo (${score}/${questions.length}). Has demostrado comprensión sólida de HTML. ¡Estás listo para continuar!`;
+                completeBtn.style.display = 'block';
+                retryBtn.style.display = 'none';
+            } else {
+                resultsIcon.textContent = '📚';
+                resultsTitle.textContent = 'Necesitas repasar';
+                resultsMessage.textContent = `Obtuviste ${score}/${questions.length} correctas. Te recomiendo revisar los módulos del Día 3 antes de continuar.`;
+                completeBtn.style.display = 'none';
+                retryBtn.style.display = 'block';
+            }
+            
+            resultsCard.classList.add('show');
+        }
+
+        function retryQuiz() {
+            location.reload();
+        }
+
+        function completeDay() {
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            
+            if (!completedDays.includes(3)) {
+                completedDays.push(3);
+                completedDays.sort((a, b) => a - b);
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+                console.log('✅ Día 3 completado con éxito');
+            }
+
+            alert('🎉 ¡Felicitaciones!\n\nDía 3 completado exitosamente.\nDía 4 desbloqueado: CSS - Dando Estilo a la Web');
+
+            setTimeout(() => {
+                window.location.href = '../menu.html';
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            if (completedDays.includes(3)) {
+                const introCard = document.getElementById('introCard');
+                introCard.innerHTML = `
+                    <h2>✅ Día 3 ya completado</h2>
+                    <p>
+                        Ya has completado exitosamente el Día 3 y el quiz final.<br>
+                        Puedes volver al menú principal o repetir el quiz si quieres practicar.
+                    </p>
+                    <button class="complete-button" onclick="window.location.href='../menu.html'" style="margin-top: 1rem;">
+                        Volver al Menú
+                    </button>
+                    <button class="retry-button" onclick="retryQuiz()" style="margin-top: 1rem;">
+                        Repetir Quiz
+                    </button>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 - CSS: Estilos de la Pokédex</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .intro-section {
+            max-width: 900px;
+            margin: 32px auto;
+            animation: slideIn 0.6s ease;
+        }
+
+        .intro-hero {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            border: 2px solid rgba(102,126,234,0.3);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .intro-icon {
+            font-size: 100px;
+            margin-bottom: 24px;
+            animation: bounce 1s infinite;
+        }
+
+        .intro-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .intro-subtitle {
+            font-size: 24px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            text-align: center;
+        }
+
+        .explanation-box {
+            background: rgba(102,126,234,0.1);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin: 24px 0;
+            line-height: 1.8;
+        }
+
+        .explanation-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .challenge-box {
+            background: rgba(240,147,251,0.05);
+            border: 2px solid rgba(240,147,251,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .challenge-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f093fb;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .challenge-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .solution-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+
+        .solution-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .solution-content {
+            display: none;
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        .solution-content code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: rgba(76,175,80,0.1);
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .tip-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .step-box {
+            background: rgba(102,126,234,0.05);
+            border: 2px solid rgba(102,126,234,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .step-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .intro-hero {
+                padding: 24px;
+            }
+            .intro-title {
+                font-size: 32px;
+            }
+            .intro-icon {
+                font-size: 60px;
+            }
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="intro-hero">
+            <div class="intro-icon">🎨</div>
+            <h1 class="intro-title">Módulo 2: CSS</h1>
+            <p class="intro-subtitle">Estilos para tu Pokédex</p>
+            <p class="intro-text">
+                Vamos a darle estilo visual a tu HTML. Abrirás css/estilos.css y aplicarás CSS a cada elemento.
+            </p>
+        </div>
+
+        <!-- SECCIÓN 1: ABRIR ARCHIVO CSS -->
+        <section class="intro-section">
+            <h2 class="section-title">📂 Abre tu archivo CSS</h2>
+
+            <div class="explanation-box">
+                <p>
+                    En tu proyecto pokemon-cards, dentro de la carpeta css, abre el archivo <strong>estilos.css</strong>.
+                    Este es el archivo donde escribirás todo el CSS.
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>💡 Tip:</strong> En Live Server, después de guardar cambios en el CSS, 
+                el navegador se actualizará automáticamente. Verás los cambios al instante.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: RETOS DE CSS -->
+        <section class="intro-section">
+            <h2 class="section-title">🎯 Aplica CSS a tu HTML</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Aquí iremos reto a reto aplicando CSS a cada parte de tu Pokédex. 
+                    Copia el CSS de cada reto en tu archivo estilos.css.
+                </p>
+            </div>
+
+            <!-- RETO 1: BODY -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 1: Estilos del Body
+                </div>
+                <div class="challenge-text">
+                    El body es la base. Aplica un fondo oscuro, color de texto blanco y una buena fuente.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(1)">Ver Solución</button>
+                <div class="solution-content" id="solution1">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>body {<br>
+&nbsp;&nbsp;background-color: #0f0f0f;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;font-family: Arial, sans-serif;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;padding: 0;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 2: CONTAINER -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 2: Estilos del Container
+                </div>
+                <div class="challenge-text">
+                    El container (div con class="container") debe tener un ancho máximo, estar centrado, y tener padding.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(2)">Ver Solución</button>
+                <div class="solution-content" id="solution2">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.container {<br>
+&nbsp;&nbsp;max-width: 1200px;<br>
+&nbsp;&nbsp;margin: 0 auto;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 3: HEADER -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 3: Estilos del Header
+                </div>
+                <div class="challenge-text">
+                    El &lt;header&gt; necesita un fondo llamativo (gradiente), padding, texto centrado y bordes redondeados.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(3)">Ver Solución</button>
+                <div class="solution-content" id="solution3">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>header {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;padding: 40px 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+}<br>
+<br>
+header h1 {<br>
+&nbsp;&nbsp;font-size: 48px;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;color: white;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 4: SEARCH BAR -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 4: Barra de Búsqueda
+                </div>
+                <div class="challenge-text">
+                    El div con class="search-bar" debe estar centrado. 
+                    El input debe ser ancho, tener padding, un borde bonito y esquinas redondeadas.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(4)">Ver Solución</button>
+                <div class="solution-content" id="solution4">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.search-bar {<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;margin-bottom: 40px;<br>
+}<br>
+<br>
+.search-bar input {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 400px;<br>
+&nbsp;&nbsp;padding: 12px 20px;<br>
+&nbsp;&nbsp;font-size: 16px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;color: white;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 5: POKEMON GRID -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 5: Grid de Pokémon
+                </div>
+                <div class="challenge-text">
+                    El div con class="pokemon-grid" debe usar display: grid para crear una cuadrícula de 3 columnas 
+                    que se adapte en pantallas pequeñas. Usa gap para espaciar las tarjetas.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(5)">Ver Solución</button>
+                <div class="solution-content" id="solution5">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.pokemon-grid {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));<br>
+&nbsp;&nbsp;gap: 20px;<br>
+&nbsp;&nbsp;margin-top: 20px;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 6: POKEMON CARD -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 6: Tarjetas de Pokémon
+                </div>
+                <div class="challenge-text">
+                    Cada div con class="pokemon-card" debe tener un fondo, borde, padding, esquinas redondeadas y sombra.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(6)">Ver Solución</button>
+                <div class="solution-content" id="solution6">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.pokemon-card {<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;border: 2px solid #333;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 7: HOVER EFFECT -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 7: Efecto Hover en las Tarjetas
+                </div>
+                <div class="challenge-text">
+                    Las tarjetas deben cambiar cuando pasas el mouse: borde más colorido, 
+                    se elevan un poco (transform) y la sombra aumenta.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(7)">Ver Solución</button>
+                <div class="solution-content" id="solution7">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.pokemon-card:hover {<br>
+&nbsp;&nbsp;border-color: #667eea;<br>
+&nbsp;&nbsp;transform: translateY(-10px);<br>
+&nbsp;&nbsp;box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 8: IMÁGENES -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 8: Imágenes de Pokémon
+                </div>
+                <div class="challenge-text">
+                    Las imágenes (img dentro de pokemon-card) deben ser responsivas, 
+                    tener un tamaño máximo y espaciado adecuado.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(8)">Ver Solución</button>
+                <div class="solution-content" id="solution8">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.pokemon-card img {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 200px;<br>
+&nbsp;&nbsp;height: auto;<br>
+&nbsp;&nbsp;margin: 20px 0;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 9: TÍTULOS Y TIPOS -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 9: Títulos (h2) y Tipos (p)
+                </div>
+                <div class="challenge-text">
+                    El h2 (nombre del Pokémon) debe ser grande y colorido. 
+                    El p (tipo) debe ser más pequeño con color grisáceo.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(9)">Ver Solución</button>
+                <div class="solution-content" id="solution9">
+                    <div class="code-label">css/estilos.css</div>
+                    <code>.pokemon-card h2 {<br>
+&nbsp;&nbsp;font-size: 24px;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin: 10px 0 5px;<br>
+}<br>
+<br>
+.pokemon-card p {<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+&nbsp;&nbsp;color: #aaa;<br>
+&nbsp;&nbsp;margin: 5px 0;<br>
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CSS COMPLETO -->
+        <section class="intro-section">
+            <h2 class="section-title">✅ CSS Completo para Copiar</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Si prefieres, aquí está todo el CSS junto. Cópialo completo en tu archivo css/estilos.css:
+                </p>
+            </div>
+
+            <div class="code-block">
+                <div class="code-label">css/estilos.css - Código Completo</div>
+                <code>/* GENERALES */
+body {<br>
+&nbsp;&nbsp;background-color: #0f0f0f;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;font-family: Arial, sans-serif;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;padding: 0;<br>
+}<br>
+<br>
+.container {<br>
+&nbsp;&nbsp;max-width: 1200px;<br>
+&nbsp;&nbsp;margin: 0 auto;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+}<br>
+<br>
+/* HEADER */
+header {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;padding: 40px 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+}<br>
+<br>
+header h1 {<br>
+&nbsp;&nbsp;font-size: 48px;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+/* BARRA DE BÚSQUEDA */
+.search-bar {<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;margin-bottom: 40px;<br>
+}<br>
+<br>
+.search-bar input {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 400px;<br>
+&nbsp;&nbsp;padding: 12px 20px;<br>
+&nbsp;&nbsp;font-size: 16px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+/* GRID */
+.pokemon-grid {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));<br>
+&nbsp;&nbsp;gap: 20px;<br>
+&nbsp;&nbsp;margin-top: 20px;<br>
+}<br>
+<br>
+/* TARJETA */
+.pokemon-card {<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;border: 2px solid #333;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+}<br>
+<br>
+.pokemon-card:hover {<br>
+&nbsp;&nbsp;border-color: #667eea;<br>
+&nbsp;&nbsp;transform: translateY(-10px);<br>
+&nbsp;&nbsp;box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);<br>
+}<br>
+<br>
+.pokemon-card img {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 200px;<br>
+&nbsp;&nbsp;height: auto;<br>
+&nbsp;&nbsp;margin: 20px 0;<br>
+}<br>
+<br>
+.pokemon-card h2 {<br>
+&nbsp;&nbsp;font-size: 24px;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin: 10px 0 5px;<br>
+}<br>
+<br>
+.pokemon-card p {<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+&nbsp;&nbsp;color: #aaa;<br>
+&nbsp;&nbsp;margin: 5px 0;<br>
+}</code>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>✅ Después de copiar el CSS:</strong></p>
+                <p>☑️ Guarda el archivo (Ctrl+S)</p>
+                <p>☑️ Vuelve a tu navegador con Live Server</p>
+                <p>☑️ Deberías ver tu Pokédex con estilos aplicados</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: VERIFICACIÓN -->
+        <section class="intro-section">
+            <h2 class="section-title">🔍 Verifica que todo funcione</h2>
+
+            <div class="step-box">
+                <div class="step-header">¿La Pokédex tiene fondo oscuro?</div>
+                <div class="step-text">
+                    Si no, revisa que el body tenga background-color: #0f0f0f.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿El header tiene gradiente morado?</div>
+                <div class="step-text">
+                    Si no, verifica que el header tenga el background linear-gradient.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Las tarjetas están en una cuadrícula?</div>
+                <div class="step-text">
+                    Si están en fila, revisa que .pokemon-grid tenga display: grid.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Las tarjetas reaccionan al pasar el mouse?</div>
+                <div class="step-text">
+                    Si no ves el efecto, verifica que esté .pokemon-card:hover con transform: translateY.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Las imágenes se ven bien dentro de las tarjetas?</div>
+                <div class="step-text">
+                    Si son muy grandes o muy pequeñas, ajusta el max-width en .pokemon-card img.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: PERSONALIZACIÓN OPCIONAL -->
+        <section class="intro-section">
+            <h2 class="section-title">🎨 Personaliza tu Pokédex (Opcional)</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Si quieres experimenter más, aquí hay algunas ideas para cambiar:
+                </p>
+            </div>
+
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    💡 Cambiar el Gradiente del Header
+                </div>
+                <div class="challenge-text">
+                    Reemplaza esta línea en header:
+                </div>
+                <button class="solution-button" onclick="toggleSolution(10)">Ver Opciones</button>
+                <div class="solution-content" id="solution10">
+                    <div class="code-label">Gradientes alternativos</div>
+                    <code>/* Rojo/Naranja */
+background: linear-gradient(135deg, #ff6b6b, #ffa94d);<br>
+<br>
+/* Azul/Cian */
+background: linear-gradient(135deg, #4facfe, #00f2fe);<br>
+<br>
+/* Verde/Azul */
+background: linear-gradient(135deg, #43e97b, #38f9d7);<br>
+<br>
+/* Rosa/Morado */
+background: linear-gradient(135deg, #f093fb, #f5576c);</code>
+                </div>
+            </div>
+
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    💡 Cambiar Número de Columnas
+                </div>
+                <div class="challenge-text">
+                    Para 4 columnas en lugar de 3, modifica .pokemon-grid:
+                </div>
+                <button class="solution-button" onclick="toggleSolution(11)">Ver Código</button>
+                <div class="solution-content" id="solution11">
+                    <div class="code-label">4 columnas</div>
+                    <code>.pokemon-grid {<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));<br>
+}</code>
+                </div>
+            </div>
+
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    💡 Añadir Efecto de Zoom a Imágenes
+                </div>
+                <div class="challenge-text">
+                    Las imágenes se agrandan cuando pasas el mouse:
+                </div>
+                <button class="solution-button" onclick="toggleSolution(12)">Ver Código</button>
+                <div class="solution-content" id="solution12">
+                    <div class="code-label">Zoom en imagen</div>
+                    <code>.pokemon-card img {<br>
+&nbsp;&nbsp;transition: transform 0.3s ease;<br>
+}<br>
+<br>
+.pokemon-card:hover img {<br>
+&nbsp;&nbsp;transform: scale(1.1);<br>
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="modulo3.html" class="next-button">
+                Ir a Módulo 3: Refinamientos →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(id) {
+            const element = document.getElementById('solution' + id);
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - CSS: Propiedades Avanzadas</title>
+   <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .code-block {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+        .demo-box {
+            background: rgba(102,126,234,0.1);
+            border: 2px solid var(--color-primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">⚙️</div>
+            <h1 class="title-xl">CSS: Propiedades Avanzadas</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Domina el espaciado, layouts modernos, responsividad y efectos visuales
+            </p>
+        </header>
+
+        <!-- 1. ESPACIADO -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📏 Espaciado: Margin y Padding</h2>
+            
+            <p style="margin-bottom: 16px;">El espaciado es crucial para crear un diseño limpio y profesional. Hay dos formas principales:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- Margin -->
+                <div style="background: rgba(240,147,251,0.1); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-accent);">
+                    <h3 style="margin-bottom: 12px; color: var(--color-accent);">Margin (Margen Externo)</h3>
+                    <p style="margin-bottom: 12px;">Crea espacio FUERA del elemento, separándolo de otros elementos.</p>
+                    <div class="code-block">
+margin: 20px;  /* todos los lados */<br>
+margin-top: 20px;  /* solo arriba */<br>
+margin: 10px 20px;  /* vertical | horizontal */
+                    </div>
+                    <div class="demo-box">
+                        <div style="background: var(--color-accent); padding: 12px; text-align: center; margin: 20px 0; border-radius: 4px;">
+                            Elemento con margin
+                        </div>
+                        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Observa el espacio que lo rodea</p>
+                    </div>
+                </div>
+
+                <!-- Padding -->
+                <div style="background: rgba(72,187,120,0.1); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-success);">
+                    <h3 style="margin-bottom: 12px; color: var(--color-success);">Padding (Relleno Interno)</h3>
+                    <p style="margin-bottom: 12px;">Crea espacio DENTRO del elemento, entre el contenido y el borde.</p>
+                    <div class="code-block">
+padding: 20px;  /* todos los lados */<br>
+padding-left: 20px;  /* solo izquierda */<br>
+padding: 10px 20px 10px 20px;  /* arriba derecha abajo izq */
+                    </div>
+                    <div class="demo-box">
+                        <div style="background: var(--color-success); padding: 20px; text-align: center; border-radius: 4px;">
+                            Elemento con padding
+                        </div>
+                        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">El contenido está alejado del borde</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(237,137,54,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-warning);">
+                <strong style="color: var(--color-warning);">💡 Tip:</strong> La regla de 4 valores es: arriba, derecha, abajo, izquierda (en el sentido de las agujas del reloj).
+            </div>
+        </section>
+
+        <!-- 2. DISPLAY -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📦 Display: Cómo se comportan los elementos</h2>
+            
+            <p style="margin-bottom: 16px;">La propiedad <strong>display</strong> controla cómo se distribuyen los elementos en la página:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                <!-- Block -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Block</h3>
+                    <div class="code-block">display: block;</div>
+                    <p style="margin-bottom: 12px; font-size: 14px;">El elemento ocupa el ancho completo disponible y fuerza un salto de línea.</p>
+                    <div style="background: rgba(102,126,234,0.2); padding: 8px; border-radius: 4px; margin-bottom: 8px;">
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center; margin-bottom: 8px;">Bloque 1</div>
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center;">Bloque 2</div>
+                    </div>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.6);">div, p, h1, header, footer son block por defecto</p>
+                </div>
+
+                <!-- Inline -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Inline</h3>
+                    <div class="code-block">display: inline;</div>
+                    <p style="margin-bottom: 12px; font-size: 14px;">El elemento solo ocupa el espacio necesario y se posiciona en línea con otros.</p>
+                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
+                        <span style="background: var(--color-primary); padding: 6px 12px; margin-right: 6px; border-radius: 4px;">Inline 1</span>
+                        <span style="background: var(--color-primary); padding: 6px 12px; border-radius: 4px;">Inline 2</span>
+                    </div>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">a, span, strong, em son inline por defecto</p>
+                </div>
+
+                <!-- Flex -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Flex</h3>
+                    <div class="code-block">display: flex;
+justify-content: space-between;</div>
+                    <p style="margin-bottom: 12px; font-size: 14px;">Los elementos se distribuyen de forma flexible en una línea o columna.</p>
+                    <div style="display: flex; justify-content: space-between; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
+                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 1</div>
+                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 2</div>
+                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 3</div>
+                    </div>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Ideal para crear layouts responsivos fácilmente</p>
+                </div>
+
+                <!-- Grid -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Grid</h3>
+                    <div class="code-block">display: grid;
+grid-template-columns: 1fr 1fr;</div>
+                    <p style="margin-bottom: 12px; font-size: 14px;">Los elementos se alinean en una cuadrícula de filas y columnas.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">1</div>
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">2</div>
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">3</div>
+                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">4</div>
+                    </div>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Perfecto para layouts complejos con 2D</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. POSICIONAMIENTO -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📍 Posicionamiento</h2>
+            
+            <p style="margin-bottom: 16px;">La propiedad <strong>position</strong> controla cómo se posiciona un elemento en la página:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Static (Defecto)</h3>
+                    <div class="code-block">position: static;</div>
+                    <p style="font-size: 13px;">El elemento fluye naturalmente en el documento. No puedes usar top, left, etc.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Relative</h3>
+                    <div class="code-block">position: relative;
+top: 20px;</div>
+                    <p style="font-size: 13px;">Se posiciona relativo a su lugar original. Ocupa espacio.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Absolute</h3>
+                    <div class="code-block">position: absolute;
+top: 50px; left: 100px;</div>
+                    <p style="font-size: 13px;">Se posiciona relativo a su contenedor padre. No ocupa espacio.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Fixed</h3>
+                    <div class="code-block">position: fixed;
+top: 0; left: 0;</div>
+                    <p style="font-size: 13px;">Se posiciona relativo a la ventana. Se mantiene fijo al hacer scroll.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">Sticky</h3>
+                    <div class="code-block">position: sticky;
+top: 0;</div>
+                    <p style="font-size: 13px;">Hibrido entre relative y fixed. Se queda fijo cuando hace scroll.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RESPONSIVIDAD -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📱 Responsividad: Adaptarse a todos los dispositivos</h2>
+            
+            <p style="margin-bottom: 16px;">
+                <strong>Responsive Design</strong> significa que tu sitio se adapta automáticamente a diferentes tamaños de pantalla.
+                Usa <strong>Media Queries</strong> para cambiar estilos según el dispositivo:
+            </p>
+
+            <div class="code-block" style="margin-bottom: 24px;">
+/* Estilos por defecto (móvil) */<br>
+.container { width: 100%; }<br>
+<br>
+/* Tablet y pantallas más grandes */<br>
+@media (min-width: 768px) {<br>
+&nbsp;&nbsp;.container { width: 90%; }<br>
+}<br>
+<br>
+/* Desktop */<br>
+@media (min-width: 1024px) {<br>
+&nbsp;&nbsp;.container { width: 1200px; margin: 0 auto; }<br>
+}
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">📱 Mobile</h3>
+                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> &lt; 768px</p>
+                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; align-items: flex-end;">
+                        <div style="width: 100%; height: 80px; background: var(--color-primary); border-radius: 4px;"></div>
+                    </div>
+                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Una columna, contenido a pantalla completa</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">💻 Tablet</h3>
+                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> 768px - 1024px</p>
+                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; gap: 8px; align-items: flex-end;">
+                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
+                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
+                    </div>
+                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Dos columnas, layout flexible</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px;">🖥️ Desktop</h3>
+                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> &gt; 1024px</p>
+                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; gap: 8px; align-items: flex-end;">
+                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
+                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
+                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
+                    </div>
+                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Tres columnas, máximo ancho</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TRANSICIONES Y ANIMACIONES -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">✨ Transiciones y Animaciones</h2>
+            
+            <p style="margin-bottom: 16px;">Dale movimiento y vida a tus elementos con transiciones y animaciones CSS:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div>
+                    <h3 style="margin-bottom: 12px;">Transiciones</h3>
+                    <div class="code-block">
+.button {<br>
+&nbsp;&nbsp;background: blue;<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+}<br>
+<br>
+.button:hover {<br>
+&nbsp;&nbsp;background: red;<br>
+&nbsp;&nbsp;transform: scale(1.1);<br>
+}
+                    </div>
+                    <div style="text-align: center; margin-top: 16px;">
+                        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                            Hover aquí ↗️
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 12px;">Animaciones</h3>
+                    <div class="code-block">
+@keyframes bounce {<br>
+&nbsp;&nbsp;0%, 100% { transform: translateY(0); }<br>
+&nbsp;&nbsp;50% { transform: translateY(-20px); }<br>
+}<br>
+<br>
+.box {<br>
+&nbsp;&nbsp;animation: bounce 1s infinite;<br>
+}
+                    </div>
+                    <div style="text-align: center; margin-top: 16px;">
+                        <div style="display: inline-block; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 8px; animation: bounce 1s infinite;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-20px); }
+                }
+            </style>
+        </section>
+
+        <!-- Botón continuar -->
+        <div style="text-align: center; margin: 64px 0;">
+<a href="modulo3.html" class="next-button"> Siguiente</a>
+        </div>
+    </div>
+</body>
+</html>

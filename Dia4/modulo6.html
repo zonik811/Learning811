@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - Quiz CSS</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 32px auto;
+            background: rgba(0,0,0,0.3);
+            padding: 32px;
+            border-radius: 12px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+        .progress-section {
+            margin-bottom: 32px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #f093fb);
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+        }
+        .question-container {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--color-primary);
+            display: none;
+        }
+        .question-container.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .question-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background: rgba(50,50,50,0.8);
+            border: 2px solid rgba(102,126,234,0.2);
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option:hover:not(.disabled) {
+            border-color: var(--color-primary);
+            background: rgba(50,50,50,1);
+        }
+        .option input[type="radio"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            color: white;
+        }
+        .option.selected {
+            background: rgba(102,126,234,0.2);
+            border-color: var(--color-primary);
+        }
+        .option.correct {
+            background: rgba(72,187,120,0.3);
+            border: 2px solid #48bb78;
+        }
+        .option.correct label {
+            color: #48bb78;
+            font-weight: 600;
+        }
+        .option.incorrect {
+            background: rgba(245,101,101,0.3);
+            border: 2px solid #f56565;
+        }
+        .option.incorrect label {
+            color: #f56565;
+            font-weight: 600;
+        }
+        .option.disabled {
+            cursor: not-allowed;
+        }
+        .feedback-message {
+            background: rgba(102,126,234,0.15);
+            border-left: 4px solid var(--color-primary);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .feedback-message.show {
+            display: block;
+        }
+        .feedback-message.correct {
+            background: rgba(72,187,120,0.15);
+            border-left: 4px solid #48bb78;
+        }
+        .feedback-message.incorrect {
+            background: rgba(245,101,101,0.15);
+            border-left: 4px solid #f56565;
+        }
+        .feedback-icon {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+        .feedback-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .correct-answer {
+            background: rgba(72,187,120,0.2);
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-size: 12px;
+            border-left: 2px solid #48bb78;
+            padding-left: 10px;
+        }
+        .buttons-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .btn-next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+        .btn-next:disabled {
+            background: rgba(102,126,234,0.3);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .btn-prev {
+            background: rgba(102,126,234,0.2);
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        .btn-prev:hover {
+            background: rgba(102,126,234,0.3);
+        }
+        .results-container {
+            display: none;
+            text-align: center;
+        }
+        .results-container.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+        }
+        .score-text {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin: 8px 0;
+        }
+        .results-message {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 32px 0;
+        }
+        .detail-box {
+            background: rgba(102,126,234,0.1);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+        .detail-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+        .detail-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 16px;
+            }
+            .question-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">✅</div>
+            <h1 class="title-xl">Quiz - Día 4: CSS</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Demuestra lo que aprendiste sobre CSS. 10 preguntas para completar el día.
+            </p>
+        </header>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container">
+            <!-- Progreso -->
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentQuestion">1</span> de <span id="totalQuestions">10</span> preguntas
+                </div>
+            </div>
+
+            <!-- Preguntas -->
+            <div id="questionsContainer"></div>
+
+            <!-- Resultados -->
+            <div id="resultsContainer" class="results-container">
+                <div class="score-circle">
+                    <div id="scorePercentage">0%</div>
+                </div>
+                <div class="results-message" id="resultsMessage"></div>
+                <div class="score-text" id="scoreText"></div>
+                
+                <div class="results-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Correctas</div>
+                        <div class="detail-value" id="correctCount">0</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Incorrectas</div>
+                        <div class="detail-value" id="incorrectCount">0</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Puntuación</div>
+                        <div class="detail-value" id="finalScore">0/10</div>
+                    </div>
+                </div>
+
+                <div class="buttons-group">
+                    <button class="btn-next" onclick="location.href='menu.html'">
+                        📚 Volver al Menú
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botones Navegación -->
+            <div class="buttons-group" id="navigationButtons">
+                <button class="btn-prev" id="prevBtn" onclick="previousQuestion()" style="display: none;">
+                    ← Anterior
+                </button>
+                <button class="btn-next" id="nextBtn" onclick="nextQuestion()" disabled>
+                    Siguiente →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de preguntas con explicaciones mejoradas
+        const questions = [
+            {
+                question: "¿Cuál es la sintaxis correcta para definir una clase en CSS?",
+                options: [
+                    ".nombre-clase { }",
+                    "#nombre-clase { }",
+                    "@nombre-clase { }",
+                    "*nombre-clase { }"
+                ],
+                correct: 0,
+                explanation: "Las clases se definen con un punto (.). El # es para IDs, @ es para reglas especiales, y * es el selector universal.",
+                correctExplanation: "✓ Correcto. El punto (.) es el símbolo para definir clases en CSS."
+            },
+            {
+                question: "¿Qué propiedad CSS se usa para cambiar el espacio DENTRO de un elemento?",
+                options: [
+                    "margin",
+                    "padding",
+                    "border",
+                    "outline"
+                ],
+                correct: 1,
+                explanation: "Padding es el espacio interno entre el contenido y el borde. Margin es el espacio externo. Border es el borde, y outline es una línea adicional.",
+                correctExplanation: "✓ Correcto. 'padding' crea espacio DENTRO del elemento, entre el contenido y el borde."
+            },
+            {
+                question: "¿Cuál es el valor correcto para centrar un texto horizontalmente?",
+                options: [
+                    "align: center;",
+                    "text-align: center;",
+                    "justify: center;",
+                    "center: text;"
+                ],
+                correct: 1,
+                explanation: "La propiedad correcta es 'text-align: center;' para centrar texto horizontalmente. Otras opciones no existen en CSS.",
+                correctExplanation: "✓ Correcto. 'text-align: center;' es la propiedad estándar para centrar texto."
+            },
+            {
+                question: "¿Qué display se usa para crear un layout flexible?",
+                options: [
+                    "display: grid;",
+                    "display: flex;",
+                    "display: block;",
+                    "display: inline;"
+                ],
+                correct: 1,
+                explanation: "Flexbox (display: flex) es excelente para layouts de una dimensión. Grid es para layouts 2D. Block e inline son para flujo normal.",
+                correctExplanation: "✓ Correcto. 'display: flex;' activa Flexbox para crear layouts flexibles y adaptables."
+            },
+            {
+                question: "¿Cómo se crea un gradiente de color que vaya de izquierda a derecha?",
+                options: [
+                    "background: gradient(left, right, #color1, #color2);",
+                    "background: linear-gradient(90deg, #color1, #color2);",
+                    "background: horizontal-gradient(#color1, #color2);",
+                    "background: radial-gradient(#color1, #color2);"
+                ],
+                correct: 1,
+                explanation: "linear-gradient(90deg, ...) crea un gradiente a 90 grados (izquierda a derecha). 0deg es arriba, 180deg es abajo.",
+                correctExplanation: "✓ Correcto. 'linear-gradient(90deg, ...)' crea un gradiente lineal horizontal."
+            },
+            {
+                question: "¿Cuál es la propiedad para hacer esquinas redondeadas?",
+                options: [
+                    "corner-radius: 8px;",
+                    "round-corners: 8px;",
+                    "border-radius: 8px;",
+                    "radius: 8px;"
+                ],
+                correct: 2,
+                explanation: "border-radius es la propiedad correcta. Puedes usarla en cualquier elemento para redondear esquinas. Las otras opciones no existen.",
+                correctExplanation: "✓ Correcto. 'border-radius: 8px;' redondea las esquinas de cualquier elemento."
+            },
+            {
+                question: "¿Qué es Grid en CSS?",
+                options: [
+                    "Un sistema para centrar texto",
+                    "Un sistema bidimensional para crear layouts con filas y columnas",
+                    "Una propiedad para cambiar colores",
+                    "Un tipo de animación"
+                ],
+                correct: 1,
+                explanation: "CSS Grid es un sistema de layout 2D que permite crear tablas complejas de filas y columnas. Es más potente que Flexbox para layouts 2D.",
+                correctExplanation: "✓ Correcto. CSS Grid es un sistema de layout bidimensional para filas y columnas."
+            },
+            {
+                question: "¿Cuál es la sintaxis correcta para una Media Query?",
+                options: [
+                    "@media (max-width: 768px) { }",
+                    "@screen (max-width: 768px) { }",
+                    "@responsive (768px) { }",
+                    "@device (max-width: 768px) { }"
+                ],
+                correct: 0,
+                explanation: "@media es la palabra clave correcta. Se usa para aplicar estilos según el tamaño de pantalla. Las otras opciones no son válidas en CSS.",
+                correctExplanation: "✓ Correcto. '@media (max-width: 768px)' es la sintaxis para media queries."
+            },
+            {
+                question: "¿Qué significa 'responsive design'?",
+                options: [
+                    "Diseño que responde a clics del usuario",
+                    "Diseño que se adapta a diferentes tamaños de pantalla",
+                    "Diseño con muchas transiciones",
+                    "Diseño que cambia de color"
+                ],
+                correct: 1,
+                explanation: "Responsive design significa que el sitio se adapta automáticamente a diferentes dispositivos: móvil, tablet y desktop. Es fundamental en web moderna.",
+                correctExplanation: "✓ Correcto. Responsive design es la capacidad de un sitio de adaptarse a cualquier tamaño de pantalla."
+            },
+            {
+                question: "¿Cuál es la especificidad correcta de mayor a menor?",
+                options: [
+                    "Elemento > Clase > ID",
+                    "ID > Clase > Elemento",
+                    "Clase > ID > Elemento",
+                    "Elemento > ID > Clase"
+                ],
+                correct: 1,
+                explanation: "ID tiene la mayor especificidad (100), luego Clase (10), y finalmente Elemento (1). !important (10000) tiene la máxima pero se debe evitar usar.",
+                correctExplanation: "✓ Correcto. ID tiene mayor especificidad que Clase, que tiene mayor que Elemento."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(questions.length).fill(null);
+        let answered = new Array(questions.length).fill(false);
+        let score = 0;
+
+        // Inicializar quiz
+        function initQuiz() {
+            document.getElementById('totalQuestions').textContent = questions.length;
+            renderQuestion();
+        }
+
+        // Renderizar pregunta actual
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            const q = questions[currentQuestion];
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-container active';
+            const isAnswered = answered[currentQuestion];
+
+            let optionsHTML = q.options.map((option, index) => {
+                let className = 'option';
+                if (isAnswered) {
+                    if (index === q.correct) {
+                        className += ' correct disabled';
+                    } else if (answers[currentQuestion] === index) {
+                        className += ' incorrect disabled';
+                    } else {
+                        className += ' disabled';
+                    }
+                } else if (answers[currentQuestion] === index) {
+                    className += ' selected';
+                }
+
+                return `
+                    <div class="${className}" onclick="selectAnswer(${index})">
+                        <input type="radio" name="answer" id="opt${index}" value="${index}" ${answers[currentQuestion] === index ? 'checked' : ''} ${isAnswered ? 'disabled' : ''}>
+                        <label for="opt${index}">${option}</label>
+                    </div>
+                `;
+            }).join('');
+
+            let feedbackHTML = '';
+            if (isAnswered) {
+                const isCorrect = answers[currentQuestion] === q.correct;
+                feedbackHTML = `
+                    <div class="feedback-message show ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="feedback-title">
+                            <span class="feedback-icon">${isCorrect ? '✅' : '❌'}</span>
+                            ${isCorrect ? 'Respuesta Correcta' : 'Respuesta Incorrecta'}
+                        </div>
+                        <div class="feedback-text">
+                            ${isCorrect ? q.correctExplanation : q.explanation}
+                            ${!isCorrect ? `<div class="correct-answer">✓ La respuesta correcta es: <strong>${q.options[q.correct]}</strong></div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            questionDiv.innerHTML = `
+                <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                <div class="question-text">${q.question}</div>
+                <div class="options">
+                    ${optionsHTML}
+                </div>
+                ${feedbackHTML}
+            `;
+
+            container.appendChild(questionDiv);
+            updateProgress();
+            updateButtons();
+        }
+
+        // Seleccionar respuesta
+        function selectAnswer(index) {
+            if (answered[currentQuestion]) return; // No permitir cambiar después de responder
+
+            answers[currentQuestion] = index;
+            answered[currentQuestion] = true;
+
+            // Actualizar puntuación
+            if (index === questions[currentQuestion].correct) {
+                score++;
+            }
+
+            renderQuestion();
+        }
+
+        // Siguiente pregunta
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Pregunta anterior
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        // Actualizar progreso
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+        }
+
+        // Actualizar botones
+        function updateButtons() {
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const navButtons = document.getElementById('navigationButtons');
+
+            nextBtn.disabled = !answered[currentQuestion];
+            prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar Quiz →' : 'Siguiente →';
+
+            if (currentQuestion === questions.length - 1 && answered[currentQuestion]) {
+                navButtons.style.display = 'flex';
+            }
+        }
+
+        // Finalizar quiz
+        function finishQuiz() {
+            // Calcular puntuación
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('scoreText').textContent = `${score} de ${questions.length} respuestas correctas`;
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = questions.length - score;
+            document.getElementById('finalScore').textContent = `${score}/${questions.length}`;
+
+            // Mensaje según puntuación
+            let message = '';
+            if (percentage >= 90) {
+                message = '🏆 ¡Excelente! Dominas CSS';
+            } else if (percentage >= 70) {
+                message = '✅ ¡Muy Bien! Buen desempeño';
+            } else if (percentage >= 50) {
+                message = '👍 Bien hecho. Sigue practicando';
+            } else {
+                message = '📚 Repasa los temas y vuelve a intentar';
+            }
+            document.getElementById('resultsMessage').textContent = message;
+
+            // Guardar progreso en localStorage
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            if (!completedDays.includes(4) && percentage >= 70) {
+                completedDays.push(4);
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+            }
+
+            // Mostrar resultados, ocultar preguntas
+            document.getElementById('questionsContainer').style.display = 'none';
+            document.getElementById('navigationButtons').style.display = 'none';
+            document.getElementById('resultsContainer').classList.add('show');
+        }
+
+        // Iniciar
+        initQuiz();
+    </script>
+</body>
+</html>

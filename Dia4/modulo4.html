@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - Ejercicios Prácticos CSS</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .exercise-container {
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 16px;
+        }
+        .code-editor {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--color-primary);
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: rgba(0,0,0,0.7);
+            color: #00ff00;
+            border: 1px solid var(--color-primary);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+        .preview {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.3);
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .buttons-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        button.check-btn {
+            background: #48bb78;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        button.check-btn:hover {
+            background: #38a169;
+            transform: scale(1.05);
+        }
+        button.hint-btn {
+            background: #ed8936;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        button.hint-btn:hover {
+            background: #dd6b20;
+            transform: scale(1.05);
+        }
+        button.solution-btn {
+            background: #667eea;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        button.solution-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        .solution-box {
+            background: rgba(72,187,120,0.1);
+            border: 2px solid #48bb78;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+        }
+        .solution-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feedback {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+            font-weight: 600;
+        }
+        .feedback.success {
+            background: rgba(72,187,120,0.2);
+            border: 2px solid #48bb78;
+            color: #48bb78;
+            display: block;
+        }
+        .feedback.error {
+            background: rgba(245,101,101,0.2);
+            border: 2px solid #f56565;
+            color: #f56565;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">💻</div>
+            <h1 class="title-xl">CSS - Ejercicios Prácticos</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Practica escribiendo CSS, valida tu código y aprende de las soluciones
+            </p>
+        </header>
+
+        <!-- EJERCICIO 1: Texto -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #667eea; margin-bottom: 16px;">🎯 Ejercicio 1: Estiliza el Texto</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Haz que el texto sea azul (#667eea), tenga tamaño 20px, 
+                peso 700 y esté centrado.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex1-code" placeholder=".text {
+  color: #667eea;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}">.text {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise1()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(1)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(1)">🔑 Solución</button>
+                    </div>
+                    <div id="ex1-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex1-style"></style>
+                        <p class="text" style="margin: 0;">Este es mi texto estilizado</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex1-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.text {<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;font-size: 20px;<br>
+&nbsp;&nbsp;font-weight: 700;<br>
+&nbsp;&nbsp;text-align: center;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>color:</strong> Define el color del texto</li>
+                    <li><strong>font-size:</strong> Aumenta el tamaño a 20px</li>
+                    <li><strong>font-weight:</strong> 700 hace el texto más grueso (bold)</li>
+                    <li><strong>text-align:</strong> center centra el texto horizontalmente</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 2: Box Model -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #764ba2; margin-bottom: 16px;">📦 Ejercicio 2: Box Model</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea una caja con padding 20px, margin 10px, 
+                border 2px sólido #764ba2 y border-radius 8px.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex2-code" placeholder=".caja {
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid #764ba2;
+  border-radius: 8px;
+}">.caja {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise2()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(2)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(2)">🔑 Solución</button>
+                    </div>
+                    <div id="ex2-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex2-style"></style>
+                        <div class="caja" style="background: rgba(102,126,234,0.1); text-align: center; color: white;">
+                            Esta es mi caja
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex2-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.caja {<br>
+&nbsp;&nbsp;padding: 20px;<br>
+&nbsp;&nbsp;margin: 10px;<br>
+&nbsp;&nbsp;border: 2px solid #764ba2;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>padding:</strong> Espacio DENTRO de la caja (entre contenido y borde)</li>
+                    <li><strong>margin:</strong> Espacio FUERA de la caja (separación de otros elementos)</li>
+                    <li><strong>border:</strong> ancho tipo color del borde</li>
+                    <li><strong>border-radius:</strong> Redondea las esquinas (8px)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 3: Flexbox -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #f093fb; margin-bottom: 16px;">📏 Ejercicio 3: Flexbox</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea un contenedor flex que distribuya los items 
+                horizontalmente con espacio entre ellos (space-between).
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex3-code" placeholder=".flex-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}">.flex-container {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise3()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(3)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(3)">🔑 Solución</button>
+                    </div>
+                    <div id="ex3-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex3-style"></style>
+                        <div class="flex-container" style="width: 100%; gap: 12px;">
+                            <div style="background: #667eea; padding: 12px 20px; border-radius: 8px; color: white;">Box 1</div>
+                            <div style="background: #764ba2; padding: 12px 20px; border-radius: 8px; color: white;">Box 2</div>
+                            <div style="background: #f093fb; padding: 12px 20px; border-radius: 8px; color: white;">Box 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex3-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.flex-container {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;justify-content: space-between;<br>
+&nbsp;&nbsp;gap: 12px;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>display: flex;</strong> Activa flexbox</li>
+                    <li><strong>justify-content: space-between;</strong> Distribuye los items con máximo espacio entre ellos</li>
+                    <li><strong>gap:</strong> Espacio entre los items</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 4: Animación -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #48bb78; margin-bottom: 16px;">✨ Ejercicio 4: Hover y Transición</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea un botón que cambie de color y se escale al pasar el mouse (hover).
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex4-code" placeholder=".btn-hover {
+  background: #667eea;
+  transition: all 0.3s;
+}
+.btn-hover:hover {
+  background: #764ba2;
+  transform: scale(1.1);
+}">.btn-hover {
+  
+}
+.btn-hover:hover {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise4()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(4)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(4)">🔑 Solución</button>
+                    </div>
+                    <div id="ex4-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex4-style"></style>
+                        <button class="btn-hover" style="padding: 12px 24px; border: none; color: white; font-weight: 600; border-radius: 8px; cursor: pointer;">
+                            Pasa el mouse ↗️
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex4-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.btn-hover {<br>
+&nbsp;&nbsp;background: #667eea;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+}<br>
+<br>
+.btn-hover:hover {<br>
+&nbsp;&nbsp;background: #764ba2;<br>
+&nbsp;&nbsp;transform: scale(1.1);<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>transition: all 0.3s;</strong> Suaviza TODOS los cambios en 0.3 segundos</li>
+                    <li><strong>:hover</strong> Pseudo-clase que se activa al pasar el mouse</li>
+                    <li><strong>transform: scale(1.1);</strong> Aumenta el tamaño al 110%</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Botón continuar -->
+        <div style="text-align: center; margin: 64px 0;">
+<a href="modulo5.html" class="next-button"> Siguiente</a>
+        </div>
+    </div>
+
+    <script>
+        // Ejercicio 1: Texto
+        function checkExercise1() {
+            const code = document.getElementById('ex1-code').value;
+            const style = document.getElementById('ex1-style');
+            const feedback = document.getElementById('ex1-feedback');
+            
+            style.textContent = code;
+            
+            const hasColor = code.includes('#667eea') || code.includes('color');
+            const hasSize = code.includes('20px') || code.includes('font-size');
+            const hasWeight = code.includes('700') || code.includes('font-weight');
+            const hasAlign = code.includes('center') || code.includes('text-align');
+            
+            if (hasColor && hasSize && hasWeight && hasAlign) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Correcto! Has estilizado el texto correctamente.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Falta algo. Verifica color, font-size, font-weight y text-align.';
+            }
+        }
+
+        // Ejercicio 2: Box Model
+        function checkExercise2() {
+            const code = document.getElementById('ex2-code').value;
+            const style = document.getElementById('ex2-style');
+            const feedback = document.getElementById('ex2-feedback');
+            
+            style.textContent = code;
+            
+            const hasPadding = code.includes('20px') && code.includes('padding');
+            const hasMargin = code.includes('10px') && code.includes('margin');
+            const hasBorder = code.includes('2px') && code.includes('solid') && code.includes('#764ba2');
+            const hasRadius = code.includes('8px') && code.includes('border-radius');
+            
+            if (hasPadding && hasMargin && hasBorder && hasRadius) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Excelente! El box model está perfecto.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Verifica padding, margin, border y border-radius.';
+            }
+        }
+
+        // Ejercicio 3: Flexbox
+        function checkExercise3() {
+            const code = document.getElementById('ex3-code').value;
+            const style = document.getElementById('ex3-style');
+            const feedback = document.getElementById('ex3-feedback');
+            
+            style.textContent = code;
+            
+            const hasFlex = code.includes('display') && code.includes('flex');
+            const hasJustify = code.includes('justify-content') && code.includes('space-between');
+            
+            if (hasFlex && hasJustify) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Perfecto! Flexbox está configurado correctamente.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Asegúrate de usar display: flex y justify-content: space-between.';
+            }
+        }
+
+        // Ejercicio 4: Hover
+        function checkExercise4() {
+            const code = document.getElementById('ex4-code').value;
+            const style = document.getElementById('ex4-style');
+            const feedback = document.getElementById('ex4-feedback');
+            
+            style.textContent = code;
+            
+            const hasTransition = code.includes('transition');
+            const hasHover = code.includes(':hover');
+            const hasTransform = code.includes('transform') && code.includes('scale');
+            
+            if (hasTransition && hasHover && hasTransform) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Bien hecho! La animación funciona perfectamente.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Verifica transition, :hover y transform: scale().';
+            }
+        }
+
+        // Mostrar pista
+        function showHint(exerciseNum) {
+            const hints = {
+                1: 'Necesitas: color, font-size, font-weight y text-align: center',
+                2: 'Recuerda: padding (interno), margin (externo), border con ancho-tipo-color, y border-radius',
+                3: 'display: flex activa flexbox, justify-content: space-between distribuye los items',
+                4: 'transition suaviza cambios, :hover es la pseudo-clase, transform: scale() escala'
+            };
+            alert('💡 Pista:\n' + hints[exerciseNum]);
+        }
+
+        // Mostrar solución
+        function showSolution(exerciseNum) {
+            const solutionId = 'ex' + exerciseNum + '-solution';
+            const solution = document.getElementById(solutionId);
+            solution.classList.toggle('show');
+        }
+
+        // Aplicar estilos dinámicamente mientras escribes
+        document.getElementById('ex1-code').addEventListener('input', function() {
+            document.getElementById('ex1-style').textContent = this.value;
+        });
+        document.getElementById('ex2-code').addEventListener('input', function() {
+            document.getElementById('ex2-style').textContent = this.value;
+        });
+        document.getElementById('ex3-code').addEventListener('input', function() {
+            document.getElementById('ex3-style').textContent = this.value;
+        });
+        document.getElementById('ex4-code').addEventListener('input', function() {
+            document.getElementById('ex4-style').textContent = this.value;
+        });
+    </script>
+</body>
+</html>

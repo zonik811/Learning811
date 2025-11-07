@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 7 - Módulo 2: Condicionales</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .module-header {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 48px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+
+        .module-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .module-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 12px;
+        }
+
+        .module-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 12px;
+        }
+
+        .subsection-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concept-card {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 24px;
+        }
+
+        .concept-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .concept-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .important-box {
+            background: rgba(102,126,234,0.1);
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .important-box strong {
+            color: #667eea;
+        }
+
+        .note-box {
+            background: rgba(72,187,120,0.1);
+            border-left: 4px solid #48bb78;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .note-box strong {
+            color: #48bb78;
+        }
+
+        .warning-box {
+            background: rgba(245,101,101,0.1);
+            border-left: 4px solid #f56565;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .warning-box strong {
+            color: #f56565;
+        }
+
+        .code-example {
+            background: rgba(0,0,0,0.7);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .comparison-box {
+            background: rgba(50,50,50,0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+
+        .comparison-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #667eea;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-input {
+            background: rgba(50,50,50,0.8);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(102,126,234,0.3);
+        }
+
+        .demo-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+            font-size: 14px;
+        }
+
+        .demo-input input,
+        .demo-input select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(30,30,30,0.9);
+            border: 1px solid rgba(102,126,234,0.3);
+            color: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .demo-output {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff00;
+        }
+
+        .demo-output h4 {
+            margin: 0 0 12px 0;
+            color: #00ff00;
+            font-size: 14px;
+        }
+
+        .output-line {
+            color: rgba(255,255,255,0.8);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+
+        .interactive-demo {
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid rgba(102,126,234,0.2);
+            margin: 24px 0;
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 64px 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .learning-points {
+            background: rgba(50,50,50,0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .learning-points ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .learning-points li {
+            margin: 8px 0;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="module-header">
+            <div class="module-icon">🔀</div>
+            <h1 class="module-title">Condicionales</h1>
+            <p class="module-subtitle">Toma decisiones en tu código</p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.8;">
+                Los condicionales permiten que tu código tome diferentes caminos según condiciones. 
+                Es como un árbol de decisiones: "SI esto sucede, ENTONCES haz esto". En este módulo aprenderás if/else, switch y operadores lógicos.
+            </p>
+        </div>
+
+        <!-- 1. ¿QUÉ SON CONDICIONALES? -->
+        <section>
+            <h2 class="section-title">1️⃣ ¿Qué son los Condicionales?</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🤔 Definición</div>
+                <div class="concept-text">
+                    Los <strong>condicionales son estructuras que permiten ejecutar código SOLO SI se cumple una condición.</strong> 
+                    Son como preguntas: "¿Es verdadero?" → Sí, ejecuta esto. No, ejecuta aquello.
+                </div>
+                <div class="important-box">
+                    <strong>💡 Analogía:</strong> Es como una máquina expendedora. Introduces dinero (condición). 
+                    SI es suficiente (verdadero), te da el producto. SI no es suficiente (falso), te devuelve el dinero.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📊 Tipos de Condicionales</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>if:</strong> Ejecuta si la condición es verdadera</li>
+                        <li><strong>if/else:</strong> Ejecuta una cosa SI es verdadera, OTRA si es falsa</li>
+                        <li><strong>if/else if/else:</strong> Múltiples condiciones</li>
+                        <li><strong>switch:</strong> Compara un valor contra múltiples opciones</li>
+                        <li><strong>Operador ternario (? :):</strong> Condición en una línea</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. IF / ELSE IF / ELSE -->
+        <section>
+            <h2 class="section-title">2️⃣ IF / ELSE IF / ELSE</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">Estructura Básica</div>
+                <div class="code-example">
+// IF simple<br>
+if (edad >= 18) {<br>
+&nbsp;&nbsp;console.log("Eres adulto");<br>
+}<br>
+<br>
+// IF / ELSE<br>
+if (edad >= 18) {<br>
+&nbsp;&nbsp;console.log("Eres adulto");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Eres menor");<br>
+}<br>
+<br>
+// IF / ELSE IF / ELSE<br>
+if (edad >= 18) {<br>
+&nbsp;&nbsp;console.log("Eres adulto");<br>
+} else if (edad >= 13) {<br>
+&nbsp;&nbsp;console.log("Eres adolescente");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Eres niño");<br>
+}
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos Prácticos</div>
+                <div class="code-example">
+// Validar contraseña<br>
+const password = "1234";<br>
+<br>
+if (password.length < 6) {<br>
+&nbsp;&nbsp;console.log("Contraseña muy corta");<br>
+} else if (password === "1234") {<br>
+&nbsp;&nbsp;console.log("Contraseña débil");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Contraseña aceptada");<br>
+}<br>
+<br>
+// Calificar nota<br>
+const nota = 85;<br>
+<br>
+if (nota >= 90) {<br>
+&nbsp;&nbsp;console.log("A - Excelente");<br>
+} else if (nota >= 80) {<br>
+&nbsp;&nbsp;console.log("B - Muy bien");<br>
+} else if (nota >= 70) {<br>
+&nbsp;&nbsp;console.log("C - Bien");<br>
+} else if (nota >= 60) {<br>
+&nbsp;&nbsp;console.log("D - Aceptable");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("F - Reprobado");<br>
+}
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SWITCH -->
+        <section>
+            <h2 class="section-title">3️⃣ SWITCH: Comparar Contra Múltiples Valores</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔄 Estructura Switch</div>
+                <div class="code-example">
+switch (valor) {<br>
+&nbsp;&nbsp;case "opcion1":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Es opción 1");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "opcion2":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Es opción 2");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "opcion3":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Es opción 3");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("No coincide");<br>
+}
+                </div>
+                <div class="warning-box" style="margin-top: 12px;">
+                    <strong>⚠️ Importante:</strong> SIEMPRE necesitas <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">break;</code> 
+                    para salir. Si no lo pones, continúa ejecutando el siguiente case.
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-box">
+                    <h4>❌ Sin break (Mal)</h4>
+                    <div class="code-example">
+const dia = 2;<br>
+switch (dia) {<br>
+&nbsp;&nbsp;case 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Lunes");<br>
+&nbsp;&nbsp;case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Martes");<br>
+&nbsp;&nbsp;case 3:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Miércoles");<br>
+}<br>
+// Imprime: Martes<br>
+//          Miércoles
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <h4>✅ Con break (Bien)</h4>
+                    <div class="code-example">
+const dia = 2;<br>
+switch (dia) {<br>
+&nbsp;&nbsp;case 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Lunes");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Martes");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case 3:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Miércoles");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+}<br>
+// Imprime: Martes
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplo Real: Sistema de Permisos</div>
+                <div class="code-example">
+const rol = "admin";<br>
+<br>
+switch (rol) {<br>
+&nbsp;&nbsp;case "admin":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("✅ Acceso a todo");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("- Editar usuarios");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("- Ver reportes");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "editor":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("✅ Acceso limitado");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("- Editar contenido");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;case "usuario":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("✅ Acceso básico");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("- Ver contenido");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("❌ Rol desconocido");<br>
+}
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. OPERADOR TERNARIO -->
+        <section>
+            <h2 class="section-title">4️⃣ Operador Ternario: Condicional en Una Línea</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">? : Sintaxis Compacta</div>
+                <div class="code-example">
+// Sintaxis<br>
+condicion ? valorSiVerdadero : valorSiFalso<br>
+<br>
+// Ejemplos<br>
+const edad = 20;<br>
+const tipo = edad >= 18 ? "Adulto" : "Menor";<br>
+console.log(tipo);  // "Adulto"<br>
+<br>
+// En funciones<br>
+const mensaje = (nota) => nota >= 70 ? "Pasaste" : "Reprobaste";<br>
+console.log(mensaje(85));   // "Pasaste"<br>
+console.log(mensaje(50));   // "Reprobaste"<br>
+<br>
+// Anidado (múltiples condiciones)<br>
+const calificacion = (nota) => <br>
+&nbsp;&nbsp;nota >= 90 ? "A" :<br>
+&nbsp;&nbsp;nota >= 80 ? "B" :<br>
+&nbsp;&nbsp;nota >= 70 ? "C" :<br>
+&nbsp;&nbsp;"F";<br>
+<br>
+console.log(calificacion(85));  // "B"
+                </div>
+
+                <div class="note-box" style="margin-top: 12px;">
+                    <strong>📝 Cuándo usar:</strong> Para decisiones simples (sí/no). Para lógica compleja, usa if/else.
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. OPERADORES LÓGICOS -->
+        <section>
+            <h2 class="section-title">5️⃣ Operadores Lógicos: && (AND), || (OR), ! (NOT)</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">Los 3 Operadores Principales</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>&&amp; (AND):</strong> Verdadero SOLO si AMBAS condiciones son verdaderas</li>
+                        <li><strong>|| (OR):</strong> Verdadero si AL MENOS UNA condición es verdadera</li>
+                        <li><strong>! (NOT):</strong> Invierte la condición (verdadero → falso, falso → verdadero)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos</div>
+                <div class="code-example">
+// && (AND) - AMBAS deben ser verdaderas<br>
+const edad = 25;<br>
+const tieneLicencia = true;<br>
+<br>
+if (edad >= 18 && tieneLicencia) {<br>
+&nbsp;&nbsp;console.log("✅ Puedes conducir");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("❌ No puedes conducir");<br>
+}<br>
+<br>
+// || (OR) - AL MENOS UNA debe ser verdadera<br>
+const esFinDeSemana = true;<br>
+const esHolida = false;<br>
+<br>
+if (esFinDeSemana || esHolida) {<br>
+&nbsp;&nbsp;console.log("✅ Es día libre");<br>
+}<br>
+<br>
+// ! (NOT) - Invierte<br>
+const ligado = true;<br>
+<br>
+if (!ligado) {<br>
+&nbsp;&nbsp;console.log("Está apagado");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Está encendido");<br>
+}
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📊 Tabla de Verdad</div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                        <thead>
+                            <tr style="background: rgba(102,126,234,0.1);">
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">B</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A && B</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A || B</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">!A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #f56565;">false</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2); color: #48bb78;">true</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. DEMO INTERACTIVA -->
+        <section>
+            <h2 class="section-title">🎮 Demo Interactiva: Validador de Acceso</h2>
+            
+            <div class="interactive-demo">
+                <div class="demo-title">Simula un Sistema de Login</div>
+                <div class="demo-grid">
+                    <div class="demo-input">
+                        <label>Edad:</label>
+                        <input type="number" id="edad" value="25" step="1">
+                        
+                        <label style="margin-top: 12px;">Membresía activa:</label>
+                        <select id="membresia">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                        
+                        <label style="margin-top: 12px;">Rol:</label>
+                        <select id="rol">
+                            <option value="admin">Admin</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="invitado">Invitado</option>
+                        </select>
+                        
+                        <button style="margin-top: 12px; width: 100%;" onclick="validarAcceso()">
+                            🔐 Validar Acceso
+                        </button>
+                    </div>
+
+                    <div class="demo-output">
+                        <h4>Resultado:</h4>
+                        <div class="output-line" id="resultado">
+                            Ingresa datos y presiona "Validar"
+                        </div>
+                        <div class="output-line" style="margin-top: 12px;" id="detalles">
+                            Los detalles aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section>
+            <div class="concept-card" style="background: linear-gradient(135deg, rgba(72,187,120,0.1), rgba(102,126,234,0.1)); border-left: 4px solid #48bb78;">
+                <div class="concept-title" style="color: #48bb78;">✅ Checklist - ¿Entendiste?</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        ✓ Qué son los condicionales
+                    </div>
+                    <div class="checklist-item">
+                        ✓ if / else if / else
+                    </div>
+                    <div class="checklist-item">
+                        ✓ switch y break
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Operador ternario ? :
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Operador && (AND)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Operador || (OR)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Operador ! (NOT)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Tabla de verdad
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- EJERCICIOS PRÁCTICOS: CONDICIONALES -->
+        <section>
+            <h2 class="section-title">💪 Ejercicios Prácticos: Aplica lo Aprendido</h2>
+            
+            <div class="concept-card" style="background: rgba(102,126,234,0.1); border-left-color: #667eea;">
+                <div class="concept-title" style="color: #667eea;">📖 Cómo Usar Esta Sección</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>1. Lee la descripción:</strong> Entiende exactamente qué debes hacer</li>
+                        <li><strong>2. Escribe el código:</strong> En el editor. Prueba, experimenta, aprende</li>
+                        <li><strong>3. Usa los botones:</strong> 💡 Pista, ✓ Verificar, 🔑 Solución</li>
+                        <li><strong>4. Aprende:</strong> Compara tu código con la solución</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 1: Sistema de Rangos de Edad -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 1: Clasificador de Edad</h3>
+                        <span style="display: inline-block; background: rgba(72,187,120,0.2); color: #48bb78; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟢 Fácil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Crea una función que reciba una edad y devuelva la categoría correcta. 
+                    Debe clasificar en: Niño (0-12), Adolescente (13-17), Adulto (18-64), Adulto Mayor (65+). 
+                    Usa if/else if para resolver esto.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Practica múltiples condiciones con if/else if/else
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Si edad < 13 → "Niño"</li>
+                        <li>Si edad < 18 → "Adolescente"</li>
+                        <li>Si edad < 65 → "Adulto"</li>
+                        <li>Si edad >= 65 → "Adulto Mayor"</li>
+                        <li>Si edad < 0 → "Edad inválida"</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex1-code" placeholder="function clasificarEdad(edad) {&#10;  if (edad < 0) {&#10;    return 'Edad inválida';&#10;  }&#10;  // ... más condiciones&#10;  return categoría;&#10;}&#10;&#10;console.log(clasificarEdad(25));" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex1-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-check" style="background: #ed8936; width: 100%;" onclick="showHint(1)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-check" style="background: #48bb78; width: 100%;" onclick="checkExercise(1)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-check" style="background: #667eea; width: 100%;" onclick="showSolution(1)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex1-feedback"></div>
+
+                <div id="ex1-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+function clasificarEdad(edad) {<br>
+&nbsp;&nbsp;if (edad < 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "Edad inválida";<br>
+&nbsp;&nbsp;} else if (edad < 13) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "Niño";<br>
+&nbsp;&nbsp;} else if (edad < 18) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "Adolescente";<br>
+&nbsp;&nbsp;} else if (edad < 65) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "Adulto";<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "Adulto Mayor";<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+console.log(clasificarEdad(8));    // "Niño"<br>
+console.log(clasificarEdad(15));   // "Adolescente"<br>
+console.log(clasificarEdad(25));   // "Adulto"<br>
+console.log(clasificarEdad(70));   // "Adulto Mayor"<br>
+console.log(clasificarEdad(-5));   // "Edad inválida"
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>Orden importa:</strong> JavaScript evalúa de arriba a abajo. La primera condición verdadera se ejecuta.</li>
+                            <li><strong>< 13:</strong> Cubre 0-12 (niños)</li>
+                            <li><strong>< 18:</strong> Cubre 13-17 (adolescentes). Si llegamos aquí, ya sabemos edad >= 13</li>
+                            <li><strong>< 65:</strong> Cubre 18-64 (adultos)</li>
+                            <li><strong>else:</strong> 65+ (adultos mayores)</li>
+                            <li><strong>Casos especiales:</strong> Validamos edad negativa al inicio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 2: Sistema de Calificaciones con Switch -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 2: Sistema de Permisos con Switch</h3>
+                        <span style="display: inline-block; background: rgba(240,147,251,0.2); color: #f093fb; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟡 Medio</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Crea una función que reciba un rol (admin, editor, usuario, invitado) 
+                    y retorne qué permisos tiene. Usa switch/case para esto. Cada rol tiene diferentes permisos.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Practica switch/case con break
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>admin → "Ver todo, Editar usuarios, Eliminar contenido"</li>
+                        <li>editor → "Ver todo, Editar contenido"</li>
+                        <li>usuario → "Ver contenido, Comentar"</li>
+                        <li>invitado → "Solo ver contenido"</li>
+                        <li>Rol desconocido → "Rol inválido"</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex2-code" placeholder="function obtenerPermisos(rol) {&#10;  switch (rol) {&#10;    case 'admin':\\10;      return '...';&#10;      break;&#10;    // ... más cases&#10;    default:\\10;      return 'Rol inválido';&#10;  }&#10;}&#10;&#10;console.log(obtenerPermisos('admin'));" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex2-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-check" style="background: #ed8936; width: 100%;" onclick="showHint(2)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-check" style="background: #48bb78; width: 100%;" onclick="checkExercise(2)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-check" style="background: #667eea; width: 100%;" onclick="showSolution(2)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex2-feedback"></div>
+
+                <div id="ex2-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+function obtenerPermisos(rol) {<br>
+&nbsp;&nbsp;switch (rol) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;case 'admin':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Ver todo, Editar usuarios, Eliminar contenido";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;case 'editor':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Ver todo, Editar contenido";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;case 'usuario':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Ver contenido, Comentar";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;case 'invitado':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Solo ver contenido";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Rol inválido";<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+console.log(obtenerPermisos('admin'));     // "Ver todo, Editar usuarios, Eliminar contenido"<br>
+console.log(obtenerPermisos('usuario'));   // "Ver contenido, Comentar"<br>
+console.log(obtenerPermisos('xyz'));       // "Rol inválido"
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>switch (rol):</strong> Compara el rol contra cada case</li>
+                            <li><strong>case 'admin':</strong> Si rol === 'admin', ejecuta esta rama</li>
+                            <li><strong>break;</strong> CRÍTICO: sin esto, continúa al siguiente case</li>
+                            <li><strong>default:</strong> Se ejecuta si ningún case coincide (rol inválido)</li>
+                            <li><strong>return:</strong> Devuelve el resultado y sale de la función</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 3: Validador de Contraseña (Condicionales Lógicos) -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 3: Validador de Contraseña</h3>
+                        <span style="display: inline-block; background: rgba(245,101,101,0.2); color: #f56565; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🔴 Difícil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Crea una función que valide si una contraseña es segura. 
+                    Debe tener: mínimo 8 caracteres, al menos 1 número, al menos 1 letra mayúscula. 
+                    Usa operadores lógicos (&&, ||, !) para validar múltiples condiciones simultáneamente.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Practica operadores lógicos (&&, ||, !)
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Largo >= 8 caracteres</li>
+                        <li>Contiene al menos 1 número (usa includes de string o indexOf)</li>
+                        <li>Contiene al menos 1 mayúscula</li>
+                        <li>Si cumple TODO → "Contraseña segura"</li>
+                        <li>Si no → indicar qué falta</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex3-code" placeholder="function validarContrasena(password) {\\n  const tieneLargo = password.length >= 8;\\n  const tieneNumero = /[0-9]/.test(password);\\n  const tieneMayuscula = /[A-Z]/.test(password);\\n\\n  if (tieneLargo && tieneNumero && tieneMayuscula) {\\n    return 'Contraseña segura';\\n  }\\n  // ... validar qué falta\\n}\\n\\nconsole.log(validarContrasena('Pass1234'));" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex3-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-check" style="background: #ed8936; width: 100%;" onclick="showHint(3)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-check" style="background: #48bb78; width: 100%;" onclick="checkExercise(3)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-check" style="background: #667eea; width: 100%;" onclick="showSolution(3)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex3-feedback"></div>
+
+                <div id="ex3-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+function validarContrasena(password) {<br>
+&nbsp;&nbsp;const tieneLargo = password.length >= 8;<br>
+&nbsp;&nbsp;const tieneNumero = /[0-9]/.test(password);<br>
+&nbsp;&nbsp;const tieneMayuscula = /[A-Z]/.test(password);<br>
+<br>
+&nbsp;&nbsp;if (tieneLargo && tieneNumero && tieneMayuscula) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return "✅ Contraseña segura";<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;let mensaje = "❌ Contraseña débil. Le falta: ";<br>
+&nbsp;&nbsp;let faltas = [];<br>
+<br>
+&nbsp;&nbsp;if (!tieneLargo) faltas.push("mínimo 8 caracteres");<br>
+&nbsp;&nbsp;if (!tieneNumero) faltas.push("al menos 1 número");<br>
+&nbsp;&nbsp;if (!tieneMayuscula) faltas.push("al menos 1 mayúscula");<br>
+<br>
+&nbsp;&nbsp;return mensaje + faltas.join(", ");<br>
+}<br>
+<br>
+console.log(validarContrasena("Pass1234"));  // "✅ Contraseña segura"<br>
+console.log(validarContrasena("abc123"));    // "❌ Contraseña débil. Le falta: mínimo 8 caracteres, al menos 1 mayúscula"<br>
+console.log(validarContrasena("ABC"));       // "❌ Contraseña débil. Le falta: mínimo 8 caracteres, al menos 1 número"
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>/[0-9]/.test():</strong> Usa expresión regular para buscar números</li>
+                            <li><strong>/[A-Z]/.test():</strong> Busca mayúsculas de la A a la Z</li>
+                            <li><strong>&&:</strong> Las 3 condiciones deben ser TRUE simultáneamente</li>
+                            <li><strong>!:</strong> Invierte la condición (si no tiene = true)</li>
+                            <li><strong>join():</strong> Convierte array en string separado por comas</li>
+                            <li><strong>Lógica:</strong> Si pasa todas las validaciones, retorna "segura". Si no, lista qué falta.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JAVASCRIPT PARA EJERCICIOS -->
+        <script>
+            const hints = {
+                1: '💡 Usa if/else if. Recuerda validar edad negativa primero. Luego orden: < 13, < 18, < 65, else.',
+                2: '💡 Usa switch(rol). Cada case necesita break. No olvides default para rol inválido.',
+                3: '💡 Usa /[0-9]/.test() para números y /[A-Z]/.test() para mayúsculas. Usa && para validar todo junto.'
+            };
+
+            function showHint(exerciseNum) {
+                alert(hints[exerciseNum]);
+            }
+
+            function checkExercise(exerciseNum) {
+                const codeId = `ex${exerciseNum}-code`;
+                const outputId = `ex${exerciseNum}-output`;
+                const feedbackId = `ex${exerciseNum}-feedback`;
+                
+                const code = document.getElementById(codeId).value;
+                const output = document.getElementById(outputId);
+                const feedback = document.getElementById(feedbackId);
+
+                try {
+                    const logs = [];
+                    const originalLog = console.log;
+                    console.log = (...args) => {
+                        logs.push(args.join(' '));
+                    };
+
+                    eval(code);
+
+                    console.log = originalLog;
+
+                    if (logs.length > 0) {
+                        output.innerHTML = logs.map(log => `<div>${log}</div>`).join('');
+                        
+                        feedback.innerHTML = `
+                            <div style="background: rgba(72,187,120,0.2); border: 2px solid #48bb78; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #48bb78; font-size: 14px;">✅ ¡Código ejecutado correctamente!</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    Verifica que los resultados sean lógicos. Si necesitas ayuda, haz clic en "Solución".
+                                </p>
+                            </div>
+                        `;
+                    } else {
+                        output.innerHTML = 'Sin salida';
+                        feedback.innerHTML = `
+                            <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #f56565; font-size: 14px;">⚠️ El código se ejecutó pero no hay salida.</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    ¿Incluiste console.log()? Sin eso, no hay nada que mostrar.
+                                </p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    output.innerHTML = `Error: ${error.message}`;
+                    feedback.innerHTML = `
+                        <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                            <strong style="color: #f56565; font-size: 14px;">❌ Error en el código:</strong>
+                            <p style="margin: 8px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.8); font-family: 'Courier New', monospace;">
+                                ${error.message}
+                            </p>
+                            <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                Revisa: ¿sintaxis correcta? ¿break en switch? ¿comillas balanceadas?
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+
+            function showSolution(exerciseNum) {
+                const solutionId = `ex${exerciseNum}-solution`;
+                const solution = document.getElementById(solutionId);
+                solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="dia7-m3-loops.html" class="next-button">
+                Siguiente: Loops (for, while) →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function validarAcceso() {
+            const edad = parseInt(document.getElementById('edad').value) || 0;
+            const membresia = document.getElementById('membresia').value === 'si';
+            const rol = document.getElementById('rol').value;
+
+            let resultado = "";
+            let detalles = "";
+
+            if (edad < 13) {
+                resultado = "❌ Demasiado joven para acceder";
+                detalles = "Necesitas tener al menos 13 años.";
+            } else if (edad >= 13 && edad < 18 && !membresia) {
+                resultado = "⚠️ Acceso restringido";
+                detalles = "Menores sin membresía tienen acceso limitado.";
+            } else if (edad >= 18 && membresia) {
+                if (rol === "admin") {
+                    resultado = "✅ ACCESO TOTAL";
+                    detalles = "Eres administrador. Tienes todos los permisos.";
+                } else if (rol === "usuario") {
+                    resultado = "✅ ACCESO PERMITIDO";
+                    detalles = "Bienvenido. Acceso como usuario registrado.";
+                } else {
+                    resultado = "✅ ACCESO BÁSICO";
+                    detalles = "Acceso como invitado. Permisos limitados.";
+                }
+            } else {
+                resultado = "✅ ACCESO PERMITIDO";
+                detalles = "Cumples los requisitos mínimos.";
+            }
+
+            document.getElementById('resultado').textContent = resultado;
+            document.getElementById('detalles').textContent = detalles;
+        }
+
+        // Inicializar
+        validarAcceso();
+    </script>
+</body>
+</html>

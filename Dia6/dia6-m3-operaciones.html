@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 6 - Módulo 3: Operaciones con Variables</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .module-header {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 48px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+
+        .module-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .module-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 12px;
+        }
+
+        .module-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 12px;
+        }
+
+        .subsection-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concept-card {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 24px;
+        }
+
+        .concept-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .concept-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .important-box {
+            background: rgba(102,126,234,0.1);
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .important-box strong {
+            color: #667eea;
+        }
+
+        .note-box {
+            background: rgba(72,187,120,0.1);
+            border-left: 4px solid #48bb78;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .note-box strong {
+            color: #48bb78;
+        }
+
+        .warning-box {
+            background: rgba(245,101,101,0.1);
+            border-left: 4px solid #f56565;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .warning-box strong {
+            color: #f56565;
+        }
+
+        .code-example {
+            background: rgba(0,0,0,0.7);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .operator-card {
+            background: rgba(50,50,50,0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+
+        .operator-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+
+        .operator-example {
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 2px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 12px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .comparison-box {
+            background: rgba(50,50,50,0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+
+        .comparison-box.good {
+            border-color: #48bb78;
+        }
+
+        .comparison-box.bad {
+            border-color: #f56565;
+        }
+
+        .comparison-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+        }
+
+        .comparison-box.good h4 {
+            color: #48bb78;
+        }
+
+        .comparison-box.bad h4 {
+            color: #f56565;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-input {
+            background: rgba(50,50,50,0.8);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(102,126,234,0.3);
+        }
+
+        .demo-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+            font-size: 14px;
+        }
+
+        .demo-input input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(30,30,30,0.9);
+            border: 1px solid rgba(102,126,234,0.3);
+            color: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .demo-input input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .demo-output {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff00;
+        }
+
+        .demo-output h4 {
+            margin: 0 0 12px 0;
+            color: #00ff00;
+            font-size: 14px;
+        }
+
+        .output-line {
+            color: rgba(255,255,255,0.8);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+
+        .interactive-demo {
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid rgba(102,126,234,0.2);
+            margin: 24px 0;
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        button.btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 100%;
+        }
+
+        button.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 64px 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .learning-points {
+            background: rgba(50,50,50,0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .learning-points ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .learning-points li {
+            margin: 8px 0;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .operator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="module-header">
+            <div class="module-icon">🔧</div>
+            <h1 class="module-title">Operaciones con Variables</h1>
+            <p class="module-subtitle">Haz cosas útiles con tus datos</p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.8;">
+                Las variables no sirven solo para guardar información. También puedes hacer operaciones con ellas. 
+                En este módulo aprenderás a sumar, restar, multiplicar, concatenar, y más. Estos son los bloques fundamentales de cualquier programa.
+            </p>
+        </div>
+
+        <!-- 1. OPERACIONES MATEMÁTICAS -->
+        <section>
+            <h2 class="section-title">1️⃣ Operaciones Matemáticas</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔢 Los Operadores Básicos</div>
+                <div class="concept-text">
+                    Puedes hacer cálculos con números usando operadores matemáticos. JavaScript sigue el orden de operaciones 
+                    (primero *, /, luego +, -) igual que en matemáticas.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Los 6 Operadores Principales</div>
+                <div class="operator-grid">
+                    <div class="operator-card">
+                        <div class="operator-name">➕ Suma</div>
+                        <div class="operator-example">
+5 + 3 = 8<br>
+let suma = a + b;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">➖ Resta</div>
+                        <div class="operator-example">
+10 - 4 = 6<br>
+let resta = a - b;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">✖️ Multiplicación</div>
+                        <div class="operator-example">
+7 * 3 = 21<br>
+let mult = a * b;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">➗ División</div>
+                        <div class="operator-example">
+20 / 4 = 5<br>
+let div = a / b;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">📊 Módulo (Residuo)</div>
+                        <div class="operator-example">
+10 % 3 = 1<br>
+let resto = a % b;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">⚡ Potencia</div>
+                        <div class="operator-example">
+2 ** 3 = 8<br>
+let pot = a ** b;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos Prácticos</div>
+                <div class="code-example">
+// Operaciones simples<br>
+const a = 10;<br>
+const b = 3;<br>
+<br>
+console.log(a + b);  // 13<br>
+console.log(a - b);  // 7<br>
+console.log(a * b);  // 30<br>
+console.log(a / b);  // 3.333...<br>
+console.log(a % b);  // 1 (residuo de 10 ÷ 3)<br>
+console.log(a ** b); // 1000 (10 al cubo)<br>
+<br>
+// Combinaciones complejas<br>
+const resultado = (5 + 3) * 2 - 4;  // 12<br>
+console.log(resultado);<br>
+<br>
+// Guardar en variables<br>
+const precio = 99.99;<br>
+const cantidad = 5;<br>
+const descuento = 0.10;<br>
+const total = (precio * cantidad) * (1 - descuento);<br>
+console.log(total);  // 449.955
+                </div>
+            </div>
+
+            <div class="important-box">
+                <strong>📐 Orden de Operaciones (PEMDAS):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li>Paréntesis ( )</li>
+                    <li>Potencia **</li>
+                    <li>Multiplicación *, División /, Módulo %</li>
+                    <li>Suma +, Resta -</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Error Común: División por Cero</strong>
+                <div class="code-example">
+console.log(10 / 0);  // Infinity (¡no error!)<br>
+console.log(0 / 0);   // NaN (Not a Number)<br>
+<br>
+// Mejor verificar antes<br>
+if (divisor !== 0) {<br>
+&nbsp;&nbsp;const resultado = dividendo / divisor;<br>
+}
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CONCATENACIÓN DE STRINGS -->
+        <section>
+            <h2 class="section-title">2️⃣ Concatenación: Unir Strings</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔗 ¿Qué es Concatenar?</div>
+                <div class="concept-text">
+                    <strong>Concatenar</strong> significa <strong>unir strings</strong> (textos) para crear un string más largo. 
+                    Usas el operador <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">+</code> para esto, 
+                    pero solo funciona con strings.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">3️⃣ Formas de Concatenar</div>
+                <div class="comparison-grid">
+                    <div class="comparison-box">
+                        <h4>Forma 1: Operator +</h4>
+                        <div class="code-example">
+const nombre = "Sofia";<br>
+const apellido = "García";<br>
+const completo = nombre + " " + apellido;<br>
+console.log(completo);<br>
+// Sofia García
+                        </div>
+                    </div>
+
+                    <div class="comparison-box good">
+                        <h4>✅ Forma 2: Template Literal (MEJOR)</h4>
+                        <div class="code-example">
+const nombre = "Sofia";<br>
+const edad = 25;<br>
+const mensaje = `Soy ${nombre} y tengo ${edad} años`;<br>
+console.log(mensaje);<br>
+// Soy Sofia y tengo 25 años
+                        </div>
+                    </div>
+
+                    <div class="comparison-box">
+                        <h4>Forma 3: .concat()</h4>
+                        <div class="code-example">
+const a = "Hola";<br>
+const b = "Mundo";<br>
+const c = a.concat(" ", b);<br>
+console.log(c);<br>
+// Hola Mundo
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <strong>💡 Recomendación:</strong> Usa template literals. Son más legibles, flexibles y permiten multilinea.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos con Contexto</div>
+                <div class="code-example">
+// Ejemplo: Mensaje de bienvenida<br>
+const usuario = "Ana";<br>
+const saludo1 = "Bienvenido, " + usuario;  // + tradicional<br>
+const saludo2 = `Bienvenido, ${usuario}`;   // template literal<br>
+<br>
+console.log(saludo1);  // Bienvenido, Ana<br>
+console.log(saludo2);  // Bienvenido, Ana<br>
+<br>
+// Ejemplo: Combinar múltiples valores<br>
+const producto = "Laptop";<br>
+const precio = 999.99;<br>
+const cantidad = 2;<br>
+<br>
+const resumen = `Producto: ${producto}\nPrecio: $${precio}\nCantidad: ${cantidad}\nTotal: $${precio * cantidad}`;<br>
+console.log(resumen);<br>
+// Producto: Laptop<br>
+// Precio: $999.99<br>
+// Cantidad: 2<br>
+// Total: $1999.98
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Cuidado: String + Number = Concatenación</strong>
+                <div class="code-example">
+"5" + 3 = "53"  (concatena, no suma)<br>
+5 + 3 = 8       (suma matemática)<br>
+5 + "3" = "53"  (concatena)<br>
+"Precio: " + 99 = "Precio: 99"  (útil para mensajes)
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. OPERADORES COMPUESTOS -->
+        <section>
+            <h2 class="section-title">3️⃣ Operadores Compuestos (Abreviados)</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">✨ Atajos Útiles</div>
+                <div class="concept-text">
+                    Los operadores compuestos te permiten hacer una operación Y una asignación en una sola línea. 
+                    Son atajos que hacen el código más conciso.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">Los Principales Operadores Compuestos</div>
+                <div class="operator-grid">
+                    <div class="operator-card">
+                        <div class="operator-name">+= (Suma y asigna)</div>
+                        <div class="operator-example">
+x += 5;<br>
+// Igual a: x = x + 5;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">-= (Resta y asigna)</div>
+                        <div class="operator-example">
+x -= 3;<br>
+// Igual a: x = x - 3;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">*= (Multiplica y asigna)</div>
+                        <div class="operator-example">
+x *= 2;<br>
+// Igual a: x = x * 2;
+                        </div>
+                    </div>
+                    <div class="operator-card">
+                        <div class="operator-name">/= (Divide y asigna)</div>
+                        <div class="operator-example">
+x /= 4;<br>
+// Igual a: x = x / 4;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos Paso a Paso</div>
+                <div class="code-example">
+// Formas largas vs cortas<br>
+let contador = 0;<br>
+<br>
+// Forma larga<br>
+contador = contador + 1;  // contador es 1<br>
+<br>
+// Forma corta (igual resultado)<br>
+contador += 1;            // contador es 2<br>
+<br>
+// Otro ejemplo<br>
+let precio = 100;<br>
+precio *= 1.21;  // Aplicar IVA (121% del precio original)<br>
+console.log(precio);  // 121<br>
+<br>
+// Otro más<br>
+let dinero = 1000;<br>
+dinero -= 250;  // Gastar dinero<br>
+console.log(dinero);  // 750
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>📝 Ventajas:</strong> Escribes menos código, es más legible, reduce errores.
+            </div>
+        </section>
+
+        <!-- 4. INCREMENTO Y DECREMENTO -->
+        <section>
+            <h2 class="section-title">4️⃣ Incremento (++) y Decremento (--)</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">⬆️ Operadores Especiales</div>
+                <div class="concept-text">
+                    Hay dos operadores especiales para aumentar o disminuir en 1. Son tan comunes que tienen su propio símbolo.
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-box">
+                    <h4>⬆️ Incremento (++)</h4>
+                    <div class="code-example">
+let x = 5;<br>
+x++;  // Ahora x = 6<br>
+console.log(x);  // 6<br>
+<br>
+// Equivalente a:<br>
+x += 1;  // Hace lo mismo
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <h4>⬇️ Decremento (--)</h4>
+                    <div class="code-example">
+let y = 10;<br>
+y--;  // Ahora y = 9<br>
+console.log(y);  // 9<br>
+<br>
+// Equivalente a:<br>
+y -= 1;  // Hace lo mismo
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Casos de Uso Real</div>
+                <div class="code-example">
+// Contador de visitas<br>
+let visitas = 0;<br>
+visitas++;  // Alguien entra<br>
+visitas++;  // Otra persona<br>
+console.log(visitas);  // 2<br>
+<br>
+// Vidas en un juego<br>
+let vidas = 3;<br>
+vidas--;  // Se daña<br>
+vidas--;  // Se daña otra vez<br>
+console.log(vidas);  // 1<br>
+<br>
+// Contar hacia atrás<br>
+let countdown = 5;<br>
+while (countdown > 0) {<br>
+&nbsp;&nbsp;console.log(countdown);<br>
+&nbsp;&nbsp;countdown--;<br>
+}<br>
+// Muestra: 5, 4, 3, 2, 1
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. DEMO INTERACTIVA -->
+        <section>
+            <h2 class="section-title">🎮 Demo Interactiva: Calculadora</h2>
+            
+            <div class="interactive-demo">
+                <div class="demo-title">Experimenta con Operaciones</div>
+                <div class="demo-grid">
+                    <div class="demo-input">
+                        <label>Número 1:</label>
+                        <input type="number" id="num1" value="10" step="0.1">
+                        
+                        <label style="margin-top: 12px;">Número 2:</label>
+                        <input type="number" id="num2" value="3" step="0.1">
+                        
+                        <button class="btn-primary" style="margin-top: 12px;" onclick="updateCalcDemo()">
+                            🔄 Calcular
+                        </button>
+                    </div>
+
+                    <div class="demo-output">
+                        <h4>Resultados:</h4>
+                        <div class="output-line">
+                            Suma (+): <span id="suma"></span>
+                        </div>
+                        <div class="output-line">
+                            Resta (-): <span id="resta"></span>
+                        </div>
+                        <div class="output-line">
+                            Multiplicación (*): <span id="mult"></span>
+                        </div>
+                        <div class="output-line">
+                            División (/): <span id="div"></span>
+                        </div>
+                        <div class="output-line">
+                            Módulo (%): <span id="mod"></span>
+                        </div>
+                        <div class="output-line">
+                            Potencia (**): <span id="pot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-demo" style="margin-top: 24px;">
+                <div class="demo-title">Concatenación con Template Literal</div>
+                <div class="demo-grid">
+                    <div class="demo-input">
+                        <label>Tu nombre:</label>
+                        <input type="text" id="nombre" value="Sofia" placeholder="Ingresa nombre">
+                        
+                        <label style="margin-top: 12px;">Tu edad:</label>
+                        <input type="number" id="edad" value="25" placeholder="Ingresa edad">
+                        
+                        <button class="btn-primary" style="margin-top: 12px;" onclick="updateConcatDemo()">
+                            📝 Generar Mensaje
+                        </button>
+                    </div>
+
+                    <div class="demo-output">
+                        <h4>Mensaje Generado:</h4>
+                        <div class="output-line" id="mensaje">
+                            Tu mensaje aparecerá aquí
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section>
+            <div class="concept-card" style="background: linear-gradient(135deg, rgba(72,187,120,0.1), rgba(102,126,234,0.1)); border-left: 4px solid #48bb78;">
+                <div class="concept-title" style="color: #48bb78;">✅ Checklist - ¿Entendiste?</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        ✓ Los 6 operadores matemáticos
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Orden de operaciones (PEMDAS)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Concatenación con +
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Template literals con ${}
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Operadores compuestos (+=, -=, etc)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Incremento (++) y Decremento (--)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ String + Number = Concatenación
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Aplicaciones prácticas
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- EJERCICIOS PRÁCTICOS: OPERACIONES CON VARIABLES -->
+        <section>
+            <h2 class="section-title">💪 Ejercicios Prácticos: Aplica lo Aprendido</h2>
+            
+            <div class="concept-card" style="background: rgba(102,126,234,0.1); border-left-color: #667eea;">
+                <div class="concept-title" style="color: #667eea;">📖 Cómo Usar Esta Sección</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>1. Lee la descripción:</strong> Entiende qué debes hacer y el contexto</li>
+                        <li><strong>2. Escribe el código:</strong> En el editor. Experimenta, no temas cometer errores</li>
+                        <li><strong>3. Verifica tu respuesta:</strong> Usa los botones 💡 Pista, ✓ Verificar, 🔑 Solución</li>
+                        <li><strong>4. Aprende:</strong> Compara con la solución y entiende por qué funciona así</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 1: Operaciones Matemáticas Básicas -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 1: Calcular Precio Total</h3>
+                        <span style="display: inline-block; background: rgba(72,187,120,0.2); color: #48bb78; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟢 Fácil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Eres vendedor de una tienda. Necesitas calcular cuánto debe pagar un cliente. 
+                    Tienes el precio unitario de un producto, la cantidad que compra, y necesitas calcular el total. 
+                    Después, necesitas aplicar un IVA (21%) al total.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Calcular el precio final con operaciones matemáticas
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Precio unitario: 49.99</li>
+                        <li>Cantidad: 3 unidades</li>
+                        <li>Calcula subtotal (precio × cantidad)</li>
+                        <li>Calcula IVA (subtotal × 0.21)</li>
+                        <li>Calcula total final (subtotal + IVA)</li>
+                        <li>Muestra todos los valores</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex1-code" placeholder="const precioUnitario = 49.99;&#10;const cantidad = 3;&#10;const subtotal = precioUnitario * cantidad;&#10;// ... calcula iva y total&#10;console.log('Subtotal:', subtotal);&#10;console.log('IVA:', iva);&#10;console.log('Total:', total);" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex1-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(1)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(1)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(1)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex1-feedback"></div>
+
+                <div id="ex1-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+const precioUnitario = 49.99;<br>
+const cantidad = 3;<br>
+<br>
+// Calcular subtotal<br>
+const subtotal = precioUnitario * cantidad;  // 149.97<br>
+<br>
+// Calcular IVA (21%)<br>
+const iva = subtotal * 0.21;  // 31.4937<br>
+<br>
+// Calcular total<br>
+const total = subtotal + iva;  // 181.4637<br>
+<br>
+console.log("Subtotal: $" + subtotal.toFixed(2));<br>
+console.log("IVA (21%): $" + iva.toFixed(2));<br>
+console.log("Total: $" + total.toFixed(2));<br>
+<br>
+// O con template literals:<br>
+console.log(`Subtotal: $${subtotal.toFixed(2)}`);<br>
+console.log(`IVA (21%): $${iva.toFixed(2)}`);<br>
+console.log(`Total: $${total.toFixed(2)}`);
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>Subtotal:</strong> precio × cantidad (multiplicación directa)</li>
+                            <li><strong>IVA:</strong> subtotal × 0.21 (21% es lo mismo que ×0.21)</li>
+                            <li><strong>Total:</strong> subtotal + iva (suma final)</li>
+                            <li><strong>.toFixed(2):</strong> Redondea a 2 decimales (típico para dinero)</li>
+                            <li><strong>Template literals:</strong> Más legible que concatenación con +</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 2: Concatenación y Template Literals -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 2: Crear Perfil de Usuario</h3>
+                        <span style="display: inline-block; background: rgba(240,147,251,0.2); color: #f093fb; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🟡 Medio</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Estás creando un sitio web y necesitas mostrar información del usuario 
+                    de forma legible. Tienes datos en variables y necesitas combinarlos en mensajes claros usando concatenación 
+                    y template literals. Este es un patrón muy común en aplicaciones reales.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Combinar datos en mensajes usando template literals
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>nombre = "Ana González"</li>
+                        <li>edad = 28</li>
+                        <li>ciudad = "Barcelona"</li>
+                        <li>esAdmin = true</li>
+                        <li>Crea mensajes que muestren esta información de forma legible</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex2-code" placeholder="const nombre = 'Ana González';&#10;const edad = 28;&#10;const ciudad = 'Barcelona';&#10;const esAdmin = true;&#10;&#10;// Crea mensajes con template literals&#10;const mensaje1 = `...`;&#10;console.log(mensaje1);" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex2-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(2)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(2)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(2)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex2-feedback"></div>
+
+                <div id="ex2-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+const nombre = "Ana González";<br>
+const edad = 28;<br>
+const ciudad = "Barcelona";<br>
+const esAdmin = true;<br>
+<br>
+// Mensajes con información del usuario<br>
+const presentacion = `Hola, soy ${nombre} y tengo ${edad} años.`;<br>
+const ubicacion = `Vivo en ${ciudad}.`;<br>
+const estado = `¿Administrador? ${esAdmin ? "Sí" : "No"}`;<br>
+<br>
+// O todo en un único mensaje multilinea<br>
+const perfil = `Usuario: ${nombre}\nEdad: ${edad}\nCiudad: ${ciudad}\nAdmin: ${esAdmin}`;<br>
+<br>
+console.log(presentacion);<br>
+console.log(ubicacion);<br>
+console.log(estado);<br>
+console.log(perfil);
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>Template literals:</strong> Usan backticks (`) y permiten ${variable}</li>
+                            <li><strong>${}:</strong> Pon cualquier variable o expresión dentro</li>
+                            <li><strong>\n:</strong> Salto de línea dentro del template literal</li>
+                            <li><strong>Ternario (? :):</strong> Muestra "Sí" si true, "No" si false</li>
+                            <li><strong>Legibilidad:</strong> Template literals son mucho más legibles que concatenar con +</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 3: Operadores Compuestos -->
+            <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                    <div>
+                        <h3 class="subsection-title" style="margin: 0; color: white;">Ejercicio 3: Simular un Videojuego</h3>
+                        <span style="display: inline-block; background: rgba(245,101,101,0.2); color: #f56565; padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-top: 8px; font-weight: 600;">🔴 Difícil</span>
+                    </div>
+                </div>
+
+                <div class="concept-text" style="margin-bottom: 16px;">
+                    <strong>📝 Descripción detallada:</strong> Estás programando un videojuego simple. El jugador comienza con 100 de salud 
+                    y 3 vidas. Durante el juego, recibe daño (pierde salud) y cuando la salud llega a 0, pierde una vida. 
+                    Usa operadores compuestos (-=, ++, --) para simular esto.
+                </div>
+
+                <div class="important-box">
+                    <strong>🎯 Objetivo:</strong> Simular dinámicamente un juego usando operadores compuestos
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li>Comienza con salud = 100 y vidas = 3</li>
+                        <li>El jugador recibe daño de 30: salud -= 30 (ahora 70)</li>
+                        <li>Recibe otro daño de 50: salud -= 50 (ahora 20)</li>
+                        <li>Recibe otro daño de 30: salud -= 30 (ahora -10, pero muere)</li>
+                        <li>Cuando salud ≤ 0, pierde una vida: vidas--</li>
+                        <li>Muestra el estado después de cada acción</li>
+                    </ul>
+                </div>
+
+                <div class="demo-grid" style="margin: 16px 0;">
+                    <div class="demo-input">
+                        <label>✏️ Escribe tu código aquí:</label>
+                        <textarea id="ex3-code" placeholder="let salud = 100;&#10;let vidas = 3;&#10;&#10;console.log(`Inicio: Salud=${salud}, Vidas=${vidas}`);&#10;&#10;// Daño 1&#10;salud -= 30;&#10;console.log(`Después daño 1: Salud=${salud}`);&#10;&#10;// ... continúa" style="height: 220px; width: 100%; padding: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(102,126,234,0.5); color: #00ff00; font-family: 'Courier New', monospace; border-radius: 8px; font-size: 13px; resize: vertical;"></textarea>
+                    </div>
+                    <div class="demo-output">
+                        <h4>📊 Consola (Resultado):</h4>
+                        <div id="ex3-output" style="height: 220px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 12px; border-radius: 8px; border-left: 3px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 12px;">
+// Los resultados aparecerán aquí
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+                    <button class="btn-primary" style="background: #ed8936;" onclick="showHint(3)">
+                        💡 Pista
+                    </button>
+                    <button class="btn-primary" style="background: #48bb78;" onclick="checkExercise(3)">
+                        ✓ Verificar
+                    </button>
+                    <button class="btn-primary" style="background: #667eea;" onclick="showSolution(3)">
+                        🔑 Solución
+                    </button>
+                </div>
+
+                <div id="ex3-feedback"></div>
+
+                <div id="ex3-solution" style="display: none; background: rgba(72,187,120,0.1); border: 2px solid #48bb78; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 12px 0; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div class="code-example">
+let salud = 100;<br>
+let vidas = 3;<br>
+<br>
+console.log(`🎮 INICIO DEL JUEGO`);<br>
+console.log(`Salud: ${salud} | Vidas: ${vidas}\n`);<br>
+<br>
+// Primer daño<br>
+console.log("💥 ¡Ataque 1!");<br>
+salud -= 30;<br>
+console.log(`Salud: ${salud} | Vidas: ${vidas}`);<br>
+<br>
+// Segundo daño<br>
+console.log("\n💥 ¡Ataque 2!");<br>
+salud -= 50;<br>
+console.log(`Salud: ${salud} | Vidas: ${vidas}`);<br>
+<br>
+// Tercer daño (muere)<br>
+console.log("\n💥 ¡Ataque 3!");<br>
+salud -= 30;<br>
+<br>
+if (salud <= 0) {<br>
+&nbsp;&nbsp;console.log("💀 ¡MUERE!");<br>
+&nbsp;&nbsp;vidas--;<br>
+&nbsp;&nbsp;salud = 100;  // Reinicia para próxima vida<br>
+}<br>
+<br>
+console.log(`\nSalud: ${salud} | Vidas: ${vidas}`);<br>
+<br>
+if (vidas === 0) {<br>
+&nbsp;&nbsp;console.log("☠️ GAME OVER");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("▶️ Vidas restantes, continúa...");<br>
+}
+                    </div>
+                    <div class="note-box" style="margin-top: 16px;">
+                        <strong>📝 Explicación Detallada:</strong>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px;">
+                            <li><strong>let:</strong> Usamos let porque salud y vidas cambian constantemente</li>
+                            <li><strong>-=:</strong> Operador compuesto para restar (salud -= 30 es salud = salud - 30)</li>
+                            <li><strong>if:</strong> Verifica si salud ≤ 0 para procesar muerte</li>
+                            <li><strong>vidas--:</strong> Decremento, resta 1 a las vidas</li>
+                            <li><strong>\n:</strong> Saltos de línea para hacerlo legible</li>
+                            <li><strong>Lógica:</strong> Cuando muere, reinicia salud pero pierde una vida</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JAVASCRIPT PARA EJERCICIOS -->
+        <script>
+            const hints = {
+                1: '💡 Subtotal = precio × cantidad. IVA = subtotal × 0.21. Total = subtotal + IVA. Usa .toFixed(2) para 2 decimales.',
+                2: '💡 Usa template literals con backticks. ${nombre} inserta la variable. \\n hace salto de línea. Crea 3-4 mensajes mostrando la información.',
+                3: '💡 Usa let para variables que cambian. salud -= 30 es lo mismo que salud = salud - 30. Después de cada daño, muestra estado. Cuando salud ≤ 0, vidas--.'
+            };
+
+            function showHint(exerciseNum) {
+                alert(hints[exerciseNum]);
+            }
+
+            function checkExercise(exerciseNum) {
+                const codeId = `ex${exerciseNum}-code`;
+                const outputId = `ex${exerciseNum}-output`;
+                const feedbackId = `ex${exerciseNum}-feedback`;
+                
+                const code = document.getElementById(codeId).value;
+                const output = document.getElementById(outputId);
+                const feedback = document.getElementById(feedbackId);
+
+                try {
+                    const logs = [];
+                    const originalLog = console.log;
+                    console.log = (...args) => {
+                        logs.push(args.join(' '));
+                    };
+
+                    eval(code);
+
+                    console.log = originalLog;
+
+                    if (logs.length > 0) {
+                        output.innerHTML = logs.map(log => `<div>${log}</div>`).join('');
+                        
+                        feedback.innerHTML = `
+                            <div style="background: rgba(72,187,120,0.2); border: 2px solid #48bb78; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #48bb78; font-size: 14px;">✅ ¡Código ejecutado correctamente!</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    Los resultados se muestran a la derecha. Verifica que sean lógicos y coherentes con lo que programaste. 
+                                    Si necesitas ver la solución, haz clic en "Solución".
+                                </p>
+                            </div>
+                        `;
+                    } else {
+                        output.innerHTML = 'Sin salida';
+                        feedback.innerHTML = `
+                            <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                                <strong style="color: #f56565; font-size: 14px;">⚠️ El código se ejecutó pero no hay salida.</strong>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                    ¿Incluiste console.log()? Sin eso, no hay nada que mostrar. Revisa tu código.
+                                </p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    output.innerHTML = `Error: ${error.message}`;
+                    feedback.innerHTML = `
+                        <div style="background: rgba(245,101,101,0.2); border: 2px solid #f56565; padding: 16px; border-radius: 8px; margin-top: 12px;">
+                            <strong style="color: #f56565; font-size: 14px;">❌ Error en el código:</strong>
+                            <p style="margin: 8px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.8); font-family: 'Courier New', monospace;">
+                                ${error.message}
+                            </p>
+                            <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                                Revisa: ¿nombres de variables exactos? ¿comillas correctas? ¿sintaxis válida?
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+
+            function showSolution(exerciseNum) {
+                const solutionId = `ex${exerciseNum}-solution`;
+                const solution = document.getElementById(solutionId);
+                solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="dia6-m4-scope.html" class="next-button">
+                Siguiente: Scope (Alcance) →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function updateCalcDemo() {
+            const n1 = parseFloat(document.getElementById('num1').value) || 0;
+            const n2 = parseFloat(document.getElementById('num2').value) || 0;
+
+            document.getElementById('suma').textContent = `${n1} + ${n2} = ${n1 + n2}`;
+            document.getElementById('resta').textContent = `${n1} - ${n2} = ${n1 - n2}`;
+            document.getElementById('mult').textContent = `${n1} * ${n2} = ${n1 * n2}`;
+            document.getElementById('div').textContent = `${n1} / ${n2} = ${(n1 / n2).toFixed(2)}`;
+            document.getElementById('mod').textContent = `${n1} % ${n2} = ${n1 % n2}`;
+            document.getElementById('pot').textContent = `${n1} ** ${n2} = ${Math.pow(n1, n2)}`;
+        }
+
+        function updateConcatDemo() {
+            const nombre = document.getElementById('nombre').value || 'Usuario';
+            const edad = document.getElementById('edad').value || '0';
+            
+            const mensaje = `¡Hola! Mi nombre es ${nombre} y tengo ${edad} años. Bienvenido a mi perfil.`;
+            document.getElementById('mensaje').textContent = mensaje;
+        }
+
+        // Inicializar
+        updateCalcDemo();
+        updateConcatDemo();
+    </script>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Historia y Fundamentos de HTML</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-html: #e34c26;
+            --color-success: #48bb78;
+            --color-error: #f56565;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+        }
+
+        .module-badge {
+            background: var(--color-html);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .module-title h1 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .back-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-html);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(227, 76, 38, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .content-block {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block p {
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--color-html), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            border-left: 3px solid var(--color-html);
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 1.5rem;
+            width: 15px;
+            height: 15px;
+            background: var(--color-html);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(227, 76, 38, 0.2);
+        }
+
+        .timeline-year {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-html);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-event {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: rgba(227, 76, 38, 0.15);
+            border-left: 4px solid var(--color-html);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--color-html);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(227, 76, 38, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #e8e8e8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .code-tag {
+            color: #e34c26;
+        }
+
+        .code-comment {
+            color: #75715e;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .quiz-question {
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-number {
+            color: var(--color-html);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .quiz-option {
+            background: rgba(50, 50, 50, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-html);
+            background: rgba(227, 76, 38, 0.1);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--color-primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--color-success);
+            background: rgba(72, 187, 120, 0.15);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--color-error);
+            background: rgba(245, 101, 101, 0.15);
+        }
+
+        .quiz-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: rgba(72, 187, 120, 0.15);
+            border: 1px solid var(--color-success);
+            color: var(--color-success);
+        }
+
+        .feedback.incorrect {
+            background: rgba(245, 101, 101, 0.15);
+            border: 1px solid var(--color-error);
+            color: var(--color-error);
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(227, 76, 38, 0.5);
+        }
+
+        .next-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="module-info">
+                <div class="module-icon">📚</div>
+                <div class="module-title">
+                    <span class="module-badge">Módulo 1</span>
+                    <h1>Historia y Fundamentos de HTML</h1>
+                    <p class="module-subtitle">De dónde viene y por qué es importante</p>
+                </div>
+            </div>
+            <a href="inicio_curso.html" class="back-button">← Atrás</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- HISTORIA -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">Una Breve Historia de HTML</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    HTML fue creado por <strong>Tim Berners-Lee</strong> en 1991 mientras trabajaba en el CERN (Organización Europea para la Investigación Nuclear). 
+                    Su objetivo era simple: crear un sistema para que los científicos pudieran <strong>compartir documentos</strong> fácilmente.
+                </p>
+                <p>
+                    Lo que empezó como un proyecto pequeño se convirtió en la base de <strong>toda la World Wide Web</strong>.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1991</div>
+                    <div class="timeline-event">HTML 1.0</div>
+                    <div class="timeline-desc">
+                        Primera versión con 18 etiquetas básicas. Era muy simple: solo texto, títulos y enlaces.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1995</div>
+                    <div class="timeline-event">HTML 2.0</div>
+                    <div class="timeline-desc">
+                        Se agregaron formularios, tablas y características más avanzadas. La web empieza a ser interactiva.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1997</div>
+                    <div class="timeline-event">HTML 3.2 y 4.0</div>
+                    <div class="timeline-desc">
+                        CSS se separa de HTML. Ahora el contenido (HTML) y el diseño (CSS) son independientes.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2014</div>
+                    <div class="timeline-event">HTML5 🎉</div>
+                    <div class="timeline-desc">
+                        Versión actual. Soporte para video, audio, canvas, geolocalización, almacenamiento local y mucho más. 
+                        Es la base de las aplicaciones web modernas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">💡 Dato curioso:</div>
+                La primera página web del mundo todavía está online: 
+                <a href="http://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank" style="color: var(--color-html);">
+                    http://info.cern.ch/hypertext/WWW/TheProject.html
+                </a>
+            </div>
+        </div>
+
+        <!-- ¿QUÉ ES HTML? -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🤔</div>
+                <h2 class="section-title">¿Qué es HTML?</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    <strong>HTML (HyperText Markup Language)</strong> es el lenguaje de marcado que estructura el contenido de las páginas web.
+                </p>
+                <p>
+                    <strong>¿Qué significa cada parte?</strong>
+                </p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>HyperText:</strong> Texto que contiene enlaces (hipervínculos) a otros textos</li>
+                    <li><strong>Markup:</strong> "Marcado" - usamos etiquetas para marcar/definir elementos</li>
+                    <li><strong>Language:</strong> Sistema de reglas para comunicarnos con el navegador</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">🏠 Analogía perfecta:</div>
+                Si construyes una casa:<br>
+                • <strong>HTML</strong> = La estructura (paredes, techo, puertas)<br>
+                • <strong>CSS</strong> = La decoración (colores, muebles, estilo)<br>
+                • <strong>JavaScript</strong> = La funcionalidad (luz, agua, puertas automáticas)
+            </div>
+        </div>
+
+        <!-- ¿POR QUÉ .HTML? -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📄</div>
+                <h2 class="section-title">¿Por qué los archivos terminan en .html?</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    La <strong>extensión .html</strong> (o .htm) le dice al sistema operativo y al navegador que el archivo contiene código HTML.
+                </p>
+                <p>
+                    <strong>¿Por qué es importante?</strong>
+                </p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Identificación:</strong> El navegador sabe que debe interpretar el contenido como HTML</li>
+                    <li><strong>Apertura automática:</strong> Al hacer doble clic, se abre en el navegador por defecto</li>
+                    <li><strong>Servidores web:</strong> Los servidores reconocen estos archivos como páginas web</li>
+                    <li><strong>Convención estándar:</strong> Todos los desarrolladores del mundo usan esta extensión</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">📝 Nombres comunes:</div>
+                • <code style="color: var(--color-html);">index.html</code> - La página principal/inicio de un sitio<br>
+                • <code style="color: var(--color-html);">about.html</code> - Página "Acerca de"<br>
+                • <code style="color: var(--color-html);">contact.html</code> - Página de contacto
+            </div>
+        </div>
+
+        <!-- ESTRUCTURA BÁSICA -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🏗️</div>
+                <h2 class="section-title">Estructura Básica de HTML</h2>
+            </div>
+            <div class="content-block">
+                <p>
+                    Todo documento HTML tiene 4 elementos fundamentales que <strong>SIEMPRE</strong> deben estar presentes:
+                </p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="code-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="code-tag">&lt;html</span> lang="es"<span class="code-tag">&gt;</span>
+<span class="code-tag">&lt;head&gt;</span>
+    <span class="code-comment">&lt;!-- Información sobre la página (no visible) --&gt;</span>
+    <span class="code-tag">&lt;meta</span> charset="UTF-8"<span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>Mi Página<span class="code-tag">&lt;/title&gt;</span>
+<span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;body&gt;</span>
+    <span class="code-comment">&lt;!-- Contenido visible de la página --&gt;</span>
+    <span class="code-tag">&lt;h1&gt;</span>¡Hola Mundo!<span class="code-tag">&lt;/h1&gt;</span>
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: var(--color-html); margin-top: 2rem; margin-bottom: 1rem;">📋 Explicación de cada parte:</h3>
+                
+                <div style="background: rgba(40, 40, 40, 0.6); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                    <strong style="color: var(--color-html); font-size: 1.1rem;">1. &lt;!DOCTYPE html&gt;</strong><br>
+                    <span style="color: rgba(255,255,255,0.8);">
+                        Declara que este documento es HTML5 (la versión actual). Siempre va en la primera línea.
+                        Es como decir: "Hola navegador, este archivo está escrito en HTML5".
+                    </span>
+                </div>
+
+                <div style="background: rgba(40, 40, 40, 0.6); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                    <strong style="color: var(--color-html); font-size: 1.1rem;">2. &lt;html&gt;</strong><br>
+                    <span style="color: rgba(255,255,255,0.8);">
+                        Etiqueta raíz que contiene TODO el documento HTML. Todo lo demás va dentro de esta etiqueta.
+                        El atributo <code>lang="es"</code> indica que el contenido está en español.
+                    </span>
+                </div>
+
+                <div style="background: rgba(40, 40, 40, 0.6); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                    <strong style="color: var(--color-html); font-size: 1.1rem;">3. &lt;head&gt;</strong><br>
+                    <span style="color: rgba(255,255,255,0.8);">
+                        Contiene <strong>metadatos</strong> (información sobre la página) que NO se muestra directamente al usuario:
+                        título, charset, enlaces a CSS/JavaScript, descripción para Google, etc.
+                    </span>
+                </div>
+
+                <div style="background: rgba(40, 40, 40, 0.6); padding: 1.5rem; border-radius: 12px;">
+                    <strong style="color: var(--color-html); font-size: 1.1rem;">4. &lt;body&gt;</strong><br>
+                    <span style="color: rgba(255,255,255,0.8);">
+                        Contiene TODO el contenido VISIBLE de la página: textos, imágenes, videos, botones, formularios, etc.
+                        Todo lo que ves en una página web está dentro del &lt;body&gt;.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MINI QUIZ -->
+        <div class="quiz-section">
+            <h2 class="quiz-title">🎯 Mini Quiz - Pon a prueba lo aprendido</h2>
+
+            <div class="quiz-question">
+                <div class="question-number">Pregunta 1 de 3</div>
+                <div class="question-text">¿En qué año se creó la primera versión de HTML?</div>
+                <div class="quiz-options" id="q1-options">
+                    <div class="quiz-option" onclick="checkAnswer(1, 'B', this)">A) 1985</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, 'B', this)">B) 1991</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, 'B', this)">C) 2000</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, 'B', this)">D) 1995</div>
+                </div>
+                <div class="feedback" id="q1-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <div class="question-number">Pregunta 2 de 3</div>
+                <div class="question-text">¿Qué significa la extensión .html al final del nombre de archivo?</div>
+                <div class="quiz-options" id="q2-options">
+                    <div class="quiz-option" onclick="checkAnswer(2, 'C', this)">A) Es obligatorio pero no significa nada</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, 'C', this)">B) Indica que es un archivo de texto</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, 'C', this)">C) Le dice al navegador que el archivo contiene código HTML</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, 'C', this)">D) Es solo una convención antigua</div>
+                </div>
+                <div class="feedback" id="q2-feedback"></div>
+            </div>
+
+            <div class="quiz-question">
+                <div class="question-number">Pregunta 3 de 3</div>
+                <div class="question-text">¿Cuál etiqueta contiene el contenido visible de la página?</div>
+                <div class="quiz-options" id="q3-options">
+                    <div class="quiz-option" onclick="checkAnswer(3, 'C', this)">A) &lt;head&gt;</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, 'C', this)">B) &lt;html&gt;</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, 'C', this)">C) &lt;body&gt;</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, 'C', this)">D) &lt;!DOCTYPE&gt;</div>
+                </div>
+                <div class="feedback" id="q3-feedback"></div>
+            </div>
+        </div>
+
+        <button class="next-button" id="nextBtn" onclick="goToNextModule()" disabled>
+            Continuar al Módulo 2 →
+        </button>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+        let answeredQuestions = 0;
+        const totalQuestions = 3;
+
+        const answers = {
+            1: 'B',
+            2: 'C',
+            3: 'C'
+        };
+
+        const explanations = {
+            1: '✅ Correcto! HTML fue creado por Tim Berners-Lee en 1991 en el CERN.',
+            2: '✅ Exacto! La extensión .html indica al navegador y al sistema que el archivo contiene código HTML que debe ser interpretado.',
+            3: '✅ Perfecto! El &lt;body&gt; contiene TODO el contenido visible: textos, imágenes, botones, etc.'
+        };
+
+        function checkAnswer(questionNum, correctAnswer, element) {
+            // Verificar si ya se respondió
+            const feedback = document.getElementById(`q${questionNum}-feedback`);
+            if (feedback.classList.contains('show')) return;
+
+            answeredQuestions++;
+            
+            const options = document.getElementById(`q${questionNum}-options`).children;
+            const selectedLetter = element.textContent.charAt(0);
+            
+            // Deshabilitar todas las opciones
+            Array.from(options).forEach(opt => opt.classList.add('disabled'));
+            
+            // Marcar como seleccionada
+            element.classList.add('selected');
+            
+            // Verificar respuesta
+            if (selectedLetter === correctAnswer) {
+                element.classList.add('correct');
+                element.classList.remove('selected');
+                feedback.textContent = explanations[questionNum];
+                feedback.classList.add('correct', 'show');
+                correctAnswers++;
+            } else {
+                element.classList.add('incorrect');
+                element.classList.remove('selected');
+                // Mostrar la correcta
+                Array.from(options).forEach(opt => {
+                    if (opt.textContent.charAt(0) === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+                feedback.textContent = `❌ Incorrecto. La respuesta correcta es: ${correctAnswer}. ${explanations[questionNum]}`;
+                feedback.classList.add('incorrect', 'show');
+            }
+            
+            // Habilitar botón cuando se respondan todas
+            if (answeredQuestions === totalQuestions) {
+                document.getElementById('nextBtn').disabled = false;
+            }
+        }
+
+        function goToNextModule() {
+            if (answeredQuestions < totalQuestions) {
+                alert('⚠️ Por favor responde todas las preguntas antes de continuar.');
+                return;
+            }
+            
+            // Redirect to next module
+            window.location.href = 'modulo2.html';
+        }
+    </script>
+</body>
+</html>

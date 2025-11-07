@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - Grid, Media y Gradientes</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .exercise-container {
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 16px;
+        }
+        .code-editor {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--color-primary);
+        }
+        textarea {
+            width: 100%;
+            height: 220px;
+            background: rgba(0,0,0,0.7);
+            color: #00ff00;
+            border: 1px solid var(--color-primary);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+        .preview {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.3);
+            min-height: 300px;
+        }
+        .buttons-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        button.check-btn {
+            background: #48bb78;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        button.check-btn:hover {
+            background: #38a169;
+            transform: scale(1.05);
+        }
+        button.hint-btn {
+            background: #ed8936;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+        }
+        button.solution-btn {
+            background: #667eea;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+        }
+        .solution-box {
+            background: rgba(72,187,120,0.1);
+            border: 2px solid #48bb78;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+        }
+        .solution-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feedback {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+            font-weight: 600;
+        }
+        .feedback.success {
+            background: rgba(72,187,120,0.2);
+            border: 2px solid #48bb78;
+            color: #48bb78;
+            display: block;
+        }
+        .feedback.error {
+            background: rgba(245,101,101,0.2);
+            border: 2px solid #f56565;
+            color: #f56565;
+            display: block;
+        }
+        .grid-box {
+            background: rgba(102,126,234,0.2);
+            border: 2px solid var(--color-primary);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">🚀</div>
+            <h1 class="title-xl">Grid, Media Queries y Gradientes</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Ejercicios avanzados de CSS: layouts complejos, responsividad y efectos visuales
+            </p>
+        </header>
+
+        <!-- EJERCICIO 1: CSS Grid -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #667eea; margin-bottom: 16px;">🔲 Ejercicio 1: CSS Grid</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea una grilla de 3 columnas con gap de 12px. 
+                Los items deben distribuirse automáticamente.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex5-code" placeholder=".grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}">.grid-container {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise5()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(5)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(5)">🔑 Solución</button>
+                    </div>
+                    <div id="ex5-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex5-style"></style>
+                        <div class="grid-container">
+                            <div class="grid-box">1</div>
+                            <div class="grid-box">2</div>
+                            <div class="grid-box">3</div>
+                            <div class="grid-box">4</div>
+                            <div class="grid-box">5</div>
+                            <div class="grid-box">6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex5-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.grid-container {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+&nbsp;&nbsp;gap: 12px;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>display: grid;</strong> Activa CSS Grid</li>
+                    <li><strong>grid-template-columns: repeat(3, 1fr);</strong> Crea 3 columnas de igual tamaño</li>
+                    <li><strong>repeat(3, 1fr)</strong> significa: repite 3 veces una columna de 1 fracción</li>
+                    <li><strong>gap: 12px;</strong> Espacio entre items</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 2: Grid Responsivo -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #764ba2; margin-bottom: 16px;">📱 Ejercicio 2: Grid Responsivo (auto-fit)</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea un grid que se adapte automáticamente. 
+                Mínimo 200px por columna, máximo 1fr, usando auto-fit.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex6-code" placeholder=".grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}">.grid-responsive {
+  
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise6()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(6)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(6)">🔑 Solución</button>
+                    </div>
+                    <div id="ex6-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex6-style"></style>
+                        <div class="grid-responsive">
+                            <div class="grid-box">Card 1</div>
+                            <div class="grid-box">Card 2</div>
+                            <div class="grid-box">Card 3</div>
+                            <div class="grid-box">Card 4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex6-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.grid-responsive {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));<br>
+&nbsp;&nbsp;gap: 12px;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>auto-fit:</strong> Ajusta automáticamente el número de columnas según el espacio disponible</li>
+                    <li><strong>minmax(200px, 1fr):</strong> Cada columna tiene mínimo 200px y máximo 1 fracción</li>
+                    <li>Si la pantalla es pequeña → 1 columna; si es ancha → múltiples columnas</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 3: Media Queries -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #f093fb; margin-bottom: 16px;">📱 Ejercicio 3: Media Queries</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea estilos que cambien en pantallas pequeñas (< 768px). 
+                En mobile: font-size 14px, en desktop: 20px.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex7-code" placeholder=".responsive-text {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .responsive-text {
+    font-size: 14px;
+  }
+}">.responsive-text {
+  
+}
+
+@media (max-width: 768px) {
+  .responsive-text {
+    
+  }
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise7()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(7)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(7)">🔑 Solución</button>
+                    </div>
+                    <div id="ex7-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex7-style"></style>
+                        <div class="responsive-text" style="text-align: center; color: white;">
+                            Este texto cambia de tamaño en mobile
+                        </div>
+                        <p style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; margin-top: 16px;">
+                            Redimensiona la ventana para ver el cambio
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex7-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.responsive-text {<br>
+&nbsp;&nbsp;font-size: 20px;  /* Desktop */<br>
+}<br>
+<br>
+@media (max-width: 768px) {<br>
+&nbsp;&nbsp;.responsive-text {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size: 14px;  /* Mobile */<br>
+&nbsp;&nbsp;}<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>@media (max-width: 768px)</strong> Aplica estilos en pantallas ≤ 768px</li>
+                    <li>Primero defines estilos por defecto (desktop)</li>
+                    <li>Luego los sobrescribes dentro de @media para mobile</li>
+                    <li><strong>Breakpoints comunes:</strong> 480px (mobile), 768px (tablet), 1024px (desktop)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 4: Gradientes -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #48bb78; margin-bottom: 16px;">🌈 Ejercicio 4: Gradientes</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Crea un gradiente lineal de 135 grados 
+                que vaya de #667eea a #f093fb.
+            </p>
+
+            <div class="exercise-grid">
+                <!-- Editor -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                    <div class="code-editor">
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                        <textarea id="ex8-code" placeholder=".gradient-box {
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  padding: 40px;
+  border-radius: 12px;
+}">.gradient-box {
+  
+  padding: 40px;
+  border-radius: 12px;
+}</textarea>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                    </div>
+                    <div class="buttons-group">
+                        <button class="check-btn" onclick="checkExercise8()">✓ Verificar</button>
+                        <button class="hint-btn" onclick="showHint(8)">💡 Pista</button>
+                        <button class="solution-btn" onclick="showSolution(8)">🔑 Solución</button>
+                    </div>
+                    <div id="ex8-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Preview -->
+                <div>
+                    <h3 style="margin-bottom: 12px;">Vista Previa:</h3>
+                    <div class="preview">
+                        <style id="ex8-style"></style>
+                        <div class="gradient-box" style="text-align: center; color: white; font-weight: 600;">
+                            Hermoso Gradiente
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solución -->
+            <div id="ex8-solution" class="solution-box">
+                <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                    <code style="color: #00ff00;">
+.gradient-box {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #f093fb);<br>
+&nbsp;&nbsp;padding: 40px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+}
+                    </code>
+                </div>
+                <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>linear-gradient():</strong> Crea un gradiente lineal</li>
+                    <li><strong>135deg:</strong> Ángulo del gradiente (0°=top, 45°=esquina, 180°=bottom)</li>
+                    <li><strong>Colores:</strong> Puedes agregar más colores separados por comas</li>
+                    <li><strong>Alternativa:</strong> radial-gradient() para gradientes circulares</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EJERCICIO 5: Combinado (Grid + Media + Gradiente) -->
+        <section class="exercise-container">
+            <h2 class="title-lg" style="color: #ed8936; margin-bottom: 16px;">🎯 Ejercicio 5: Proyecto Combinado</h2>
+            <p style="margin-bottom: 16px; color: rgba(255,255,255,0.8);">
+                <strong>Objetivo:</strong> Combina todo: Grid responsivo + gradiente de fondo + media query. 
+                Desktop: 3 columnas, Mobile: 1 columna.
+            </p>
+
+            <div style="background: rgba(0,0,0,0.3); padding: 24px; border-radius: 12px;">
+                <h3 style="margin-bottom: 12px;">Tu CSS:</h3>
+                <div class="code-editor">
+                    <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 8px;">&lt;style&gt;</div>
+                    <textarea id="ex9-code" placeholder=".cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 24px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+}">.cards-container {
+  
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    
+  }
+}</textarea>
+                    <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">&lt;/style&gt;</div>
+                </div>
+                <div class="buttons-group">
+                    <button class="check-btn" onclick="checkExercise9()">✓ Verificar</button>
+                    <button class="hint-btn" onclick="showHint(9)">💡 Pista</button>
+                    <button class="solution-btn" onclick="showSolution(9)">🔑 Solución</button>
+                </div>
+                <div id="ex9-feedback" class="feedback"></div>
+
+                <h3 style="margin-top: 24px; margin-bottom: 12px;">Vista Previa:</h3>
+                <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 8px;">
+                    <style id="ex9-style"></style>
+                    <div class="cards-container">
+                        <div style="background: rgba(255,255,255,0.1); padding: 16px; border-radius: 8px; text-align: center; color: white;">Card 1</div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 16px; border-radius: 8px; text-align: center; color: white;">Card 2</div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 16px; border-radius: 8px; text-align: center; color: white;">Card 3</div>
+                    </div>
+                </div>
+
+                <!-- Solución -->
+                <div id="ex9-solution" class="solution-box">
+                    <h4 style="margin-bottom: 12px; color: #48bb78;">✅ Solución Correcta:</h4>
+                    <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                        <code style="color: #00ff00;">
+.cards-container {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+&nbsp;&nbsp;gap: 12px;<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;padding: 24px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+}<br>
+<br>
+@media (max-width: 768px) {<br>
+&nbsp;&nbsp;.cards-container {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr;<br>
+&nbsp;&nbsp;}<br>
+}
+                        </code>
+                    </div>
+                    <h4 style="margin-bottom: 8px; color: #48bb78;">📝 Explicación:</h4>
+                    <p style="margin-bottom: 12px;">Este es un proyecto real que combina todo lo aprendido:</p>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Grid:</strong> Distribuye las cards en 3 columnas</li>
+                        <li><strong>Gradiente:</strong> Fondo atractivo del contenedor</li>
+                        <li><strong>Media Query:</strong> En mobile se convierte en 1 columna</li>
+                        <li>✅ Responsive, atractivo y profesional</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resumen Final -->
+        <section class="card" style="margin-top: 48px; background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));">
+            <h2 class="title-lg" style="margin-bottom: 24px; text-align: center;">🎓 Resumen del Día 4</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h3 style="margin-bottom: 8px; color: #667eea;">✅ Aprendiste:</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8; font-size: 14px;">
+                        <li>Historia de CSS</li>
+                        <li>Selectores y especificidad</li>
+                        <li>Box Model</li>
+                        <li>Flexbox y Grid</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; border-left: 4px solid #764ba2;">
+                    <h3 style="margin-bottom: 8px; color: #764ba2;">✅ Propiedades:</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8; font-size: 14px;">
+                        <li>Colores y gradientes</li>
+                        <li>Tipografía</li>
+                        <li>Transiciones y animaciones</li>
+                        <li>Responsividad</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; border-left: 4px solid #f093fb;">
+                    <h3 style="margin-bottom: 8px; color: #f093fb;">✅ Habilidades:</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8; font-size: 14px;">
+                        <li>Crear layouts complejos</li>
+                        <li>Diseñar interfaces modernas</li>
+                        <li>Hacer sitios responsivos</li>
+                        <li>Escribir CSS profesional</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botón continuar -->
+        <div style="text-align: center; margin: 64px 0;">
+<a href="modulo6.html" class="next-button"> Final</a>
+        </div>
+    </div>
+
+    <script>
+        // Ejercicio 5: Grid
+        function checkExercise5() {
+            const code = document.getElementById('ex5-code').value;
+            const style = document.getElementById('ex5-style');
+            const feedback = document.getElementById('ex5-feedback');
+            
+            style.textContent = code;
+            
+            const hasGrid = code.includes('display') && code.includes('grid');
+            const hasColumns = code.includes('grid-template-columns') && code.includes('repeat(3, 1fr)');
+            const hasGap = code.includes('gap') && code.includes('12px');
+            
+            if (hasGrid && hasColumns && hasGap) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Perfecto! Grid configurado correctamente.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Verifica: display grid, grid-template-columns y gap.';
+            }
+        }
+
+        // Ejercicio 6: Grid Responsivo
+        function checkExercise6() {
+            const code = document.getElementById('ex6-code').value;
+            const style = document.getElementById('ex6-style');
+            const feedback = document.getElementById('ex6-feedback');
+            
+            style.textContent = code;
+            
+            const hasGrid = code.includes('display') && code.includes('grid');
+            const hasAutoFit = code.includes('auto-fit') && code.includes('minmax');
+            
+            if (hasGrid && hasAutoFit) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Excelente! Grid responsivo funciona.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Usa auto-fit y minmax(200px, 1fr).';
+            }
+        }
+
+        // Ejercicio 7: Media Queries
+        function checkExercise7() {
+            const code = document.getElementById('ex7-code').value;
+            const style = document.getElementById('ex7-style');
+            const feedback = document.getElementById('ex7-feedback');
+            
+            style.textContent = code;
+            
+            const hasMediaQuery = code.includes('@media') && code.includes('max-width');
+            const has768 = code.includes('768px');
+            const hasFontSize = code.includes('font-size');
+            
+            if (hasMediaQuery && has768 && hasFontSize) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Correcto! Media query aplicada.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Falta @media, max-width: 768px o font-size.';
+            }
+        }
+
+        // Ejercicio 8: Gradientes
+        function checkExercise8() {
+            const code = document.getElementById('ex8-code').value;
+            const style = document.getElementById('ex8-style');
+            const feedback = document.getElementById('ex8-feedback');
+            
+            style.textContent = code;
+            
+            const hasGradient = code.includes('linear-gradient');
+            const has135 = code.includes('135deg');
+            const hasColors = code.includes('#667eea') && code.includes('#f093fb');
+            
+            if (hasGradient && has135 && hasColors) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Hermoso! Gradiente correcto.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Usa linear-gradient(135deg, #667eea, #f093fb).';
+            }
+        }
+
+        // Ejercicio 9: Combinado
+        function checkExercise9() {
+            const code = document.getElementById('ex9-code').value;
+            const style = document.getElementById('ex9-style');
+            const feedback = document.getElementById('ex9-feedback');
+            
+            style.textContent = code;
+            
+            const hasGrid = code.includes('display') && code.includes('grid');
+            const hasGradient = code.includes('linear-gradient');
+            const hasMedia = code.includes('@media') && code.includes('768px');
+            
+            if (hasGrid && hasGradient && hasMedia) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ ¡Excelente! Proyecto completo y profesional.';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Falta grid, gradiente o media query.';
+            }
+        }
+
+        // Mostrar pista
+        function showHint(exerciseNum) {
+            const hints = {
+                5: 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;',
+                6: 'Usa auto-fit con minmax(200px, 1fr) para que se adapte',
+                7: '@media (max-width: 768px) { font-size: 14px; }',
+                8: 'linear-gradient(135deg, #667eea, #f093fb)',
+                9: 'Combina grid + gradiente + media query en un solo código'
+            };
+            alert('💡 Pista:\n' + hints[exerciseNum]);
+        }
+
+        // Mostrar solución
+        function showSolution(exerciseNum) {
+            const solutionId = 'ex' + exerciseNum + '-solution';
+            const solution = document.getElementById(solutionId);
+            if (solution) solution.classList.toggle('show');
+        }
+
+        // Aplicar estilos dinámicamente
+        document.getElementById('ex5-code').addEventListener('input', function() {
+            document.getElementById('ex5-style').textContent = this.value;
+        });
+        document.getElementById('ex6-code').addEventListener('input', function() {
+            document.getElementById('ex6-style').textContent = this.value;
+        });
+        document.getElementById('ex7-code').addEventListener('input', function() {
+            document.getElementById('ex7-style').textContent = this.value;
+        });
+        document.getElementById('ex8-code').addEventListener('input', function() {
+            document.getElementById('ex8-style').textContent = this.value;
+        });
+        document.getElementById('ex9-code').addEventListener('input', function() {
+            document.getElementById('ex9-style').textContent = this.value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 6 - Módulo 4: Scope (Alcance de Variables)</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .module-header {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 48px;
+            border: 2px solid rgba(102,126,234,0.3);
+        }
+
+        .module-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .module-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 12px;
+        }
+
+        .module-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 12px;
+        }
+
+        .subsection-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concept-card {
+            background: rgba(30,30,30,0.95);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 24px;
+        }
+
+        .concept-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .concept-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .important-box {
+            background: rgba(102,126,234,0.1);
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .important-box strong {
+            color: #667eea;
+        }
+
+        .note-box {
+            background: rgba(72,187,120,0.1);
+            border-left: 4px solid #48bb78;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .note-box strong {
+            color: #48bb78;
+        }
+
+        .warning-box {
+            background: rgba(245,101,101,0.1);
+            border-left: 4px solid #f56565;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .warning-box strong {
+            color: #f56565;
+        }
+
+        .code-example {
+            background: rgba(0,0,0,0.7);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .comparison-box {
+            background: rgba(50,50,50,0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(102,126,234,0.2);
+        }
+
+        .comparison-box.good {
+            border-color: #48bb78;
+        }
+
+        .comparison-box.bad {
+            border-color: #f56565;
+        }
+
+        .comparison-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+        }
+
+        .comparison-box.good h4 {
+            color: #48bb78;
+        }
+
+        .comparison-box.bad h4 {
+            color: #f56565;
+        }
+
+        .scope-visualization {
+            background: rgba(50,50,50,0.95);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px dashed rgba(102,126,234,0.4);
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .scope-global {
+            background: rgba(102,126,234,0.15);
+            border: 2px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .scope-global-title {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .scope-local {
+            background: rgba(240,147,251,0.15);
+            border: 2px solid #f093fb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-left: 20px;
+        }
+
+        .scope-local-title {
+            color: #f093fb;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 64px 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .learning-points {
+            background: rgba(50,50,50,0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .learning-points ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .learning-points li {
+            margin: 8px 0;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="module-header">
+            <div class="module-icon">🎯</div>
+            <h1 class="module-title">Scope: Alcance de Variables</h1>
+            <p class="module-subtitle">Dónde puedes usar cada variable</p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.8;">
+                No todas las variables están disponibles en todos lados. El <strong>scope</strong> (alcance) determina dónde puedes acceder 
+                a cada variable. Entender scope es crítico para evitar errores confusos. Este módulo te lo explica en detalle.
+            </p>
+        </div>
+
+        <!-- 1. ¿QUÉ ES SCOPE? -->
+        <section>
+            <h2 class="section-title">1️⃣ ¿Qué es Scope?</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🤔 Definición</div>
+                <div class="concept-text">
+                    El <strong>scope</strong> (alcance) es la <strong>región del código donde una variable es accesible</strong>. 
+                    No todas las variables existen en todo el código. Algunas solo existen dentro de funciones, otras solo dentro de bloques, 
+                    y otras están disponibles globalmente.
+                </div>
+                <div class="important-box">
+                    <strong>💡 Analogía:</strong> Es como un edificio con diferentes pisos y oficinas. Algunos empleados (variables) 
+                    trabajan en toda la empresa (global scope), otros solo en su piso (scope local).
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📊 Los 3 Tipos de Scope</div>
+                <div class="learning-points">
+                    <ul>
+                        <li><strong>Global Scope:</strong> Variables accesibles desde cualquier parte del código</li>
+                        <li><strong>Local Scope (Function):</strong> Variables que solo existen dentro de una función</li>
+                        <li><strong>Block Scope:</strong> Variables que solo existen dentro de un bloque { } (con let y const)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. GLOBAL SCOPE -->
+        <section>
+            <h2 class="section-title">2️⃣ Global Scope: Accesible Desde Cualquier Lado</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🌍 Variables Globales</div>
+                <div class="concept-text">
+                    Las variables declaradas <strong>fuera de cualquier función o bloque</strong> están en global scope. 
+                    Son accesibles desde <strong>cualquier parte del código</strong>.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplo</div>
+                <div class="code-example">
+// GLOBAL SCOPE - Fuera de funciones<br>
+const nombre = "Sofia";  // Global<br>
+let edad = 25;           // Global<br>
+<br>
+// Función 1<br>
+function saludar() {<br>
+&nbsp;&nbsp;console.log(nombre);  // ✅ Accede a nombre (global)<br>
+&nbsp;&nbsp;console.log(edad);    // ✅ Accede a edad (global)<br>
+}<br>
+<br>
+// Función 2<br>
+function mostrarInfo() {<br>
+&nbsp;&nbsp;console.log(nombre);  // ✅ También accede aquí<br>
+}<br>
+<br>
+saludar();      // ✅ Funciona<br>
+mostrarInfo();  // ✅ Funciona
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Cuidado:</strong> Las variables globales son poderosas pero peligrosas. Si muchas partes del código las modifican, 
+                se vuelve difícil rastrear cambios. Úsalas con cuidado.
+            </div>
+        </section>
+
+        <!-- 3. LOCAL SCOPE (FUNCTION) -->
+        <section>
+            <h2 class="section-title">3️⃣ Local Scope (Function): Solo Dentro de Funciones</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔒 Variables Locales (en Funciones)</div>
+                <div class="concept-text">
+                    Las variables declaradas <strong>dentro de una función</strong> solo existen dentro de esa función. 
+                    <strong>NO son accesibles desde fuera.</strong>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplo</div>
+                <div class="code-example">
+function crearPersona() {<br>
+&nbsp;&nbsp;const nombre = "Ana";       // Local a crearPersona()<br>
+&nbsp;&nbsp;const edad = 30;           // Local a crearPersona()<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;console.log(nombre);  // ✅ Funciona aquí dentro<br>
+&nbsp;&nbsp;console.log(edad);    // ✅ Funciona aquí dentro<br>
+}<br>
+<br>
+crearPersona();      // La función ejecuta bien<br>
+console.log(nombre); // ❌ ERROR: nombre no existe aquí<br>
+console.log(edad);   // ❌ ERROR: edad no existe aquí<br>
+<br>
+// Las variables nacen cuando entra a la función<br>
+// y "mueren" cuando sale de la función
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>💡 Ventaja:</strong> Las variables locales son <strong>privadas</strong>. Cada función tiene su propio 
+                espacio. Esto evita conflictos de nombres.
+            </div>
+        </section>
+
+        <!-- 4. BLOCK SCOPE -->
+        <section>
+            <h2 class="section-title">4️⃣ Block Scope: Solo Dentro de Bloques { }</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">📦 Variables en Bloques</div>
+                <div class="concept-text">
+                    Con <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">let</code> y 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">const</code>, las variables 
+                    están limitadas al bloque <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">{ }</code> donde se declaran. 
+                    Esto incluye: if, for, while, funciones, etc.
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-box good">
+                    <h4>✅ let/const (Block Scope)</h4>
+                    <div class="code-example">
+{<br>
+&nbsp;&nbsp;let x = 5;     // Existe solo aquí<br>
+&nbsp;&nbsp;const y = 10;  // Existe solo aquí<br>
+&nbsp;&nbsp;console.log(x); // ✅ 5<br>
+}<br>
+<br>
+console.log(x);  // ❌ Error<br>
+console.log(y);  // ❌ Error
+                    </div>
+                </div>
+
+                <div class="comparison-box bad">
+                    <h4>❌ var (Viejo, Evita)</h4>
+                    <div class="code-example">
+{<br>
+&nbsp;&nbsp;var z = 5;  // "Escapa" del bloque<br>
+}<br>
+<br>
+console.log(z);  // ✅ 5 (¡sorpresa!)<br>
+<br>
+// var NO respeta block scope<br>
+// Causa confusión, no uses
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplo Real: if</div>
+                <div class="code-example">
+const edad = 20;<br>
+<br>
+if (edad >= 18) {<br>
+&nbsp;&nbsp;const mensaje = "Eres mayor de edad";  // Local al if<br>
+&nbsp;&nbsp;console.log(mensaje);  // ✅ Funciona aquí<br>
+}<br>
+<br>
+console.log(mensaje);  // ❌ ERROR: no existe fuera del if<br>
+<br>
+// CORRECCIÓN: Declara fuera<br>
+let resultado;<br>
+if (edad >= 18) {<br>
+&nbsp;&nbsp;resultado = "Eres mayor";  // Modifica la variable externa<br>
+}<br>
+console.log(resultado);  // ✅ Funciona
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SCOPE NESTING (ENCADENAMIENTO) -->
+        <section>
+            <h2 class="section-title">5️⃣ Scope Nesting: Bloques Dentro de Bloques</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🪆 La Regla de Oro</div>
+                <div class="concept-text">
+                    Los bloques pueden estar dentro de otros bloques. Cada nivel puede acceder a variables del nivel exterior, 
+                    pero NO al revés.
+                </div>
+                <div class="important-box">
+                    <strong>📐 Regla:</strong> <strong>Adentro → Afuera = ✅ Sí</strong> | <strong>Afuera → Adentro = ❌ No</strong>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Visualización</div>
+                <div class="scope-visualization">
+                    <div class="scope-global">
+                        <div class="scope-global-title">🌍 GLOBAL</div>
+                        const global = "Soy global";
+                        <br><br>
+                        <div class="scope-local">
+                            <div class="scope-local-title">📦 BLOQUE 1</div>
+                            let externo = "Bloque 1";
+                            <br><br>
+                            <div style="background: rgba(0,0,0,0.2); border-left: 2px solid #48bb78; padding: 12px; border-radius: 4px;">
+                                <strong style="color: #48bb78;">🔹 BLOQUE INTERNO</strong><br>
+                                const interno = "Dentro de bloque 1";
+                                <br><br>
+                                <strong style="color: #f093fb; font-size: 12px;">✅ Puede acceder:</strong><br>
+                                interno, externo, global
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Código Ejemplo</div>
+                <div class="code-example">
+const global = "Global";       // Nivel 1: Global<br>
+<br>
+{  // Nivel 2: Bloque externo<br>
+&nbsp;&nbsp;const externo = "Externo";<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;{  // Nivel 3: Bloque interno<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const interno = "Interno";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Desde aquí puede acceder a todo:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(interno);   // ✅ "Interno"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(externo);   // ✅ "Externo"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(global);    // ✅ "Global"<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Desde aquí NO puede acceder a interno:<br>
+&nbsp;&nbsp;console.log(interno);  // ❌ ERROR<br>
+}<br>
+<br>
+// Desde aquí solo puede acceder a global:<br>
+console.log(global);   // ✅ "Global"<br>
+console.log(externo);  // ❌ ERROR<br>
+console.log(interno);  // ❌ ERROR
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. let vs const vs var -->
+        <section>
+            <h2 class="section-title">6️⃣ let vs const vs var: Comparación</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">📊 Tabla Comparativa</div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                        <thead>
+                            <tr style="background: rgba(102,126,234,0.1);">
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">Característica</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">let</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">const</th>
+                                <th style="padding: 12px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">var</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Scope</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Block { }</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Block { }</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Función (confuso)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Reasignar</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">✅ Sí</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">❌ No</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">✅ Sí</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Modificar valor</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">✅ Sí (objetos)</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">✅ Sí (objetos)</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">✅ Sí</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">Hoisting</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">TDZ</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">TDZ</td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);">undefined</td>
+                            </tr>
+                            <tr style="background: rgba(72,187,120,0.1);">
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);"><strong>Recomendado</strong></td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);"><strong>✅ Sí</strong></td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);"><strong>✅ Primero</strong></td>
+                                <td style="padding: 12px; border: 1px solid rgba(102,126,234,0.2);"><strong>❌ No</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>📝 Regla Simple:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li>Usa <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">const</code> por defecto</li>
+                    <li>Usa <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">let</code> si necesitas cambiar el valor</li>
+                    <li>Nunca uses <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">var</code> en código moderno</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 7. CASOS DE ERROR COMÚN -->
+        <section>
+            <h2 class="section-title">7️⃣ Errores Comunes por Scope</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-box bad">
+                    <h4>❌ Error 1: Acceder a Variable Local</h4>
+                    <div class="code-example">
+function miFunc() {<br>
+&nbsp;&nbsp;const x = 5;  // Local<br>
+}<br>
+<br>
+console.log(x);  // ❌ ReferenceError
+                    </div>
+                    <p style="margin: 12px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.7);">
+                        x solo existe dentro de miFunc(). Afuera no existe.
+                    </p>
+                </div>
+
+                <div class="comparison-box good">
+                    <h4>✅ Solución 1: Retornar el Valor</h4>
+                    <div class="code-example">
+function miFunc() {<br>
+&nbsp;&nbsp;const x = 5;<br>
+&nbsp;&nbsp;return x;  // Retorna el valor<br>
+}<br>
+<br>
+const resultado = miFunc();<br>
+console.log(resultado);  // ✅ 5
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-box bad">
+                    <h4>❌ Error 2: Usar var en Loops</h4>
+                    <div class="code-example">
+for (var i = 0; i < 3; i++) {<br>
+&nbsp;&nbsp;// i es global, no local<br>
+}<br>
+<br>
+console.log(i);  // ✅ 3 (¡sorpresa!)<br>
+// var "escapa" del loop
+                    </div>
+                </div>
+
+                <div class="comparison-box good">
+                    <h4>✅ Solución 2: Usa let</h4>
+                    <div class="code-example">
+for (let i = 0; i < 3; i++) {<br>
+&nbsp;&nbsp;// i es local al loop<br>
+}<br>
+<br>
+console.log(i);  // ❌ Error<br>
+// let respeta el bloque
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section>
+            <div class="concept-card" style="background: linear-gradient(135deg, rgba(72,187,120,0.1), rgba(102,126,234,0.1)); border-left: 4px solid #48bb78;">
+                <div class="concept-title" style="color: #48bb78;">✅ Checklist - ¿Entendiste?</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        ✓ Qué es scope y por qué importa
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Global scope vs Local scope
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Block scope con let y const
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Scope nesting (dentro→fuera ✅)
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Diferencias let, const, var
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Errores comunes y soluciones
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Cuándo usar cada una
+                    </div>
+                    <div class="checklist-item">
+                        ✓ Cómo depurar problemas de scope
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CONVERSIÓN/TRANSFORMACIÓN DE TIPOS -->
+        <section>
+            <h2 class="section-title">7️⃣ Conversión de Tipos: Transformar Datos</h2>
+            
+            <div class="concept-card">
+                <div class="concept-title">🔄 ¿Qué es Convertir Tipos?</div>
+                <div class="concept-text">
+                    A veces necesitas <strong>cambiar el tipo de un dato</strong>. Por ejemplo, convertir el string "25" 
+                    a número 25, o convertir un número a texto. JavaScript proporciona funciones para hacer esto.
+                </div>
+                <div class="important-box">
+                    <strong>💡 Caso Real:</strong> Un usuario escribe su edad en un formulario. El navegador lo recibe como STRING 
+                    (porque viene de un input de texto). Pero necesitas convertirlo a NUMBER para hacer cálculos.
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">🔢 Convertir a NUMBER</div>
+                <div class="concept-text">
+                    Transforma strings y otros valores en números. Es crucial para cálculos.
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0;">
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #667eea;">
+                        <strong style="color: #667eea; font-size: 14px;">Number()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+Number("25")      // 25<br>
+Number("3.14")    // 3.14<br>
+Number(true)      // 1<br>
+Number(false)     // 0<br>
+Number("")        // 0<br>
+Number("abc")     // NaN
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #667eea;">
+                        <strong style="color: #667eea; font-size: 14px;">parseInt()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+parseInt("25")      // 25<br>
+parseInt("25.99")   // 25 (trunca)<br>
+parseInt("25abc")   // 25 (lee hasta no-número)<br>
+parseInt("abc")     // NaN<br>
+parseInt("25", 10)  // 25 (base 10)
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #667eea;">
+                        <strong style="color: #667eea; font-size: 14px;">parseFloat()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+parseFloat("3.14")     // 3.14<br>
+parseFloat("3.14abc")  // 3.14<br>
+parseFloat("abc")      // NaN<br>
+parseFloat("25")       // 25 (sin decimales)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box" style="margin-top: 12px;">
+                    <strong>📝 Diferencia:</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">Number()</code> - Más estricto, retorna NaN si no es puro número</li>
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">parseInt()</code> - Lee números enteros, ignora texto al final</li>
+                        <li><code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">parseFloat()</code> - Lee números con decimales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📝 Convertir a STRING</div>
+                <div class="concept-text">
+                    Transforma cualquier tipo en texto. Útil para mostrar información o concatenar.
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0;">
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #f093fb;">
+                        <strong style="color: #f093fb; font-size: 14px;">String()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+String(25)          // "25"<br>
+String(3.14)        // "3.14"<br>
+String(true)        // "true"<br>
+String(null)        // "null"<br>
+String(undefined)   // "undefined"
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #f093fb;">
+                        <strong style="color: #f093fb; font-size: 14px;">.toString()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+(25).toString()         // "25"<br>
+(3.14).toString()       // "3.14"<br>
+true.toString()         // "true"<br>
+[1,2,3].toString()      // "1,2,3"<br>
+// NO funciona con null
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #f093fb;">
+                        <strong style="color: #f093fb; font-size: 14px;">+ "" (Concatenar)</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+25 + ""             // "25"<br>
+true + ""           // "true"<br>
+3.14 + ""           // "3.14"<br>
+null + ""           // "null"<br>
+// Rápido pero menos claro
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">✅ Convertir a BOOLEAN</div>
+                <div class="concept-text">
+                    Transforma cualquier valor en true o false. Los valores "falsy" se convierten en false, todo lo demás en true.
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0;">
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #48bb78;">
+                        <strong style="color: #48bb78; font-size: 14px;">Boolean()</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+Boolean(1)          // true<br>
+Boolean(0)          // false<br>
+Boolean("texto")    // true<br>
+Boolean("")         // false<br>
+Boolean(null)       // false<br>
+Boolean(undefined)  // false
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #48bb78;">
+                        <strong style="color: #48bb78; font-size: 14px;">!! (Doble negación)</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+!!1             // true<br>
+!!0             // false<br>
+!!"texto"       // true<br>
+!!""            // false<br>
+!!null          // false<br>
+// Más rápido pero confuso
+                        </div>
+                    </div>
+                    <div style="background: rgba(50,50,50,0.95); padding: 16px; border-radius: 8px; border-left: 3px solid #48bb78;">
+                        <strong style="color: #48bb78; font-size: 14px;">Valores "Falsy"</strong>
+                        <div class="code-example" style="margin-top: 8px;">
+// Estos dan FALSE:<br>
+0, "", false, null,<br>
+undefined, NaN<br>
+<br>
+// Todo lo demás = TRUE
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box" style="margin-top: 12px;">
+                    <strong>📝 Valores Falsy:</strong> Solo estos 6 se convierten en false: 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">0</code>, 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">""</code>, 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">false</code>, 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">null</code>, 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">undefined</code>, 
+                    <code style="background: rgba(0,0,0,0.3); padding: 2px 4px;">NaN</code>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">💻 Ejemplos Prácticos (Muy Común)</div>
+                <div class="code-example">
+// Ejemplo 1: Formulario (recibe strings)<br>
+const inputEdad = "25";  // Viene del HTML input<br>
+const edadNumero = Number(inputEdad);  // Convertir a número<br>
+const proximaAno = edadNumero + 1;     // Ahora puedo sumar<br>
+console.log(proximaAno);  // 26<br>
+<br>
+// Ejemplo 2: Mostrar valores<br>
+const usuario = {<br>
+&nbsp;&nbsp;edad: 25,<br>
+&nbsp;&nbsp;activo: true<br>
+};<br>
+console.log("Edad: " + String(usuario.edad));      // "Edad: 25"<br>
+console.log("Activo: " + String(usuario.activo));  // "Activo: true"<br>
+<br>
+// Ejemplo 3: Validar entrada<br>
+const numero = parseInt("42abc");<br>
+if (numero && !isNaN(numero)) {  // ¿Es número válido?<br>
+&nbsp;&nbsp;console.log("Es número: " + numero);<br>
+} else {<br>
+&nbsp;&nbsp;console.log("No es número válido");<br>
+}<br>
+<br>
+// Ejemplo 4: Condicionales<br>
+const valor = 0;<br>
+if (Boolean(valor)) {  // 0 es falsy<br>
+&nbsp;&nbsp;console.log("Verdadero");<br>
+} else {<br>
+&nbsp;&nbsp;console.log("Falso");  // Esto se ejecuta<br>
+}
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Cuidado: Conversiones Inesperadas</strong>
+                <div class="code-example">
+Number("25px")    // NaN (no es puro número)<br>
+parseInt("25px")  // 25 (ignora el "px")<br>
+<br>
+"25" - 5          // 20 (resta convierte a número)<br>
+"25" + 5          // "255" (suma concatena)<br>
+<br>
+Boolean(" ")      // true (espacio es truthy)<br>
+Boolean(0)        // false<br>
+<br>
+Number("0")       // 0<br>
+Boolean("0")      // true (string no vacío es truthy)
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-title">📊 Tabla Resumen de Conversiones</div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                        <thead>
+                            <tr style="background: rgba(102,126,234,0.1);">
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">De</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A Number</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A String</th>
+                                <th style="padding: 10px; border: 1px solid rgba(102,126,234,0.3); text-align: left;">A Boolean</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">String "25"</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Number("25") → 25</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Ya es string</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Boolean("25") → true</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Number 25</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Ya es número</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">String(25) → "25"</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Boolean(25) → true</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Boolean true</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Number(true) → 1</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">String(true) → "true"</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Ya es boolean</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">null</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Number(null) → 0</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">String(null) → "null"</td>
+                                <td style="padding: 10px; border: 1px solid rgba(102,126,234,0.2);">Boolean(null) → false</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="dia6-quiz.html" class="next-button">
+                Siguiente: Quiz Final →
+            </a>
+        </div>
+    </div>
+</body>
+</html>

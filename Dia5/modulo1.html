@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1 - Estructura HTML Pokédex</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .intro-section {
+            max-width: 900px;
+            margin: 32px auto;
+            animation: slideIn 0.6s ease;
+        }
+
+        .intro-hero {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            border: 2px solid rgba(102,126,234,0.3);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .intro-icon {
+            font-size: 100px;
+            margin-bottom: 24px;
+            animation: bounce 1s infinite;
+        }
+
+        .intro-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .intro-subtitle {
+            font-size: 24px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: var(--color-primary);
+        }
+
+        .explanation-box {
+            background: rgba(102,126,234,0.1);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin: 24px 0;
+            line-height: 1.8;
+        }
+
+        .explanation-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .challenge-box {
+            background: rgba(240,147,251,0.05);
+            border: 2px solid rgba(240,147,251,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .challenge-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f093fb;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .challenge-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .solution-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+
+        .solution-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .solution-content {
+            display: none;
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        .solution-content code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: rgba(76,175,80,0.1);
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .tip-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .step-box {
+            background: rgba(102,126,234,0.05);
+            border: 2px solid rgba(102,126,234,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .step-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .folder-tree {
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #a8e6cf;
+            line-height: 1.8;
+        }
+
+        .important-box {
+            background: rgba(255,100,87,0.1);
+            border-left: 4px solid #ff6457;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .important-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .intro-hero {
+                padding: 24px;
+            }
+            .intro-title {
+                font-size: 32px;
+            }
+            .intro-icon {
+                font-size: 60px;
+            }
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="intro-hero">
+            <div class="intro-icon">⚙️</div>
+            <h1 class="intro-title">Módulo 1: HTML Básico</h1>
+            <p class="intro-subtitle">Estructura HTML de la Pokédex</p>
+            <p class="intro-text">
+                Aprenderás a crear la estructura HTML básica para tu Pokédex.
+            </p>
+        </div>
+
+        <!-- SECCIÓN 1: PASOS INICIALES -->
+        <section class="intro-section">
+            <h2 class="section-title">🚀 Pasos Iniciales</h2>
+
+            <div class="step-box">
+                <div class="step-header">Paso 1: Abre Live Server</div>
+                <div class="step-text">
+                    Haz clic derecho en tu archivo <strong>index.html</strong> y selecciona 
+                    <strong>"Open with Live Server"</strong>. Tu navegador se abrirá automáticamente.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">Paso 2: Organiza tu espacio</div>
+                <div class="step-text">
+                    Abre tu editor de código (VS Code) en un lado de la pantalla y el navegador en el otro. 
+                    Así verás los cambios en tiempo real.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">Paso 3: Abre la consola del navegador</div>
+                <div class="step-text">
+                    Presiona <strong>F12</strong> para abrir las herramientas de desarrollador. 
+                    Aquí puedes ver si hay errores en tu código.
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>💡 Tip:</strong> Guarda tus cambios con Ctrl+S (o Cmd+S). Live Server detectará los cambios automáticamente.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ESTRUCTURA DE CARPETAS -->
+        <section class="intro-section">
+            <h2 class="section-title">📁 Estructura de Carpetas del Proyecto</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Antes de escribir código HTML, necesitas organizar tus carpetas correctamente. 
+                    Una buena estructura de carpetas facilita el trabajo y mantiene todo ordenado.
+                </p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Cómo crear la estructura?</div>
+                <div class="step-text">
+                    En VS Code, en el panel izquierdo (Explorador), haz clic derecho en la carpeta 
+                    pokemon-cards y crea nuevas carpetas. Aquí está la estructura que debes tener:
+                </div>
+            </div>
+
+            <div class="folder-tree">
+pokemon-cards/
+├── index.html
+├── css/
+│   └── estilos.css
+└── assets/
+    └── (aquí irán las imágenes)
+            </div>
+
+            <div class="tip-box">
+                <p><strong>📌 Explicación:</strong></p>
+                <p><strong>index.html</strong> - Tu archivo principal (la estructura)</p>
+                <p><strong>css/estilos.css</strong> - Aquí irán los estilos CSS</p>
+                <p><strong>assets/</strong> - Carpeta donde guardarás todas las imágenes de Pokémon</p>
+            </div>
+
+            <!-- RETO ESTRUCTURA -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto: Crea la estructura de carpetas
+                </div>
+                <div class="challenge-text">
+                    Crea las carpetas <strong>css</strong> y <strong>assets</strong> dentro de tu carpeta pokemon-cards. 
+                    En la carpeta <strong>css</strong> crea un archivo llamado <strong>estilos.css</strong>.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(0)">Ver Cómo Hacerlo</button>
+                <div class="solution-content" id="solution0">
+                    <div class="code-label">Pasos en VS Code</div>
+                    <code>1. Haz clic derecho en la carpeta pokemon-cards<br>
+2. Selecciona "Nueva Carpeta"<br>
+3. Escribe "css" y presiona Enter<br>
+4. Repite los pasos 1-3 pero escribe "assets"<br>
+5. Haz clic derecho en la carpeta css<br>
+6. Selecciona "Nuevo Archivo"<br>
+7. Escribe "estilos.css" y presiona Enter</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: DESCARGAR IMÁGENES -->
+        <section class="intro-section">
+            <h2 class="section-title">🖼️ Descargar Imágenes de Pokémon</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Ahora necesitas obtener las imágenes de los Pokémon. 
+                    Aquí te enseño dónde descargarlas y cómo guardarlas correctamente.
+                </p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">Opción 1: Descargar de PokéAPI (Recomendado)</div>
+                <div class="step-text">
+                    <strong>PokéAPI</strong> es un sitio oficial que tiene las imágenes de todos los Pokémon.<br><br>
+                    
+                    Para descargar una imagen:<br>
+                    1. Ve a <strong>https://raw.githubusercontent.com/PokeAPI/sprites/master/pokemon/other/official-artwork/</strong><br>
+                    2. Añade el número del Pokémon y ".png"<br>
+                    <br>
+                    Ejemplos:<br>
+                    • Pikachu (Pokémon #25): https://raw.githubusercontent.com/PokeAPI/sprites/master/pokemon/other/official-artwork/25.png<br>
+                    • Charizard (Pokémon #6): https://raw.githubusercontent.com/PokeAPI/sprites/master/pokemon/other/official-artwork/6.png<br>
+                    • Blastoise (Pokémon #9): https://raw.githubusercontent.com/PokeAPI/sprites/master/pokemon/other/official-artwork/9.png
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">Opción 2: Usar imágenes del navegador</div>
+                <div class="step-text">
+                    <strong>Paso 1:</strong> Abre Google y busca "Pikachu PNG"<br>
+                    <strong>Paso 2:</strong> Haz clic derecho en la imagen que te guste<br>
+                    <strong>Paso 3:</strong> Selecciona "Guardar imagen como..."<br>
+                    <strong>Paso 4:</strong> Navega a tu carpeta <strong>assets</strong><br>
+                    <strong>Paso 5:</strong> Cambia el nombre a algo simple como "pikachu.png"<br>
+                    <strong>Paso 6:</strong> Haz clic en "Guardar"
+                </div>
+            </div>
+
+            <!-- RETO DESCARGAR -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto: Descarga las imágenes
+                </div>
+                <div class="challenge-text">
+                    Descarga al menos 3 imágenes de Pokémon usando cualquiera de las opciones anterior. 
+                    Guarda las imágenes en tu carpeta <strong>assets</strong> con nombres simples.
+                    <br><br>
+                    Sugiero:<br>
+                    • pikachu.png<br>
+                    • charizard.png<br>
+                    • blastoise.png
+                </div>
+                <button class="solution-button" onclick="toggleSolution(1)">Ver Números Pokémon</button>
+                <div class="solution-content" id="solution1">
+                    <div class="code-label">Números Pokémon (para PokéAPI)</div>
+                    <code>Pikachu: #25 → 25.png<br>
+Charizard: #6 → 6.png<br>
+Blastoise: #9 → 9.png<br>
+Venusaur: #3 → 3.png<br>
+Dragonite: #149 → 149.png<br>
+Alakazam: #65 → 65.png<br>
+Machamp: #68 → 68.png<br>
+Golem: #76 → 76.png<br>
+Arcanine: #59 → 59.png<br>
+Lapras: #131 → 131.png</code>
+                </div>
+            </div>
+
+            <div class="important-box">
+                <p>
+                    <strong>⚠️ Importante:</strong> Asegúrate de que las imágenes estén en la carpeta 
+                    <strong>assets</strong> dentro de tu proyecto. El archivo debe estar en:<br>
+                    <strong>pokemon-cards/assets/pikachu.png</strong>
+                </p>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>💡 Tip:</strong> En Windows o Mac, puedes abrir la carpeta assets desde el Explorador de archivos y arrastrar las imágenes ahí directamente.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: VERIFICAR ESTRUCTURA -->
+        <section class="intro-section">
+            <h2 class="section-title">✅ Verifica tu estructura</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Antes de seguir, asegúrate de tener todo en su lugar. 
+                    En VS Code deberías ver algo así:
+                </p>
+            </div>
+
+            <div class="folder-tree">
+pokemon-cards
+├── index.html
+├── css
+│   └── estilos.css
+└── assets
+    ├── pikachu.png
+    ├── charizard.png
+    └── blastoise.png
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">Checklist</div>
+                <div class="step-text">
+                    ☑️ ¿Existe la carpeta css?<br>
+                    ☑️ ¿Existe el archivo css/estilos.css?<br>
+                    ☑️ ¿Existe la carpeta assets?<br>
+                    ☑️ ¿Hay al menos 3 imágenes PNG en la carpeta assets?<br>
+                    ☑️ ¿Los nombres de las imágenes son simples (sin espacios)?
+                </div>
+            </div>
+
+            <div class="important-box">
+                <p>
+                    <strong>⚠️ Si algo no está bien:</strong> Revisa los nombres de los archivos. 
+                    Deben estar en minúsculas y sin espacios. Por ejemplo: "pikachu.png" 
+                    en lugar de "Pikachu.png" o "pikachu pokemon.png"
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: ESTRUCTURA HTML BÁSICA -->
+        <section class="intro-section">
+            <h2 class="section-title">📋 Estructura HTML Básica</h2>
+
+            <div class="explanation-box">
+                <p>
+                    La estructura HTML básica es el "esqueleto" de toda página web. 
+                    Esto es lo mínimo que necesitas para que el navegador entienda tu página.
+                </p>
+            </div>
+
+            <!-- RETO 1 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 1: Crea el doctype y la estructura raíz
+                </div>
+                <div class="challenge-text">
+                    Empieza tu archivo index.html con el doctype y las etiquetas raíz. 
+                    El doctype le dice al navegador que es HTML5. 
+                    Luego abre la etiqueta &lt;html&gt; que contiene todo.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(2)">Ver Solución</button>
+                <div class="solution-content" id="solution2">
+                    <div class="code-label">Solución Reto 1</div>
+                    <code>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="es"&gt;<br>
+&nbsp;&nbsp;&lt;!-- El resto del código irá aquí --&gt;<br>
+&lt;/html&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 2 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 2: Crea la sección HEAD
+                </div>
+                <div class="challenge-text">
+                    Dentro de &lt;html&gt;, crea la etiqueta &lt;head&gt;. 
+                    Aquí va la información sobre tu página (title, meta tags, links a CSS, etc.). 
+                    El contenido del head NO se ve en la página.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(3)">Ver Solución</button>
+                <div class="solution-content" id="solution3">
+                    <div class="code-label">Solución Reto 2</div>
+                    <code>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="es"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Mi Pokédex&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;link rel="stylesheet" href="css/estilos.css"&gt;<br>
+&lt;/head&gt;<br>
+&lt;/html&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 3 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 3: Crea la sección BODY
+                </div>
+                <div class="challenge-text">
+                    Después del &lt;/head&gt;, crea la etiqueta &lt;body&gt;. 
+                    Aquí va TODO lo que se ve en la página: títulos, párrafos, imágenes, etc.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(4)">Ver Solución</button>
+                <div class="solution-content" id="solution4">
+                    <div class="code-label">Solución Reto 3</div>
+                    <code>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="es"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Mi Pokédex&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;link rel="stylesheet" href="css/estilos.css"&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;!-- Aquí va el contenido visible --&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: ESTRUCTURA DE LA POKÉDEX -->
+        <section class="intro-section">
+            <h2 class="section-title">🎯 Estructura de la Pokédex</h2>
+
+            <div class="explanation-box">
+                <p>
+                    La Pokédex tendrá una estructura simple pero organizada. 
+                    Vamos a crearla paso a paso con retos.
+                </p>
+            </div>
+
+            <!-- RETO 4 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 4: Contenedor principal
+                </div>
+                <div class="challenge-text">
+                    Dentro del &lt;body&gt;, crea un &lt;div&gt; con la clase "container". 
+                    Este div será el contenedor principal que agrupa todo el contenido.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(5)">Ver Solución</button>
+                <div class="solution-content" id="solution5">
+                    <div class="code-label">Solución Reto 4</div>
+                    <code>&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Aquí irá el contenido --&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/body&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 5 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 5: Encabezado de la Pokédex
+                </div>
+                <div class="challenge-text">
+                    Dentro del container, crea un &lt;header&gt; con un &lt;h1&gt; que diga "Mi Pokédex". 
+                    Este será el título principal de tu aplicación.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(6)">Ver Solución</button>
+                <div class="solution-content" id="solution6">
+                    <div class="code-label">Solución Reto 5</div>
+                    <code>&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&lt;header&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Mi Pokédex&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;/header&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 6 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 6: Barra de búsqueda
+                </div>
+                <div class="challenge-text">
+                    Debajo del header, crea un &lt;div&gt; con clase "search-bar" que contenga un 
+                    &lt;input&gt; de tipo "text" con placeholder "Buscar Pokémon...".
+                </div>
+                <button class="solution-button" onclick="toggleSolution(7)">Ver Solución</button>
+                <div class="solution-content" id="solution7">
+                    <div class="code-label">Solución Reto 6</div>
+                    <code>&lt;div class="search-bar"&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" placeholder="Buscar Pokémon..."&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 7 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 7: Grid de Pokémon
+                </div>
+                <div class="challenge-text">
+                    Crea un &lt;div&gt; con clase "pokemon-grid". Este contenedor tendrá 
+                    todos los cards de Pokémon organizados en una cuadrícula.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(8)">Ver Solución</button>
+                <div class="solution-content" id="solution8">
+                    <div class="code-label">Solución Reto 7</div>
+                    <code>&lt;div class="pokemon-grid"&gt;<br>
+&nbsp;&nbsp;&lt;!-- Aquí irán las tarjetas de Pokémon --&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 8 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 8: Tarjeta de un Pokémon
+                </div>
+                <div class="challenge-text">
+                    Dentro del pokemon-grid, crea un &lt;div&gt; con clase "pokemon-card". 
+                    Esta tarjeta contendrá:<br>
+                    • Un &lt;h2&gt; con el nombre del Pokémon (ej: "Pikachu")<br>
+                    • Un &lt;p&gt; con su tipo (ej: "Eléctrico")<br>
+                    • Un &lt;img&gt; con la imagen del Pokémon (usa los nombres que descargaste)
+                </div>
+                <button class="solution-button" onclick="toggleSolution(9)">Ver Solución</button>
+                <div class="solution-content" id="solution9">
+                    <div class="code-label">Solución Reto 8</div>
+                    <code>&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Pikachu&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Eléctrico&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/pikachu.png" alt="Pikachu"&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <!-- RETO 9 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 9: Agregar más Pokémon
+                </div>
+                <div class="challenge-text">
+                    Copia la tarjeta de Pokémon 2-3 veces más cambiando el nombre, tipo e imagen. 
+                    Usa los archivos que descargaste en la carpeta assets.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(10)">Ver Solución</button>
+                <div class="solution-content" id="solution10">
+                    <div class="code-label">Solución Reto 9 (3 Pokémon)</div>
+                    <code>&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Pikachu&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Eléctrico&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/pikachu.png" alt="Pikachu"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Charizard&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Fuego/Volador&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/charizard.png" alt="Charizard"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Blastoise&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Agua&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/blastoise.png" alt="Blastoise"&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 7: HTML COMPLETO -->
+        <section class="intro-section">
+            <h2 class="section-title">✅ HTML Completo Final</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Aquí tienes todo el código HTML que deberías tener en tu index.html 
+                    después de completar todos los retos:
+                </p>
+            </div>
+
+            <div class="code-block">
+                <div class="code-label">index.html - Código Completo</div>
+                <code>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="es"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Mi Pokédex&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;link rel="stylesheet" href="css/estilos.css"&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Mi Pokédex&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/header&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="search-bar"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" placeholder="Buscar Pokémon..."&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-grid"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Pikachu&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Eléctrico&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="assets/pikachu.png" alt="Pikachu"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Charizard&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Fuego/Volador&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="assets/charizard.png" alt="Charizard"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Blastoise&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Agua&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="assets/blastoise.png" alt="Blastoise"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;</code>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>✅ Checklist:</strong></p>
+                <p>☑️ Tienes &lt;!DOCTYPE html&gt; al inicio</p>
+                <p>☑️ Tienes &lt;head&gt; con meta tags y title</p>
+                <p>☑️ Tienes &lt;body&gt; con todo el contenido</p>
+                <p>☑️ Tienes header con h1</p>
+                <p>☑️ Tienes input de búsqueda</p>
+                <p>☑️ Tienes pokemon-grid con al menos 3 pokemon-card</p>
+                <p>☑️ Cada pokemon-card tiene h2, p e img</p>
+                <p>☑️ Las rutas de las imágenes son correctas (assets/nombre.png)</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 8: VERIFICACIÓN FINAL -->
+        <section class="intro-section">
+            <h2 class="section-title">🔍 Verifica tu trabajo</h2>
+
+            <div class="step-box">
+                <div class="step-header">¿Ves el título "Mi Pokédex" en el navegador?</div>
+                <div class="step-text">
+                    Si no lo ves, revisa que tu &lt;h1&gt; esté dentro del &lt;body&gt;.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Ves el input de búsqueda?</div>
+                <div class="step-text">
+                    Si no lo ves, revisa que tu &lt;input&gt; esté dentro de &lt;div class="search-bar"&gt;.
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header">¿Ves las tarjetas de Pokémon con sus imágenes?</div>
+                <div class="step-text">
+                    Si no ves las imágenes, verifica que:<br>
+                    1. Las imágenes estén en la carpeta assets<br>
+                    2. Los nombres sean exactos (mayúsculas/minúsculas)<br>
+                    3. La ruta sea "assets/nombre.png"
+                </div>
+            </div>
+
+            <div class="important-box">
+                <p>
+                    <strong>💡 Tip:</strong> Si una imagen no carga, en la consola (F12) verás un error. 
+                    Revisa que la ruta sea correcta.
+                </p>
+            </div>
+        </section>
+
+        <!-- Botón Siguiente -->
+        <div class="button-container">
+            <a href="modulo2.html" class="next-button">
+                Ir a Módulo 2: CSS →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(id) {
+            const element = document.getElementById('solution' + id);
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

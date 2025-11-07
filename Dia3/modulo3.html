@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3: Ejercicios Prácticos</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-html: #e34c26;
+            --color-success: #48bb78;
+            --color-error: #f56565;
+            --color-warning: #ed8936;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+        }
+
+        .module-badge {
+            background: var(--color-html);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .module-title h1 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .back-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-html);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .intro-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            text-align: center;
+        }
+
+        .intro-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-html);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .exercise {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .exercise-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .difficulty {
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .difficulty.easy {
+            background: rgba(72, 187, 120, 0.2);
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+
+        .difficulty.medium {
+            background: rgba(237, 137, 54, 0.2);
+            color: var(--color-warning);
+            border: 1px solid var(--color-warning);
+        }
+
+        .difficulty.hard {
+            background: rgba(245, 101, 101, 0.2);
+            color: var(--color-error);
+            border: 1px solid var(--color-error);
+        }
+
+        .exercise-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .exercise-task {
+            background: rgba(102, 126, 234, 0.15);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .task-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .task-list {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .task-list li {
+            padding: 0.3rem 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .task-list li:before {
+            content: "✓ ";
+            color: var(--color-primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .code-editor {
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .editor-header {
+            background: rgba(40, 40, 40, 0.8);
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .code-textarea {
+            width: 100%;
+            min-height: 200px;
+            background: rgba(30, 30, 30, 0.9);
+            color: #e8e8e8;
+            border: none;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .code-textarea:focus {
+            outline: none;
+        }
+
+        .exercise-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .exercise-button {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .check-button {
+            background: linear-gradient(135deg, var(--color-primary), #764ba2);
+            color: white;
+        }
+
+        .check-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .solution-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+        }
+
+        .solution-button:hover {
+            background: var(--color-html);
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: rgba(72, 187, 120, 0.15);
+            border: 2px solid var(--color-success);
+        }
+
+        .feedback.incorrect {
+            background: rgba(245, 101, 101, 0.15);
+            border: 2px solid var(--color-error);
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .feedback.correct .feedback-title {
+            color: var(--color-success);
+        }
+
+        .feedback.incorrect .feedback-title {
+            color: var(--color-error);
+        }
+
+        .feedback-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .solution-box {
+            margin-top: 1.5rem;
+            background: rgba(227, 76, 38, 0.1);
+            border: 2px solid var(--color-html);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        .solution-box.show {
+            display: block;
+        }
+
+        .solution-title {
+            font-weight: 700;
+            color: var(--color-html);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .solution-code {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(227, 76, 38, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #a6e22e;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .solution-explanation {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+        }
+
+        .solution-explanation h4 {
+            color: var(--color-html);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-explanation ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .solution-explanation li {
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 999px;
+            height: 8px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 2rem;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .next-button.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .next-button.enabled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(227, 76, 38, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .exercise-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="module-info">
+                <div class="module-icon">💪</div>
+                <div class="module-title">
+                    <span class="module-badge">Módulo 3</span>
+                    <h1>Ejercicios Prácticos</h1>
+                    <p class="module-subtitle">Pon a prueba tus conocimientos de HTML</p>
+                </div>
+            </div>
+            <a href="modulo2.html" class="back-button">← Atrás</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-card">
+            <h2>🎯 Desafíos de Código</h2>
+            <p>
+                Completa los 5 ejercicios prácticos para dominar HTML. Cada ejercicio incluye:<br>
+                ✓ Problema a resolver | ✓ Editor de código | ✓ Validación automática | ✓ Solución explicada
+            </p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Ejercicios completados: 0 de 5</div>
+
+        <!-- EJERCICIO 1 -->
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">📝 Ejercicio 1</div>
+                <span class="difficulty easy">Fácil</span>
+            </div>
+            <div class="exercise-content">
+                <p>
+                    <strong>Objetivo:</strong> Crear una estructura básica con títulos y párrafos.
+                </p>
+                <div class="exercise-task">
+                    <div class="task-title">🎯 Tu tarea:</div>
+                    <ul class="task-list">
+                        <li>Crea un título principal (h1) que diga "Mi Blog Personal"</li>
+                        <li>Crea un subtítulo (h2) que diga "Bienvenidos"</li>
+                        <li>Crea un párrafo que diga "Este es mi primer blog sobre programación"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">💻 Escribe tu código aquí:</div>
+                <textarea id="code1" class="code-textarea" placeholder="Escribe tu HTML aquí..."></textarea>
+            </div>
+
+            <div class="exercise-controls">
+                <button class="exercise-button check-button" onclick="checkExercise(1)">
+                    ✓ Comprobar
+                </button>
+                <button class="exercise-button solution-button" onclick="showSolution(1)">
+                    💡 Ver Solución
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback1"></div>
+            <div class="solution-box" id="solution1">
+                <div class="solution-title">📖 Solución Correcta:</div>
+                <div class="solution-code">&lt;h1&gt;Mi Blog Personal&lt;/h1&gt;
+&lt;h2&gt;Bienvenidos&lt;/h2&gt;
+&lt;p&gt;Este es mi primer blog sobre programación&lt;/p&gt;</div>
+                <div class="solution-explanation">
+                    <h4>📝 Explicación:</h4>
+                    <ul>
+                        <li><code>&lt;h1&gt;</code> se usa para el título más importante de la página</li>
+                        <li><code>&lt;h2&gt;</code> se usa para subtítulos o secciones principales</li>
+                        <li><code>&lt;p&gt;</code> se usa para párrafos de texto</li>
+                        <li>Todas las etiquetas deben abrirse y cerrarse correctamente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 2 -->
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">📝 Ejercicio 2</div>
+                <span class="difficulty easy">Fácil</span>
+            </div>
+            <div class="exercise-content">
+                <p>
+                    <strong>Objetivo:</strong> Trabajar con listas no ordenadas.
+                </p>
+                <div class="exercise-task">
+                    <div class="task-title">🎯 Tu tarea:</div>
+                    <ul class="task-list">
+                        <li>Crea un título (h2) que diga "Mis lenguajes favoritos"</li>
+                        <li>Crea una lista no ordenada (ul) con 3 elementos (li):</li>
+                        <li style="margin-left: 2rem;">- HTML</li>
+                        <li style="margin-left: 2rem;">- CSS</li>
+                        <li style="margin-left: 2rem;">- JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">💻 Escribe tu código aquí:</div>
+                <textarea id="code2" class="code-textarea" placeholder="Escribe tu HTML aquí..."></textarea>
+            </div>
+
+            <div class="exercise-controls">
+                <button class="exercise-button check-button" onclick="checkExercise(2)">
+                    ✓ Comprobar
+                </button>
+                <button class="exercise-button solution-button" onclick="showSolution(2)">
+                    💡 Ver Solución
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback2"></div>
+            <div class="solution-box" id="solution2">
+                <div class="solution-title">📖 Solución Correcta:</div>
+                <div class="solution-code">&lt;h2&gt;Mis lenguajes favoritos&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</div>
+                <div class="solution-explanation">
+                    <h4>📝 Explicación:</h4>
+                    <ul>
+                        <li><code>&lt;ul&gt;</code> crea una lista no ordenada (con viñetas)</li>
+                        <li>Cada elemento de la lista va dentro de una etiqueta <code>&lt;li&gt;</code></li>
+                        <li>Los <code>&lt;li&gt;</code> siempre van DENTRO de un <code>&lt;ul&gt;</code> o <code>&lt;ol&gt;</code></li>
+                        <li>La indentación (espacios) ayuda a la legibilidad pero no es obligatoria</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 3 -->
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">📝 Ejercicio 3</div>
+                <span class="difficulty medium">Medio</span>
+            </div>
+            <div class="exercise-content">
+                <p>
+                    <strong>Objetivo:</strong> Combinar texto con formato y listas ordenadas.
+                </p>
+                <div class="exercise-task">
+                    <div class="task-title">🎯 Tu tarea:</div>
+                    <ul class="task-list">
+                        <li>Crea un título (h2) que diga "Cómo hacer café"</li>
+                        <li>Crea un párrafo con texto en <strong>negrita</strong>: "El café es <strong>delicioso</strong>"</li>
+                        <li>Crea una lista ordenada (ol) con 3 pasos:</li>
+                        <li style="margin-left: 2rem;">1. Calentar el agua</li>
+                        <li style="margin-left: 2rem;">2. Agregar café molido</li>
+                        <li style="margin-left: 2rem;">3. Servir y disfrutar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">💻 Escribe tu código aquí:</div>
+                <textarea id="code3" class="code-textarea" placeholder="Escribe tu HTML aquí..."></textarea>
+            </div>
+
+            <div class="exercise-controls">
+                <button class="exercise-button check-button" onclick="checkExercise(3)">
+                    ✓ Comprobar
+                </button>
+                <button class="exercise-button solution-button" onclick="showSolution(3)">
+                    💡 Ver Solución
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback3"></div>
+            <div class="solution-box" id="solution3">
+                <div class="solution-title">📖 Solución Correcta:</div>
+                <div class="solution-code">&lt;h2&gt;Cómo hacer café&lt;/h2&gt;
+&lt;p&gt;El café es &lt;strong&gt;delicioso&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Calentar el agua&lt;/li&gt;
+  &lt;li&gt;Agregar café molido&lt;/li&gt;
+  &lt;li&gt;Servir y disfrutar&lt;/li&gt;
+&lt;/ol&gt;</div>
+                <div class="solution-explanation">
+                    <h4>📝 Explicación:</h4>
+                    <ul>
+                        <li><code>&lt;strong&gt;</code> hace el texto en negrita y le da importancia semántica</li>
+                        <li><code>&lt;ol&gt;</code> crea una lista ordenada (numerada)</li>
+                        <li>Las listas ordenadas son perfectas para instrucciones paso a paso</li>
+                        <li>Puedes combinar diferentes etiquetas para crear contenido rico</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 4 -->
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">📝 Ejercicio 4</div>
+                <span class="difficulty medium">Medio</span>
+            </div>
+            <div class="exercise-content">
+                <p>
+                    <strong>Objetivo:</strong> Crear enlaces funcionales.
+                </p>
+                <div class="exercise-task">
+                    <div class="task-title">🎯 Tu tarea:</div>
+                    <ul class="task-list">
+                        <li>Crea un título (h2) que diga "Enlaces útiles"</li>
+                        <li>Crea un enlace a Google (https://google.com) con el texto "Buscar en Google"</li>
+                        <li>Crea un enlace a YouTube (https://youtube.com) con el texto "Ver videos"</li>
+                        <li>Usa un salto de línea (&lt;br&gt;) entre los enlaces</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">💻 Escribe tu código aquí:</div>
+                <textarea id="code4" class="code-textarea" placeholder="Escribe tu HTML aquí..."></textarea>
+            </div>
+
+            <div class="exercise-controls">
+                <button class="exercise-button check-button" onclick="checkExercise(4)">
+                    ✓ Comprobar
+                </button>
+                <button class="exercise-button solution-button" onclick="showSolution(4)">
+                    💡 Ver Solución
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback4"></div>
+            <div class="solution-box" id="solution4">
+                <div class="solution-title">📖 Solución Correcta:</div>
+                <div class="solution-code">&lt;h2&gt;Enlaces útiles&lt;/h2&gt;
+&lt;a href="https://google.com"&gt;Buscar en Google&lt;/a&gt;&lt;br&gt;
+&lt;a href="https://youtube.com"&gt;Ver videos&lt;/a&gt;</div>
+                <div class="solution-explanation">
+                    <h4>📝 Explicación:</h4>
+                    <ul>
+                        <li><code>&lt;a&gt;</code> crea un enlace (anchor)</li>
+                        <li>El atributo <code>href</code> especifica la URL de destino</li>
+                        <li>El texto entre <code>&lt;a&gt;</code> y <code>&lt;/a&gt;</code> es clickeable</li>
+                        <li><code>&lt;br&gt;</code> crea un salto de línea (no tiene etiqueta de cierre)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 5 -->
+        <div class="exercise">
+            <div class="exercise-header">
+                <div class="exercise-number">📝 Ejercicio 5</div>
+                <span class="difficulty hard">Difícil</span>
+            </div>
+            <div class="exercise-content">
+                <p>
+                    <strong>Objetivo:</strong> Combinar todo lo aprendido en una estructura completa.
+                </p>
+                <div class="exercise-task">
+                    <div class="task-title">🎯 Tu tarea:</div>
+                    <ul class="task-list">
+                        <li>Crea un título principal (h1): "Mi Portafolio"</li>
+                        <li>Crea un subtítulo (h2): "Sobre mí"</li>
+                        <li>Crea un párrafo: "Soy estudiante de <em>programación</em>"</li>
+                        <li>Crea otro subtítulo (h2): "Mis proyectos"</li>
+                        <li>Crea una lista ordenada con 2 proyectos: "Página web personal" y "Calculadora"</li>
+                        <li>Agrega una línea horizontal (&lt;hr&gt;)</li>
+                        <li>Crea un enlace a GitHub (https://github.com): "Ver mi GitHub"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-editor">
+                <div class="editor-header">💻 Escribe tu código aquí:</div>
+                <textarea id="code5" class="code-textarea" placeholder="Escribe tu HTML aquí..."></textarea>
+            </div>
+
+            <div class="exercise-controls">
+                <button class="exercise-button check-button" onclick="checkExercise(5)">
+                    ✓ Comprobar
+                </button>
+                <button class="exercise-button solution-button" onclick="showSolution(5)">
+                    💡 Ver Solución
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback5"></div>
+            <div class="solution-box" id="solution5">
+                <div class="solution-title">📖 Solución Correcta:</div>
+                <div class="solution-code">&lt;h1&gt;Mi Portafolio&lt;/h1&gt;
+&lt;h2&gt;Sobre mí&lt;/h2&gt;
+&lt;p&gt;Soy estudiante de &lt;em&gt;programación&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Mis proyectos&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Página web personal&lt;/li&gt;
+  &lt;li&gt;Calculadora&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;a href="https://github.com"&gt;Ver mi GitHub&lt;/a&gt;</div>
+                <div class="solution-explanation">
+                    <h4>📝 Explicación:</h4>
+                    <ul>
+                        <li>Esta estructura combina títulos, párrafos, listas, enlaces y separadores</li>
+                        <li><code>&lt;em&gt;</code> pone texto en cursiva para énfasis</li>
+                        <li><code>&lt;hr&gt;</code> crea una línea horizontal divisora (sin etiqueta de cierre)</li>
+                        <li>Una página real puede tener muchas de estas estructuras combinadas</li>
+                        <li>La jerarquía de títulos (h1, h2) ayuda a organizar el contenido</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <button class="next-button" id="nextBtn" onclick="goToNextModule()">
+            Completar Día 3 y Ver Quiz Final
+        </button>
+    </div>
+
+    <script>
+        const completedExercises = new Set();
+        const totalExercises = 5;
+
+        const solutions = {
+            1: {
+                required: ['<h1>Mi Blog Personal</h1>', '<h2>Bienvenidos</h2>', '<p>Este es mi primer blog sobre programación</p>'],
+                message: '¡Perfecto! Has creado correctamente los títulos y el párrafo.'
+            },
+            2: {
+                required: ['<h2>Mis lenguajes favoritos</h2>', '<ul>', '<li>HTML</li>', '<li>CSS</li>', '<li>JavaScript</li>', '</ul>'],
+                message: '¡Excelente! La lista no ordenada está perfecta.'
+            },
+            3: {
+                required: ['<h2>Cómo hacer café</h2>', '<p>El café es <strong>delicioso</strong></p>', '<ol>', '<li>Calentar el agua</li>', '<li>Agregar café molido</li>', '<li>Servir y disfrutar</li>', '</ol>'],
+                message: '¡Muy bien! Has combinado correctamente texto con formato y lista ordenada.'
+            },
+            4: {
+                required: ['<h2>Enlaces útiles</h2>', '<a href="https://google.com">Buscar en Google</a>', '<br>', '<a href="https://youtube.com">Ver videos</a>'],
+                message: '¡Genial! Los enlaces funcionan correctamente.'
+            },
+            5: {
+                required: ['<h1>Mi Portafolio</h1>', '<h2>Sobre mí</h2>', '<p>Soy estudiante de <em>programación</em></p>', '<h2>Mis proyectos</h2>', '<ol>', '<li>Página web personal</li>', '<li>Calculadora</li>', '</ol>', '<hr>', '<a href="https://github.com">Ver mi GitHub</a>'],
+                message: '¡Impresionante! Has dominado todas las etiquetas básicas de HTML.'
+            }
+        };
+
+        function normalizeCode(code) {
+            return code
+                .toLowerCase()
+                .replace(/\s+/g, ' ')
+                .replace(/>\s+</g, '><')
+                .trim();
+        }
+
+        function checkExercise(num) {
+            const code = document.getElementById(`code${num}`).value;
+            const normalized = normalizeCode(code);
+            const feedback = document.getElementById(`feedback${num}`);
+            
+            feedback.classList.remove('show');
+            setTimeout(() => {
+                const sol = solutions[num];
+                let allPresent = true;
+                
+                for (let req of sol.required) {
+                    if (!normalized.includes(normalizeCode(req))) {
+                        allPresent = false;
+                        break;
+                    }
+                }
+                
+                if (allPresent) {
+                    feedback.className = 'feedback correct show';
+                    feedback.innerHTML = `
+                        <div class="feedback-title">✅ ¡Correcto!</div>
+                        <div class="feedback-content">${sol.message}</div>
+                    `;
+                    
+                    if (!completedExercises.has(num)) {
+                        completedExercises.add(num);
+                        updateProgress();
+                    }
+                } else {
+                    feedback.className = 'feedback incorrect show';
+                    feedback.innerHTML = `
+                        <div class="feedback-title">❌ Incorrecto</div>
+                        <div class="feedback-content">
+                            Revisa tu código. Asegúrate de incluir todas las etiquetas requeridas correctamente.
+                            Si tienes dudas, presiona "Ver Solución".
+                        </div>
+                    `;
+                }
+            }, 100);
+        }
+
+        function showSolution(num) {
+            const solution = document.getElementById(`solution${num}`);
+            solution.classList.toggle('show');
+        }
+
+        function updateProgress() {
+            const progress = (completedExercises.size / totalExercises) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Ejercicios completados: ${completedExercises.size} de ${totalExercises}`;
+            
+            const nextBtn = document.getElementById('nextBtn');
+            if (completedExercises.size === totalExercises) {
+                nextBtn.classList.add('enabled');
+            }
+        }
+
+        function goToNextModule() {
+            if (completedExercises.size < totalExercises) {
+                alert('⚠️ Completa todos los ejercicios antes de continuar.');
+                return;
+            }
+            window.location.href = 'final_curso.html';
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('💪 Módulo 3 - Ejercicios prácticos cargado');
+        });
+    </script>
+</body>
+</html>

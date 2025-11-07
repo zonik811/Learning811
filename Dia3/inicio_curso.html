@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 3: HTML desde Cero</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-html: #e34c26;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-icon {
+            font-size: 3rem;
+        }
+
+        .day-title h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #e34c26, #f06529, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .back-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-html);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .topics-list {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .topics-title {
+            font-size: 1.3rem;
+            color: var(--color-html);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .topics-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .topics-list li {
+            padding: 0.8rem 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topics-list li:last-child {
+            border-bottom: none;
+        }
+
+        .topics-list li:before {
+            content: "✓ ";
+            color: var(--color-html);
+            font-weight: bold;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(227, 76, 38, 0.3);
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(227, 76, 38, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .welcome-card {
+                padding: 2rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="day-info">
+                <div class="day-icon">🏗️</div>
+                <div class="day-title">
+                    <h1>Día 3: HTML desde Cero</h1>
+                    <p class="day-subtitle">La estructura de las páginas web</p>
+                </div>
+            </div>
+            <a href="../menu.html" class="back-button">← Volver al Menú</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-card">
+            <div class="welcome-icon">📄</div>
+            <h2 class="welcome-title">Bienvenido al Día 3</h2>
+            <p class="welcome-description">
+                Hoy aprenderás <strong>HTML (HyperText Markup Language)</strong>, el lenguaje que estructura todas las páginas web. 
+                HTML es como el esqueleto de una casa: define la estructura, los espacios y dónde va cada cosa.
+            </p>
+
+            <div class="topics-list">
+                <div class="topics-title">📚 En este módulo verás:</div>
+                <ul>
+                    <li>¿Qué es HTML y por qué es fundamental?</li>
+                    <li>Estructura básica de un documento HTML</li>
+                    <li>Etiquetas esenciales (títulos, párrafos, listas)</li>
+                    <li>Cómo crear enlaces entre páginas</li>
+                    <li>Imágenes y contenido multimedia</li>
+                    <li>Tu primera página web funcional</li>
+                </ul>
+            </div>
+
+            <p class="welcome-description" style="margin-bottom: 2rem;">
+                ⏱️ <strong>Duración estimada:</strong> 90 minutos<br>
+                💻 <strong>Requisitos:</strong> VS Code y navegador web
+            </p>
+
+            <button class="start-button" onclick="goToModule()">
+                Comenzar con HTML →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function goToModule() {
+            // Redirect to first module
+            window.location.href = 'modulo1.html';
+        }
+    </script>
+</body>
+</html>

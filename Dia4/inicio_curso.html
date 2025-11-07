@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - CSS: Dando Estilo</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">🎨</div>
+            <h1 class="title-xl">CSS: Dando Estilo</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Aprende a diseñar páginas hermosas con colores, fuentes y layouts modernos
+            </p>
+        </header>
+
+        <!-- Historia del CSS -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg">📜 Historia de CSS</h2>
+            <p style="margin-bottom: 16px;">
+                <strong>CSS (Cascading Style Sheets)</strong> fue propuesto por primera vez en 1994 por 
+                <strong>Håkon Wium Lie</strong> mientras trabajaba en el CERN con Tim Berners-Lee.
+            </p>
+            <p style="margin-bottom: 16px;">
+                Antes de CSS, los estilos se mezclaban con el HTML usando etiquetas como 
+                <code style="background: rgba(102,126,234,0.2); padding: 4px 8px; border-radius: 4px;">&lt;font&gt;</code> 
+                y atributos, lo que hacía el código difícil de mantener.
+            </p>
+            <p>
+                CSS permitió <strong>separar el contenido de la presentación</strong>, revolucionando el diseño web.
+            </p>
+        </section>
+
+        <!-- Timeline -->
+        <section style="margin-top: 48px;">
+            <h2 class="title-lg" style="text-align: center; margin-bottom: 32px;">⏳ Línea de Tiempo</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color: var(--color-primary); margin-bottom: 12px;">1996 - CSS1</h3>
+                    <p>Primera especificación oficial. Incluía propiedades básicas de fuentes, colores y márgenes.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--color-primary); margin-bottom: 12px;">1998 - CSS2</h3>
+                    <p>Añadió soporte para posicionamiento, z-index, tipos de medios y más selectores.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--color-primary); margin-bottom: 12px;">2011 - CSS3</h3>
+                    <p>Introdujo módulos: animaciones, transiciones, flexbox, grid, gradientes y sombras.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ¿Qué es CSS? -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg">💡 ¿Qué es CSS?</h2>
+            <p style="margin-bottom: 16px;">
+                CSS es un <strong>lenguaje de hojas de estilo</strong> que define cómo se presentan los elementos HTML en pantalla, papel o en otros medios.
+            </p>
+            <p style="margin-bottom: 16px;">
+                Permite controlar:
+            </p>
+            <ul style="margin-left: 24px; line-height: 1.8;">
+                <li><strong>Colores y fondos</strong> - Dale vida a tu diseño</li>
+                <li><strong>Tipografía</strong> - Fuentes, tamaños y pesos</li>
+                <li><strong>Espaciado</strong> - Márgenes, padding y alineación</li>
+                <li><strong>Layouts</strong> - Flexbox, Grid, posicionamiento</li>
+                <li><strong>Animaciones</strong> - Transiciones y efectos visuales</li>
+            </ul>
+        </section>
+
+<!-- CONCEPTOS BÁSICOS MEJORADO -->
+<section style="margin-top: 48px;">
+    <h2 class="title-lg" style="text-align: center; margin-bottom: 32px;">🔧 Conceptos Básicos</h2>
+    
+    <!-- 1. Selectores -->
+    <div class="card" style="margin-bottom: 24px;">
+        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">🎯 Selectores</h3>
+        <p style="margin-bottom: 16px;">Los selectores indican <strong>qué elementos HTML</strong> quieres estilizar. Hay varios tipos:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+            <!-- Por tipo de elemento -->
+            <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
+                <h4 style="margin-bottom: 8px;">Por Tipo de Elemento</h4>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+h1 { color: blue; }<br>
+p { font-size: 16px; }
+                </code>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Afecta a TODOS los h1 y p de la página</p>
+            </div>
+            
+            <!-- Por clase -->
+            <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-secondary);">
+                <h4 style="margin-bottom: 8px;">Por Clase</h4>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+.card { border-radius: 12px; }<br>
+.btn { padding: 12px; }
+                </code>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Puedes reutilizar la clase en múltiples elementos</p>
+            </div>
+            
+            <!-- Por ID -->
+            <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-accent);">
+                <h4 style="margin-bottom: 8px;">Por ID</h4>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+#header { background: navy; }<br>
+#footer { color: gray; }
+                </code>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Único por página. Úsalo para identificar elementos importantes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Box Model -->
+    <div class="card" style="margin-bottom: 24px;">
+        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">📦 Box Model</h3>
+        <p style="margin-bottom: 16px;">Todo elemento HTML es una caja con <strong>4 capas</strong>. Aprenderlas es esencial para entender CSS:</p>
+        
+        <div style="background: rgba(0,0,0,0.2); padding: 32px; border-radius: 12px; border: 2px dashed var(--color-warning);">
+            <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; margin-bottom: 8px;">MARGIN (espacio externo)</div>
+            <div style="border: 2px dashed var(--color-warning); padding: 16px; border-radius: 8px;">
+                <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; margin-bottom: 8px;">BORDER (borde)</div>
+                <div style="border: 2px solid var(--color-primary); padding: 16px; border-radius: 8px;">
+                    <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; margin-bottom: 8px;">PADDING (espacio interno)</div>
+                    <div style="background: var(--color-primary); padding: 12px; border-radius: 4px; text-align: center; color: white; font-weight: 600;">
+                        CONTENIDO
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div>
+                <strong style="color: var(--color-warning);">Margin:</strong> Espacio FUERA del borde
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">margin: 20px;</code>
+            </div>
+            <div>
+                <strong style="color: var(--color-primary);">Border:</strong> Línea que rodea el contenido
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">border: 2px solid;</code>
+            </div>
+            <div>
+                <strong style="color: #48bb78;">Padding:</strong> Espacio DENTRO del borde
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">padding: 16px;</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Colores -->
+    <div class="card" style="margin-bottom: 24px;">
+        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">🌈 Colores</h3>
+        <p style="margin-bottom: 16px;">CSS admite múltiples formas de definir colores:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Nombre del Color</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: red;</code>
+                <div style="background: red; width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Valor HEX</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: #667eea;</code>
+                <div style="background: #667eea; width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>RGB</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: rgb(102, 126, 234);</code>
+                <div style="background: rgb(102, 126, 234); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>RGBA (con transparencia)</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: rgba(102, 126, 234, 0.5);</code>
+                <div style="background: rgba(102, 126, 234, 0.5); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Variables CSS</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: var(--color-primary);</code>
+                <div style="background: var(--color-primary); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Gradiente</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">linear-gradient(135deg, #667eea, #f093fb)</code>
+                <div style="background: linear-gradient(135deg, #667eea, #f093fb); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Tipografía -->
+    <div class="card">
+        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">✍️ Tipografía</h3>
+        <p style="margin-bottom: 16px;">Controla cómo se ve el texto en tu página:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Font-size (Tamaño)</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">font-size: 24px;</code>
+                <p style="font-size: 24px; margin-top: 8px;">Este texto es más grande</p>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Font-weight (Grosor)</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">font-weight: 700;</code>
+                <p style="font-weight: 700; margin-top: 8px;">Este texto es más grueso</p>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                <strong>Color</strong>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: #667eea;</code>
+                <p style="color: #667eea; margin-top: 8px;">Este texto es azul</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EJEMPLO PRÁCTICO MEJORADO -->
+<section class="card" style="margin-top: 48px; background: rgba(0,0,0,0.3);">
+    <h2 class="title-lg" style="margin-bottom: 32px;">✍️ Ejemplo Práctico: Antes y Después</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+        <!-- SIN CSS -->
+        <div>
+            <h3 style="margin-bottom: 16px; color: #f56565;">❌ Sin CSS</h3>
+            <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                <h4 style="margin-bottom: 8px; font-size: 14px;">HTML:</h4>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; font-size: 12px; overflow-x: auto;">
+&lt;div&gt;<br>
+&nbsp;&nbsp;&lt;h1&gt;Bienvenido&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Esto es un texto&lt;/p&gt;<br>
+&lt;/div&gt;
+                </code>
+            </div>
+            <div style="background: white; color: black; padding: 24px; border-radius: 8px;">
+                <h1 style="all: initial; font-family: Arial; color: black; font-size: 32px; margin-bottom: 8px;">Bienvenido</h1>
+                <p style="all: initial; font-family: Arial; color: black; font-size: 14px;">Esto es un texto</p>
+            </div>
+        </div>
+
+        <!-- CON CSS -->
+        <div>
+            <h3 style="margin-bottom: 16px; color: #48bb78;">✅ Con CSS</h3>
+            <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                <h4 style="margin-bottom: 8px; font-size: 14px;">CSS:</h4>
+                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; font-size: 12px; overflow-x: auto;">
+.hero {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #f093fb);<br>
+&nbsp;&nbsp;padding: 32px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+h1 { font-size: 36px; font-weight: 700; }<br>
+p { font-size: 16px; opacity: 0.9; }
+                </code>
+            </div>
+            <div style="background: linear-gradient(135deg, #667eea, #f093fb); padding: 32px; border-radius: 12px; color: white;">
+                <h1 style="margin-bottom: 16px; font-size: 36px; font-weight: 700;">Bienvenido</h1>
+                <p style="font-size: 16px; opacity: 0.9;">Esto es un texto</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
+        <p style="margin-bottom: 0;">
+            <strong>🎯 La diferencia:</strong> Con CSS podemos añadir colores atractivos, degradados, espaciado, tipografía elegante y mucho más. 
+            El HTML solo proporciona la estructura, pero CSS le da el estilo y la belleza visual.
+        </p>
+    </div>
+</section>
+
+        <!-- Botón continuar -->
+        <div style="text-align: center; margin: 64px 0;">
+<a href="modulo2.html" class="next-button"> Siguiente</a>
+        </div>
+    </div>
+</body>
+</html>

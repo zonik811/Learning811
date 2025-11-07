@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 4 - Selectores y Clases CSS</title>
+     <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .code-block {
+            background: rgba(0,0,0,0.5);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-size: 13px;
+            border-left: 4px solid var(--color-primary);
+        }
+        .demo-box {
+            background: rgba(102,126,234,0.1);
+            border: 2px solid var(--color-primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        /* Ejemplos interactivos */
+        .interactive-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+        .demo-column {
+            background: rgba(0,0,0,0.3);
+            padding: 16px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; padding: 48px 0;">
+            <div style="font-size: 80px; margin-bottom: 24px;">🎨</div>
+            <h1 class="title-xl">Selectores, Clases y Propiedades CSS</h1>
+            <p style="font-size: 20px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto;">
+                Aprende a estructurar tu código CSS de forma profesional y crea interfaces interactivas
+            </p>
+        </header>
+
+        <!-- 1. TIPOS DE SELECTORES -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">🎯 Tipos de Selectores</h2>
+            
+            <p style="margin-bottom: 24px;">Hay varias formas de seleccionar elementos en CSS. Cada una tiene diferentes niveles de especificidad:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <!-- Universal -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #f7df1e;">🌐 Selector Universal</h3>
+                    <div class="code-block">
+/* Selecciona TODO */<br>
+* { margin: 0; padding: 0; }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Aplica estilos a todos los elementos. Baja especificidad.</p>
+                </div>
+
+                <!-- Elemento -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #e34f26;">📝 Selector de Elemento</h3>
+                    <div class="code-block">
+/* Selecciona por etiqueta */<br>
+h1 { font-size: 36px; }<br>
+p { line-height: 1.8; }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Aplica a todos los elementos de ese tipo.</p>
+                </div>
+
+                <!-- Clase -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #1572b6;">🏷️ Selector de Clase</h3>
+                    <div class="code-block">
+/* Selecciona por clase */<br>
+.btn { padding: 12px; }<br>
+.card { border-radius: 8px; }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Usa el punto (.). Puedes aplicar varias clases a un elemento.</p>
+                </div>
+
+                <!-- ID -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #f093fb;">🆔 Selector de ID</h3>
+                    <div class="code-block">
+/* Selecciona por ID */<br>
+#header { background: navy; }<br>
+#footer { color: gray; }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Usa el hash (#). Debe ser único en la página. Alta especificidad.</p>
+                </div>
+
+                <!-- Atributo -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #48bb78;">🏗️ Selector de Atributo</h3>
+                    <div class="code-block">
+/* Selecciona por atributo */<br>
+input[type="text"] { border: 1px solid; }<br>
+a[href="#"] { color: blue; }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Busca elementos según sus atributos HTML.</p>
+                </div>
+
+                <!-- Pseudo-clase -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #ed8936;">✨ Pseudo-clases</h3>
+                    <div class="code-block">
+/* Selectores especiales */<br>
+a:hover { color: red; }<br>
+button:active { transform: scale(0.95); }
+                    </div>
+                    <p style="font-size: 13px; margin-top: 8px;">Estados: :hover, :active, :focus, :visited, :first-child</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ESTRUCTURA HTML CON CLASES -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📦 Cómo Usar Clases en HTML</h2>
+            
+            <p style="margin-bottom: 24px;">Las clases te permiten aplicar estilos a múltiples elementos reutilizando código:</p>
+
+            <div class="interactive-demo">
+                <div class="demo-column">
+                    <h3 style="margin-bottom: 12px;">HTML:</h3>
+                    <div class="code-block">
+&lt;div class="card"&gt;<br>
+&nbsp;&nbsp;&lt;h2 class="title"&gt;Mi Tarjeta&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p class="text"&gt;Contenido&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;button class="btn btn-primary"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Enviar<br>
+&nbsp;&nbsp;&lt;/button&gt;<br>
+&lt;/div&gt;
+                    </div>
+                    <p style="font-size: 12px; margin-top: 12px; color: rgba(255,255,255,0.7);">
+                        ✅ Observa: <br>
+                        • class="card" es UNA clase<br>
+                        • class="btn btn-primary" son MÚLTIPLES clases separadas por espacio<br>
+                        • Puedes reutilizar clases en diferentes elementos
+                    </p>
+                </div>
+
+                <div class="demo-column">
+                    <h3 style="margin-bottom: 12px;">CSS:</h3>
+                    <div class="code-block">
+.card {<br>
+&nbsp;&nbsp;background: rgba(30,30,30,0.95);<br>
+&nbsp;&nbsp;padding: 24px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+}<br>
+<br>
+.title { font-size: 24px; }<br>
+.text { color: rgba(255,255,255,0.8); }<br>
+.btn {<br>
+&nbsp;&nbsp;padding: 12px 24px;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+}
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1)); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
+                <h4 style="margin-bottom: 8px;">💡 Resultado en la página:</h4>
+                <div class="card" style="margin: 16px 0;">
+                    <h2 style="font-size: 24px; margin-bottom: 12px;">Mi Tarjeta</h2>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">Contenido</p>
+                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600;">Enviar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROPIEDADES COMUNES -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">⚙️ Propiedades CSS Más Utilizadas</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <!-- Text -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #667eea;">📝 Texto</h3>
+                    <div class="code-block">
+font-size: 16px;  /* Tamaño */<br>
+font-weight: 600;  /* Grosor: 400-900 */<br>
+color: #fff;  /* Color del texto */<br>
+text-align: center;  /* left|right|center */<br>
+line-height: 1.8;  /* Espaciado entre líneas */<br>
+text-decoration: underline;  /* Subrayado */
+                    </div>
+                </div>
+
+                <!-- Fondo -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #48bb78;">🎨 Fondo</h3>
+                    <div class="code-block">
+background: #0a0a0a;  /* Color */<br>
+background-image: url('...'); /* Imagen */<br>
+background-size: cover;  /* Tamaño */<br>
+background: linear-gradient(...); /* Gradiente */<br>
+background-position: center; /* Posición */
+                    </div>
+                </div>
+
+                <!-- Bordes -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #f093fb;">🔲 Bordes</h3>
+                    <div class="code-block">
+border: 2px solid #667eea; /* Ancho tipo color */<br>
+border-radius: 8px; /* Esquinas redondeadas */<br>
+border-top: 1px dashed #ccc; /* Solo arriba */<br>
+box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                    </div>
+                </div>
+
+                <!-- Tamaño -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #ed8936;">📏 Tamaño</h3>
+                    <div class="code-block">
+width: 100%;  /* Ancho */<br>
+height: 200px;  /* Alto */<br>
+max-width: 1200px; /* Máximo ancho */<br>
+min-height: 300px; /* Mínimo alto */<br>
+overflow: hidden; /* Ocultar contenido extra */
+                    </div>
+                </div>
+
+                <!-- Opacidad -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #667eea;">👻 Opacidad</h3>
+                    <div class="code-block">
+opacity: 0.5;  /* 0 (invisible) a 1 (visible) */<br>
+opacity: 0.8;  /* 80% de opacidad */<br>
+<br>
+/* En colores */<br>
+background: rgba(102, 126, 234, 0.5);
+                    </div>
+                </div>
+
+                <!-- Transform -->
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                    <h3 style="margin-bottom: 12px; color: #f7df1e;">🔄 Transformaciones</h3>
+                    <div class="code-block">
+transform: scale(1.1);  /* Escalar */<br>
+transform: rotate(45deg);  /* Rotar */<br>
+transform: translateY(-10px); /* Mover */<br>
+transform: skew(10deg);  /* Sesgar */<br>
+/* Combinar: */<br>
+transform: scale(1.1) rotate(5deg);
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. EJEMPLOS INTERACTIVOS -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">🎮 Ejemplos Interactivos</h2>
+
+            <!-- Ejemplo 1: Botones con hover -->
+            <div style="margin-bottom: 48px;">
+                <h3 style="margin-bottom: 16px; color: var(--color-primary);">1️⃣ Botones con Efecto Hover</h3>
+                
+                <div class="interactive-demo">
+                    <div class="demo-column">
+                        <div class="code-block">
+&lt;button class="btn-hover"&gt;<br>
+&nbsp;&nbsp;Hover aquí<br>
+&lt;/button&gt;<br>
+<br>
+.btn-hover {<br>
+&nbsp;&nbsp;padding: 12px 24px;<br>
+&nbsp;&nbsp;background: #667eea;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border: none;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+}<br>
+<br>
+.btn-hover:hover {<br>
+&nbsp;&nbsp;background: #764ba2;<br>
+&nbsp;&nbsp;transform: translateY(-3px);<br>
+&nbsp;&nbsp;box-shadow: 0 10px 20px rgba(0,0,0,0.3);<br>
+}
+                        </div>
+                    </div>
+                    <div class="demo-column" style="display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;">
+                        <h4>Vista previa:</h4>
+                        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; transition: all 0.3s; cursor: pointer; font-weight: 600;">Hover aquí ↗️</button>
+                        <p style="font-size: 12px; color: rgba(255,255,255,0.7); text-align: center;">Pasa el mouse sobre el botón para ver el efecto</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplo 2: Tarjeta animada -->
+            <div style="margin-bottom: 48px;">
+                <h3 style="margin-bottom: 16px; color: var(--color-primary);">2️⃣ Tarjeta con Animación</h3>
+                
+                <div class="interactive-demo">
+                    <div class="demo-column">
+                        <div class="code-block">
+&lt;div class="card-animated"&gt;<br>
+&nbsp;&nbsp;&lt;h3&gt;Tarjeta&lt;/h3&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Contenido&lt;/p&gt;<br>
+&lt;/div&gt;<br>
+<br>
+.card-animated {<br>
+&nbsp;&nbsp;background: rgba(30,30,30);<br>
+&nbsp;&nbsp;padding: 24px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+}<br>
+<br>
+.card-animated:hover {<br>
+&nbsp;&nbsp;transform: scale(1.05);<br>
+&nbsp;&nbsp;border-color: #f093fb;<br>
+&nbsp;&nbsp;box-shadow: 0 10px 30px rgba(102,126,234,0.4);<br>
+}
+                        </div>
+                    </div>
+                    <div class="demo-column" style="display: flex; align-items: center; justify-content: center;">
+                        <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border: 2px solid #667eea; transition: all 0.3s; cursor: pointer; width: 100%; text-align: center;">
+                            <h3 style="margin-bottom: 12px;">Tarjeta</h3>
+                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Pasa el mouse ↗️</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplo 3: Grid de colores -->
+            <div>
+                <h3 style="margin-bottom: 16px; color: var(--color-primary);">3️⃣ Grid de Colores Interactivo</h3>
+                
+                <div class="code-block">
+&lt;div class="color-grid"&gt;<br>
+&nbsp;&nbsp;&lt;div class="color-box"&gt;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;div class="color-box"&gt;&lt;/div&gt;<br>
+&nbsp;&nbsp;...<br>
+&lt;/div&gt;<br>
+<br>
+.color-grid {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));<br>
+&nbsp;&nbsp;gap: 12px;<br>
+}<br>
+<br>
+.color-box {<br>
+&nbsp;&nbsp;height: 100px;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+}<br>
+.color-box:hover { transform: scale(1.1) rotate(5deg); }
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-top: 16px;">
+                    <div style="height: 100px; background: #667eea; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                    <div style="height: 100px; background: #764ba2; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                    <div style="height: 100px; background: #f093fb; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                    <div style="height: 100px; background: #48bb78; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                    <div style="height: 100px; background: #ed8936; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                    <div style="height: 100px; background: #f56565; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ESPECIFICIDAD -->
+        <section class="card" style="margin-top: 48px;">
+            <h2 class="title-lg" style="margin-bottom: 24px;">📊 Especificidad en CSS</h2>
+            
+            <p style="margin-bottom: 16px;">
+                Cuando hay múltiples reglas CSS, el navegador elige cuál aplicar según la <strong>especificidad</strong>. 
+                A mayor especificidad, mayor prioridad:
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #ed8936;">
+                    <h3 style="margin-bottom: 12px;">1️⃣ Elemento (Baja)</h3>
+                    <div class="code-block">p { color: blue; }</div>
+                    <p style="font-size: 12px;">Afecta a todos los párrafos</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f7df1e;">
+                    <h3 style="margin-bottom: 12px;">2️⃣ Clase (Media)</h3>
+                    <div class="code-block">.text-blue { color: blue; }</div>
+                    <p style="font-size: 12px;">Más específica que elemento</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h3 style="margin-bottom: 12px;">3️⃣ ID (Alta)</h3>
+                    <div class="code-block">#main { color: blue; }</div>
+                    <p style="font-size: 12px;">Más específica que clase</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f093fb;">
+                    <h3 style="margin-bottom: 12px;">4️⃣ Inline (Máxima)</h3>
+                    <div class="code-block">
+&lt;p style="color: blue;"&gt;...&lt;/p&gt;
+                    </div>
+                    <p style="font-size: 12px;">❌ Evita usar inline. Difícil de mantener</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f56565;">
+                    <h3 style="margin-bottom: 12px;">5️⃣ !important</h3>
+                    <div class="code-block">p { color: blue !important; }</div>
+                    <p style="font-size: 12px;">❌ Última opción. Puede romper estilos</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary); margin-top: 16px;">
+                <strong>💡 Regla de oro:</strong> Usa clases para la mayoría de casos. IDs solo para identificar secciones únicas. Evita inline y !important.
+            </div>
+        </section>
+
+        <!-- Botón continuar -->
+        <div style="text-align: center; margin: 64px 0;">
+<a href="modulo4.html" class="next-button"> Siguiente</a>
+        </div>
+    </div>
+</body>
+</html>

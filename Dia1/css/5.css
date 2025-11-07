@@ -1,0 +1,381 @@
+:root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #f093fb;
+            --color-success: #48bb78;
+            --color-warning: #ed8936;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .module-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .module-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 600px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 8px;
+            animation: progressPulse 2s ease infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .carousel-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            min-height: 700px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .career-card {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(40, 40, 40, 0.95));
+            border: 3px solid;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .career-card.career-frontend { border-color: #667eea; }
+        .career-card.career-backend { border-color: #f5576c; }
+        .career-card.career-database { border-color: #4facfe; }
+        .career-card.career-ai { border-color: #43e97b; }
+        .career-card.career-games { border-color: #fa709a; }
+        .career-card.career-design { border-color: #30cfd0; }
+        .career-card.career-data { border-color: #fed6e3; }
+        .career-card.career-sap { border-color: #ff9a56; }
+
+        .career-header-bar {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .career-type {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .career-hp {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .career-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .career-content {
+            padding: 2rem;
+        }
+
+        .career-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .career-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .career-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        .tools-section {
+            margin: 1.5rem 0;
+        }
+
+        .tools-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-tag {
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .roles-section {
+            margin: 1.5rem 0;
+        }
+
+        .roles-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .roles-list {
+            list-style: none;
+        }
+
+        .roles-list li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+        }
+
+        .roles-list li:before {
+            content: "→";
+            margin-right: 0.5rem;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .nav-arrow {
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid var(--color-primary);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-arrow:hover {
+            background: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--color-primary);
+            width: 32px;
+            border-radius: 999px;
+        }
+
+        .next-module-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-module-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        .next-button {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-lg);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .module-title {
+                font-size: 2rem;
+            }
+            .carousel {
+                min-height: 800px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }

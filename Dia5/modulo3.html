@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 - Refinamientos: Pokédex Final</title>
+    <link rel="stylesheet" href="../Css/global2.css">
+    <style>
+        .intro-section {
+            max-width: 900px;
+            margin: 32px auto;
+            animation: slideIn 0.6s ease;
+        }
+
+        .intro-hero {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            padding: 48px;
+            border-radius: 16px;
+            border: 2px solid rgba(102,126,234,0.3);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .intro-icon {
+            font-size: 100px;
+            margin-bottom: 24px;
+            animation: bounce 1s infinite;
+        }
+
+        .intro-title {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .intro-subtitle {
+            font-size: 24px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: white;
+            text-align: center;
+        }
+
+        .explanation-box {
+            background: rgba(102,126,234,0.1);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            margin: 24px 0;
+            line-height: 1.8;
+        }
+
+        .explanation-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .challenge-box {
+            background: rgba(240,147,251,0.05);
+            border: 2px solid rgba(240,147,251,0.3);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .challenge-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f093fb;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .challenge-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .solution-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+        }
+
+        .solution-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .solution-content {
+            display: none;
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        .solution-content code {
+            color: #a8e6cf;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: rgba(76,175,80,0.1);
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .tip-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .step-box {
+            background: rgba(102,126,234,0.05);
+            border: 2px solid rgba(102,126,234,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .step-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        /* QUIZ STYLES */
+        .quiz-section {
+            display: none;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            border: 2px solid rgba(102,126,234,0.3);
+            padding: 48px;
+            border-radius: 16px;
+            margin: 32px 0;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .quiz-progress {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+
+        .quiz-question-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .quiz-option {
+            background: rgba(30,30,30,0.95);
+            border: 2px solid rgba(102,126,234,0.3);
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .quiz-option:hover:not(.disabled) {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.15);
+            transform: translateX(8px);
+        }
+
+        .quiz-option.selected {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.2);
+        }
+
+        .quiz-option.correct {
+            border-color: #4caf50;
+            background: rgba(76,175,80,0.15);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ff6457;
+            background: rgba(255,100,87,0.15);
+        }
+
+        .quiz-option.disabled {
+            cursor: not-allowed;
+        }
+
+        .quiz-feedback {
+            display: none;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct-feedback {
+            background: rgba(76,175,80,0.1);
+            border: 2px solid rgba(76,175,80,0.5);
+            color: #4caf50;
+        }
+
+        .quiz-feedback.incorrect-feedback {
+            background: rgba(255,100,87,0.1);
+            border: 2px solid rgba(255,100,87,0.5);
+            color: #ff6457;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .quiz-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quiz-button.success {
+            background: linear-gradient(135deg, #4caf50, #43e97b);
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+            border: 2px solid rgba(102,126,234,0.3);
+            padding: 48px;
+            border-radius: 16px;
+            margin: 32px 0;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result-score {
+            font-size: 72px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .quiz-result-text {
+            font-size: 28px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .quiz-result-message {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+        }
+
+        .next-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .intro-hero {
+                padding: 24px;
+            }
+            .intro-title {
+                font-size: 32px;
+            }
+            .intro-icon {
+                font-size: 60px;
+            }
+            .quiz-container {
+                padding: 24px;
+            }
+            .quiz-question-text {
+                font-size: 20px;
+            }
+            .next-button {
+                width: 100%;
+                padding: 14px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="intro-hero">
+            <div class="intro-icon">✨</div>
+            <h1 class="intro-title">Módulo 3: Refinamientos</h1>
+            <p class="intro-subtitle">Detalles Finales de tu Pokédex</p>
+            <p class="intro-text">
+                Vamos a pulir tu Pokédex: agregar más Pokémon, efectos finales y hacerla completamente responsive.
+            </p>
+        </div>
+
+        <!-- SECCIÓN 1: AGREGAR MÁS POKÉMON -->
+        <section class="intro-section">
+            <h2 class="section-title">🎭 Agrega Más Pokémon al HTML</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Tu Pokédex actual tiene 3 Pokémon. Vamos a agregar más copiando y pegando tarjetas. 
+                    En tu archivo index.html, dentro del pokemon-grid, copia la estructura de una tarjeta 
+                    varias veces con diferentes Pokémon.
+                </p>
+            </div>
+
+            <!-- RETO 1 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 1: Agrega 3 Pokémon más
+                </div>
+                <div class="challenge-text">
+                    En tu index.html, después de la tercera tarjeta de Pokémon, copia y pega 3 tarjetas más. 
+                    Cambia el nombre, tipo e imagen. Sugiero: Venusaur, Dragonite y Alakazam.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(1)">Ver Solución</button>
+                <div class="solution-content" id="solution1">
+                    <div class="code-label">Agregar 3 Pokémon más en index.html</div>
+                    <code>&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Venusaur&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Planta/Veneno&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/venusaur.png" alt="Venusaur"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Dragonite&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Dragón/Volador&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/dragonite.png" alt="Dragonite"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&lt;h2&gt;Alakazam&lt;/h2&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Psíquico&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;img src="assets/alakazam.png" alt="Alakazam"&gt;<br>
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>💡 Tip:</strong> Primero descarga las imágenes nuevas a tu carpeta assets 
+                (venusaur.png, dragonite.png, alakazam.png) antes de copiar el código HTML.</p>
+            </div>
+
+            <div class="tip-box">
+                <p><strong>📌 Números Pokémon para descargar:</strong></p>
+                <p>Venusaur: #3 → 3.png</p>
+                <p>Dragonite: #149 → 149.png</p>
+                <p>Alakazam: #65 → 65.png</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: EFECTOS Y ANIMACIONES -->
+        <section class="intro-section">
+            <h2 class="section-title">🎬 Agregar Efectos y Animaciones</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Vamos a añadir animaciones suaves a tu Pokédex. Abre tu archivo css/estilos.css 
+                    y agrega los siguientes efectos.
+                </p>
+            </div>
+
+            <!-- RETO 2 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 2: Animación de Entrada
+                </div>
+                <div class="challenge-text">
+                    Cuando la página carga, las tarjetas deben aparecer suavemente. 
+                    Agrega una animación que las desvanezca desde arriba (fade in + slide down).
+                </div>
+                <button class="solution-button" onclick="toggleSolution(2)">Ver Solución</button>
+                <div class="solution-content" id="solution2">
+                    <div class="code-label">css/estilos.css - Animación de entrada</div>
+                    <code>@keyframes slideIn {<br>
+&nbsp;&nbsp;from {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;opacity: 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(20px);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;to {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;opacity: 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(0);<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+.pokemon-card {<br>
+&nbsp;&nbsp;animation: slideIn 0.6s ease forwards;<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 3 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 3: Efecto de Zoom en Imágenes
+                </div>
+                <div class="challenge-text">
+                    Las imágenes deben crecer suavemente cuando pasas el mouse sobre la tarjeta.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(3)">Ver Solución</button>
+                <div class="solution-content" id="solution3">
+                    <div class="code-label">css/estilos.css - Zoom en imagen</div>
+                    <code>.pokemon-card img {<br>
+&nbsp;&nbsp;transition: transform 0.3s ease;<br>
+}<br>
+<br>
+.pokemon-card:hover img {<br>
+&nbsp;&nbsp;transform: scale(1.15);<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 4 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 4: Efecto en el Texto del Header
+                </div>
+                <div class="challenge-text">
+                    El h1 del header debe tener un efecto de brillo o cambiar de color lentamente.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(4)">Ver Solución</button>
+                <div class="solution-content" id="solution4">
+                    <div class="code-label">css/estilos.css - Efecto en header</div>
+                    <code>@keyframes glow {<br>
+&nbsp;&nbsp;0%, 100% {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;50% {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;text-shadow: 0 0 20px rgba(255, 255, 255, 1);<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+header h1 {<br>
+&nbsp;&nbsp;animation: glow 2s ease-in-out infinite;<br>
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: RESPONSIVE DESIGN -->
+        <section class="intro-section">
+            <h2 class="section-title">📱 Responsive Design</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Tu Pokédex debe verse bien en celulares, tablets y computadoras. 
+                    Vamos a agregar media queries para ajustar el diseño en pantallas pequeñas.
+                </p>
+            </div>
+
+            <!-- RETO 5 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 5: Responsive para Tablets
+                </div>
+                <div class="challenge-text">
+                    En pantallas medianas (menos de 768px), el grid debe mostrar 2 columnas en lugar de 3.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(5)">Ver Solución</button>
+                <div class="solution-content" id="solution5">
+                    <div class="code-label">css/estilos.css - Media query tablet</div>
+                    <code>@media (max-width: 768px) {<br>
+&nbsp;&nbsp;.pokemon-grid {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(2, 1fr);<br>
+&nbsp;&nbsp;}<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 6 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 6: Responsive para Celulares
+                </div>
+                <div class="challenge-text">
+                    En pantallas pequeñas (menos de 480px), el grid debe mostrar 1 columna.
+                    También ajusta el tamaño del header y del input.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(6)">Ver Solución</button>
+                <div class="solution-content" id="solution6">
+                    <div class="code-label">css/estilos.css - Media query móvil</div>
+                    <code>@media (max-width: 480px) {<br>
+&nbsp;&nbsp;.pokemon-grid {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr;<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;header h1 {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size: 32px;<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;.search-bar input {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;max-width: 100%;<br>
+&nbsp;&nbsp;}<br>
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: DETALLES DE PULIDO -->
+        <section class="intro-section">
+            <h2 class="section-title">🔨 Detalles Finales de Pulido</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Aquí hay algunos detalles que harán que tu Pokédex se vea profesional.
+                </p>
+            </div>
+
+            <!-- RETO 7 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 7: Mejorar el Input de Búsqueda
+                </div>
+                <div class="challenge-text">
+                    El input debe tener un efecto cuando está enfocado (focus). 
+                    Cambia el borde y añade una sombra.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(7)">Ver Solución</button>
+                <div class="solution-content" id="solution7">
+                    <div class="code-label">css/estilos.css - Input focus</div>
+                    <code>.search-bar input:focus {<br>
+&nbsp;&nbsp;outline: none;<br>
+&nbsp;&nbsp;border-color: #f093fb;<br>
+&nbsp;&nbsp;box-shadow: 0 0 15px rgba(240, 147, 251, 0.5);<br>
+}</code>
+                </div>
+            </div>
+
+            <!-- RETO 8 -->
+            <div class="challenge-box">
+                <div class="challenge-title">
+                    ⚔️ Reto 8: Footer (Opcional)
+                </div>
+                <div class="challenge-text">
+                    Agrega un footer al final de tu Pokédex. 
+                    En el HTML, dentro del container pero después del pokemon-grid, agrega un &lt;footer&gt;.
+                </div>
+                <button class="solution-button" onclick="toggleSolution(8)">Ver Solución</button>
+                <div class="solution-content" id="solution8">
+                    <div class="code-label">HTML en index.html (antes de cerrar container)</div>
+                    <code>&lt;footer&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;© 2025 Mi Pokédex. Todos los derechos reservados.&lt;/p&gt;<br>
+&lt;/footer&gt;</code>
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(102,126,234,0.3);">
+                        <div style="color: #a8e6cf; margin-bottom: 10px;">Y en CSS:</div>
+                        <code>footer {<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;padding: 30px 20px;<br>
+&nbsp;&nbsp;border-top: 2px solid #333;<br>
+&nbsp;&nbsp;margin-top: 40px;<br>
+&nbsp;&nbsp;color: #aaa;<br>
+}</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: QUIZ -->
+        <section class="intro-section">
+            <h2 class="section-title">📝 Quiz Final - Día 5</h2>
+
+            <div class="explanation-box">
+                <p>
+                    Responde correctamente al menos el 70% de las preguntas para completar el Día 5.
+                </p>
+            </div>
+
+            <!-- Quiz Container -->
+            <div class="quiz-container">
+                <!-- Quiz Questions -->
+                <div id="quizQuestions">
+                    <!-- Question 1 -->
+                    <div class="quiz-section active" id="question0">
+                        <div class="quiz-header">
+                            <div class="quiz-progress">Pregunta 1 de 5</div>
+                        </div>
+                        <div class="quiz-question-text">¿Cuál es la etiqueta HTML correcta para un párrafo?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(0, 0, this)">A) &lt;paragraph&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(0, 1, this)">B) &lt;p&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(0, 2, this)">C) &lt;text&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(0, 3, this)">D) &lt;para&gt;</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback0"></div>
+                        <div class="quiz-buttons">
+                            <button class="quiz-button" id="nextBtn0" onclick="nextQuestion(0)" style="display: none;">Siguiente →</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="quiz-section" id="question1">
+                        <div class="quiz-header">
+                            <div class="quiz-progress">Pregunta 2 de 5</div>
+                        </div>
+                        <div class="quiz-question-text">¿Qué propiedad CSS se usa para crear una cuadrícula?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(1, 0, this)">A) display: table</div>
+                            <div class="quiz-option" onclick="selectAnswer(1, 1, this)">B) display: flex</div>
+                            <div class="quiz-option" onclick="selectAnswer(1, 2, this)">C) display: grid</div>
+                            <div class="quiz-option" onclick="selectAnswer(1, 3, this)">D) display: block</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback1"></div>
+                        <div class="quiz-buttons">
+                            <button class="quiz-button" onclick="prevQuestion(1)">← Anterior</button>
+                            <button class="quiz-button" id="nextBtn1" onclick="nextQuestion(1)" style="display: none;">Siguiente →</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-section" id="question2">
+                        <div class="quiz-header">
+                            <div class="quiz-progress">Pregunta 3 de 5</div>
+                        </div>
+                        <div class="quiz-question-text">¿Cuál es la diferencia entre margin y padding?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(2, 0, this)">A) No hay diferencia</div>
+                            <div class="quiz-option" onclick="selectAnswer(2, 1, this)">B) Margin es exterior, padding es interior</div>
+                            <div class="quiz-option" onclick="selectAnswer(2, 2, this)">C) Padding es exterior, margin es interior</div>
+                            <div class="quiz-option" onclick="selectAnswer(2, 3, this)">D) Son lo mismo pero con nombres diferentes</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback2"></div>
+                        <div class="quiz-buttons">
+                            <button class="quiz-button" onclick="prevQuestion(2)">← Anterior</button>
+                            <button class="quiz-button" id="nextBtn2" onclick="nextQuestion(2)" style="display: none;">Siguiente →</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="quiz-section" id="question3">
+                        <div class="quiz-header">
+                            <div class="quiz-progress">Pregunta 4 de 5</div>
+                        </div>
+                        <div class="quiz-question-text">¿Cómo se selecciona un elemento por su clase en CSS?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(3, 0, this)">A) #className</div>
+                            <div class="quiz-option" onclick="selectAnswer(3, 1, this)">B) className</div>
+                            <div class="quiz-option" onclick="selectAnswer(3, 2, this)">C) .className</div>
+                            <div class="quiz-option" onclick="selectAnswer(3, 3, this)">D) &className</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback3"></div>
+                        <div class="quiz-buttons">
+                            <button class="quiz-button" onclick="prevQuestion(3)">← Anterior</button>
+                            <button class="quiz-button" id="nextBtn3" onclick="nextQuestion(3)" style="display: none;">Siguiente →</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="quiz-section" id="question4">
+                        <div class="quiz-header">
+                            <div class="quiz-progress">Pregunta 5 de 5</div>
+                        </div>
+                        <div class="quiz-question-text">¿Qué etiqueta HTML se usa para insertar una imagen?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(4, 0, this)">A) &lt;image&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(4, 1, this)">B) &lt;img&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(4, 2, this)">C) &lt;picture&gt;</div>
+                            <div class="quiz-option" onclick="selectAnswer(4, 3, this)">D) &lt;photo&gt;</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback4"></div>
+                        <div class="quiz-buttons">
+                            <button class="quiz-button" onclick="prevQuestion(4)">← Anterior</button>
+                            <button class="quiz-button" id="nextBtn4" onclick="submitQuiz()" style="display: none;">Enviar Respuestas</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Result -->
+                <div class="quiz-result" id="quizResult">
+                    <div class="quiz-result-score" id="scorePercentage">0%</div>
+                    <div class="quiz-result-text" id="resultText">¡Resultado!</div>
+                    <div class="quiz-result-message" id="resultMessage"></div>
+                    <div class="quiz-buttons" style="margin-top: 32px;">
+                        <button class="quiz-button success" id="finalizeButton" onclick="finalizeDay()" style="display: none;">
+                            ✓ Finalizar Día 5
+                        </button>
+                        <button class="quiz-button" id="retryButton" onclick="resetQuiz()" style="display: none;">
+                            ↻ Reintentar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botón Volver -->
+        <div class="button-container">
+            <a href="../menu.html" class="next-button">
+                Volver al Inicio →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Data de respuestas correctas
+        const correctAnswers = [1, 2, 1, 2, 1]; // Índices de respuestas correctas
+        const feedbackMessages = [
+            { correct: "¡Correcto! &lt;p&gt; es la etiqueta HTML para párrafos.", incorrect: "Incorrecto. La etiqueta correcta es &lt;p&gt;." },
+            { correct: "¡Correcto! display: grid crea una cuadrícula.", incorrect: "Incorrecto. La propiedad correcta es display: grid." },
+            { correct: "¡Correcto! Margin es el espacio exterior, padding el interior.", incorrect: "Incorrecto. Margin es exterior, padding es interior." },
+            { correct: "¡Correcto! Se usa .className para seleccionar por clase.", incorrect: "Incorrecto. Se usa .className para seleccionar por clase." },
+            { correct: "¡Correcto! &lt;img&gt; es la etiqueta para imágenes.", incorrect: "Incorrecto. La etiqueta correcta es &lt;img&gt;." }
+        ];
+
+        let userAnswers = [-1, -1, -1, -1, -1];
+
+        function toggleSolution(id) {
+            const element = document.getElementById('solution' + id);
+            element.classList.toggle('active');
+        }
+
+        function selectAnswer(questionIndex, answerIndex, element) {
+            // Si ya fue respondida, no permitir cambiar
+            if (userAnswers[questionIndex] !== -1) {
+                return;
+            }
+
+            // Marcar como seleccionado
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Guardar respuesta
+            userAnswers[questionIndex] = answerIndex;
+
+            // Mostrar retroalimentación
+            showFeedback(questionIndex, answerIndex);
+        }
+
+        function showFeedback(questionIndex, answerIndex) {
+            const feedbackDiv = document.getElementById('feedback' + questionIndex);
+            const nextBtn = document.getElementById('nextBtn' + questionIndex);
+            const isCorrect = answerIndex === correctAnswers[questionIndex];
+
+            feedbackDiv.textContent = isCorrect 
+                ? feedbackMessages[questionIndex].correct 
+                : feedbackMessages[questionIndex].incorrect;
+            feedbackDiv.className = 'quiz-feedback show ' + (isCorrect ? 'correct-feedback' : 'incorrect-feedback');
+
+            // Mostrar botón siguiente
+            nextBtn.style.display = 'inline-block';
+
+            // Marcar opciones como correctas/incorrectas
+            const options = document.querySelectorAll('#question' + questionIndex + ' .quiz-option');
+            options.forEach((opt, idx) => {
+                opt.classList.add('disabled');
+                if (idx === correctAnswers[questionIndex]) {
+                    opt.classList.add('correct');
+                } else if (idx === answerIndex && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+        }
+
+        function nextQuestion(currentQuestion) {
+            const currentSection = document.getElementById('question' + currentQuestion);
+            const nextSection = document.getElementById('question' + (currentQuestion + 1));
+
+            currentSection.classList.remove('active');
+            nextSection.classList.add('active');
+
+            // Scroll suave
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function prevQuestion(currentQuestion) {
+            const currentSection = document.getElementById('question' + currentQuestion);
+            const prevSection = document.getElementById('question' + (currentQuestion - 1));
+
+            currentSection.classList.remove('active');
+            prevSection.classList.add('active');
+
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function submitQuiz() {
+            // Calcular puntuación
+            let correctCount = 0;
+            for (let i = 0; i < correctAnswers.length; i++) {
+                if (userAnswers[i] === correctAnswers[i]) {
+                    correctCount++;
+                }
+            }
+
+            const scorePercentage = Math.round((correctCount / correctAnswers.length) * 100);
+
+            // Mostrar resultado
+            showQuizResult(correctCount, scorePercentage);
+        }
+
+        function showQuizResult(correctCount, scorePercentage) {
+            const quizResult = document.getElementById('quizResult');
+            const scorePercentageEl = document.getElementById('scorePercentage');
+            const resultText = document.getElementById('resultText');
+            const resultMessage = document.getElementById('resultMessage');
+            const finalizeButton = document.getElementById('finalizeButton');
+            const retryButton = document.getElementById('retryButton');
+            const quizQuestions = document.getElementById('quizQuestions');
+
+            scorePercentageEl.textContent = scorePercentage + '%';
+
+            if (scorePercentage >= 70) {
+                resultText.textContent = '¡Felicidades!';
+                resultMessage.textContent = `Obtuviste ${correctCount} de 5 preguntas correctas. ¡Has completado el Día 5!`;
+                finalizeButton.style.display = 'inline-block';
+                retryButton.style.display = 'none';
+            } else {
+                resultText.textContent = 'Casi lo logras';
+                resultMessage.textContent = `Obtuviste ${correctCount} de 5 preguntas correctas. Necesitas al menos 70% para completar. ¡Intenta de nuevo!`;
+                finalizeButton.style.display = 'none';
+                retryButton.style.display = 'inline-block';
+            }
+
+            quizQuestions.style.display = 'none';
+            quizResult.classList.add('show');
+
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetQuiz() {
+            userAnswers = [-1, -1, -1, -1, -1];
+            
+            // Remover todas las selecciones y feedback
+            for (let i = 0; i < 5; i++) {
+                const options = document.querySelectorAll('#question' + i + ' .quiz-option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect', 'disabled');
+                });
+
+                const feedback = document.getElementById('feedback' + i);
+                feedback.classList.remove('show', 'correct-feedback', 'incorrect-feedback');
+
+                const nextBtn = document.getElementById('nextBtn' + i);
+                nextBtn.style.display = 'none';
+            }
+
+            // Mostrar primera pregunta
+            const quizQuestions = document.getElementById('quizQuestions');
+            quizQuestions.style.display = 'block';
+
+            const firstQuestion = document.getElementById('question0');
+            firstQuestion.classList.add('active');
+
+            // Ocultar resultado
+            const quizResult = document.getElementById('quizResult');
+            quizResult.classList.remove('show');
+
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function finalizeDay() {
+            // Guardar progreso en localStorage
+            const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            if (!completedDays.includes(5)) {
+                completedDays.push(5);
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+            }
+
+            alert('¡Día 5 completado! 🎉');
+            window.location.href = 'inicio_curso.html';
+        }
+    </script>
+</body>
+</html>

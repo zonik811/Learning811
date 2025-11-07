@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Etiquetas Básicas de HTML</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-html: #e34c26;
+            --color-success: #48bb78;
+            --color-error: #f56565;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+        }
+
+        .module-badge {
+            background: var(--color-html);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .module-title h1 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .module-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .back-button {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-html);
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(227, 76, 38, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(227, 76, 38, 0.3);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .content-block {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tag-card {
+            background: rgba(40, 40, 40, 0.8);
+            border: 2px solid rgba(227, 76, 38, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag-card:hover {
+            border-color: var(--color-html);
+            transform: translateY(-3px);
+        }
+
+        .tag-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-html);
+            margin-bottom: 0.8rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tag-example {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(227, 76, 38, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #a6e22e;
+            overflow-x: auto;
+        }
+
+        .tag-demo {
+            background: white;
+            color: #333;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            min-height: 60px;
+        }
+
+        .lab-section {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .lab-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .lab-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .lab-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .lab-editor {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .lab-header {
+            background: rgba(40, 40, 40, 0.8);
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lab-textarea {
+            width: 100%;
+            height: 400px;
+            background: rgba(30, 30, 30, 0.9);
+            color: #e8e8e8;
+            border: none;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: none;
+            line-height: 1.6;
+        }
+
+        .lab-textarea:focus {
+            outline: none;
+        }
+
+        .lab-preview {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .lab-preview-header {
+            background: rgba(40, 40, 40, 0.8);
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .lab-preview-content {
+            background: white;
+            color: #333;
+            padding: 1.5rem;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .lab-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .lab-button {
+            background: linear-gradient(135deg, var(--color-primary), #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .lab-button.secondary {
+            background: rgba(227, 76, 38, 0.2);
+            border: 2px solid var(--color-html);
+        }
+
+        .lab-button.secondary:hover {
+            background: var(--color-html);
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(227, 76, 38, 0.5);
+        }
+
+        @media (max-width: 1200px) {
+            .lab-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tags-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="module-info">
+                <div class="module-icon">📝</div>
+                <div class="module-title">
+                    <span class="module-badge">Módulo 2</span>
+                    <h1>Etiquetas Básicas de HTML</h1>
+                    <p class="module-subtitle">Los bloques de construcción del contenido web</p>
+                </div>
+            </div>
+            <a href="modulo1.html" class="back-button">← Atrás</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- ETIQUETAS DE TEXTO -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📄</div>
+                <h2 class="section-title">Etiquetas de Texto</h2>
+            </div>
+            <div class="content-block">
+                <p>Las etiquetas de texto son las más fundamentales. Te permiten estructurar y dar formato al contenido.</p>
+            </div>
+
+            <div class="tags-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;h1&gt; - &lt;h6&gt;</div>
+                    <div class="tag-desc">
+                        Títulos y subtítulos de 6 niveles. h1 es el más importante, h6 el menos importante.
+                    </div>
+                    <div class="tag-example">
+&lt;h1&gt;Título Principal&lt;/h1&gt;
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;h3&gt;Sección&lt;/h3&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <h1 style="margin: 0;">Título Principal</h1>
+                        <h2 style="margin: 0.5rem 0;">Subtítulo</h2>
+                        <h3 style="margin: 0;">Sección</h3>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;p&gt;</div>
+                    <div class="tag-desc">
+                        Párrafo de texto. Se usa para bloques de contenido.
+                    </div>
+                    <div class="tag-example">
+&lt;p&gt;Este es un párrafo de texto.&lt;/p&gt;
+&lt;p&gt;Este es otro párrafo.&lt;/p&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <p style="margin: 0;">Este es un párrafo de texto.</p>
+                        <p style="margin: 0.5rem 0 0 0;">Este es otro párrafo.</p>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;strong&gt;</div>
+                    <div class="tag-desc">
+                        Texto en negrita con importancia semántica.
+                    </div>
+                    <div class="tag-example">
+&lt;p&gt;Esto es &lt;strong&gt;muy importante&lt;/strong&gt;.&lt;/p&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <p style="margin: 0;">Esto es <strong>muy importante</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;em&gt;</div>
+                    <div class="tag-desc">
+                        Texto en cursiva para énfasis.
+                    </div>
+                    <div class="tag-example">
+&lt;p&gt;Esto es &lt;em&gt;enfatizado&lt;/em&gt;.&lt;/p&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <p style="margin: 0;">Esto es <em>enfatizado</em>.</p>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;br&gt;</div>
+                    <div class="tag-desc">
+                        Salto de línea. No tiene etiqueta de cierre.
+                    </div>
+                    <div class="tag-example">
+Primera línea&lt;br&gt;
+Segunda línea
+                    </div>
+                    <div class="tag-demo">
+                        Primera línea<br>
+                        Segunda línea
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;hr&gt;</div>
+                    <div class="tag-desc">
+                        Línea horizontal divisora. No tiene etiqueta de cierre.
+                    </div>
+                    <div class="tag-example">
+Sección 1
+&lt;hr&gt;
+Sección 2
+                    </div>
+                    <div class="tag-demo">
+                        Sección 1
+                        <hr style="margin: 0.5rem 0;">
+                        Sección 2
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTAS -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <h2 class="section-title">Listas</h2>
+            </div>
+            <div class="content-block">
+                <p>Las listas organizan información en viñetas o números.</p>
+            </div>
+
+            <div class="tags-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;ul&gt; y &lt;li&gt;</div>
+                    <div class="tag-desc">
+                        Lista no ordenada (con viñetas). Cada elemento va en un &lt;li&gt;.
+                    </div>
+                    <div class="tag-example">
+&lt;ul&gt;
+  &lt;li&gt;Elemento 1&lt;/li&gt;
+  &lt;li&gt;Elemento 2&lt;/li&gt;
+  &lt;li&gt;Elemento 3&lt;/li&gt;
+&lt;/ul&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <ul style="margin: 0;">
+                            <li>Elemento 1</li>
+                            <li>Elemento 2</li>
+                            <li>Elemento 3</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;ol&gt; y &lt;li&gt;</div>
+                    <div class="tag-desc">
+                        Lista ordenada (numerada). Cada elemento va en un &lt;li&gt;.
+                    </div>
+                    <div class="tag-example">
+&lt;ol&gt;
+  &lt;li&gt;Primer paso&lt;/li&gt;
+  &lt;li&gt;Segundo paso&lt;/li&gt;
+  &lt;li&gt;Tercer paso&lt;/li&gt;
+&lt;/ol&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <ol style="margin: 0;">
+                            <li>Primer paso</li>
+                            <li>Segundo paso</li>
+                            <li>Tercer paso</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENLACES E IMÁGENES -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔗</div>
+                <h2 class="section-title">Enlaces e Imágenes</h2>
+            </div>
+            <div class="content-block">
+                <p>Enlaces e imágenes son esenciales para la navegación y el contenido visual.</p>
+            </div>
+
+            <div class="tags-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;a&gt;</div>
+                    <div class="tag-desc">
+                        Enlace (anchor). El atributo <code>href</code> indica la URL de destino.
+                    </div>
+                    <div class="tag-example">
+&lt;a href="https://google.com"&gt;Ir a Google&lt;/a&gt;
+&lt;a href="pagina2.html"&gt;Otra página&lt;/a&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <a href="https://google.com" style="color: #1a73e8;">Ir a Google</a><br>
+                        <a href="#" style="color: #1a73e8;">Otra página</a>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;img&gt;</div>
+                    <div class="tag-desc">
+                        Imagen. <code>src</code> es la ruta de la imagen, <code>alt</code> es texto alternativo.
+                    </div>
+                    <div class="tag-example">
+&lt;img src="foto.jpg" alt="Descripción"&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <div style="background: #e0e0e0; padding: 2rem; text-align: center; border-radius: 8px;">
+                            🖼️ [Imagen aquí]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENEDORES -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <h2 class="section-title">Contenedores</h2>
+            </div>
+            <div class="content-block">
+                <p>Los contenedores agrupan y organizan otros elementos.</p>
+            </div>
+
+            <div class="tags-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;div&gt;</div>
+                    <div class="tag-desc">
+                        Contenedor genérico de bloque. Agrupa elementos y crea secciones.
+                    </div>
+                    <div class="tag-example">
+&lt;div&gt;
+  &lt;h2&gt;Título&lt;/h2&gt;
+  &lt;p&gt;Contenido&lt;/p&gt;
+&lt;/div&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <div style="border: 2px dashed #ccc; padding: 1rem;">
+                            <h3 style="margin: 0 0 0.5rem 0;">Título</h3>
+                            <p style="margin: 0;">Contenido dentro del div</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;span&gt;</div>
+                    <div class="tag-desc">
+                        Contenedor en línea. No rompe el flujo del texto.
+                    </div>
+                    <div class="tag-example">
+&lt;p&gt;Texto &lt;span&gt;especial&lt;/span&gt; normal&lt;/p&gt;
+                    </div>
+                    <div class="tag-demo">
+                        <p style="margin: 0;">Texto <span style="background: yellow; padding: 0.2rem;">especial</span> normal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LABORATORIO INTERACTIVO -->
+        <div class="lab-section">
+            <h2 class="lab-title">🧪 Laboratorio Interactivo</h2>
+            <p class="lab-subtitle">
+                ¡Prueba tu código HTML aquí! Escribe en el editor y ve el resultado en tiempo real.
+            </p>
+
+            <div class="lab-container">
+                <div class="lab-editor">
+                    <div class="lab-header">
+                        💻 Editor HTML
+                    </div>
+                    <textarea 
+                        id="htmlCode" 
+                        class="lab-textarea" 
+                        placeholder="Escribe tu código HTML aquí...
+Ejemplo:
+<h1>Mi Primer Título</h1>
+<p>Este es un párrafo de texto.</p>
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>"
+                        oninput="updatePreview()"
+                    ></textarea>
+                </div>
+
+                <div class="lab-preview">
+                    <div class="lab-preview-header">
+                        👁️ Vista Previa
+                    </div>
+                    <div id="preview" class="lab-preview-content">
+                        <p style="color: #999; text-align: center; margin-top: 6rem;">
+                            Escribe código HTML en el editor para ver el resultado aquí...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-controls">
+                <button class="lab-button secondary" onclick="clearCode()">
+                    🗑️ Limpiar
+                </button>
+                <button class="lab-button" onclick="loadExample()">
+                    📝 Cargar Ejemplo
+                </button>
+            </div>
+        </div>
+
+        <button class="next-button" onclick="goToNextModule()">
+            Continuar al Módulo 3 →
+        </button>
+    </div>
+
+    <script>
+        function updatePreview() {
+            const code = document.getElementById('htmlCode').value;
+            const preview = document.getElementById('preview');
+            preview.innerHTML = code;
+        }
+
+        function clearCode() {
+            document.getElementById('htmlCode').value = '';
+            document.getElementById('preview').innerHTML = '<p style="color: #999; text-align: center; margin-top: 6rem;">Escribe código HTML en el editor para ver el resultado aquí...</p>';
+        }
+
+        function loadExample() {
+            const example = `<h1>Mi Primera Página Web</h1>
+<p>¡Hola! Soy <strong>estudiante de programación</strong>.</p>
+
+<h2>Mis Hobbies</h2>
+<ul>
+  <li>Programar</li>
+  <li>Jugar videojuegos</li>
+  <li>Aprender cosas nuevas</li>
+</ul>
+
+<h2>Pasos para Aprender HTML</h2>
+<ol>
+  <li>Entender la estructura básica</li>
+  <li>Practicar con etiquetas</li>
+  <li>Crear proyectos reales</li>
+</ol>
+
+<hr>
+
+<p>Visita <a href="https://developer.mozilla.org">MDN Web Docs</a> para aprender más.</p>`;
+
+            document.getElementById('htmlCode').value = example;
+            updatePreview();
+        }
+
+        function goToNextModule() {
+            window.location.href = 'modulo3.html';
+        }
+
+        // Load example on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('🎨 Módulo 2 - Etiquetas básicas cargado');
+        });
+    </script>
+</body>
+</html>
