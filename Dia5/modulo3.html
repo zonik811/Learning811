@@ -431,267 +431,544 @@
         </div>
 
         <!-- SECCIÓN 1: AGREGAR MÁS POKÉMON -->
-        <section class="intro-section">
-            <h2 class="section-title">🎭 Agrega Más Pokémon al HTML</h2>
+      <section class="intro-section" style="max-width:700px;margin:auto;">
+  <h2 class="section-title" style="margin-bottom:22px;">🎭 Agrega Más Pokémon al HTML</h2>
 
-            <div class="explanation-box">
-                <p>
-                    Tu Pokédex actual tiene 3 Pokémon. Vamos a agregar más copiando y pegando tarjetas. 
-                    En tu archivo index.html, dentro del pokemon-grid, copia la estructura de una tarjeta 
-                    varias veces con diferentes Pokémon.
-                </p>
-            </div>
+  <div class="challenge-card card-blue">
+    <div class="challenge-title">¿Qué más puedes mostrar?</div>
+    <div class="challenge-text">
+      Es hora de ampliar tu Pokédex: <br>
+      Crea más tarjetas copiando la estructura y variando el nombre, tipo y la imagen. ¡Hazla de tu generación favorita o mezcla distintas!
+    </div>
+  </div>
 
-            <!-- RETO 1 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 1: Agrega 3 Pokémon más
-                </div>
-                <div class="challenge-text">
-                    En tu index.html, después de la tercera tarjeta de Pokémon, copia y pega 3 tarjetas más. 
-                    Cambia el nombre, tipo e imagen. Sugiero: Venusaur, Dragonite y Alakazam.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(1)">Ver Solución</button>
-                <div class="solution-content" id="solution1">
-                    <div class="code-label">Agregar 3 Pokémon más en index.html</div>
-                    <code>&lt;div class="pokemon-card"&gt;<br>
-&nbsp;&nbsp;&lt;h2&gt;Venusaur&lt;/h2&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;Planta/Veneno&lt;/p&gt;<br>
-&nbsp;&nbsp;&lt;img src="assets/venusaur.png" alt="Venusaur"&gt;<br>
-&lt;/div&gt;<br>
-<br>
-&lt;div class="pokemon-card"&gt;<br>
-&nbsp;&nbsp;&lt;h2&gt;Dragonite&lt;/h2&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;Dragón/Volador&lt;/p&gt;<br>
-&nbsp;&nbsp;&lt;img src="assets/dragonite.png" alt="Dragonite"&gt;<br>
-&lt;/div&gt;<br>
-<br>
-&lt;div class="pokemon-card"&gt;<br>
-&nbsp;&nbsp;&lt;h2&gt;Alakazam&lt;/h2&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;Psíquico&lt;/p&gt;<br>
-&nbsp;&nbsp;&lt;img src="assets/alakazam.png" alt="Alakazam"&gt;<br>
-&lt;/div&gt;</code>
-                </div>
-            </div>
+  <!-- RETO 1 -->
+  <div class="challenge-card card-green">
+    <div class="challenge-title">⚔️ Reto 1: +3 Pokémon clásicos</div>
+    <div class="challenge-text">
+      Después de las primeras tres tarjetas, copia y pega tres más.<br>
+      <b>Sugiero:</b> Venusaur, Dragonite y Alakazam (íconos de fuerza, vuelo y mente).
+    </div>
+    <button class="sol-btn btn-green" data-target="sol-mas-1">Ver Solución</button>
+    <div class="solution-content" id="sol-mas-1" style="display:none;">
+      <div class="code-label">Agregar 3 Pokémon clásicos</div>
+      <pre style="overflow-x:auto;max-width:100%">
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Venusaur&lt;/h2&gt;
+  &lt;p&gt;Planta/Veneno&lt;/p&gt;
+  &lt;img src="assets/venusaur.png" alt="Venusaur"&gt;
+&lt;/div&gt;
 
-            <div class="tip-box">
-                <p><strong>💡 Tip:</strong> Primero descarga las imágenes nuevas a tu carpeta assets 
-                (venusaur.png, dragonite.png, alakazam.png) antes de copiar el código HTML.</p>
-            </div>
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Dragonite&lt;/h2&gt;
+  &lt;p&gt;Dragón/Volador&lt;/p&gt;
+  &lt;img src="assets/dragonite.png" alt="Dragonite"&gt;
+&lt;/div&gt;
 
-            <div class="tip-box">
-                <p><strong>📌 Números Pokémon para descargar:</strong></p>
-                <p>Venusaur: #3 → 3.png</p>
-                <p>Dragonite: #149 → 149.png</p>
-                <p>Alakazam: #65 → 65.png</p>
-            </div>
-        </section>
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Alakazam&lt;/h2&gt;
+  &lt;p&gt;Psíquico&lt;/p&gt;
+  &lt;img src="assets/alakazam.png" alt="Alakazam"&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+  </div>
+
+  <!-- MÁS OPCIONES -->
+  <div class="challenge-card card-yellow">
+    <div class="challenge-title">⚔️ Opción: Pokémon de generaciones modernas</div>
+    <div class="challenge-text">
+      <b>¿Te gustan los últimos juegos?</b> Prueba con:<br>
+      <b>Greninja</b> (agua/siniestro) · <b>Lucario</b> (lucha/acero) · <b>Garchomp</b> (dragón/tierra)
+    </div>
+    <button class="sol-btn btn-yellow" data-target="sol-mas-2">Ver Código</button>
+    <div class="solution-content" id="sol-mas-2" style="display:none;">
+      <div class="code-label">Pokémon de varias generaciones</div>
+      <pre style="overflow-x:auto;max-width:100%">
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Greninja&lt;/h2&gt;
+  &lt;p&gt;Agua/Siniestro&lt;/p&gt;
+  &lt;img src="assets/greninja.png" alt="Greninja"&gt;
+&lt;/div&gt;
+
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Lucario&lt;/h2&gt;
+  &lt;p&gt;Lucha/Acero&lt;/p&gt;
+  &lt;img src="assets/lucario.png" alt="Lucario"&gt;
+&lt;/div&gt;
+
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Garchomp&lt;/h2&gt;
+  &lt;p&gt;Dragón/Tierra&lt;/p&gt;
+  &lt;img src="assets/garchomp.png" alt="Garchomp"&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+  </div>
+
+  <div class="challenge-card card-purple">
+    <div class="challenge-title">🖼️ OPCIÓN: Sprites estilo clásico (8-bit, retro)</div>
+    <div class="challenge-text">
+      Si prefieres un look retro, usa sprites de <a href="https://pokemondb.net/sprites" target="_blank" style="color:#b77fff;">PokémonDB (Sprites)</a>. Usa la URL o guarda el PNG y enlaza en tu card:
+    </div>
+    <button class="sol-btn btn-purple" data-target="sol-mas-3">Ver Ejemplo Sprite</button>
+    <div class="solution-content" id="sol-mas-3" style="display:none;">
+      <div class="code-label">Sprite retro en tarjeta</div>
+      <pre style="overflow-x:auto;max-width:100%">
+&lt;div class="pokemon-card"&gt;
+  &lt;h2&gt;Bulbasaur&lt;/h2&gt;
+  &lt;p&gt;Planta/Veneno&lt;/p&gt;
+  &lt;img src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur sprite"&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+  </div>
+
+  <div class="challenge-card card-lime">
+    <div class="challenge-title">🎨 Reto creativo: Tarjeta personalizada</div>
+    <div class="challenge-text">
+      ¿Te animas? Crea una tarjeta de un Pokémon con decoración extra: fondo, un emoji, o colores temáticos.
+    </div>
+    <button class="sol-btn btn-lime" data-target="sol-mas-4">Ver ejemplo creativo</button>
+    <div class="solution-content" id="sol-mas-4" style="display:none;">
+      <div class="code-label">Card temática Pikachu</div>
+      <pre style="overflow-x:auto;max-width:100%">
+&lt;div class="pokemon-card" style="background:linear-gradient(135deg,#FFF800,#FFD700)">
+  ⚡️
+  &lt;h2 style="color:#fae700"&gt;Pikachu&lt;/h2&gt;
+  &lt;p style="color:#FFE066"&gt;Eléctrico&lt;/p&gt;
+  &lt;img src="assets/pikachu.png" alt="Pikachu"&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+  </div>
+
+  <div class="challenge-card card-orange" style="padding-top:17px;">
+    <div class="challenge-title">📝 Listado rápido: Nombres para inspirarte</div>
+    <div class="challenge-text">
+      <b>Clásicos:</b> Eevee, Lapras, Snorlax, Mewtwo, Gengar<br>
+      <b>Modernos:</b> Sylveon, Toxtricity, Decidueye, Zeraora, Garchomp<br>
+      <b>Fácil acceso:</b> Descarga desde PokémonDB usando el nombre en minúsculas, sin tildes ni espacios (garchomp.png, lapras.png, etc).
+    </div>
+  </div>
+
+  <div class="challenge-card card-yellow">
+    <div class="challenge-title">📥 Cómo renombrar y organizar imágenes</div>
+    <div class="challenge-text">
+      <ul style="padding-left:19px;color:#dab;">
+        <li>Descarga de pokemondb.net la imagen y guárdala en <b>assets</b>.</li>
+        <li>Renombra a minúsculas, sin espacios, ejemplo: <b>Dragonite</b> → <b>dragonite.png</b></li>
+        <li>En tu HTML siempre usa <b>src="assets/nombre.png"</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sol-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        const tgt = document.getElementById(btn.getAttribute('data-target'));
+        tgt.style.display = (tgt.style.display === "block") ? "none" : "block";
+      }
+    });
+  </script>
+  <style>
+    .challenge-card {
+      margin: 18px 0;
+      border-radius: 15px;
+      box-shadow: 0 2px 12px rgba(40,40,60,0.08);
+      padding: 18px 22px 14px 22px;
+      font-size: 1.08em;
+      border: 1.4px solid rgba(96,116,200,0.09);
+      background: rgba(16,23,40,0.15);
+      transition: box-shadow .15s;
+      position: relative;
+    }
+    .challenge-title { font-weight:700; font-size:1.13em; margin-bottom:7px; color:#3dc7ff;}
+    .card-green {border-left:5px solid #37ee8b; background:rgba(36,255,139,0.09);}
+    .card-lime {border-left:5px solid #e5ff53; background:rgba(204,255,56,0.09);}
+    .card-blue{border-left:5px solid #3dc7ff; background:rgba(61,199,255,0.085);}
+    .card-orange{border-left:5px solid #ffaa00; background:rgba(255,170,0,0.09);}
+    .card-purple{border-left:5px solid #b77fff; background:rgba(184,127,255,0.12);}
+    .card-yellow{border-left:5px solid #ffe066; background:rgba(255,224,102,0.09);}
+    .sol-btn {border:none;padding:8px 17px;font-weight:600;border-radius:8px;cursor:pointer;font-size:1em; margin-top:10px;transition:box-shadow .13s,background .13s;}
+    .btn-green { background: #10ff71; color: #191b25;}
+    .btn-yellow { background: #ffe066; color: #222;}
+    .btn-lime{background:#e5ff53;color:#222;}
+    .btn-blue{background:#40b5ff;color:#fff;}
+    .btn-orange{background:#ffaa00; color:#222;}
+    .btn-purple { background: #d783ff; color:#191b25;}
+    .sol-btn:hover {box-shadow:0 2px 10px #b3dffc;}
+    .solution-content {background:#131b25;padding:12px 12px;margin-top:8px;border-radius:9px;}
+    .code-label {color:#ccf;font-weight:700; margin-bottom: 5px;}
+    pre {background:none;border:none;box-shadow:none;color:#e7f9ff;}
+    @media (max-width:800px){
+      .challenge-card {font-size:0.98em;padding-left:10px;padding-right:10px;}
+    }
+  </style>
+</section>
+
 
         <!-- SECCIÓN 2: EFECTOS Y ANIMACIONES -->
-        <section class="intro-section">
-            <h2 class="section-title">🎬 Agregar Efectos y Animaciones</h2>
+      <section class="intro-section" style="max-width:700px;margin:auto;">
+  <h2 class="section-title" style="margin-bottom:22px;">🎬 Agregar Efectos y Animaciones</h2>
 
-            <div class="explanation-box">
-                <p>
-                    Vamos a añadir animaciones suaves a tu Pokédex. Abre tu archivo css/estilos.css 
-                    y agrega los siguientes efectos.
-                </p>
-            </div>
+  <div class="challenge-card card-blue">
+    <div class="challenge-title">¿Qué sigue?</div>
+    <div class="challenge-text">
+      Ahora toca añadir animaciones suaves: harás que las tarjetas aparezcan con efecto, las imágenes tengan zoom y el título brille.
+    </div>
+  </div>
 
-            <!-- RETO 2 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 2: Animación de Entrada
-                </div>
-                <div class="challenge-text">
-                    Cuando la página carga, las tarjetas deben aparecer suavemente. 
-                    Agrega una animación que las desvanezca desde arriba (fade in + slide down).
-                </div>
-                <button class="solution-button" onclick="toggleSolution(2)">Ver Solución</button>
-                <div class="solution-content" id="solution2">
-                    <div class="code-label">css/estilos.css - Animación de entrada</div>
-                    <code>@keyframes slideIn {<br>
-&nbsp;&nbsp;from {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;opacity: 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(20px);<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;to {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;opacity: 1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(0);<br>
-&nbsp;&nbsp;}<br>
-}<br>
-<br>
-.pokemon-card {<br>
-&nbsp;&nbsp;animation: slideIn 0.6s ease forwards;<br>
-}</code>
-                </div>
-            </div>
+  <!-- RETO 2: Animación de entrada -->
+  <div class="challenge-card card-green">
+    <div class="challenge-title">⚔️ Reto 2: Animación de Entrada</div>
+    <div class="challenge-text">
+      Cuando la página carga, las tarjetas aparecen suavemente.<br>
+      Usa animación <b>slideIn</b> (fade + mueve hacia abajo).
+    </div>
+    <button class="sol-btn btn-green" data-target="sol-anima-2">Ver Solución</button>
+    <div class="solution-content" id="sol-anima-2" style="display:none;">
+      <div class="code-label">css/estilos.css - Animación de entrada</div>
+      <pre style="overflow-x:auto;max-width:100%">
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pokemon-card {
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+      </pre>
+    </div>
+  </div>
 
-            <!-- RETO 3 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 3: Efecto de Zoom en Imágenes
-                </div>
-                <div class="challenge-text">
-                    Las imágenes deben crecer suavemente cuando pasas el mouse sobre la tarjeta.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(3)">Ver Solución</button>
-                <div class="solution-content" id="solution3">
-                    <div class="code-label">css/estilos.css - Zoom en imagen</div>
-                    <code>.pokemon-card img {<br>
-&nbsp;&nbsp;transition: transform 0.3s ease;<br>
-}<br>
-<br>
-.pokemon-card:hover img {<br>
-&nbsp;&nbsp;transform: scale(1.15);<br>
-}</code>
-                </div>
-            </div>
+  <!-- RETO 3: Zoom en imágenes -->
+  <div class="challenge-card card-yellow">
+    <div class="challenge-title">⚔️ Reto 3: Efecto de Zoom en Imágenes</div>
+    <div class="challenge-text">
+      Las imágenes deben crecer suavemente al pasar el mouse:
+    </div>
+    <button class="sol-btn btn-yellow" data-target="sol-anima-3">Ver Solución</button>
+    <div class="solution-content" id="sol-anima-3" style="display:none;">
+      <div class="code-label">css/estilos.css - Zoom en imagen</div>
+      <pre style="overflow-x:auto;max-width:100%">
+.pokemon-card img {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pokemon-card:hover img {
+  transform: scale(1.15);
+}
+      </pre>
+    </div>
+  </div>
 
-            <!-- RETO 4 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 4: Efecto en el Texto del Header
-                </div>
-                <div class="challenge-text">
-                    El h1 del header debe tener un efecto de brillo o cambiar de color lentamente.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(4)">Ver Solución</button>
-                <div class="solution-content" id="solution4">
-                    <div class="code-label">css/estilos.css - Efecto en header</div>
-                    <code>@keyframes glow {<br>
-&nbsp;&nbsp;0%, 100% {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;50% {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;text-shadow: 0 0 20px rgba(255, 255, 255, 1);<br>
-&nbsp;&nbsp;}<br>
-}<br>
-<br>
-header h1 {<br>
-&nbsp;&nbsp;animation: glow 2s ease-in-out infinite;<br>
-}</code>
-                </div>
-            </div>
-        </section>
+  <!-- RETO 4: Glow en header -->
+  <div class="challenge-card card-purple">
+    <div class="challenge-title">⚔️ Reto 4: Efecto en el Texto del Header</div>
+    <div class="challenge-text">
+      Haz que el h1 del header tenga glow (brillo) animado:
+    </div>
+    <button class="sol-btn btn-purple" data-target="sol-anima-4">Ver Solución</button>
+    <div class="solution-content" id="sol-anima-4" style="display:none;">
+      <div class="code-label">css/estilos.css - Efecto en header</div>
+      <pre style="overflow-x:auto;max-width:100%">
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+}
+header h1 {
+  animation: glow 2s ease-in-out infinite;
+}
+      </pre>
+    </div>
+  </div>
+
+  <!-- Opciones extra -->
+  <div class="challenge-card card-orange">
+    <div class="challenge-title">💡 Otras ideas:</div>
+    <ul style="padding-left:20px;">
+      <li>Animar el input: border y box-shadow al focus.</li>
+      <li>Agregar animación de hover en los nombres (h2) de las tarjetas.</li>
+      <li>Efecto “rebote” al hacer clic en la tarjeta.</li>
+      <li>Animar la aparición de la grid completa con @keyframes en .pokemon-grid.</li>
+    </ul>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sol-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        const tgt = document.getElementById(btn.getAttribute('data-target'));
+        tgt.style.display = (tgt.style.display === "block") ? "none" : "block";
+      }
+    });
+  </script>
+  <style>
+    .challenge-card {
+      margin: 18px 0;
+      border-radius: 15px;
+      box-shadow: 0 2px 12px rgba(40,40,60,0.08);
+      padding: 18px 22px 13px 22px;
+      font-size: 1.08em;
+      border: 1.4px solid rgba(96,116,200,0.08);
+      background: rgba(16,23,40,0.12);
+      transition: box-shadow .15s;
+      position: relative;
+    }
+    .challenge-title { font-weight:700; font-size:1.13em; margin-bottom:7px; color:#3dc7ff;}
+    .card-green {border-left:5px solid #37ee8b; background:rgba(36,255,139,0.08);}
+    .card-yellow{border-left:5px solid #ffe066; background:rgba(255,224,102,0.07);}
+    .card-purple{border-left:5px solid #b77fff; background:rgba(184,127,255,0.11);}
+    .card-orange{border-left:5px solid #ffaa00; background:rgba(255,170,0,0.08);}
+    .card-blue{border-left:5px solid #3dc7ff; background:rgba(61,199,255,0.07);}
+    .sol-btn {border:none;padding:8px 17px;font-weight:600;border-radius:8px;cursor:pointer;font-size:1em; margin-top:10px;transition:box-shadow .13s,background .13s;}
+    .btn-green { background: #10ff71; color: #191b25;}
+    .btn-yellow { background: #ffe066; color: #222;}
+    .btn-blue{background:#40b5ff;color:#fff;}
+    .btn-orange{background:#ffaa00; color:#222;}
+    .btn-purple { background: #d783ff; color:#191b25;}
+    .sol-btn:hover {box-shadow:0 2px 10px #b3dffc;}
+    .solution-content {background:#131b25;padding:12px 12px;margin-top:8px;border-radius:9px;}
+    .code-label {color:#ccf;font-weight:700; margin-bottom: 5px;}
+    pre {background:none;border:none;box-shadow:none;color:#e7f9ff;}
+    @media (max-width:800px){
+      .challenge-card {font-size:0.98em;padding-left:10px;padding-right:10px;}
+    }
+  </style>
+</section>
+
 
         <!-- SECCIÓN 3: RESPONSIVE DESIGN -->
-        <section class="intro-section">
-            <h2 class="section-title">📱 Responsive Design</h2>
+    <section class="intro-section" style="max-width:700px;margin:auto;">
+  <h2 class="section-title" style="margin-bottom:20px;">📱 Responsive Design</h2>
 
-            <div class="explanation-box">
-                <p>
-                    Tu Pokédex debe verse bien en celulares, tablets y computadoras. 
-                    Vamos a agregar media queries para ajustar el diseño en pantallas pequeñas.
-                </p>
-            </div>
+  <div class="challenge-card card-blue">
+    <div class="challenge-title">¿Por qué responsive?</div>
+    <div class="challenge-text">
+      Tu Pokédex debe lucir bien y ser usable en cualquier dispositivo: PC, tablet y móvil.<br>
+      ¡Agrega media queries para que siempre se vea perfecta!
+    </div>
+  </div>
 
-            <!-- RETO 5 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 5: Responsive para Tablets
-                </div>
-                <div class="challenge-text">
-                    En pantallas medianas (menos de 768px), el grid debe mostrar 2 columnas en lugar de 3.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(5)">Ver Solución</button>
-                <div class="solution-content" id="solution5">
-                    <div class="code-label">css/estilos.css - Media query tablet</div>
-                    <code>@media (max-width: 768px) {<br>
-&nbsp;&nbsp;.pokemon-grid {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(2, 1fr);<br>
-&nbsp;&nbsp;}<br>
-}</code>
-                </div>
-            </div>
+  <!-- Reto 5 - Tablets -->
+  <div class="challenge-card card-yellow">
+    <div class="challenge-title">⚔️ Reto 5: Responsive para Tablets</div>
+    <div class="challenge-text">
+      Para pantallas medianas (&lt; 768px):<br>
+      El grid debe tener 2 columnas.<br>
+      <b>.pokemon-grid</b> con <b>repeat(2, 1fr)</b>
+    </div>
+    <button class="sol-btn btn-yellow" data-target="sol-resp-5">Ver Solución</button>
+    <div class="solution-content" id="sol-resp-5" style="display:none;">
+      <div class="code-label">css/estilos.css - Media query tablet</div>
+      <pre style="overflow-x:auto;max-width:100%">
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+      </pre>
+    </div>
+  </div>
 
-            <!-- RETO 6 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 6: Responsive para Celulares
-                </div>
-                <div class="challenge-text">
-                    En pantallas pequeñas (menos de 480px), el grid debe mostrar 1 columna.
-                    También ajusta el tamaño del header y del input.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(6)">Ver Solución</button>
-                <div class="solution-content" id="solution6">
-                    <div class="code-label">css/estilos.css - Media query móvil</div>
-                    <code>@media (max-width: 480px) {<br>
-&nbsp;&nbsp;.pokemon-grid {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr;<br>
-&nbsp;&nbsp;}<br>
-<br>
-&nbsp;&nbsp;header h1 {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size: 32px;<br>
-&nbsp;&nbsp;}<br>
-<br>
-&nbsp;&nbsp;.search-bar input {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;max-width: 100%;<br>
-&nbsp;&nbsp;}<br>
-}</code>
-                </div>
-            </div>
-        </section>
+  <!-- Reto 6 - Móvil -->
+  <div class="challenge-card card-green">
+    <div class="challenge-title">⚔️ Reto 6: Responsive para Celulares</div>
+    <div class="challenge-text">
+      Para pantallas pequeñas (&lt; 480px):<br>
+      - El grid tendrá 1 columna.<br>
+      - El h1 y el input se vuelven más pequeños y adaptables.
+    </div>
+    <button class="sol-btn btn-green" data-target="sol-resp-6">Ver Solución</button>
+    <div class="solution-content" id="sol-resp-6" style="display:none;">
+      <div class="code-label">css/estilos.css - Media query móvil</div>
+      <pre style="overflow-x:auto;max-width:100%">
+@media (max-width: 480px) {
+  .pokemon-grid {
+    grid-template-columns: 1fr;
+  }
+  header h1 {
+    font-size: 32px;
+  }
+  .search-bar input {
+    max-width: 100%;
+  }
+}
+      </pre>
+    </div>
+  </div>
+
+  <div class="challenge-card card-purple">
+    <div class="challenge-title">💡 Tips extra para responsividad</div>
+    <ul style="padding-left:20px;">
+      <li>Usa <b>vw</b> y <b>vh</b> para tamaños adaptativos (porcentaje de pantalla).</li>
+      <li>Puedes reducir el padding de tarjetas en móviles: <b>.pokemon-card { padding: 10px; }</b></li>
+      <li>Haz que las imágenes nunca se salgan: <b>max-width: 100%;</b></li>
+      <li>Prueba tu Pokédex en Inspect Element (F12) → Modo responsive.</li>
+    </ul>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sol-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        const tgt = document.getElementById(btn.getAttribute('data-target'));
+        tgt.style.display = (tgt.style.display === "block") ? "none" : "block";
+      }
+    });
+  </script>
+  <style>
+    .challenge-card {
+      margin: 18px 0;
+      border-radius: 15px;
+      box-shadow: 0 2px 12px rgba(40,40,60,0.08);
+      padding: 18px 22px 13px 22px;
+      font-size: 1.08em;
+      border: 1.4px solid rgba(96,116,200,0.08);
+      background: rgba(16,23,40,0.12);
+      transition: box-shadow .15s;
+      position: relative;
+    }
+    .challenge-title { font-weight:700; font-size:1.13em; margin-bottom:7px; color:#3dc7ff;}
+    .card-green {border-left:5px solid #37ee8b; background:rgba(36,255,139,0.09);}
+    .card-blue{border-left:5px solid #3dc7ff; background:rgba(61,199,255,0.085);}
+    .card-yellow{border-left:5px solid #ffe066; background:rgba(255,224,102,0.08);}
+    .card-purple{border-left:5px solid #b77fff; background:rgba(184,127,255,0.12);}
+    .sol-btn {border:none;padding:8px 17px;font-weight:600;border-radius:8px;cursor:pointer;font-size:1em; margin-top:10px;transition:box-shadow .13s,background .13s;}
+    .btn-green { background: #10ff71; color: #191b25;}
+    .btn-yellow { background: #ffe066; color: #222;}
+    .btn-blue{background:#40b5ff;color:#fff;}
+    .sol-btn:hover {box-shadow:0 2px 10px #b3dffc;}
+    .solution-content {background:#131b25;padding:12px 12px;margin-top:8px;border-radius:9px;}
+    .code-label {color:#ccf;font-weight:700; margin-bottom: 5px;}
+    pre {background:none;border:none;box-shadow:none;color:#e7f9ff;}
+    @media (max-width:800px){
+      .challenge-card {font-size:0.98em;padding-left:10px;padding-right:10px;}
+    }
+  </style>
+</section>
+
 
         <!-- SECCIÓN 4: DETALLES DE PULIDO -->
-        <section class="intro-section">
-            <h2 class="section-title">🔨 Detalles Finales de Pulido</h2>
+      <section class="intro-section" style="max-width:700px;margin:auto;">
+  <h2 class="section-title" style="margin-bottom:22px;">🔨 Detalles Finales de Pulido</h2>
 
-            <div class="explanation-box">
-                <p>
-                    Aquí hay algunos detalles que harán que tu Pokédex se vea profesional.
-                </p>
-            </div>
+  <div class="challenge-card card-blue">
+    <div class="challenge-title">¿Por qué pulir?</div>
+    <div class="challenge-text">
+      Los detalles marcan la diferencia: pequeños efectos y estructura correcta transforman tu Pokédex de “demo” a producto profesional.
+    </div>
+  </div>
 
-            <!-- RETO 7 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 7: Mejorar el Input de Búsqueda
-                </div>
-                <div class="challenge-text">
-                    El input debe tener un efecto cuando está enfocado (focus). 
-                    Cambia el borde y añade una sombra.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(7)">Ver Solución</button>
-                <div class="solution-content" id="solution7">
-                    <div class="code-label">css/estilos.css - Input focus</div>
-                    <code>.search-bar input:focus {<br>
-&nbsp;&nbsp;outline: none;<br>
-&nbsp;&nbsp;border-color: #f093fb;<br>
-&nbsp;&nbsp;box-shadow: 0 0 15px rgba(240, 147, 251, 0.5);<br>
-}</code>
-                </div>
-            </div>
+  <!-- Reto 7: Mejorar Input -->
+  <div class="challenge-card card-green">
+    <div class="challenge-title">⚔️ Reto 7: Mejorar el Input de Búsqueda</div>
+    <div class="challenge-text">
+      El input debe tener efecto especial al enfocar (focus): cambia el borde y le das sombra exterior colorida.
+    </div>
+    <button class="sol-btn btn-green" data-target="pulido-input">Ver Solución</button>
+    <div class="solution-content" id="pulido-input" style="display:none;">
+      <div class="code-label">css/estilos.css - Input focus</div>
+      <pre style="overflow-x:auto;max-width:100%">
+.search-bar input:focus {
+  outline: none;
+  border-color: #f093fb;
+  box-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
+}
+      </pre>
+    </div>
+  </div>
 
-            <!-- RETO 8 -->
-            <div class="challenge-box">
-                <div class="challenge-title">
-                    ⚔️ Reto 8: Footer (Opcional)
-                </div>
-                <div class="challenge-text">
-                    Agrega un footer al final de tu Pokédex. 
-                    En el HTML, dentro del container pero después del pokemon-grid, agrega un &lt;footer&gt;.
-                </div>
-                <button class="solution-button" onclick="toggleSolution(8)">Ver Solución</button>
-                <div class="solution-content" id="solution8">
-                    <div class="code-label">HTML en index.html (antes de cerrar container)</div>
-                    <code>&lt;footer&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;© 2025 Mi Pokédex. Todos los derechos reservados.&lt;/p&gt;<br>
-&lt;/footer&gt;</code>
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(102,126,234,0.3);">
-                        <div style="color: #a8e6cf; margin-bottom: 10px;">Y en CSS:</div>
-                        <code>footer {<br>
-&nbsp;&nbsp;text-align: center;<br>
-&nbsp;&nbsp;padding: 30px 20px;<br>
-&nbsp;&nbsp;border-top: 2px solid #333;<br>
-&nbsp;&nbsp;margin-top: 40px;<br>
-&nbsp;&nbsp;color: #aaa;<br>
-}</code>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- Reto 8: Footer -->
+  <div class="challenge-card card-yellow">
+    <div class="challenge-title">⚔️ Reto 8: Footer (Opcional)</div>
+    <div class="challenge-text">
+      Añade un <b>footer</b> al final de tu Pokédex.<br>
+      En tu HTML, dentro del container pero después de la grid, pon:
+    </div>
+    <button class="sol-btn btn-yellow" data-target="pulido-footer">Ver Solución</button>
+    <div class="solution-content" id="pulido-footer" style="display:none;">
+      <div class="code-label">HTML en index.html (dentro de container)</div>
+      <pre style="font-size:0.99em;overflow-x:auto;">
+&lt;footer&gt;
+  &lt;p&gt;© 2025 Mi Pokédex. Todos los derechos reservados.&lt;/p&gt;
+&lt;/footer&gt;
+      </pre>
+      <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(102,126,234,0.19);">
+        <div style="color: #b77fff; margin-bottom: 10px;">Y en CSS:</div>
+        <pre style="font-size:0.99em;overflow-x:auto;">
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 2px solid #333;
+  margin-top: 40px;
+  color: #aaa;
+}
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="challenge-card card-purple">
+    <div class="challenge-title">💡 Más ideas finales de pulido</div>
+    <ul style="padding-left:20px;">
+      <li>Cambia el cursor a “pointer” en las tarjetas para hacerlas más interactivas:</li>
+      <li>
+        <pre style="font-size:0.98em;display:inline-block;background:none;padding:0 1px;margin:0 0 0 0;">.pokemon-card { cursor: pointer; }</pre>
+      </li>
+      <li>Agrega efecto hover también a los títulos con color de transición:</li>
+      <li>
+        <pre style="font-size:0.98em;display:inline-block;background:none;padding:0 1px;margin:0;">.pokemon-card h2:hover { color: #f093fb; transition: color 0.28s; }</pre>
+      </li>
+      <li>Haz el footer *pegajoso* usando <b>position: sticky</b> para mantenerlo siempre visible (opcional avanzado).</li>
+    </ul>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sol-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        const tgt = document.getElementById(btn.getAttribute('data-target'));
+        tgt.style.display = (tgt.style.display === "block") ? "none" : "block";
+      }
+    });
+  </script>
+  <style>
+    .challenge-card {
+      margin: 18px 0;
+      border-radius: 15px;
+      box-shadow: 0 2px 12px rgba(40,40,60,0.08);
+      padding: 18px 22px 13px 22px;
+      font-size: 1.08em;
+      border: 1.4px solid rgba(96,116,200,0.08);
+      background: rgba(16,23,40,0.12);
+      transition: box-shadow .15s;
+      position: relative;
+    }
+    .challenge-title { font-weight:700; font-size:1.13em; margin-bottom:7px; color:#3dc7ff;}
+    .card-green {border-left:5px solid #37ee8b; background:rgba(36,255,139,0.093);}
+    .card-yellow{border-left:5px solid #ffe066; background:rgba(255,224,102,0.085);}
+    .card-purple{border-left:5px solid #b77fff; background:rgba(184,127,255,0.14);}
+    .card-blue{border-left:5px solid #3dc7ff; background:rgba(61,199,255,0.09);}
+    .sol-btn {border:none;padding:8px 17px;font-weight:600;border-radius:8px;cursor:pointer;font-size:1em; margin-top:10px;transition:box-shadow .13s,background .13s;}
+    .btn-green { background: #10ff71; color: #191b25;}
+    .btn-yellow { background: #ffe066; color: #222;}
+    .sol-btn:hover {box-shadow:0 2px 10px #b3dffc;}
+    .solution-content {background:#181f29;padding:12px 12px;margin-top:8px;border-radius:9px;}
+    .code-label {color:#ccf;font-weight:700; margin-bottom: 5px;}
+    pre {background:none;border:none;box-shadow:none;color:#e7f9ff;}
+    ul{margin-bottom:0;}
+    @media (max-width:800px){
+      .challenge-card {font-size:0.98em;padding-left:10px;padding-right:10px;}
+    }
+  </style>
+</section>
 
         <!-- SECCIÓN 5: QUIZ -->
         <section class="intro-section">
@@ -992,8 +1269,7 @@ header h1 {<br>
                 localStorage.setItem('completedDays', JSON.stringify(completedDays));
             }
 
-            alert('¡Día 5 completado! 🎉');
-            window.location.href = 'inicio_curso.html';
+            window.location.href = '../menu.html';
         }
     </script>
 </body>

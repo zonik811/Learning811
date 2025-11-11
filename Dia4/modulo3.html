@@ -51,380 +51,639 @@
 
         <!-- 1. TIPOS DE SELECTORES -->
         <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">🎯 Tipos de Selectores</h2>
-            
-            <p style="margin-bottom: 24px;">Hay varias formas de seleccionar elementos en CSS. Cada una tiene diferentes niveles de especificidad:</p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
-                <!-- Universal -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #f7df1e;">🌐 Selector Universal</h3>
-                    <div class="code-block">
-/* Selecciona TODO */<br>
+  <h2 class="title-lg" style="margin-bottom: 24px;">🎯 Tipos de Selectores en CSS</h2>
+  <p style="margin-bottom: 24px;">
+    ¿Cómo le dices a CSS qué elemento quieres estilizar? Los selectores te permiten elegir elementos según su tipo, clase, id, etc.<br>
+    <b>Prueba cada tipo con su ejemplo visual y actívalo/desactívalo tú mismo:</b>
+  </p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+    <!-- Universal -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #f7df1e;">🌐 Selector Universal <span style="font-weight:400;font-size:0.9em;">(todos)</span></h3>
+      <pre style="background:#191a2d;color:#ffe066;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Selecciona TODO */
 * { margin: 0; padding: 0; }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Aplica estilos a todos los elementos. Baja especificidad.</p>
-                </div>
-
-                <!-- Elemento -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #e34f26;">📝 Selector de Elemento</h3>
-                    <div class="code-block">
-/* Selecciona por etiqueta */<br>
-h1 { font-size: 36px; }<br>
+      </pre>
+      <div style="font-size:13px;color:#ccc;margin-bottom:7px;">
+        Haz clic para <b>activar/desactivar</b> el reset global sobre todas las cajas de ejemplo.<br>
+        Esto quitará <b>todo el margen y padding</b> del contenido visible abajo:
+      </div>
+      <button onclick="toggleUniversal()" id="toggle-universal" style="padding:3px 15px;background:#f7df1e;color:#333;border:none;border-radius:5px;margin-bottom:10px;font-size:13px;">
+        Activar reset universal
+      </button>
+      <div id="universal-demo" style="transition:.3s;">
+        <h4 style="margin-top:13px;">Título universal</h4>
+        <p style="margin-bottom:10px;">Este párrafo demuestra el selector universal. Observa cómo cambia el margen y el padding de todo el contenido si activas/desactivas arriba.</p>
+        <ul style="margin-bottom:10px;">
+          <li>Item 1 (con espacio por defecto)</li>
+          <li>Item 2</li>
+        </ul>
+        <div style="padding:15px; background:#eee; border-radius:8px;">
+          <b>Bloque</b> con <i>padding</i> y algo de margen propio.
+        </div>
+      </div>
+      <div style="font-size:12px; color:#bbb; margin-top:5px;">
+        ⚠️ Úsalo para “resetear” un documento o normalizar espacios. Puede ser sobrescrito.
+      </div>
+      <script>
+        let universalON = false;
+        function toggleUniversal() {
+          universalON = !universalON;
+          let demo = document.getElementById('universal-demo');
+          let btn = document.getElementById('toggle-universal');
+          if(universalON){
+            demo.querySelectorAll('*').forEach(el=>{
+              el.style.margin="0";
+              el.style.padding="0";
+            });
+            btn.textContent = "Desactivar reset universal";
+            btn.style.background="#222";
+            btn.style.color = "#ffe066";
+          } else {
+            demo.querySelectorAll('h4').forEach(el=>{el.style.marginTop="13px";});
+            demo.querySelectorAll('p').forEach(el=>{el.style.marginBottom="10px";});
+            demo.querySelectorAll('ul').forEach(el=>{el.style.marginBottom="10px";});
+            demo.querySelectorAll('div').forEach(el=>{
+              if(el !== demo) el.style.padding="15px";
+            });
+            btn.textContent = "Activar reset universal";
+            btn.style.background="#f7df1e";
+            btn.style.color = "#333";
+          }
+        }
+      </script>
+    </div>
+    <!-- Elemento -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #e34f26;">📝 Selector de Elemento</h3>
+      <pre style="background:#191a2d;color:#ff8a65;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Por etiqueta (tag) */
+h1 { font-size: 36px; }
 p { line-height: 1.8; }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Aplica a todos los elementos de ese tipo.</p>
-                </div>
-
-                <!-- Clase -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #1572b6;">🏷️ Selector de Clase</h3>
-                    <div class="code-block">
-/* Selecciona por clase */<br>
-.btn { padding: 12px; }<br>
+      </pre>
+      <div style="font-size:13px;color:#ccc">Todos los elementos del mismo tipo reciben el mismo estilo.</div>
+      <div style="margin:8px;background:#262337;border-radius:5px;padding:9px 11px;">
+        <h1 style="font-size:36px;margin-bottom:3px;">Título (h1)</h1>
+        <p style="line-height:1.8;">Prueba escribir aquí y observa el tamaño y la separación de línea.</p>
+        <input type="text" value="¡Edita este input para experimentar!" style="margin-top:7px;width:90%;">
+      </div>
+    </div>
+    <!-- Clase -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #1572b6;">🏷️ Selector de Clase</h3>
+      <pre style="background:#191a2d;color:#82cafc;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Por clase (.) */
+.btn { padding: 12px; }
 .card { border-radius: 8px; }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Usa el punto (.). Puedes aplicar varias clases a un elemento.</p>
-                </div>
-
-                <!-- ID -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #f093fb;">🆔 Selector de ID</h3>
-                    <div class="code-block">
-/* Selecciona por ID */<br>
-#header { background: navy; }<br>
+      </pre>
+      <div style="font-size:13px;color:#ccc">
+        Aplica a todos los elementos con esa clase. Reutiliza en todo el sitio.<br>
+      </div>
+      <div style="margin:6px;background:#262337;border-radius:5px;padding:11px;display:flex;gap:8px;">
+        <button class="btn" style="padding:12px;background:#1572b6;color:white;border:none;border-radius:6px;">Botón .btn</button>
+        <span class="card" style="border-radius:8px;padding:6px 18px;background:#2224;color:#52c0ff;">.card</span>
+      </div>
+    </div>
+    <!-- ID -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #f093fb;">🆔 Selector de ID</h3>
+      <pre style="background:#191a2d;color:#fa7fff;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Por ID (#) */
+#header { background: navy; }
 #footer { color: gray; }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Usa el hash (#). Debe ser único en la página. Alta especificidad.</p>
-                </div>
+      </pre>
+      <div style="font-size:13px;color:#ccc">
+        Aplica a un solo elemento con ese id.<br>
+      </div>
+      <div style="margin:7px;background:#222c44;border-radius:5px;padding:9px 11px;">
+        <div id="header" style="background:navy;color:white;padding:7px 17px;border-radius:7px 7px 0 0;">ID #header</div>
+        <div id="footer" style="color:gray;padding:4px 7px;">ID #footer</div>
+      </div>
+    </div>
+    <!-- Atributo -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #48bb78;">🏗️ Selector de Atributo</h3>
+      <pre style="background:#191a2d;color:#b9ffcb;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Por atributo */
+input[type="text"] { border: 1px solid; }
+a[target="_blank"] { color: orange; }
+      </pre>
+      <div style="font-size:13px;color:#ccc">
+        Busca por atributos específicos de HTML.<br>
+      </div>
+      <div style="margin:8px;background:#252b21;border-radius:5px;padding:9px 11px;">
+        <input type="text" placeholder="input type=text" style="border:1px solid;padding:3px 8px;">
+        <a href="#" target="_blank" style="color:orange;text-decoration:underline;margin-left:12px;">Enlace externo</a>
+      </div>
+    </div>
+    <!-- Pseudo-clase -->
+    <div style="background: rgba(0,0,0,0.2); padding: 14px 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 10px; color: #ed8936;">✨ Pseudo-clases</h3>
+      <pre style="background:#191a2d;color:#ffe066;border-radius:6px;padding:8px 7px;overflow-x:auto;font-size:13px;margin-top:0;">
+/* Estado especial */
+a:hover { color: red; }
+input:focus { border: 2px solid #48bb78; }
+li:first-child { font-weight: bold; }
+      </pre>
+      <div style="font-size:13px;color:#ccc">
+        Activa estilos según interaction (hover/focus), estado o posición.<br>
+      </div>
+      <div style="margin:6px 0;">
+        <a href="#" style="color:#fff;transition:color .3s;padding:3px 5px; margin-right:10px;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#fff'">hover sobre mi</a>
+        <input id="pseudo-focus" style="padding:2px 8px;border-radius:5px;border:1.5px solid #bbb;margin-left:7px;transition:border-color .3s;">
+        <ul style="margin:5px 0 0 13px;padding:0;font-size:13px;">
+          <li style="font-weight:bold;">Primer ítem (first-child)</li>
+          <li>Segundo ítem</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- Atributo -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #48bb78;">🏗️ Selector de Atributo</h3>
-                    <div class="code-block">
-/* Selecciona por atributo */<br>
-input[type="text"] { border: 1px solid; }<br>
-a[href="#"] { color: blue; }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Busca elementos según sus atributos HTML.</p>
-                </div>
-
-                <!-- Pseudo-clase -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #ed8936;">✨ Pseudo-clases</h3>
-                    <div class="code-block">
-/* Selectores especiales */<br>
-a:hover { color: red; }<br>
-button:active { transform: scale(0.95); }
-                    </div>
-                    <p style="font-size: 13px; margin-top: 8px;">Estados: :hover, :active, :focus, :visited, :first-child</p>
-                </div>
-            </div>
-        </section>
 
         <!-- 2. ESTRUCTURA HTML CON CLASES -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📦 Cómo Usar Clases en HTML</h2>
-            
-            <p style="margin-bottom: 24px;">Las clases te permiten aplicar estilos a múltiples elementos reutilizando código:</p>
-
-            <div class="interactive-demo">
-                <div class="demo-column">
-                    <h3 style="margin-bottom: 12px;">HTML:</h3>
-                    <div class="code-block">
-&lt;div class="card"&gt;<br>
-&nbsp;&nbsp;&lt;h2 class="title"&gt;Mi Tarjeta&lt;/h2&gt;<br>
-&nbsp;&nbsp;&lt;p class="text"&gt;Contenido&lt;/p&gt;<br>
-&nbsp;&nbsp;&lt;button class="btn btn-primary"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Enviar<br>
-&nbsp;&nbsp;&lt;/button&gt;<br>
-&lt;/div&gt;
-                    </div>
-                    <p style="font-size: 12px; margin-top: 12px; color: rgba(255,255,255,0.7);">
-                        ✅ Observa: <br>
-                        • class="card" es UNA clase<br>
-                        • class="btn btn-primary" son MÚLTIPLES clases separadas por espacio<br>
-                        • Puedes reutilizar clases en diferentes elementos
-                    </p>
-                </div>
-
-                <div class="demo-column">
-                    <h3 style="margin-bottom: 12px;">CSS:</h3>
-                    <div class="code-block">
-.card {<br>
-&nbsp;&nbsp;background: rgba(30,30,30,0.95);<br>
-&nbsp;&nbsp;padding: 24px;<br>
-&nbsp;&nbsp;border-radius: 12px;<br>
-&nbsp;&nbsp;border: 2px solid #667eea;<br>
-}<br>
-<br>
-.title { font-size: 24px; }<br>
-.text { color: rgba(255,255,255,0.8); }<br>
-.btn {<br>
-&nbsp;&nbsp;padding: 12px 24px;<br>
-&nbsp;&nbsp;border-radius: 8px;<br>
-&nbsp;&nbsp;cursor: pointer;<br>
+       <section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">📦 Cómo Usar Clases en HTML</h2>
+  <p style="margin-bottom: 20px;">
+    Las clases te permiten aplicar estilos a múltiples elementos. ¡Edita el HTML o las clases y mira el resultado!
+  </p>
+  <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+    <!-- HTML editable -->
+    <div style="min-width:290px;flex: 1 1 360px;">
+      <h3 style="margin-bottom: 10px;">HTML:</h3>
+      <textarea id="html-edit" style="width:100%;min-height:120px;background:#1e1e36;color:#ffe066;border:1.2px solid #667eea;border-radius:7px;font-size:14px;padding:10px;resize:vertical;font-family:monospace;">
+<div class="card">
+  <h2 class="title">Mi Tarjeta</h2>
+  <p class="text">Contenido</p>
+  <button class="btn btn-primary">
+    Enviar
+  </button>
+</div>
+      </textarea>
+      <p style="font-size: 12px; margin-top: 10px; color: rgba(255,255,255,0.75);">
+        ✅ <b>Tips:</b> <br>
+        - Puedes tener varias clases en 1 elemento: <code>class="btn btn-primary"</code> <br>
+        - Cambia el nombre, elimina o agrega una clase y observa qué sucede.
+      </p>
+    </div>
+    <!-- CSS FIJO -->
+    <div style="min-width:210px;flex: 1 1 280px;">
+      <h3 style="margin-bottom: 10px;">CSS:</h3>
+      <pre id="css-code-block" style="background:#181a2d;color:#74ff95;padding:13px 8px;line-height:1.5;font-size:13px;border-radius:7px;overflow-x:auto;margin-bottom:0;">
+.card {
+  background: rgba(30,30,30,0.95);
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid #667eea;
 }
-                    </div>
-                </div>
-            </div>
+.title { font-size: 24px; }
+.text { color: rgba(255,255,255,0.8); }
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  font-weight: 600;
+  margin-top: 7px;
+  transition: background 0.3s;
+}
+.btn-primary { box-shadow: 0 2px 16px #667eea33; }
+.btn:hover { background: #e34c26; }
+      </pre>
+    </div>
+  </div>
+  <div style="background: linear-gradient(135deg, rgba(102,126,234,0.10), rgba(240,147,251,0.09)); padding: 18px; border-radius: 8px; border-left: 4px solid var(--color-primary); margin-top:19px;margin-bottom:5px;">
+    <h4 style="margin-bottom: 7px;">💡 Resultado en la página:</h4>
+    <div id="live-demo-output" style="margin: 13px 0;"></div>
+    <div style="font-size:12.5px;color:#7fd; margin-top:10px;">
+      Modifica el HTML y observa cómo <b>las clases</b> afectan el estilo en vivo.
+    </div>
+  </div>
+  <script>
+    // Tiny sandbox + basic sanitizer (solo para demo, no producción)
+    const baseCss = `
+.card {
+  background: rgba(30,30,30,0.95);
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid #667eea;
+  margin-bottom: 9px;
+}
+.title { font-size: 24px; }
+.text { color: rgba(255,255,255,0.8); }
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  font-weight: 600;
+  margin-top: 7px;
+  transition: background 0.3s;
+}
+.btn-primary { box-shadow: 0 2px 16px #667eea33; }
+.btn:hover { background: #e34c26; }
+`;
+    // Añade estilos al head si no existen
+    if(!document.getElementById('demo-css-inject')){
+      let style=document.createElement('style');
+      style.innerHTML = baseCss;
+      style.id='demo-css-inject';
+      document.head.appendChild(style);
+    }
 
-            <div style="background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1)); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
-                <h4 style="margin-bottom: 8px;">💡 Resultado en la página:</h4>
-                <div class="card" style="margin: 16px 0;">
-                    <h2 style="font-size: 24px; margin-bottom: 12px;">Mi Tarjeta</h2>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 16px;">Contenido</p>
-                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600;">Enviar</button>
-                </div>
-            </div>
-        </section>
+    function updateLiveDemo() {
+      let html = document.getElementById('html-edit').value;
+      // Sanitizador mínimo: sólo permite lo que usamos en el ejemplo
+      html = html.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi,"");
+      document.getElementById('live-demo-output').innerHTML = html;
+    }
+    document.getElementById('html-edit').addEventListener('input', updateLiveDemo);
+    updateLiveDemo();
+  </script>
+</section>
+
 
         <!-- 3. PROPIEDADES COMUNES -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">⚙️ Propiedades CSS Más Utilizadas</h2>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
-                <!-- Text -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #667eea;">📝 Texto</h3>
-                    <div class="code-block">
-font-size: 16px;  /* Tamaño */<br>
-font-weight: 600;  /* Grosor: 400-900 */<br>
-color: #fff;  /* Color del texto */<br>
-text-align: center;  /* left|right|center */<br>
-line-height: 1.8;  /* Espaciado entre líneas */<br>
-text-decoration: underline;  /* Subrayado */
-                    </div>
-                </div>
-
-                <!-- Fondo -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #48bb78;">🎨 Fondo</h3>
-                    <div class="code-block">
-background: #0a0a0a;  /* Color */<br>
-background-image: url('...'); /* Imagen */<br>
-background-size: cover;  /* Tamaño */<br>
-background: linear-gradient(...); /* Gradiente */<br>
-background-position: center; /* Posición */
-                    </div>
-                </div>
-
-                <!-- Bordes -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #f093fb;">🔲 Bordes</h3>
-                    <div class="code-block">
-border: 2px solid #667eea; /* Ancho tipo color */<br>
-border-radius: 8px; /* Esquinas redondeadas */<br>
-border-top: 1px dashed #ccc; /* Solo arriba */<br>
+       <section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">⚙️ Propiedades CSS Más Utilizadas (Interactivo)</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px;">
+    <!-- Texto -->
+    <div style="background: rgba(0,0,0,0.23); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #667eea;">📝 Texto</h3>
+      <label style="display:block;font-size:13px;">Tamaño:
+        <input type="range" min="10" max="60" value="22" id="txt-size" style="width:70px;">
+        <span id="txt-size-val">22</span>px
+      </label>
+      <label style="display:block;font-size:13px;">Grosor:
+        <input type="range" min="100" max="900" step="100" value="600" id="txt-weight" style="width:70px;">
+        <span id="txt-weight-val">600</span>
+      </label>
+      <label style="display:block;font-size:13px;">Color:
+        <input type="color" id="txt-color" value="#ffffff">
+      </label>
+      <label style="display:block;font-size:13px;">Alineación:
+        <select id="txt-align">
+          <option>left</option><option>center</option><option>right</option>
+        </select>
+      </label>
+      <div id="txt-demo" style="margin:14px auto 10px auto;padding:12px 7px;background:#222a38;border-radius:6px;color:#fff;text-align:center;line-height:1.8; font-size:22px; font-weight:600;">
+        Texto de ejemplo <span style="color:#48bb78;">CSS</span>
+      </div>
+      <pre id="txt-css" style="background:#181a2d;color:#fffcae;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+font-size: 22px;
+font-weight: 600;
+color: #fff; 
+text-align: center;
+      </pre>
+    </div>
+    <!-- Fondo -->
+    <div style="background: rgba(0,0,0,0.21); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #48bb78;">🎨 Fondo</h3>
+      <label style="display:block;font-size:13px;">Color:
+        <input type="color" id="bg-color" value="#667eea">
+      </label>
+      <label style="display:block;font-size:13px;">Gradiente:
+        <input type="color" id="bg-grad1" value="#667eea">
+        <input type="color" id="bg-grad2" value="#f093fb">
+        <input type="checkbox" id="bg-grad-on"> Activar
+      </label>
+      <div id="bg-demo" style="margin:16px auto 6px auto;padding:24px 10px;background:#667eea;border-radius:6px;color:white;text-align:center;width:100%;">
+        <b>Fondo editable</b>
+      </div>
+      <pre id="bg-css" style="background:#181a2d;color:#b5ffd0;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+background: #667eea;</pre>
+    </div>
+    <!-- Borde -->
+    <div style="background: rgba(0,0,0,0.21); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #f093fb;">🔲 Bordes</h3>
+      <label style="display:block;font-size:13px;">Color:
+        <input type="color" id="bd-color" value="#667eea">
+      </label>
+      <label style="font-size:13px;">Ancho:
+        <input type="range" min="0" max="15" value="2" id="bd-width"> <span id="bd-width-val">2</span>px
+      </label>
+      <label style="font-size:13px;">Redondeo:
+        <input type="range" min="0" max="32" value="8" id="bd-radius"> <span id="bd-radius-val">8</span>px
+      </label>
+      <label style="font-size:13px;">Sombra:
+        <input type="checkbox" id="bd-shadow" checked>
+      </label>
+      <div id="bd-demo" style="margin:16px auto 6px auto;padding:10px 9px;background:#181a2d;border-radius:8px;color:#fff;border:2px solid #667eea;box-shadow:0 10px 20px rgba(0,0,0,0.2);text-align:center;width:fit-content;">
+        Caja con borde
+      </div>
+      <pre id="bd-css" style="background:#181a2d;color:#fa7fff;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+border: 2px solid #667eea;
+border-radius: 8px;
 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-                    </div>
-                </div>
+      </pre>
+    </div>
+    <!-- Tamaño -->
+    <div style="background: rgba(0,0,0,0.21); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #ed8936;">📏 Tamaño</h3>
+      <label style="font-size:13px;">Ancho:
+        <input type="range" min="80" max="480" value="200" id="sz-width"> <span id="sz-width-val">200</span>px
+      </label>
+      <label style="font-size:13px;">Alto:
+        <input type="range" min="30" max="200" value="80" id="sz-height"> <span id="sz-height-val">80</span>px
+      </label>
+      <div id="sz-demo" style="margin:14px auto 7px auto;background:#667eea;color:white;border-radius:7px;display:flex;align-items:center;justify-content:center;width:200px;height:80px;">
+        Medidas editables
+      </div>
+      <pre id="sz-css" style="background:#181a2d;color:#ffcfae;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+width: 200px;
+height: 80px;
+      </pre>
+    </div>
+    <!-- Opacidad -->
+    <div style="background: rgba(0,0,0,0.23); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #667eea;">👻 Opacidad</h3>
+      <label style="font-size:13px;">Nivel:
+        <input type="range" min="0" max="1" step="0.01" value="1" id="opc-val">
+        <span id="opc-val-show">1</span>
+      </label>
+      <div id="opc-demo" style="margin:17px auto 7px auto;background:#ed8936;padding:15px 13px;border-radius:8px;text-align:center;color:#fff;opacity:1;">
+        Caja con opacidad
+      </div>
+      <pre id="opc-css" style="background:#181a2d;color:#fffcae;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+opacity: 1;
+      </pre>
+    </div>
+    <!-- Transform -->
+    <div style="background: rgba(0,0,0,0.21); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px; color: #f7df1e;">🔄 Transformaciones</h3>
+      <label style="font-size:13px;">Escala:
+        <input type="range" min="0.4" max="1.6" step="0.02" value="1" id="tf-scale"><span id="tf-scale-show">1</span>
+      </label>
+      <label style="font-size:13px;">Rotar:
+        <input type="range" min="-180" max="180" value="0" id="tf-rotate"><span id="tf-rotate-show">0</span>°
+      </label>
+      <label style="font-size:13px;">Sesgar:
+        <input type="range" min="-30" max="30" value="0" id="tf-skew"><span id="tf-skew-show">0</span>°
+      </label>
+      <div id="tf-demo" style="margin:18px auto 10px auto;padding:13px;background:#48bb78;color:white;border-radius:7px;text-align:center;display:inline-block;transition:all .4s;">
+        Transformar aquí
+      </div>
+      <pre id="tf-css" style="background:#191a2d;color:#fde644;font-size:12.5px;border-radius:5px;padding:7px;overflow-x:auto;">
+transform: scale(1) rotate(0deg) skew(0deg);
+      </pre>
+    </div>
+  </div>
+  <script>
+    // TEXTO
+    function updateTxtDemo() {
+      let size=document.getElementById('txt-size').value, weight=document.getElementById('txt-weight').value, color=document.getElementById('txt-color').value, align=document.getElementById('txt-align').value;
+      let demo=document.getElementById('txt-demo');
+      demo.style.fontSize=size+'px'; demo.style.fontWeight=weight; demo.style.color=color; demo.style.textAlign=align;
+      document.getElementById('txt-size-val').textContent=size;
+      document.getElementById('txt-weight-val').textContent=weight;
+      document.getElementById('txt-css').textContent=
+`font-size: ${size}px;
+font-weight: ${weight};
+color: ${color};
+text-align: ${align};`;
+    }
+    ["txt-size","txt-weight","txt-color","txt-align"].forEach(id=>{document.getElementById(id).addEventListener('input',updateTxtDemo);});
+    updateTxtDemo();
+    // FONDO
+    function updateBgDemo() {
+      let col=document.getElementById('bg-color').value, gradON=document.getElementById('bg-grad-on').checked,
+          grad1=document.getElementById('bg-grad1').value, grad2=document.getElementById('bg-grad2').value;
+      let demo=document.getElementById('bg-demo');
+      if(gradON) {
+        demo.style.background=`linear-gradient(135deg, ${grad1}, ${grad2})`;
+        document.getElementById('bg-css').textContent = `background: linear-gradient(135deg, ${grad1}, ${grad2});`;
+      } else {
+        demo.style.background=col;
+        document.getElementById('bg-css').textContent = `background: ${col};`;
+      }
+    }
+    ["bg-color","bg-grad1","bg-grad2","bg-grad-on"].forEach(id=>{document.getElementById(id).addEventListener('input',updateBgDemo);});
+    updateBgDemo();
+    // BORDE
+    function updateBdDemo() {
+      let col=document.getElementById('bd-color').value, w=document.getElementById('bd-width').value, rad=document.getElementById('bd-radius').value,
+      sh=document.getElementById('bd-shadow').checked, demo=document.getElementById('bd-demo');
+      demo.style.border = `${w}px solid ${col}`; demo.style.borderRadius=rad+"px";
+      demo.style.boxShadow=sh ? "0 10px 20px rgba(0,0,0,0.2)" : "none";
+      document.getElementById('bd-width-val').textContent=w;
+      document.getElementById('bd-radius-val').textContent=rad;
+      document.getElementById('bd-css').textContent =
+`border: ${w}px solid ${col};
+border-radius: ${rad}px;` + (sh?`\nbox-shadow: 0 10px 20px rgba(0,0,0,0.2);`:'');
+    }
+    ["bd-color","bd-width","bd-radius","bd-shadow"].forEach(id=>{document.getElementById(id).addEventListener('input',updateBdDemo);});
+    updateBdDemo();
+    // TAMAÑO
+    function updateSzDemo(){
+      let w=document.getElementById('sz-width').value, h=document.getElementById('sz-height').value, demo=document.getElementById('sz-demo');
+      demo.style.width=w+"px"; demo.style.height=h+"px";
+      document.getElementById('sz-width-val').textContent = w;
+      document.getElementById('sz-height-val').textContent = h;
+      document.getElementById('sz-css').textContent =
+`width: ${w}px;
+height: ${h}px;`;
+    }
+    ["sz-width","sz-height"].forEach(id=>{document.getElementById(id).addEventListener('input',updateSzDemo);});
+    updateSzDemo();
+    // OPACIDAD
+    function updateOpcDemo(){
+      let op=document.getElementById('opc-val').value, demo=document.getElementById('opc-demo');
+      demo.style.opacity=op;
+      document.getElementById('opc-val-show').textContent=op;
+      document.getElementById('opc-css').textContent = `opacity: ${op};`;
+    }
+    document.getElementById('opc-val').addEventListener('input',updateOpcDemo);
+    updateOpcDemo();
+    // TRANSFORM
+    function updateTfDemo(){
+      let sc=document.getElementById('tf-scale').value, rot=document.getElementById('tf-rotate').value, sk=document.getElementById('tf-skew').value, demo=document.getElementById('tf-demo');
+      demo.style.transform = `scale(${sc}) rotate(${rot}deg) skew(${sk}deg)`;
+      document.getElementById('tf-scale-show').textContent = sc;
+      document.getElementById('tf-rotate-show').textContent = rot;
+      document.getElementById('tf-skew-show').textContent = sk;
+      document.getElementById('tf-css').textContent = `transform: scale(${sc}) rotate(${rot}deg) skew(${sk}deg);`;
+    }
+    ["tf-scale","tf-rotate","tf-skew"].forEach(id=>{document.getElementById(id).addEventListener('input',updateTfDemo);});
+    updateTfDemo();
+  </script>
+</section>
 
-                <!-- Tamaño -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #ed8936;">📏 Tamaño</h3>
-                    <div class="code-block">
-width: 100%;  /* Ancho */<br>
-height: 200px;  /* Alto */<br>
-max-width: 1200px; /* Máximo ancho */<br>
-min-height: 300px; /* Mínimo alto */<br>
-overflow: hidden; /* Ocultar contenido extra */
-                    </div>
-                </div>
-
-                <!-- Opacidad -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #667eea;">👻 Opacidad</h3>
-                    <div class="code-block">
-opacity: 0.5;  /* 0 (invisible) a 1 (visible) */<br>
-opacity: 0.8;  /* 80% de opacidad */<br>
-<br>
-/* En colores */<br>
-background: rgba(102, 126, 234, 0.5);
-                    </div>
-                </div>
-
-                <!-- Transform -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px; color: #f7df1e;">🔄 Transformaciones</h3>
-                    <div class="code-block">
-transform: scale(1.1);  /* Escalar */<br>
-transform: rotate(45deg);  /* Rotar */<br>
-transform: translateY(-10px); /* Mover */<br>
-transform: skew(10deg);  /* Sesgar */<br>
-/* Combinar: */<br>
-transform: scale(1.1) rotate(5deg);
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- 4. EJEMPLOS INTERACTIVOS -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">🎮 Ejemplos Interactivos</h2>
+      <section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">🎮 Ejemplos Interactivos</h2>
 
-            <!-- Ejemplo 1: Botones con hover -->
-            <div style="margin-bottom: 48px;">
-                <h3 style="margin-bottom: 16px; color: var(--color-primary);">1️⃣ Botones con Efecto Hover</h3>
-                
-                <div class="interactive-demo">
-                    <div class="demo-column">
-                        <div class="code-block">
-&lt;button class="btn-hover"&gt;<br>
-&nbsp;&nbsp;Hover aquí<br>
-&lt;/button&gt;<br>
-<br>
-.btn-hover {<br>
-&nbsp;&nbsp;padding: 12px 24px;<br>
-&nbsp;&nbsp;background: #667eea;<br>
-&nbsp;&nbsp;color: white;<br>
-&nbsp;&nbsp;border: none;<br>
-&nbsp;&nbsp;border-radius: 8px;<br>
-&nbsp;&nbsp;transition: all 0.3s;<br>
-&nbsp;&nbsp;cursor: pointer;<br>
-}<br>
-<br>
-.btn-hover:hover {<br>
-&nbsp;&nbsp;background: #764ba2;<br>
-&nbsp;&nbsp;transform: translateY(-3px);<br>
-&nbsp;&nbsp;box-shadow: 0 10px 20px rgba(0,0,0,0.3);<br>
-}
-                        </div>
-                    </div>
-                    <div class="demo-column" style="display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;">
-                        <h4>Vista previa:</h4>
-                        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; transition: all 0.3s; cursor: pointer; font-weight: 600;">Hover aquí ↗️</button>
-                        <p style="font-size: 12px; color: rgba(255,255,255,0.7); text-align: center;">Pasa el mouse sobre el botón para ver el efecto</p>
-                    </div>
-                </div>
-            </div>
+  <!-- Ejemplo 1: Botones con hover -->
+  <div style="margin-bottom: 48px;">
+    <h3 style="margin-bottom: 16px; color: var(--color-primary);">1️⃣ Botones con Efecto Hover</h3>
+    <label style="font-size:14px;display:block;margin-bottom:6px;">Color normal: <input type="color" id="btnColor" value="#667eea">
+    &nbsp; Color hover: <input type="color" id="btnHoverColor" value="#764ba2"></label>
+    <div class="interactive-demo" style="display:flex;gap:30px;align-items:flex-start;">
+      <div class="demo-column">
+        <div class="code-block" style="margin-bottom:5px;min-width:225px;overflow-x:auto;">
+&lt;button class="btn-hover"&gt;Hover aquí&lt;/button&gt;<br>
+<br><span style="color:#91f;">.btn-hover &#123;</span><br>
+  padding: 12px 24px;<br>
+  background: <span id="btnColorShow" style="color:#667eea;">#667eea</span>;<br>
+  color: white;<br>
+  transition: all 0.3s;<br>
+  border: none; border-radius: 8px;<br>
+  cursor: pointer;<br><span style="color:#91f;">&#125;</span><br>
+<br><span style="color:#dbf;">.btn-hover:hover &#123;</span><br>
+  background: <span id="btnHoverColorShow" style="color:#764ba2;">#764ba2</span>;<br>
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);<br>
+  transform: translateY(-3px);<br><span style="color:#dbf;">&#125;</span>
+        </div>
+      </div>
+      <div class="demo-column" style="display:flex; align-items:center; flex-direction:column;gap:13px;">
+        <h4>Vista previa:</h4>
+        <button id="btn-hover-live" style="padding:12px 24px;background:#667eea;color:white;border:none;border-radius:8px;transition:all .3s;cursor:pointer;font-weight:600;">
+          Hover aquí ↗️
+        </button>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7);">Pasa el mouse</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    const btn = document.getElementById('btn-hover-live');
+    let btnBase = document.getElementById('btnColor').value;
+    let btnHover = document.getElementById('btnHoverColor').value;
+    btn.style.background = btnBase;
+    document.getElementById('btnColorShow').textContent = btnBase;
+    document.getElementById('btnColorShow').style.color = btnBase;
+    document.getElementById('btnHoverColorShow').textContent = btnHover;
+    document.getElementById('btnHoverColorShow').style.color = btnHover;
+    btn.addEventListener('mouseenter', e=>{
+      btn.style.background = btnHover;
+      btn.style.boxShadow = "0 10px 20px rgba(0,0,0,0.3)";
+      btn.style.transform = "translateY(-3px)";
+    });
+    btn.addEventListener('mouseleave', e=>{
+      btn.style.background = btnBase;
+      btn.style.boxShadow = "";
+      btn.style.transform = "none";
+    });
+    document.getElementById('btnColor').addEventListener('input', e=>{
+      btnBase = e.target.value;
+      btn.style.background = btnBase;
+      document.getElementById('btnColorShow').textContent = btnBase;
+      document.getElementById('btnColorShow').style.color = btnBase;
+    });
+    document.getElementById('btnHoverColor').addEventListener('input', e=>{
+      btnHover = e.target.value;
+      document.getElementById('btnHoverColorShow').textContent = btnHover;
+      document.getElementById('btnHoverColorShow').style.color = btnHover;
+    });
+  </script>
 
-            <!-- Ejemplo 2: Tarjeta animada -->
-            <div style="margin-bottom: 48px;">
-                <h3 style="margin-bottom: 16px; color: var(--color-primary);">2️⃣ Tarjeta con Animación</h3>
-                
-                <div class="interactive-demo">
-                    <div class="demo-column">
-                        <div class="code-block">
-&lt;div class="card-animated"&gt;<br>
-&nbsp;&nbsp;&lt;h3&gt;Tarjeta&lt;/h3&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;Contenido&lt;/p&gt;<br>
-&lt;/div&gt;<br>
-<br>
-.card-animated {<br>
-&nbsp;&nbsp;background: rgba(30,30,30);<br>
-&nbsp;&nbsp;padding: 24px;<br>
-&nbsp;&nbsp;border-radius: 12px;<br>
-&nbsp;&nbsp;border: 2px solid #667eea;<br>
-&nbsp;&nbsp;transition: all 0.3s;<br>
-}<br>
-<br>
-.card-animated:hover {<br>
-&nbsp;&nbsp;transform: scale(1.05);<br>
-&nbsp;&nbsp;border-color: #f093fb;<br>
-&nbsp;&nbsp;box-shadow: 0 10px 30px rgba(102,126,234,0.4);<br>
-}
-                        </div>
-                    </div>
-                    <div class="demo-column" style="display: flex; align-items: center; justify-content: center;">
-                        <div style="background: rgba(30,30,30,0.95); padding: 24px; border-radius: 12px; border: 2px solid #667eea; transition: all 0.3s; cursor: pointer; width: 100%; text-align: center;">
-                            <h3 style="margin-bottom: 12px;">Tarjeta</h3>
-                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 0;">Pasa el mouse ↗️</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Ejemplo 2: Tarjeta animada -->
+  <div style="margin-bottom: 48px;">
+    <h3 style="margin-bottom: 16px; color: var(--color-primary);">2️⃣ Tarjeta con Animación</h3>
+    <label style="font-size:14px;">Color borde: <input type="color" id="cardBorder" value="#667eea">
+    &nbsp; Color borde (hover): <input type="color" id="cardHover" value="#f093fb"></label>
+    <div class="interactive-demo" style="display:flex;gap:30px;align-items:flex-start;">
+      <div class="demo-column">
+        <div class="code-block" style="margin-bottom:5px;min-width:230px;overflow-x:auto;">
+.card-animated &#123;<br>
+  background: rgba(30,30,30);<br>
+  padding: 24px;<br>
+  border-radius: 12px;<br>
+  border: 2px solid <span id="cardBorderShow" style="color:#667eea;">#667eea</span>;<br>
+  transition: all 0.3s;<br>&#125;<br>
+.card-animated:hover &#123;<br>
+  transform: scale(1.05);<br>
+  border-color: <span id="cardHoverShow" style="color:#f093fb;">#f093fb</span>;<br>
+  box-shadow: 0 10px 30px rgba(102,126,234,0.4);<br>&#125;
+        </div>
+      </div>
+      <div class="demo-column" style="display:flex;align-items:center; flex-direction:column;gap:13px;">
+        <div id="card-live" style="background:rgba(30,30,30,0.95);padding:24px;border-radius:12px;border:2px solid #667eea;transition:all 0.3s;cursor:pointer;width:220px;text-align:center;">
+          <h3 style="margin-bottom: 12px;">Tarjeta</h3>
+          <p style="color:rgba(255,255,255,0.8);margin-bottom:0;">Pasa el mouse</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const card = document.getElementById('card-live');
+    let cardBase = document.getElementById('cardBorder').value;
+    let cardHover = document.getElementById('cardHover').value;
+    card.style.borderColor = cardBase;
+    document.getElementById('cardBorderShow').textContent = cardBase;
+    document.getElementById('cardBorderShow').style.color = cardBase;
+    document.getElementById('cardHoverShow').textContent = cardHover;
+    document.getElementById('cardHoverShow').style.color = cardHover;
+    card.addEventListener('mouseenter', e=>{
+      card.style.transform = "scale(1.05)";
+      card.style.borderColor = cardHover;
+      card.style.boxShadow = "0 10px 30px rgba(102,126,234,0.4)";
+    });
+    card.addEventListener('mouseleave', e=>{
+      card.style.transform = "none";
+      card.style.borderColor = cardBase;
+      card.style.boxShadow = "";
+    });
+    document.getElementById('cardBorder').addEventListener('input', e=>{
+      cardBase = e.target.value;
+      card.style.borderColor = cardBase;
+      document.getElementById('cardBorderShow').textContent = cardBase;
+      document.getElementById('cardBorderShow').style.color = cardBase;
+    });
+    document.getElementById('cardHover').addEventListener('input', e=>{
+      cardHover = e.target.value;
+      document.getElementById('cardHoverShow').textContent = cardHover;
+      document.getElementById('cardHoverShow').style.color = cardHover;
+    });
+  </script>
 
-            <!-- Ejemplo 3: Grid de colores -->
-            <div>
-                <h3 style="margin-bottom: 16px; color: var(--color-primary);">3️⃣ Grid de Colores Interactivo</h3>
-                
-                <div class="code-block">
-&lt;div class="color-grid"&gt;<br>
-&nbsp;&nbsp;&lt;div class="color-box"&gt;&lt;/div&gt;<br>
-&nbsp;&nbsp;&lt;div class="color-box"&gt;&lt;/div&gt;<br>
-&nbsp;&nbsp;...<br>
-&lt;/div&gt;<br>
-<br>
-.color-grid {<br>
-&nbsp;&nbsp;display: grid;<br>
-&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));<br>
-&nbsp;&nbsp;gap: 12px;<br>
-}<br>
-<br>
-.color-box {<br>
-&nbsp;&nbsp;height: 100px;<br>
-&nbsp;&nbsp;border-radius: 8px;<br>
-&nbsp;&nbsp;transition: all 0.3s;<br>
-&nbsp;&nbsp;cursor: pointer;<br>
-}<br>
-.color-box:hover { transform: scale(1.1) rotate(5deg); }
-                </div>
+  <!-- Ejemplo 3: Grid de colores -->
+  <div>
+    <h3 style="margin-bottom: 16px; color: var(--color-primary);">3️⃣ Grid de Colores Interactivo</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:16px;">
+      <div><input type="color" id="g1" value="#667eea"><div class="cg" id="cg1" style="height:70px;background:#667eea;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+      <div><input type="color" id="g2" value="#764ba2"><div class="cg" id="cg2" style="height:70px;background:#764ba2;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+      <div><input type="color" id="g3" value="#f093fb"><div class="cg" id="cg3" style="height:70px;background:#f093fb;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+      <div><input type="color" id="g4" value="#48bb78"><div class="cg" id="cg4" style="height:70px;background:#48bb78;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+      <div><input type="color" id="g5" value="#ed8936"><div class="cg" id="cg5" style="height:70px;background:#ed8936;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+      <div><input type="color" id="g6" value="#f56565"><div class="cg" id="cg6" style="height:70px;background:#f56565;border-radius:8px;transition:all .3s;cursor:pointer;margin-top:7px;"></div></div>
+    </div>
+    <div style="margin-top:7px;font-size:13px;color:#acc;text-align:center;">
+      Cambia el color de cada cajita y pasa el mouse (hover).
+    </div>
+  </div>
+  <script>
+    for(let i=1;i<=6;i++){
+      document.getElementById('g'+i).addEventListener('input',e=>{
+        document.getElementById('cg'+i).style.background = e.target.value;
+      });
+      document.getElementById('cg'+i).onmouseenter = function(){ this.style.transform='scale(1.1) rotate(5deg)';}
+      document.getElementById('cg'+i).onmouseleave = function(){ this.style.transform='';}
+    }
+  </script>
+</section>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-top: 16px;">
-                    <div style="height: 100px; background: #667eea; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                    <div style="height: 100px; background: #764ba2; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                    <div style="height: 100px; background: #f093fb; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                    <div style="height: 100px; background: #48bb78; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                    <div style="height: 100px; background: #ed8936; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                    <div style="height: 100px; background: #f56565; border-radius: 8px; transition: all 0.3s; cursor: pointer;"></div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 5. ESPECIFICIDAD -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📊 Especificidad en CSS</h2>
-            
-            <p style="margin-bottom: 16px;">
-                Cuando hay múltiples reglas CSS, el navegador elige cuál aplicar según la <strong>especificidad</strong>. 
-                A mayor especificidad, mayor prioridad:
-            </p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #ed8936;">
-                    <h3 style="margin-bottom: 12px;">1️⃣ Elemento (Baja)</h3>
-                    <div class="code-block">p { color: blue; }</div>
-                    <p style="font-size: 12px;">Afecta a todos los párrafos</p>
-                </div>
-
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f7df1e;">
-                    <h3 style="margin-bottom: 12px;">2️⃣ Clase (Media)</h3>
-                    <div class="code-block">.text-blue { color: blue; }</div>
-                    <p style="font-size: 12px;">Más específica que elemento</p>
-                </div>
-
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #667eea;">
-                    <h3 style="margin-bottom: 12px;">3️⃣ ID (Alta)</h3>
-                    <div class="code-block">#main { color: blue; }</div>
-                    <p style="font-size: 12px;">Más específica que clase</p>
-                </div>
-
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f093fb;">
-                    <h3 style="margin-bottom: 12px;">4️⃣ Inline (Máxima)</h3>
-                    <div class="code-block">
-&lt;p style="color: blue;"&gt;...&lt;/p&gt;
-                    </div>
-                    <p style="font-size: 12px;">❌ Evita usar inline. Difícil de mantener</p>
-                </div>
-
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border-left: 4px solid #f56565;">
-                    <h3 style="margin-bottom: 12px;">5️⃣ !important</h3>
-                    <div class="code-block">p { color: blue !important; }</div>
-                    <p style="font-size: 12px;">❌ Última opción. Puede romper estilos</p>
-                </div>
-            </div>
-
-            <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary); margin-top: 16px;">
-                <strong>💡 Regla de oro:</strong> Usa clases para la mayoría de casos. IDs solo para identificar secciones únicas. Evita inline y !important.
-            </div>
-        </section>
 
         <!-- Botón continuar -->
-        <div style="text-align: center; margin: 64px 0;">
-<a href="modulo4.html" class="next-button"> Siguiente</a>
-        </div>
+        <!-- Botón continuar -->
+<div class="space-btn-wrapper">
+  <a href="modulo4.html" class="space-link" aria-label="Siguiente módulo">
+    <button type="button" class="space-btn">
+      <strong class="space-btn-text">Continuar</strong>
+      <div class="space-stars-container">
+        <div class="space-stars"></div>
+      </div>
+      <div class="space-glow">
+        <div class="space-circle"></div>
+        <div class="space-circle"></div>
+      </div>
+    </button>
+  </a>
+</div>
     </div>
 </body>
 </html>

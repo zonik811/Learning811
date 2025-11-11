@@ -76,51 +76,83 @@
 <!-- CONCEPTOS BÁSICOS MEJORADO -->
 <section style="margin-top: 48px;">
     <h2 class="title-lg" style="text-align: center; margin-bottom: 32px;">🔧 Conceptos Básicos</h2>
-    
-    <!-- 1. Selectores -->
+
+    <!-- 1. Selectores INTERACTIVO -->
     <div class="card" style="margin-bottom: 24px;">
         <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">🎯 Selectores</h3>
-        <p style="margin-bottom: 16px;">Los selectores indican <strong>qué elementos HTML</strong> quieres estilizar. Hay varios tipos:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <p style="margin-bottom: 16px;">
+            Los selectores indican <strong>qué elementos HTML</strong> quieres estilizar.<br>
+            <b>Los más usados:</b>
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
             <!-- Por tipo de elemento -->
             <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
                 <h4 style="margin-bottom: 8px;">Por Tipo de Elemento</h4>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
-h1 { color: blue; }<br>
+                <pre style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+h1 { color: blue; }
 p { font-size: 16px; }
-                </code>
+                </pre>
+                <button onclick="showExample('tipo')">Ver ejemplo</button>
+                <div id="example-tipo" style="display:none; margin-top:12px;">
+                    <div style="border:1px solid #303060; border-radius:6px; padding:12px;">
+                        <h1>¡Yo soy un h1 azul!</h1>
+                        <p>Este es un párrafo con font-size 16px.</p>
+                    </div>
+                </div>
                 <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Afecta a TODOS los h1 y p de la página</p>
             </div>
-            
             <!-- Por clase -->
             <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-secondary);">
                 <h4 style="margin-bottom: 8px;">Por Clase</h4>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
-.card { border-radius: 12px; }<br>
+                <pre style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+.card { border-radius: 12px; }
 .btn { padding: 12px; }
-                </code>
+                </pre>
+                <button onclick="showExample('clase')">Ver ejemplo</button>
+                <div id="example-clase" style="display:none; margin-top:12px;">
+                    <div class="card" style="border:1px solid #303060; padding:12px;">
+                        Soy una <span class="card" style="border-radius:12px; background: #667eea22;">card</span>.
+                        <button class="btn" style="padding: 12px; border-radius:7px; border:none; background: var(--color-primary); color:#fff;">Botón</button>
+                    </div>
+                </div>
                 <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Puedes reutilizar la clase en múltiples elementos</p>
             </div>
-            
             <!-- Por ID -->
             <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-accent);">
                 <h4 style="margin-bottom: 8px;">Por ID</h4>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
-#header { background: navy; }<br>
+                <pre style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; margin-bottom: 8px;">
+#header { background: navy; }
 #footer { color: gray; }
-                </code>
-                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Único por página. Úsalo para identificar elementos importantes</p>
+                </pre>
+                <button onclick="showExample('id')">Ver ejemplo</button>
+                <div id="example-id" style="display:none; margin-top:12px;">
+                    <div id="header" style="background:navy;padding:8px;color:white;">Soy el header (navy)</div>
+                    <div id="footer" style="color:gray;">Soy el footer (gray)</div>
+                </div>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Único por página. Úsalo para elementos importantes</p>
             </div>
         </div>
+        <details>
+            <summary>+ Más ejemplos y combinaciones…</summary>
+            <ul style="margin-top:10px;color:#eee;">
+                <li><b>.main p</b>: Párrafos dentro de un elemento con clase main</li>
+                <li><b>ul > li</b>: Los li que son hijos directos de ul</li>
+                <li><b>a:hover</b>: Un enlace cuando pasas el mouse por encima</li>
+            </ul>
+        </details>
     </div>
 
     <!-- 2. Box Model -->
     <div class="card" style="margin-bottom: 24px;">
         <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">📦 Box Model</h3>
-        <p style="margin-bottom: 16px;">Todo elemento HTML es una caja con <strong>4 capas</strong>. Aprenderlas es esencial para entender CSS:</p>
-        
-        <div style="background: rgba(0,0,0,0.2); padding: 32px; border-radius: 12px; border: 2px dashed var(--color-warning);">
+        <p style="margin-bottom: 16px;">
+            Todo elemento HTML es una caja con <strong>4 capas</strong>.<br>
+            <b>¿Cómo afecta tu diseño?</b> Si sumas un padding o borde, la caja crece.<br>
+            <b>TIP:</b> Usa <code>box-sizing: border-box;</code> para que el tamaño incluya padding y borde.
+        </p>
+        <!-- Diagrama visual igual -->
+        <!-- ...tu diagrama igual aquí... -->
+        <div style="background: rgba(0,0,0,0.2); padding: 32px; border-radius: 12px; border: 2px dashed var(--color-warning); margin-bottom:20px;">
             <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; margin-bottom: 8px;">MARGIN (espacio externo)</div>
             <div style="border: 2px dashed var(--color-warning); padding: 16px; border-radius: 8px;">
                 <div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; margin-bottom: 8px;">BORDER (borde)</div>
@@ -132,147 +164,438 @@ p { font-size: 16px; }
                 </div>
             </div>
         </div>
-
-        <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-            <div>
-                <strong style="color: var(--color-warning);">Margin:</strong> Espacio FUERA del borde
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">margin: 20px;</code>
-            </div>
-            <div>
-                <strong style="color: var(--color-primary);">Border:</strong> Línea que rodea el contenido
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">border: 2px solid;</code>
-            </div>
-            <div>
-                <strong style="color: #48bb78;">Padding:</strong> Espacio DENTRO del borde
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 4px;">padding: 16px;</code>
-            </div>
+        <div style="margin-bottom:15px;">Prueba interactivamente:</div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom: 10px;">
+            <label style="font-size:14px;">Padding 
+                <input type="range" min="0" max="40" value="12" id="padding-ex" oninput="updateBoxModel()"/> <span id="padding-val">12</span>px
+            </label>
+            <label style="font-size:14px;">Borde 
+                <input type="range" min="0" max="10" value="2" id="border-ex" oninput="updateBoxModel()"/> <span id="border-val">2</span>px
+            </label>
+            <label style="font-size:14px;">Margin 
+                <input type="range" min="0" max="40" value="16" id="margin-ex" oninput="updateBoxModel()"/> <span id="margin-val">16</span>px
+            </label>
+        </div>
+        <div id="interactive-boxmodel" style="margin:auto;background:#222;display:inline-block;">
+            <div id="boxmodel-box" style="background:#667eea;color:white;font-weight:700;padding:12px;border:2px solid var(--color-primary);margin:16px;border-radius:5px;transition:all 0.3s;">CONTENIDO</div>
         </div>
     </div>
 
-    <!-- 3. Colores -->
-    <div class="card" style="margin-bottom: 24px;">
-        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">🌈 Colores</h3>
-        <p style="margin-bottom: 16px;">CSS admite múltiples formas de definir colores:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Nombre del Color</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: red;</code>
-                <div style="background: red; width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Valor HEX</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: #667eea;</code>
-                <div style="background: #667eea; width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>RGB</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: rgb(102, 126, 234);</code>
-                <div style="background: rgb(102, 126, 234); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>RGBA (con transparencia)</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: rgba(102, 126, 234, 0.5);</code>
-                <div style="background: rgba(102, 126, 234, 0.5); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Variables CSS</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: var(--color-primary);</code>
-                <div style="background: var(--color-primary); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Gradiente</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">linear-gradient(135deg, #667eea, #f093fb)</code>
-                <div style="background: linear-gradient(135deg, #667eea, #f093fb); width: 50px; height: 50px; border-radius: 4px; margin-top: 8px;"></div>
-            </div>
-        </div>
+<div class="card" style="margin-bottom: 32px;">
+  <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">🌈 Colores en CSS</h3>
+  <p style="margin-bottom: 22px;">
+    Hay <b>5 formas principales</b> de poner colores en CSS. Usa los selectores y prueba cómo cambia el resultado, el código y su efecto.
+  </p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 20px;">
+    <!-- Por nombre -->
+    <div style="background:rgba(50,70,200,0.06);padding:16px;border-radius:8px;">
+      <div style="font-weight:700;">🅰️ Nombre estándar</div>
+      <div style="margin-bottom:6px;">Ejemplo: <code>red</code>, <code>blue</code>, <code>tomato</code>, etc.</div>
+      <input list="color-names" id="colorname-input" value="tomato" style="width:110px;font-size:1em;">
+      <datalist id="color-names">
+        <option value="red"><option value="blue"><option value="tomato"><option value="green"><option value="yellow"><option value="gold"><option value="orange"><option value="purple"><option value="gray"><option value="maroon"><option value="aqua"><option value="crimson"><option value="pink"><option value="violet"><option value="black"><option value="white">
+      </datalist>
+      <div id="color-demo1" style="padding:12px;border-radius:6px;margin-top:13px;background:#232336;">
+        <span id="color-demo1-text" style="color:tomato;font-weight:600;">Texto en color tomato</span>
+      </div>
+      <div style="font-size:12px;margin-top:8px;">
+        Código CSS:&nbsp; <code id="css-nombre">color: tomato;</code>
+      </div>
+      <div style="font-size:12px;color:#aaa;">Puedes elegir entre +140 nombres en inglés.</div>
     </div>
-
-    <!-- 4. Tipografía -->
-    <div class="card">
-        <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">✍️ Tipografía</h3>
-        <p style="margin-bottom: 16px;">Controla cómo se ve el texto en tu página:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Font-size (Tamaño)</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">font-size: 24px;</code>
-                <p style="font-size: 24px; margin-top: 8px;">Este texto es más grande</p>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Font-weight (Grosor)</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">font-weight: 700;</code>
-                <p style="font-weight: 700; margin-top: 8px;">Este texto es más grueso</p>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
-                <strong>Color</strong>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-size: 12px; margin-top: 8px;">color: #667eea;</code>
-                <p style="color: #667eea; margin-top: 8px;">Este texto es azul</p>
-            </div>
-        </div>
+    <!-- HEX -->
+    <div style="background:rgba(227,76,38,0.07);padding:16px;border-radius:8px;">
+      <div style="font-weight:700;">#️⃣ Hexadecimal (HEX)</div>
+      <div style="margin-bottom:6px;">Siempre inicia con <code>#</code>, por ejemplo <code>#ff8800</code></div>
+      <input type="color" id="hex-picker" value="#667eea" style="width:46px;height:30px;vertical-align:middle;">
+      <input type="text" id="hex-code" value="#667eea" style="width:93px;">
+      <div id="color-demo2" style="padding:12px;border-radius:6px;margin-top:13px;background:#232336;">
+        <span id="color-demo2-text" style="background:#667eea; color:white; padding:5px 20px; border-radius:5px;">Fondo HEX</span>
+      </div>
+      <div style="font-size:12px;margin-top:8px;">
+        Código CSS:&nbsp; <code id="css-hex">background: #667eea;</code>
+      </div>
     </div>
-</section>
+    <!-- RGB -->
+    <div style="background:rgba(100,200,255,0.06);padding:16px;border-radius:8px;">
+      <div style="font-weight:700;">🔢 RGB</div>
+      <div style="margin-bottom:6px;">Tres valores <b>del 0 al 255</b>: <code>rgb(255,0,0)</code></div>
+      <input type="range" min="0" max="255" id="rval" value="102"> R
+      <input type="range" min="0" max="255" id="gval" value="126"> G
+      <input type="range" min="0" max="255" id="bval" value="234"> B
+      <div id="color-demo3" style="padding:12px;border-radius:6px;margin-top:13px;background:#232336;">
+        <span id="color-demo3-text" style="background:rgb(102,126,234); color:white; padding:5px 20px; border-radius:5px;">Fondo RGB</span>
+      </div>
+      <div style="font-size:12px;margin-top:8px;">
+        Código CSS:&nbsp; <code id="css-rgb">background: rgb(102, 126, 234);</code>
+      </div>
+    </div>
+    <!-- RGBA -->
+    <div style="background:rgba(120,70,200,0.065);padding:16px;border-radius:8px;">
+      <div style="font-weight:700;">🟦 RGBA (con opacidad)</div>
+      <div style="margin-bottom:6px;">Como <b>rgb</b>, pero con transparencia (A=alpha, de 0 a 1)</div>
+      <input type="range" min="0" max="255" id="rvala" value="102"> R
+      <input type="range" min="0" max="255" id="gvala" value="126"> G
+      <input type="range" min="0" max="255" id="bvala" value="234"> B
+      <input type="range" min="0" max="100" id="aval" value="50" style="width:50px;"> <span id="aval-show">0.5</span> Opacidad
+      <div id="color-demo4" style="padding:12px;border-radius:6px;margin-top:13px;background:#232336;">
+        <span id="color-demo4-text" style="background:rgba(102,126,234,0.5); color:white; padding:5px 20px; border-radius:5px;">Fondo RGBA</span>
+      </div>
+      <div style="font-size:12px;margin-top:8px;">
+        Código CSS:&nbsp; <code id="css-rgba">background: rgba(102, 126, 234, 0.5);</code>
+      </div>
+    </div>
+    <!-- Gradiente -->
+    <div style="background:rgba(120,232,70,0.07);padding:16px;border-radius:8px;">
+      <div style="font-weight:700;">🎨 Gradiente</div>
+      <div style="margin-bottom:6px;">Elige dos colores y un ángulo<br><code>linear-gradient(ángulo, color1, color2)</code></div>
+      <label>Ángulo
+        <input type="range" min="0" max="360" id="grad-angle" value="135" style="width:80px;">
+        <span id="grad-val">135</span>°
+      </label><br>
+      <input type="color" id="grad1" value="#667eea">
+      <input type="color" id="grad2" value="#f093fb">
+      <div id="color-demo5" style="padding:12px;border-radius:6px;margin-top:13px;background:#232336;">
+        <span id="color-demo5-text"
+          style="background:linear-gradient(135deg, #667eea, #f093fb); color:white; padding:5px 20px; border-radius:5px;">
+          Fondo Gradiente
+        </span>
+      </div>
+      <div style="font-size:12px;margin-top:8px;">
+        Código CSS:&nbsp; <code id="css-grad">background: linear-gradient(135deg, #667eea, #f093fb);</code>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Nombre color
+    document.getElementById("colorname-input").addEventListener("input", e=>{
+      let val = e.target.value;
+      document.getElementById("color-demo1-text").style.color = val;
+      document.getElementById("css-nombre").textContent = `color: ${val};`;
+    });
+    // HEX
+    function syncHEX(hex) {
+      document.getElementById('color-demo2-text').style.background = hex;
+      document.getElementById('css-hex').textContent = `background: ${hex};`;
+      document.getElementById('hex-code').value = hex;
+    }
+    document.getElementById("hex-picker").addEventListener("input", e=>{
+      syncHEX(e.target.value);
+    });
+    document.getElementById("hex-code").addEventListener("input", e=>{
+      syncHEX(e.target.value);
+    });
+    // RGB
+    function syncRGB() {
+      let r = document.getElementById("rval").value;
+      let g = document.getElementById("gval").value;
+      let b = document.getElementById("bval").value;
+      let rgb = `rgb(${r}, ${g}, ${b})`;
+      document.getElementById("color-demo3-text").style.background = rgb;
+      document.getElementById("css-rgb").textContent = `background: ${rgb};`;
+    }
+    ["rval","gval","bval"].forEach(id=>{
+      document.getElementById(id).addEventListener("input", syncRGB);
+    });
+    syncRGB();
+    // RGBA
+    function syncRGBA() {
+      let r = document.getElementById("rvala").value;
+      let g = document.getElementById("gvala").value;
+      let b = document.getElementById("bvala").value;
+      let a = document.getElementById("aval").value/100;
+      document.getElementById("aval-show").textContent = a;
+      let rgba = `rgba(${r}, ${g}, ${b}, ${a})`;
+      document.getElementById("color-demo4-text").style.background = rgba;
+      document.getElementById("css-rgba").textContent = `background: ${rgba};`;
+    }
+    ["rvala","gvala","bvala","aval"].forEach(id=>{
+      document.getElementById(id).addEventListener("input", syncRGBA);
+    });
+    syncRGBA();
+    // Gradiente
+    function syncGrad() {
+      let ang = document.getElementById("grad-angle").value;
+      let c1 = document.getElementById("grad1").value;
+      let c2 = document.getElementById("grad2").value;
+      document.getElementById("grad-val").textContent = ang;
+      let grad = `linear-gradient(${ang}deg, ${c1}, ${c2})`;
+      document.getElementById("color-demo5-text").style.background = grad;
+      document.getElementById("css-grad").textContent = `background: ${grad};`;
+    }
+    ["grad-angle","grad1","grad2"].forEach(id=>{
+      document.getElementById(id).addEventListener("input", syncGrad);
+    });
+    syncGrad();
+  </script>
+</div>
+
+<div class="card" style="margin-bottom: 32px;">
+  <h3 style="color: var(--color-css); margin-bottom: 16px; font-size: 24px;">✍️ Tipografía CSS (Interactivo)</h3>
+  <p style="margin-bottom: 18px;">Explora cómo los estilos afectan la presentación y el código. ¡Cambia propiedades y mira el resultado!</p>
+  <div style="display: flex; flex-wrap: wrap; gap:22px; align-items:flex-start;">
+    <div style="min-width:320px;flex:1 1 380px;">
+      <form id="typography-controls" style="display:grid; grid-template-columns:1fr 1fr; gap:18px 32px;">
+        <label>Tamaño de fuente <br>
+          <input type="range" min="10" max="64" value="32" id="font-size-ctl" style="width:90px;">
+          <span id="font-size-val">32</span>px
+        </label>
+        <label>Grosor <br>
+          <input type="range" min="100" max="900" step="100" value="700" id="font-weight-ctl" style="width:90px;">
+          <span id="font-weight-val">700</span>
+        </label>
+        <label>Color <br>
+          <input type="color" id="font-color-ctl" value="#667eea" style="width:50px;">
+        </label>
+        <label>Familia <br>
+          <select id="font-family-ctl">
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="'Courier New', monospace">Courier New</option>
+            <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+            <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+          </select>
+        </label>
+        <label>Estilo <br>
+          <select id="font-style-ctl">
+            <option value="normal">Normal</option>
+            <option value="italic">Itálica</option>
+          </select>
+        </label>
+        <label>Transformación<br>
+          <select id="text-transform-ctl">
+            <option value="none">Ninguna</option>
+            <option value="uppercase">MAYÚSCULAS</option>
+            <option value="lowercase">minúsculas</option>
+            <option value="capitalize">Capitalizar</option>
+          </select>
+        </label>
+        <label>Espaciado de letras<br>
+          <input type="range" min="0" max="12" value="2" id="letter-spacing-ctl" style="width:55px;">
+          <span id="letter-spacing-val">2</span>px
+        </label>
+        <label>Altura de línea<br>
+          <input type="range" min="1" max="3" step="0.1" value="1.2" id="line-height-ctl" style="width:55px;">
+          <span id="line-height-val">1.2</span>
+        </label>
+      </form>
+      <div id="typography-demo" style="background:#232336;padding:22px;margin-top:18px;border-radius:9px;min-height:66px;">
+        Texto dinámico: "CSS es <b>potente</b> y <i>divertido</i>."
+      </div>
+      <!-- Bloque CSS dinámico -->
+      <div style="background:rgba(102,126,234,0.07);border-radius:7px;padding:13px 16px;margin-top:15px;">
+        <div style="font-size:13px;font-weight:700;color:var(--color-primary);margin-bottom:8px;">CSS generado:</div>
+        <pre id="css-code-typo" style="font-size:13px;background:rgba(36,36,46,0.98);color:#e34c26;padding:10px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:0;">
+.demo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #667eea;
+  font-family: Arial, sans-serif;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+        </pre>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Valores iniciales para comparación/resaltado
+    const INIT = {
+      fsize: "32",
+      fweight: "700",
+      color: "#667eea",
+      ffam: "Arial, sans-serif",
+      fsty: "normal",
+      ttransform: "none",
+      lspace: "2",
+      lheight: "1.2"
+    };
+    function updateTypeDemo() {
+      let fsize = document.getElementById('font-size-ctl').value;
+      let fweight = document.getElementById('font-weight-ctl').value;
+      let color = document.getElementById('font-color-ctl').value;
+      let ffam = document.getElementById('font-family-ctl').value;
+      let fsty = document.getElementById('font-style-ctl').value;
+      let ttransform = document.getElementById('text-transform-ctl').value;
+      let lspace = document.getElementById('letter-spacing-ctl').value;
+      let lheight = document.getElementById('line-height-ctl').value;
+      document.getElementById('font-size-val').textContent = fsize;
+      document.getElementById('font-weight-val').textContent = fweight;
+      document.getElementById('letter-spacing-val').textContent = lspace;
+      document.getElementById('line-height-val').textContent = lheight;
+      // Demo
+      let demo = document.getElementById('typography-demo');
+      demo.style.fontSize = fsize+"px";
+      demo.style.fontWeight = fweight;
+      demo.style.color = color;
+      demo.style.fontFamily = ffam;
+      demo.style.fontStyle = fsty;
+      demo.style.textTransform = ttransform;
+      demo.style.letterSpacing = lspace+"px";
+      demo.style.lineHeight = lheight;
+      // Resaltado CSS
+      function span(line, changed) {
+        return changed 
+          ? `<span style="background:#ffe066; color:#1a1a00; border-radius:4px; padding:2px 1px;">${line}</span>`
+          : line;
+      }
+      let css = ".demo {\n";
+      css += "  " + span(`font-size: ${fsize}px;`, fsize!==INIT.fsize) + "\n";
+      css += "  " + span(`font-weight: ${fweight};`, fweight!==INIT.fweight) + "\n";
+      css += "  " + span(`color: ${color};`, color.toLowerCase()!==INIT.color) + "\n";
+      css += "  " + span(`font-family: ${ffam};`, ffam!==INIT.ffam) + "\n";
+      css += "  " + span(`font-style: ${fsty};`, fsty!==INIT.fsty) + "\n";
+      css += "  " + span(`text-transform: ${ttransform};`, ttransform!==INIT.ttransform) + "\n";
+      css += "  " + span(`letter-spacing: ${lspace}px;`, lspace!==INIT.lspace) + "\n";
+      css += "  " + span(`line-height: ${lheight};`, lheight!==INIT.lheight) + "\n";
+      css += "}";
+      document.getElementById('css-code-typo').innerHTML = css;
+    }
+    document.querySelectorAll('#typography-controls input, #typography-controls select').forEach(el => {
+      el.addEventListener('input', updateTypeDemo);
+      el.addEventListener('change', updateTypeDemo);
+    });
+    updateTypeDemo();
+  </script>
+</div>
+
+
+<script>
+function showExample(tipo) {
+    const ex = document.getElementById("example-"+tipo);
+    ex.style.display = (ex.style.display=="block"?"none":"block");
+    // Ocultar los otros
+    ["tipo","clase","id"].filter(t=>t!==tipo).forEach(t=> {
+        document.getElementById("example-"+t).style.display = "none";
+    });
+}
+function updateBoxModel() {
+    let padding = document.getElementById("padding-ex").value;
+    let border = document.getElementById("border-ex").value;
+    let margin = document.getElementById("margin-ex").value;
+    document.getElementById("boxmodel-box").style.padding = padding+"px";
+    document.getElementById("boxmodel-box").style.borderWidth = border+"px";
+    document.getElementById("boxmodel-box").style.margin = margin+"px";
+    document.getElementById("padding-val").innerText = padding;
+    document.getElementById("border-val").innerText = border;
+    document.getElementById("margin-val").innerText = margin;
+}
+</script>
+
 
 <!-- EJEMPLO PRÁCTICO MEJORADO -->
 <section class="card" style="margin-top: 48px; background: rgba(0,0,0,0.3);">
-    <h2 class="title-lg" style="margin-bottom: 32px;">✍️ Ejemplo Práctico: Antes y Después</h2>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
-        <!-- SIN CSS -->
-        <div>
-            <h3 style="margin-bottom: 16px; color: #f56565;">❌ Sin CSS</h3>
-            <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                <h4 style="margin-bottom: 8px; font-size: 14px;">HTML:</h4>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; font-size: 12px; overflow-x: auto;">
-&lt;div&gt;<br>
-&nbsp;&nbsp;&lt;h1&gt;Bienvenido&lt;/h1&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;Esto es un texto&lt;/p&gt;<br>
+  <h2 class="title-lg" style="margin-bottom: 32px;">✍️ Ejemplo Práctico: Antes y Después <span style="font-size:0.8em;">(Interactivo)</span></h2>
+  <div style="display: flex; gap: 36px; flex-wrap:wrap;">
+    <!-- SIN CSS -->
+    <div style="flex:1 1 320px; min-width:300px; max-width:410px;">
+      <h3 style="margin-bottom: 16px; color: #f56565;">❌ Sin CSS</h3>
+      <div style="background: #181824; padding: 13px; border-radius: 10px; margin-bottom: 10px;">
+        <div style="font-size: 13px; color: #f56565; font-weight:600; margin-bottom: 5px;">HTML:</div>
+        <pre style="overflow-x:auto; background:#232336; color:#d8cba9; border-radius:6px; padding:10px; font-size:13px; line-height:1.45;">
+&lt;div&gt;
+  &lt;h1&gt;Bienvenido&lt;/h1&gt;
+  &lt;p&gt;Esto es un texto&lt;/p&gt;
 &lt;/div&gt;
-                </code>
-            </div>
-            <div style="background: white; color: black; padding: 24px; border-radius: 8px;">
-                <h1 style="all: initial; font-family: Arial; color: black; font-size: 32px; margin-bottom: 8px;">Bienvenido</h1>
-                <p style="all: initial; font-family: Arial; color: black; font-size: 14px;">Esto es un texto</p>
-            </div>
-        </div>
-
-        <!-- CON CSS -->
-        <div>
-            <h3 style="margin-bottom: 16px; color: #48bb78;">✅ Con CSS</h3>
-            <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                <h4 style="margin-bottom: 8px; font-size: 14px;">CSS:</h4>
-                <code style="display: block; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; font-size: 12px; overflow-x: auto;">
-.hero {<br>
-&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #f093fb);<br>
-&nbsp;&nbsp;padding: 32px;<br>
-&nbsp;&nbsp;border-radius: 12px;<br>
-&nbsp;&nbsp;color: white;<br>
-}<br>
-h1 { font-size: 36px; font-weight: 700; }<br>
-p { font-size: 16px; opacity: 0.9; }
-                </code>
-            </div>
-            <div style="background: linear-gradient(135deg, #667eea, #f093fb); padding: 32px; border-radius: 12px; color: white;">
-                <h1 style="margin-bottom: 16px; font-size: 36px; font-weight: 700;">Bienvenido</h1>
-                <p style="font-size: 16px; opacity: 0.9;">Esto es un texto</p>
-            </div>
-        </div>
+        </pre>
+      </div>
+      <div style="background: white; color: black; border-radius: 10px; padding: 22px; min-height: 90px; box-shadow:0 1px 7px #9993;">
+        <h1 style="all: initial; font-family: Arial, sans-serif; color: black; font-size: 32px; margin-bottom: 8px;">Bienvenido</h1>
+        <p style="all: initial; font-family: Arial, sans-serif; color: black; font-size: 15px; margin:0;">Esto es un texto</p>
+      </div>
     </div>
-
-    <div style="background: rgba(102,126,234,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary);">
-        <p style="margin-bottom: 0;">
-            <strong>🎯 La diferencia:</strong> Con CSS podemos añadir colores atractivos, degradados, espaciado, tipografía elegante y mucho más. 
-            El HTML solo proporciona la estructura, pero CSS le da el estilo y la belleza visual.
-        </p>
+    <!-- CON CSS INTERACTIVO -->
+    <div style="flex:1 1 340px; min-width:340px; max-width:500px;">
+      <h3 style="margin-bottom: 16px; color: #48bb78;">✅ Con CSS</h3>
+      <div style="background: #181824; padding: 13px; border-radius: 10px; margin-bottom: 10px;">
+        <div style="font-size: 13px; color: #48bb78; font-weight:600; margin-bottom: 5px;">Propiedades CSS (Modifícalas):</div>
+        <form id="css-controls" style="display:grid; grid-template-columns:1fr 1fr; gap:10px 30px;">
+          <label>Color de fondo<br><input type="color" id="css-bg" value="#667eea"></label>
+          <label>Degradado final<br><input type="color" id="css-bg2" value="#f093fb"></label>
+          <label>Color texto<br><input type="color" id="css-color" value="#ffffff"></label>
+          <label>Padding<br><input type="range" id="css-padding" min="10" max="80" value="32" style="width:70px;"> <span id="padding-val">32</span>px</label>
+          <label>Radio borde<br><input type="range" id="css-radius" min="0" max="32" value="14" style="width:70px;"> <span id="radius-val">14</span>px</label>
+          <label>Tamaño título<br><input type="range" id="css-title-size" min="16" max="46" value="36" style="width:70px;"> <span id="title-val">36</span>px</label>
+          <label>Tamaño párrafo<br><input type="range" id="css-p-size" min="10" max="24" value="16" style="width:70px;"> <span id="p-val">16</span>px</label>
+        </form>
+      </div>
+      <div id="css-result"
+        style="background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 14px; color: #fff; padding: 32px; min-height: 90px; box-shadow:0 3px 18px #667eea33;">
+        <h1 style="margin-bottom: 16px; font-size: 36px; font-weight: 700;">Bienvenido</h1>
+        <p style="font-size: 16px; opacity: 0.9;">Esto es un texto</p>
+      </div>
+      <!-- Bloque CSS dinámico -->
+      <div style="background:rgba(102,126,234,0.07);border-radius:7px;padding:13px 16px;margin-top:15px;">
+        <div style="font-size:13px;font-weight:700;color:var(--color-primary);margin-bottom:8px;">CSS generado:</div>
+        <pre id="css-code-demo" style="font-size:13px;background:rgba(36,36,46,0.98);color:#e34c26;padding:10px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:0;">
+.hero {
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  color: #fff;
+  padding: 32px;
+  border-radius: 14px;
+}
+.hero h1 { font-size: 36px; }
+.hero p { font-size: 16px; }
+        </pre>
+      </div>
     </div>
+  </div>
+  <div style="background: rgba(102,126,234,0.12); padding: 16px; border-radius: 9px; border-left: 4px solid var(--color-primary); margin-top:18px;">
+    <p style="margin:0;font-size:1.07em; color:rgba(255,255,255,0.93)">
+      <strong style="color:var(--color-primary);">🎯 Prueba:</strong>
+      Cambia valores y observa cómo el CSS resaltado muestra exactamente qué estás modificando.
+    </p>
+  </div>
+  <script>
+    // Valores iniciales para comparar
+
+    function updateDemo() {
+      let bg1 = document.getElementById('css-bg').value.toLowerCase();
+      let bg2 = document.getElementById('css-bg2').value.toLowerCase();
+      let color = document.getElementById('css-color').value.toLowerCase();
+      let padding = document.getElementById('css-padding').value;
+      let radius = document.getElementById('css-radius').value;
+      let tsize = document.getElementById('css-title-size').value;
+      let psize = document.getElementById('css-p-size').value;
+      let result = document.getElementById('css-result');
+      result.style.background = `linear-gradient(135deg, ${bg1}, ${bg2})`;
+      result.style.color = color;
+      result.style.padding = padding + 'px';
+      result.style.borderRadius = radius + 'px';
+      result.querySelector('h1').style.fontSize = tsize + "px";
+      result.querySelector('p').style.fontSize = psize + "px";
+      document.getElementById('padding-val').textContent = padding;
+      document.getElementById('radius-val').textContent = radius;
+      document.getElementById('title-val').textContent = tsize;
+      document.getElementById('p-val').textContent = psize;
+      // Construye el CSS, resaltando si está cambiado respecto del inicial
+      function span(line, changed) {
+        return changed 
+          ? `<span style="background:#ffe066; color:#1a1a00; border-radius:4px; padding:2px 1px;">${line}</span>`
+          : line;
+      }
+      let css = ".hero {\n";
+      css += "  " + span(`background: linear-gradient(135deg, ${bg1}, ${bg2});`, bg1!==INIT.bg1||bg2!==INIT.bg2) + "\n";
+      css += "  " + span(`color: ${color};`, color!==INIT.color) + "\n";
+      css += "  " + span(`padding: ${padding}px;`, padding!==INIT.padding) + "\n";
+      css += "  " + span(`border-radius: ${radius}px;`, radius!==INIT.radius) + "\n";
+      css += "}\n";
+      css += ".hero h1 { " + span(`font-size: ${tsize}px;`, tsize!==INIT.tsize) + " }\n";
+      css += ".hero p { " + span(`font-size: ${psize}px;`, psize!==INIT.psize) + " }";
+      // Inyecta como HTML
+      document.getElementById('css-code-demo').innerHTML = css;
+    }
+    document.querySelectorAll('#css-controls input').forEach(el => {
+      el.addEventListener('input', updateDemo);
+    });
+    // Inicializar
+    updateDemo();
+  </script>
 </section>
+
 
         <!-- Botón continuar -->
         <div style="text-align: center; margin: 64px 0;">

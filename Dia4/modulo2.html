@@ -38,270 +38,697 @@
 
         <!-- 1. ESPACIADO -->
         <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📏 Espaciado: Margin y Padding</h2>
-            
-            <p style="margin-bottom: 16px;">El espaciado es crucial para crear un diseño limpio y profesional. Hay dos formas principales:</p>
+  <h2 class="title-lg" style="margin-bottom: 24px;">📏 Espaciado: Margin y Padding <span style="font-size:0.85em;">(Interactivo)</span></h2>
+  <p style="margin-bottom: 16px;">El espaciado es crucial para crear un diseño limpio y profesional.<br>
+    <b>Usa los controles para cambiar los valores y observa cómo afectan la demo y el código:</b>
+  </p>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
-                <!-- Margin -->
-                <div style="background: rgba(240,147,251,0.1); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-accent);">
-                    <h3 style="margin-bottom: 12px; color: var(--color-accent);">Margin (Margen Externo)</h3>
-                    <p style="margin-bottom: 12px;">Crea espacio FUERA del elemento, separándolo de otros elementos.</p>
-                    <div class="code-block">
-margin: 20px;  /* todos los lados */<br>
-margin-top: 20px;  /* solo arriba */<br>
-margin: 10px 20px;  /* vertical | horizontal */
-                    </div>
-                    <div class="demo-box">
-                        <div style="background: var(--color-accent); padding: 12px; text-align: center; margin: 20px 0; border-radius: 4px;">
-                            Elemento con margin
-                        </div>
-                        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Observa el espacio que lo rodea</p>
-                    </div>
-                </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <!-- Margin INTERACTIVO -->
+    <div style="background: rgba(240,147,251,0.12); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-accent);">
+      <h3 style="margin-bottom: 12px; color: var(--color-accent);">Margin (Margen Externo)</h3>
+      <p style="margin-bottom: 12px;">Crea espacio FUERA del elemento, separándolo de otros elementos.</p>
+      <form id="margin-controls" style="margin-bottom:15px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <label>Arriba <input type="range" min="0" max="64" value="20" id="margin-top" style="width:70px;">
+          <span id="margin-top-val">20</span>px
+        </label>
+        <label>Derecha <input type="range" min="0" max="64" value="20" id="margin-right" style="width:70px;">
+          <span id="margin-right-val">20</span>px
+        </label>
+        <label>Abajo <input type="range" min="0" max="64" value="20" id="margin-bottom" style="width:70px;">
+          <span id="margin-bottom-val">20</span>px
+        </label>
+        <label>Izquierda <input type="range" min="0" max="64" value="0" id="margin-left" style="width:70px;">
+          <span id="margin-left-val">0</span>px
+        </label>
+      </form>
+      <div class="demo-box" style="position:relative;">
+        <div id="margin-demo" style="background: var(--color-accent); padding: 12px; text-align: center; margin: 20px 20px 20px 0; border-radius: 4px; transition: margin .2s;">
+          Elemento con margin
+        </div>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Observa el espacio que lo rodea</p>
+      </div>
+      <div style="font-size:12px; margin-top:12px; background:rgba(240,147,251,0.14);padding:9px 8px;border-radius:6px;">
+        <div style="font-weight:700; color:var(--color-accent);margin-bottom:7px;">CSS generado:</div>
+        <pre id="css-margin-code" style="background:#232336;color:#d8cba9; padding: 8px; border-radius:5px; overflow-x:auto; margin:0;line-height:1.5;">
+margin: 20px 20px 20px 0;
+        </pre>
+      </div>
+    </div>
 
-                <!-- Padding -->
-                <div style="background: rgba(72,187,120,0.1); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-success);">
-                    <h3 style="margin-bottom: 12px; color: var(--color-success);">Padding (Relleno Interno)</h3>
-                    <p style="margin-bottom: 12px;">Crea espacio DENTRO del elemento, entre el contenido y el borde.</p>
-                    <div class="code-block">
-padding: 20px;  /* todos los lados */<br>
-padding-left: 20px;  /* solo izquierda */<br>
-padding: 10px 20px 10px 20px;  /* arriba derecha abajo izq */
-                    </div>
-                    <div class="demo-box">
-                        <div style="background: var(--color-success); padding: 20px; text-align: center; border-radius: 4px;">
-                            Elemento con padding
-                        </div>
-                        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">El contenido está alejado del borde</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Padding INTERACTIVO -->
+    <div style="background: rgba(72,187,120,0.12); padding: 20px; border-radius: 8px; border-left: 4px solid var(--color-success);">
+      <h3 style="margin-bottom: 12px; color: var(--color-success);">Padding (Relleno Interno)</h3>
+      <p style="margin-bottom: 12px;">Crea espacio DENTRO del elemento, entre el contenido y el borde.</p>
+      <form id="padding-controls" style="margin-bottom:15px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <label>Arriba <input type="range" min="0" max="64" value="20" id="padding-top" style="width:70px;">
+          <span id="padding-top-val">20</span>px
+        </label>
+        <label>Derecha <input type="range" min="0" max="64" value="20" id="padding-right" style="width:70px;">
+          <span id="padding-right-val">20</span>px
+        </label>
+        <label>Abajo <input type="range" min="0" max="64" value="20" id="padding-bottom" style="width:70px;">
+          <span id="padding-bottom-val">20</span>px
+        </label>
+        <label>Izquierda <input type="range" min="0" max="64" value="20" id="padding-left" style="width:70px;">
+          <span id="padding-left-val">20</span>px
+        </label>
+      </form>
+      <div class="demo-box" style="position:relative;">
+        <div id="padding-demo" style="background: var(--color-success); padding: 20px; text-align: center; border-radius: 4px; transition: padding .2s;">
+          Elemento con padding
+        </div>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">El contenido está alejado del borde</p>
+      </div>
+      <div style="font-size:12px; margin-top:12px; background:rgba(72,187,120,0.14);padding:9px 8px;border-radius:6px;">
+        <div style="font-weight:700; color:var(--color-success);margin-bottom:7px;">CSS generado:</div>
+        <pre id="css-padding-code" style="background:#232336;color:#48bb78; padding: 8px; border-radius:5px; overflow-x:auto; margin:0;line-height:1.5;">
+padding: 20px 20px 20px 20px;
+        </pre>
+      </div>
+    </div>
+  </div>
+  <div style="background: rgba(237,137,54,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-warning);">
+    <strong style="color: var(--color-warning);">💡 Tip:</strong>
+    La regla de 4 valores es: <b>arriba, derecha, abajo, izquierda</b> (sentido reloj).
+    <br>
+    Ejemplo: <code>margin: 10px 20px 30px 40px;</code> <span style="font-size:13px;">→ arriba, derecha, abajo, izquierda</span>
+  </div>
+  <script>
+    function updateMarginDemo() {
+      let mt = document.getElementById('margin-top').value;
+      let mr = document.getElementById('margin-right').value;
+      let mb = document.getElementById('margin-bottom').value;
+      let ml = document.getElementById('margin-left').value;
+      document.getElementById('margin-top-val').textContent = mt;
+      document.getElementById('margin-right-val').textContent = mr;
+      document.getElementById('margin-bottom-val').textContent = mb;
+      document.getElementById('margin-left-val').textContent = ml;
+      document.getElementById('margin-demo').style.margin = `${mt}px ${mr}px ${mb}px ${ml}px`;
+      let changed = [mt, mr, mb, ml].map((val,i)=>{let d=["20","20","20","0"]; return val!==d[i];});
+      function span(line, changed) {
+        return changed 
+          ? `<span style="background:#ffe066; color:#1a1a00; border-radius:4px; padding:2px 1px;">${line}</span>`
+          : line;
+      }
+      document.getElementById('css-margin-code').innerHTML =
+        span(`margin: ${mt}px ${mr}px ${mb}px ${ml}px;`, changed.some(Boolean));
+    }
+    document.querySelectorAll('#margin-controls input').forEach(el => {
+      el.addEventListener('input', updateMarginDemo);
+    });
+    updateMarginDemo();
+    function updatePaddingDemo() {
+      let pt = document.getElementById('padding-top').value;
+      let pr = document.getElementById('padding-right').value;
+      let pb = document.getElementById('padding-bottom').value;
+      let pl = document.getElementById('padding-left').value;
+      document.getElementById('padding-top-val').textContent = pt;
+      document.getElementById('padding-right-val').textContent = pr;
+      document.getElementById('padding-bottom-val').textContent = pb;
+      document.getElementById('padding-left-val').textContent = pl;
+      document.getElementById('padding-demo').style.padding = `${pt}px ${pr}px ${pb}px ${pl}px`;
+      let changed = [pt, pr, pb, pl].map((val,i)=>{let d=["20","20","20","20"]; return val!==d[i];});
+      function span(line, changed) {
+        return changed 
+          ? `<span style="background:#ffe066; color:#1a1a00; border-radius:4px; padding:2px 1px;">${line}</span>`
+          : line;
+      }
+      document.getElementById('css-padding-code').innerHTML =
+        span(`padding: ${pt}px ${pr}px ${pb}px ${pl}px;`, changed.some(Boolean));
+    }
+    document.querySelectorAll('#padding-controls input').forEach(el => {
+      el.addEventListener('input', updatePaddingDemo);
+    });
+    updatePaddingDemo();
+  </script>
+</section>
 
-            <div style="background: rgba(237,137,54,0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-warning);">
-                <strong style="color: var(--color-warning);">💡 Tip:</strong> La regla de 4 valores es: arriba, derecha, abajo, izquierda (en el sentido de las agujas del reloj).
-            </div>
-        </section>
+<section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">📦 Display: ¿Cómo se comportan los elementos?</h2>
+  <p style="margin-bottom: 16px;">La propiedad <strong>display</strong> controla cómo se distribuyen los elementos en la página.<br>
+    Prueba cada ejemplo e interactúa con el grid para ver cómo se arma un layout real.
+  </p>
 
-        <!-- 2. DISPLAY -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📦 Display: Cómo se comportan los elementos</h2>
-            
-            <p style="margin-bottom: 16px;">La propiedad <strong>display</strong> controla cómo se distribuyen los elementos en la página:</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px; margin-bottom: 24px;">
+    <!-- Block -->
+    <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px;">Block</h3>
+      <div class="code-block">display: block;</div>
+      <p style="margin-bottom: 12px; font-size: 14px;">Ocupa el ancho completo y fuerza salto de línea.</p>
+      <div style="background: rgba(102,126,234,0.2); padding: 8px; border-radius: 4px; margin-bottom: 8px;">
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; margin-bottom: 8px; border-radius:4px;">
+          Bloque 1
+        </div>
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius:4px;">
+          Bloque 2
+        </div>
+      </div>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.6);">div, p, h1, header y footer son block por defecto</p>
+    </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <!-- Block -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Block</h3>
-                    <div class="code-block">display: block;</div>
-                    <p style="margin-bottom: 12px; font-size: 14px;">El elemento ocupa el ancho completo disponible y fuerza un salto de línea.</p>
-                    <div style="background: rgba(102,126,234,0.2); padding: 8px; border-radius: 4px; margin-bottom: 8px;">
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center; margin-bottom: 8px;">Bloque 1</div>
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center;">Bloque 2</div>
-                    </div>
-                    <p style="font-size: 12px; color: rgba(255,255,255,0.6);">div, p, h1, header, footer son block por defecto</p>
-                </div>
+    <!-- Inline -->
+    <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px;">Inline</h3>
+      <div class="code-block">display: inline;</div>
+      <p style="margin-bottom: 12px; font-size: 14px;">Ocupa solo el espacio necesario; se alinea con otros.</p>
+      <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
+        <span style="background: var(--color-primary); padding: 6px 12px; margin-right: 6px; border-radius: 4px;">Inline 1</span>
+        <span style="background: var(--color-primary); padding: 6px 12px; border-radius: 4px;">Inline 2</span>
+      </div>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">a, span, strong y em son inline por defecto</p>
+    </div>
 
-                <!-- Inline -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Inline</h3>
-                    <div class="code-block">display: inline;</div>
-                    <p style="margin-bottom: 12px; font-size: 14px;">El elemento solo ocupa el espacio necesario y se posiciona en línea con otros.</p>
-                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
-                        <span style="background: var(--color-primary); padding: 6px 12px; margin-right: 6px; border-radius: 4px;">Inline 1</span>
-                        <span style="background: var(--color-primary); padding: 6px 12px; border-radius: 4px;">Inline 2</span>
-                    </div>
-                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">a, span, strong, em son inline por defecto</p>
-                </div>
+    <!-- Flex -->
+    <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px;">Flex</h3>
+      <div class="code-block">display: flex;<br>justify-content: <span id="flex-jc-val">space-between</span>;</div>
+      <p style="margin-bottom: 12px; font-size: 14px;">Distribuye elementos en línea, flexible. Ajusta la alineación:</p>
+      <select id="flex-jc" style="margin-bottom:10px;">
+        <option value="flex-start">flex-start</option>
+        <option value="center">center</option>
+        <option value="space-between" selected>space-between</option>
+        <option value="space-around">space-around</option>
+        <option value="space-evenly">space-evenly</option>
+        <option value="flex-end">flex-end</option>
+      </select>
+      <div id="flex-demo" style="display: flex; justify-content: space-between; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
+        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 1</div>
+        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 2</div>
+        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 3</div>
+      </div>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Ideal para layouts responsivos y menús</p>
+    </div>
 
-                <!-- Flex -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Flex</h3>
-                    <div class="code-block">display: flex;
-justify-content: space-between;</div>
-                    <p style="margin-bottom: 12px; font-size: 14px;">Los elementos se distribuyen de forma flexible en una línea o columna.</p>
-                    <div style="display: flex; justify-content: space-between; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
-                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 1</div>
-                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 2</div>
-                        <div style="background: var(--color-primary); padding: 12px; border-radius: 4px;">Flex 3</div>
-                    </div>
-                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Ideal para crear layouts responsivos fácilmente</p>
-                </div>
+    <!-- Grid INTERACTIVO -->
+    <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+      <h3 style="margin-bottom: 12px;">Grid</h3>
+      <div class="code-block" style="white-space:pre;">display: grid;
+grid-template-columns: <span id="grid-cols-code">repeat(2, 1fr)</span>;
+gap: <span id="grid-gap-code">8px</span>;</div>
+      <p style="margin-bottom: 12px; font-size: 14px;">Organiza elementos en filas y columnas. Ajusta columnas y espacio:</p>
+      <label>Nro. columnas: <input type="range" min="1" max="4" value="2" id="grid-cols" style="width:60px;">
+        <span id="grid-cols-val">2</span>
+      </label>
+      <label style="margin-left:14px;">Gap: <input type="range" min="0" max="32" value="8" id="grid-gap" style="width:60px;">
+        <span id="grid-gap-val">8</span>px
+      </label>
+      <div id="grid-demo" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; margin-top:12px;">
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">1</div>
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">2</div>
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">3</div>
+        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">4</div>
+      </div>
+      <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">
+        <strong>grid-template-columns</strong> define el nro. y tamaño de columnas.<br>
+        <strong>gap</strong> ajusta el espacio entre los elementos.<br>
+        Perfecto para layouts complejos en 2D y responsive.
+      </p>
+    </div>
+  </div>
+  <script>
+    // Flex interactivo
+    document.getElementById("flex-jc").addEventListener("input", function(){
+      let jc = this.value;
+      document.getElementById("flex-demo").style.justifyContent = jc;
+      document.getElementById("flex-jc-val").textContent = jc;
+    });
 
-                <!-- Grid -->
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Grid</h3>
-                    <div class="code-block">display: grid;
-grid-template-columns: 1fr 1fr;</div>
-                    <p style="margin-bottom: 12px; font-size: 14px;">Los elementos se alinean en una cuadrícula de filas y columnas.</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px;">
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">1</div>
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">2</div>
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">3</div>
-                        <div style="background: var(--color-primary); padding: 12px; text-align: center; border-radius: 4px;">4</div>
-                    </div>
-                    <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Perfecto para layouts complejos con 2D</p>
-                </div>
-            </div>
-        </section>
+    // Grid interactivo
+    function updateGridDemo() {
+      let cols = document.getElementById("grid-cols").value;
+      let gap = document.getElementById("grid-gap").value;
+      document.getElementById("grid-demo").style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      document.getElementById("grid-demo").style.gap = gap+"px";
+      document.getElementById("grid-cols-val").textContent = cols;
+      document.getElementById("grid-gap-val").textContent = gap;
+      document.getElementById("grid-cols-code").textContent = `repeat(${cols}, 1fr)`;
+      document.getElementById("grid-gap-code").textContent = `${gap}px`;
+      // Cambia cantidad de hijos visuales solo por demo (max 8)
+      let demo = document.getElementById("grid-demo");
+      while(demo.children.length < 4) {
+        let d = document.createElement("div");
+        d.style.background = "var(--color-primary)";
+        d.style.padding = "12px";
+        d.style.textAlign = "center";
+        d.style.borderRadius = "4px";
+        d.textContent = String(demo.children.length+1);
+        demo.appendChild(d);
+      }
+    }
+    document.getElementById("grid-cols").addEventListener("input", updateGridDemo);
+    document.getElementById("grid-gap").addEventListener("input", updateGridDemo);
+    updateGridDemo();
+  </script>
+</section>
 
-        <!-- 3. POSICIONAMIENTO -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📍 Posicionamiento</h2>
-            
-            <p style="margin-bottom: 16px;">La propiedad <strong>position</strong> controla cómo se posiciona un elemento en la página:</p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Static (Defecto)</h3>
-                    <div class="code-block">position: static;</div>
-                    <p style="font-size: 13px;">El elemento fluye naturalmente en el documento. No puedes usar top, left, etc.</p>
-                </div>
+      <section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">📍 Posicionamiento en CSS</h2>
+  <p style="margin-bottom: 18px;">
+    <b>¿Qué es?</b> La propiedad <b>position</b> controla cómo aparece un elemento dentro de la página y frente a otros.<br>
+    Imagina una caja dentro de una estantería: <i>¿está alineada de forma normal, movida, superpuesta, o siempre visible?</i>
+  </p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 22px;">
+    
+    <!-- STATIC -->
+    <div style="background: rgba(0,0,0,0.18); padding: 18px; border-radius: 10px;">
+      <h3 style="margin-bottom: 10px; color:#48bb78;">Static <span style="font-size:0.9em;font-weight:400">(por defecto)</span></h3>
+      <div class="code-block">position: static;</div>
+      <div style="position:relative;height:85px; background:#181824; border-radius:5px; margin-bottom:9px;">
+        <div style="position:static; background:#667eea; color:white; border-radius:7px; padding:10px 14px; left:0; top:0; margin-top:16px; width:120px;">
+          Soy static
+        </div>
+      </div>
+      <ul style="font-size: 13px; color: #acf; line-height:1.5;">
+        <li>Es el valor predeterminado para todos los elementos.</li>
+        <li>El elemento sigue el flujo normal HTML.</li>
+        <li><b>No</b> permite usar <code>top</code>, <code>left</code>, <code>right</code> o <code>bottom</code>.</li>
+        <li><b>Usa cuando:</b> No necesitas posicionamiento especial, solo distribución estándar.</li>
+      </ul>
+    </div>
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Relative</h3>
-                    <div class="code-block">position: relative;
-top: 20px;</div>
-                    <p style="font-size: 13px;">Se posiciona relativo a su lugar original. Ocupa espacio.</p>
-                </div>
+    <!-- RELATIVE -->
+    <div style="background: rgba(0,0,0,0.18); padding: 18px; border-radius: 10px;">
+      <h3 style="margin-bottom: 10px; color:#fcb900;">Relative <span style="font-size:0.9em;font-weight:400">(referencia propia)</span></h3>
+      <div class="code-block" id="css-rel-code">position: relative;<br>top: <span id="css-rel-top-val">18</span>px; left: <span id="css-rel-left-val">0</span>px;</div>
+      <label style="font-size:13px;">Top
+        <input type="range" min="-40" max="40" value="18" id="rel-top" style="width:60px;"> <span id="rel-top-val">18</span>px
+      </label>
+      <label style="font-size:13px;margin-left:8px;">Left
+        <input type="range" min="-40" max="40" value="0" id="rel-left" style="width:60px;"> <span id="rel-left-val">0</span>px
+      </label>
+      <div style="position:relative;height:85px; background:#181824; border-radius:5px; margin-bottom:9px;">
+        <div id="rel-demo" style="position:relative; background:#e34c26; color:white; border-radius:7px; padding:10px 14px; top:18px; left:0; width:120px;">
+          Soy relative
+        </div>
+      </div>
+      <ul style="font-size: 13px; color: #ffe066; line-height:1.5;">
+        <li>Se mueve <b>desde su posición original</b> (como "desplazar" una caja en una repisa).</li>
+        <li>El espacio que ocuparía no cambia.</li>
+        <li>Permite posicionar hijos <b>absolute</b> respecto a este elemento.</li>
+        <li><b>Usa cuando:</b> Quieres mover levemente un elemento sin romper el layout.</li>
+      </ul>
+    </div>
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Absolute</h3>
-                    <div class="code-block">position: absolute;
-top: 50px; left: 100px;</div>
-                    <p style="font-size: 13px;">Se posiciona relativo a su contenedor padre. No ocupa espacio.</p>
-                </div>
+    <!-- ABSOLUTE -->
+    <div style="background: rgba(0,0,0,0.18); padding: 18px; border-radius: 10px;">
+      <h3 style="margin-bottom: 10px; color:#f56565;">Absolute <span style="font-size:0.9em;font-weight:400">(libre dentro de un contenedor)</span></h3>
+      <div class="code-block" id="css-abs-code">position: absolute;<br>top: <span id="css-abs-top-val">18</span>px; left: <span id="css-abs-left-val">35</span>px;</div>
+      <label style="font-size:13px;">Top
+        <input type="range" min="0" max="45" value="18" id="abs-top" style="width:60px;"> <span id="abs-top-val">18</span>px
+      </label>
+      <label style="font-size:13px;margin-left:8px;">Left
+        <input type="range" min="0" max="90" value="35" id="abs-left" style="width:60px;"> <span id="abs-left-val">35</span>px
+      </label>
+      <div style="position:relative;height:85px; background:#181824; border-radius:5px; margin-bottom:9px;">
+        <div id="abs-demo" style="position:absolute; background:#f56565; color:white; border-radius:7px; padding:10px 14px; top:18px; left:35px; width:120px;">
+          Soy absolute
+        </div>
+      </div>
+      <ul style="font-size: 13px; color: #fcb; line-height:1.5;">
+        <li>Se posiciona <b>dentro del primer padre posicionado</b> (position ≠ static).</li>
+        <li><b>No</b> conserva su espacio original: otros elementos se "cierran".</li>
+        <li><b>Usa cuando:</b> Necesitas superponer, banners dentro de cajas, tooltips, y overlays.</li>
+      </ul>
+    </div>
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Fixed</h3>
-                    <div class="code-block">position: fixed;
-top: 0; left: 0;</div>
-                    <p style="font-size: 13px;">Se posiciona relativo a la ventana. Se mantiene fijo al hacer scroll.</p>
-                </div>
+    <!-- FIXED -->
+    <div style="background: rgba(0,0,0,0.18); padding: 18px; border-radius: 10px;">
+      <h3 style="margin-bottom: 10px; color:#48bb78;">Fixed <span style="font-size:0.9em;font-weight:400">(fijo en pantalla)</span></h3>
+      <div class="code-block" id="css-fix-code">position: fixed;<br>top: <span id="css-fix-top-val">12</span>px; left: <span id="css-fix-left-val">10</span>px;</div>
+      <label style="font-size:13px;">Top
+        <input type="range" min="0" max="120" value="12" id="fix-top" style="width:60px;"> <span id="fix-top-val">12</span>px
+      </label>
+      <label style="font-size:13px;margin-left:8px;">Left
+        <input type="range" min="0" max="120" value="10" id="fix-left" style="width:60px;"> <span id="fix-left-val">10</span>px
+      </label>
+      <div style="position:relative;height:85px; background:#181824; border-radius:5px; margin-bottom:9px;">
+        <div id="fix-demo" style="position:fixed; background:#48bb78; color:white; border-radius:7px; padding:10px 14px; top:12px; left:10px; width:120px; z-index:9999;">
+          Soy fixed
+        </div>
+      </div>
+      <ul style="font-size: 13px; color: #7fffab; line-height:1.5;">
+        <li>Siempre se mantiene en la misma posición de ventana, aunque hagas scroll.</li>
+        <li>Ideal para menús, botones flotantes y banners de alerta.</li>
+        <li><b>Usa cuando:</b> Algo debe estar siempre accesible y visible.</li>
+      </ul>
+    </div>
+    
+    <!-- STICKY -->
+    <div style="background: rgba(0,0,0,0.18); padding: 18px; border-radius: 10px;">
+      <h3 style="margin-bottom: 10px; color:#ffd700;">Sticky <span style="font-size:0.9em;font-weight:400">(mezcla de relative/fixed)</span></h3>
+      <div class="code-block">position: sticky;<br>top: 2px;</div>
+      <div style="height:85px; background:#181824; border-radius:5px; margin-bottom:9px;overflow:auto;">
+        <div style="height:60px;"></div>
+        <div id="sticky-demo" style="position:sticky; top:2px; background:#ffd700; color:#1a1a00; border-radius:7px; padding:10px 14px; width:120px;">
+          Soy sticky
+        </div>
+      </div>
+      <ul style="font-size: 13px; color: #ffe066; line-height:1.5;">
+        <li>Comienza como relative y se vuelve fixed al hacer scroll hasta alcanzar el top.</li>
+        <li>Muy útil para menús que se "pegan" o títulos que quedan visibles.</li>
+        <li><b>Usa cuando:</b> Deseas que algo permanezca a la vista solo al hacer scroll.</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:18px;font-size:1em; color:#e4e;">
+    <b>Consejos:</b>
+    <ul style="padding-left:22px; margin:7px 0;">
+      <li><b>Static</b> y <b>relative</b> <span style="color:#48bb78;">mantienen</span> el espacio normal en el flujo de página.</li>
+      <li><b>Absolute</b> y <b>fixed</b> <span style="color:#f56565;">rompen</span> el flujo y se superponen sobre el resto.</li>
+    </ul>
+    <div style="font-size:13px;color:#bbb;">Prueba mover los sliders y ver cómo el <span style="color:#ffe066;">position</span> afecta dónde y cómo se coloca cada caja.</div>
+  </div>
+  <script>
+    // RELATIVE
+    function updateRel() {
+      let t = document.getElementById('rel-top').value;
+      let l = document.getElementById('rel-left').value;
+      let d = document.getElementById('rel-demo')
+      d.style.top = t+'px';
+      d.style.left = l+'px';
+      document.getElementById('rel-top-val').textContent = t;
+      document.getElementById('rel-left-val').textContent = l;
+      document.getElementById('css-rel-top-val').textContent = t;
+      document.getElementById('css-rel-left-val').textContent = l;
+    }
+    document.getElementById('rel-top').addEventListener('input', updateRel);
+    document.getElementById('rel-left').addEventListener('input', updateRel);
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">Sticky</h3>
-                    <div class="code-block">position: sticky;
-top: 0;</div>
-                    <p style="font-size: 13px;">Hibrido entre relative y fixed. Se queda fijo cuando hace scroll.</p>
-                </div>
-            </div>
-        </section>
+    // ABSOLUTE
+    function updateAbs() {
+      let t = document.getElementById('abs-top').value;
+      let l = document.getElementById('abs-left').value;
+      let d = document.getElementById('abs-demo')
+      d.style.top = t+'px';
+      d.style.left = l+'px';
+      document.getElementById('abs-top-val').textContent = t;
+      document.getElementById('abs-left-val').textContent = l;
+      document.getElementById('css-abs-top-val').textContent = t;
+      document.getElementById('css-abs-left-val').textContent = l;
+    }
+    document.getElementById('abs-top').addEventListener('input', updateAbs);
+    document.getElementById('abs-left').addEventListener('input', updateAbs);
 
-        <!-- 4. RESPONSIVIDAD -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">📱 Responsividad: Adaptarse a todos los dispositivos</h2>
-            
-            <p style="margin-bottom: 16px;">
-                <strong>Responsive Design</strong> significa que tu sitio se adapta automáticamente a diferentes tamaños de pantalla.
-                Usa <strong>Media Queries</strong> para cambiar estilos según el dispositivo:
-            </p>
+    // FIXED
+    function updateFix() {
+      let t = document.getElementById('fix-top').value;
+      let l = document.getElementById('fix-left').value;
+      let d = document.getElementById('fix-demo');
+      d.style.top = t+'px';
+      d.style.left = l+'px';
+      document.getElementById('fix-top-val').textContent = t;
+      document.getElementById('fix-left-val').textContent = l;
+      document.getElementById('css-fix-top-val').textContent = t;
+      document.getElementById('css-fix-left-val').textContent = l;
+    }
+    document.getElementById('fix-top').addEventListener('input', updateFix);
+    document.getElementById('fix-left').addEventListener('input', updateFix);
 
-            <div class="code-block" style="margin-bottom: 24px;">
-/* Estilos por defecto (móvil) */<br>
-.container { width: 100%; }<br>
-<br>
-/* Tablet y pantallas más grandes */<br>
-@media (min-width: 768px) {<br>
-&nbsp;&nbsp;.container { width: 90%; }<br>
-}<br>
-<br>
-/* Desktop */<br>
-@media (min-width: 1024px) {<br>
-&nbsp;&nbsp;.container { width: 1200px; margin: 0 auto; }<br>
+    // Inicializa estado sliders
+    updateRel();
+    updateAbs();
+    updateFix();
+  </script>
+</section>
+
+<section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">📱 Responsividad: Ejemplos prácticos e interactivos</h2>
+  <p style="margin-bottom: 16px;">
+    “<b>Responsivo</b>” significa que ¡un solo sitio se ve bien en celular, tablet y PC!<br>
+    Prueba cambiar el ancho aquí y mira cómo se adapta:
+  </p>
+
+  <!-- MINI VENTANA RESPONSIVE -->
+  <div style="background:rgba(102,126,234,0.13); padding:26px 10px 18px 10px; border-radius:12px; max-width:600px; margin:0 auto 22px auto;">
+    <label style="font-size:14px;">Ancho de “pantalla”:
+      <input type="range" min="320" max="1200" value="375" id="viewport-width" style="width:170px;vertical-align:middle;">
+      <span id="vw-val" style="font-family:monospace;font-size:1.02em;">375</span>px
+    </label>
+    <div id="responsive-demo" style="margin-top:17px; margin-bottom:7px; border:1.5px solid #334; border-radius:8px; background:white; overflow:hidden; transition:width .3s,box-shadow .2s;">
+      <!-- El layout responsivo verdadero -->
+      <div id="responsive-layout" style="width:100%; min-height:120px;">
+        <div class="responsive-header" style="background:#667eea; color:white; padding:16px 14px; font-size:1.2em;">
+          HEADER / NAV
+        </div>
+        <div class="responsive-main" style="display:flex; gap:14px; padding:14px; transition:all .3s;">
+          <div class="responsive-side" style="background:#eee; border-radius:6px; min-width:90px; padding:7px 8px; display:none;">Sidebar</div>
+          <div class="responsive-content" style="background:#fafafa; border-radius:6px; flex:1; min-height: 50px; padding:7px 12px;">
+            Contenido principal
+          </div>
+        </div>
+        <div class="responsive-footer" style="background:#232336; color:white; padding:8px 14px; font-size:1em;">
+          Footer
+        </div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#8498a1;text-align:center;">
+      (Arrastra el slider para simular móvil, tablet y desktop)
+    </div>
+  </div>
+
+  <div style="margin-top:8px;">
+    <h4 style="font-size:1.12em;margin-bottom:7px;">Ejemplo CSS utilizado:</h4>
+    <pre style="font-size:13.4px;background:#1b1d36;color:#cce;padding:10px;border-radius:8px;overflow-x:auto;line-height:1.5;">
+/* Mobile first */
+.responsive-main { flex-direction: column; }
+.responsive-side { display: none; }
+/* Tablet y mayores */
+@media (min-width: 700px) {
+  .responsive-main { flex-direction: row; }
+  .responsive-side { display: block; width: 180px;}
 }
-            </div>
+/* PC grande */
+@media (min-width: 1000px) {
+  .responsive-main { gap: 40px; }
+  .responsive-header { font-size: 1.5em;}
+}
+    </pre>
+  </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">📱 Mobile</h3>
-                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> &lt; 768px</p>
-                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; align-items: flex-end;">
-                        <div style="width: 100%; height: 80px; background: var(--color-primary); border-radius: 4px;"></div>
-                    </div>
-                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Una columna, contenido a pantalla completa</p>
-                </div>
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(255px, 1fr)); gap:17px;">
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">💻 Tablet</h3>
-                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> 768px - 1024px</p>
-                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; gap: 8px; align-items: flex-end;">
-                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
-                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
-                    </div>
-                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Dos columnas, layout flexible</p>
-                </div>
+    <!-- EJEMPLO: Cambiar color de fondo -->
+    <div style="background: rgba(0,0,0,.15); border-radius:8px; padding:14px;">
+      <h4 style="margin-top:0;color:#48bb78;">Ejemplo: Cambia color según pantalla</h4>
+      <pre style="background:#191d24;color:#cfc;padding:7px;border-radius:5px;font-size:13px;">body { background:#fff; }
+@media (max-width:700px) {
+  body { background: #fafae5; }
+}</pre>
+      <p style="font-size:13px;margin:9px 0 0 0;color:#acd;">
+        Útil para reducir brillo en móvil o seguir reglas de accesibilidad.
+      </p>
+    </div>
 
-                <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
-                    <h3 style="margin-bottom: 12px;">🖥️ Desktop</h3>
-                    <p style="margin-bottom: 8px;"><strong>Pantalla:</strong> &gt; 1024px</p>
-                    <div style="background: rgba(102,126,234,0.2); padding: 12px; border-radius: 4px; height: 200px; display: flex; gap: 8px; align-items: flex-end;">
-                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
-                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
-                        <div style="flex: 1; background: var(--color-primary); border-radius: 4px;"></div>
-                    </div>
-                    <p style="font-size: 12px; margin-top: 8px; color: rgba(255,255,255,0.7);">Tres columnas, máximo ancho</p>
-                </div>
-            </div>
-        </section>
+    <!-- OCULTAR MENU/BOTÓN -->
+    <div style="background: rgba(0,0,0,.14); border-radius:8px; padding:14px;">
+      <h4 style="margin-top:0;color:#e34c26;">Ejemplo: Ocultar menú extra</h4>
+      <pre style="background:#191d24;color:#fcc;padding:7px;border-radius:5px;font-size:13px;">
+.menu-extra { display:block; }
+@media (max-width:600px) {
+  .menu-extra { display:none; }
+}</pre>
+      <p style="font-size:13px;margin:9px 0 0 0;color:#fcb;">
+        El menú de ayuda solo aparece en escritorio/tablet.
+      </p>
+    </div>
+
+    <!-- TEXTO MÁS GRANDE EN CELULAR -->
+    <div style="background: rgba(0,0,0,.13); border-radius:8px; padding:14px;">
+      <h4 style="margin-top:0;color:#667eea;">Ejemplo: Agrandar texto solo en móvil</h4>
+      <pre style="background:#191d24;color:#bcd;padding:7px;border-radius:5px;font-size:13px;">
+h1 { font-size:2.2em; }
+@media (max-width:500px) {
+  h1 { font-size:2.7em; }
+}</pre>
+      <p style="font-size:13px;margin:9px 0 0 0;color:#7ad;">
+        Aumenta el tamaño del título cuando hay poco espacio.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:19px;padding:13px 10px; background:rgba(102,126,234,0.08);border-left:4px solid var(--color-primary);border-radius:7px;">
+    <b style="color:var(--color-primary);">💡 Consejos:</b>
+    <ul style="color:rgba(255,255,255,0.85);font-size:14px;">
+      <li><b>Mobile First:</b> Piensa primero en pantallas chicas y luego mejora para grandes.</li>
+      <li>Revisa que <b>todo el contenido siga siendo legible</b> y utilizable en cualquier tamaño.</li>
+      <li>Combina media queries con flex/grid para layouts poderosos y hermosos.</li>
+    </ul>
+  </div>
+
+  <script>
+    function updateViewportDemo(){
+      let w = document.getElementById('viewport-width').value,
+          rDemo = document.getElementById('responsive-demo');
+      document.getElementById('vw-val').textContent = w;
+      rDemo.style.width = w+"px";
+      // Cambia layout
+      let main = document.querySelector('#responsive-layout .responsive-main');
+      let side = document.querySelector('#responsive-layout .responsive-side');
+      let head = document.querySelector('#responsive-layout .responsive-header');
+      // mobile
+      if(w < 700) {
+        main.style.flexDirection = "column";
+        main.style.gap = "14px";
+        side.style.display = "none";
+        head.style.fontSize = "1.2em";
+      } else {
+        main.style.flexDirection = "row";
+        side.style.display = "block";
+        side.style.width = "180px";
+        if(w >= 1000) {
+          main.style.gap = "40px";
+          head.style.fontSize = "1.5em";
+        } else {
+          main.style.gap = "14px";
+          head.style.fontSize = "1.2em";
+        }
+      }
+    }
+    document.getElementById('viewport-width').addEventListener('input', updateViewportDemo);
+    updateViewportDemo();
+  </script>
+</section>
+
 
         <!-- 5. TRANSICIONES Y ANIMACIONES -->
-        <section class="card" style="margin-top: 48px;">
-            <h2 class="title-lg" style="margin-bottom: 24px;">✨ Transiciones y Animaciones</h2>
-            
-            <p style="margin-bottom: 16px;">Dale movimiento y vida a tus elementos con transiciones y animaciones CSS:</p>
+<section class="card" style="margin-top: 48px;">
+  <h2 class="title-lg" style="margin-bottom: 24px;">✨ Transiciones y Animaciones en CSS</h2>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                <div>
-                    <h3 style="margin-bottom: 12px;">Transiciones</h3>
-                    <div class="code-block">
-.button {<br>
-&nbsp;&nbsp;background: blue;<br>
-&nbsp;&nbsp;transition: all 0.3s ease;<br>
-}<br>
-<br>
-.button:hover {<br>
-&nbsp;&nbsp;background: red;<br>
-&nbsp;&nbsp;transform: scale(1.1);<br>
+  <p style="margin-bottom: 16px;">
+    <b>¿Para qué sirven?</b> Permiten cambiar estilos de forma suave (<i>transiciones</i>) o crear movimiento (<i>animaciones</i>).
+    <br><br>
+    <b>¿Cómo se activan?</b> Depende de los <span style="color:#ffe066;">pseudoclases</span> (hover, focus, active...), o de definir una animación que avanza con el tiempo o eventos.
+  </p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px;">
+    <!-- TRANSICIONES -->
+    <div>
+      <h3 style="margin-bottom: 7px; color: #48bb78;">Transiciones</h3>
+      <ul style="font-size:14px; color:#89ffcb;line-height:1.5;margin-bottom:7px;">
+        <li><b>¿Qué es?</b> Hace que los cambios de CSS se vean suaves, no de golpe.</li>
+        <li>
+          <b>¿Cómo se activa?</b><br>
+          - <code>:hover</code>: cuando pasas el mouse<br>
+          - <code>:focus</code>: cuando haces clic o seleccionas (ej. input)<br>
+          - <code>:active</code>: cuando mantienes presionado (móvil o click)<br>
+          - <code>:checked</code>: cuando un checkbox está marcado
+        </li>
+      </ul>
+      <div style="margin-bottom:5px;">
+        <span style="background:#1b1d36;color:#acd;padding:2px 7px;border-radius:5px;font-size:13px;">Ejemplo: .button:hover</span><br>
+        <span style="font-size:12px;color:#b7cfff;">Selecciona el botón con clase <b>.button</b> sólo mientras el mouse está encima.</span>
+      </div>
+      <div style="background:#191a2d;border-radius:7px;margin-bottom:8px;overflow-x:auto;">
+        <pre style="color:#74ff95;font-size:13px;padding:11px 10px;line-height:1.4;margin:0;">
+.button {
+  background: #667eea;
+  color: white;
+  transition: all 0.3s;
 }
-                    </div>
-                    <div style="text-align: center; margin-top: 16px;">
-                        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
-                            Hover aquí ↗️
-                        </button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 style="margin-bottom: 12px;">Animaciones</h3>
-                    <div class="code-block">
-@keyframes bounce {<br>
-&nbsp;&nbsp;0%, 100% { transform: translateY(0); }<br>
-&nbsp;&nbsp;50% { transform: translateY(-20px); }<br>
-}<br>
-<br>
-.box {<br>
-&nbsp;&nbsp;animation: bounce 1s infinite;<br>
+.button:hover {
+  background: #e34c26;
+  transform: scale(1.1);
 }
-                    </div>
-                    <div style="text-align: center; margin-top: 16px;">
-                        <div style="display: inline-block; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 8px; animation: bounce 1s infinite;"></div>
-                    </div>
-                </div>
-            </div>
+        </pre>
+      </div>
+      <div style="text-align: center; margin-bottom: 10px;">
+        <button class="button" style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+          Hover aquí ↗️
+        </button>
+      </div>
+      <!-- Otros ejemplos de pseudoclases -->
+      <div>
+        <span style="background:#1b1d36;color:#acd;padding:2px 7px;border-radius:5px;font-size:13px;">Ejemplo: input:focus</span>
+        <input id="focusdemo" style="display:block;margin:12px auto 0 auto;padding:7px 12px;border:1px solid #bbb;border-radius:7px;transition:border-color .3s;" placeholder="Click aquí">
+      </div>
+      <style>
+        .button:hover { background: #e34c26 !important; transform: scale(1.1) !important;}
+        #focusdemo:focus { border-color: #48bb78;}
+      </style>
+    </div>
 
-            <style>
-                @keyframes bounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-20px); }
-                }
-            </style>
-        </section>
+    <!-- ANIMACIONES -->
+    <div>
+      <h3 style="margin-bottom: 7px; color: #e34c26;">Animaciones</h3>
+      <ul style="font-size:14px; color:#fcc;line-height:1.5;margin-bottom:7px;">
+        <li><b>¿Qué es?</b> Serie de pasos definidos en <code>@keyframes</code> que se repiten o avanzan con el tiempo.</li>
+        <li>
+          <b>¿Cómo se usa?</b>
+          <ul style="margin:0 0 0 18px;font-size:13px;">
+            <li>Aplica con <code>animation:</code> en la clase/elemento.</li>
+            <li>Decide si se repite (<code>infinite</code>) o ejecuta una vez (<code>forwards</code>).</li>
+            <li>Cambia color, posición, tamaño, rotación, opacidad...</li>
+          </ul>
+        </li>
+      </ul>
+      <div style="margin-bottom:5px;">
+        <span style="background:#1b1d36;color:#ffd166;padding:2px 7px;border-radius:5px;font-size:13px;">Ejemplo: keyframes bounce</span><br>
+        <span style="font-size:12px;color:#e8d5b9;">Hace rebotar el elemento usando una secuencia de estados.</span>
+      </div>
+      <div style="background:#191a2d;border-radius:7px;margin-bottom:8px;overflow-x:auto;">
+        <pre style="color:#ffd166;font-size:13px;padding:11px 10px;line-height:1.3;margin:0;">
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.bouncer { animation: bounce 1s infinite; }
+        </pre>
+      </div>
+      <div style="text-align: center; margin-bottom:10px;">
+        <span class="bouncer" style="display:inline-block;width:50px;height:50px;background:linear-gradient(135deg, #667eea, #f093fb);border-radius:10px;animation:bounce 1s infinite;margin:7px;"></span>
+      </div>
+      <div>
+        <span style="background:#1b1d36;color:#ffd166;padding:2px 7px;border-radius:5px;font-size:13px;">Ejemplo: rotación (.spin)</span>
+        <span class="spin" style="display:inline-block;width:38px;height:38px;background:goldenrod;border-radius:50%;vertical-align:middle;animation:giro 1.2s linear infinite;margin:0 8px;">
+          <span style="font-size:17px;line-height:38px;display:inline-block;width:38px;text-align:center;">🔄</span>
+        </span>
+      </div>
+      <style>
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes giro {
+          100% { transform: rotate(360deg);}
+        }
+        .spin { animation: giro 1.2s linear infinite; }
+      </style>
+    </div>
+  </div>
+  <div style="margin-top:21px;padding:13px 10px; background:rgba(102,126,234,0.09);border-left:4px solid var(--color-primary);border-radius:7px;">
+    <b style="color:var(--color-primary);">💡 Resumen y Buenas prácticas:</b>
+    <ul style="color:rgba(255,255,255,0.88);font-size:14px;">
+      <li><b><code>:hover</code></b>: Mouse encima.</li>
+      <li><b><code>:focus</code></b>: Recibiendo foco (clic, tab, touch).</li>
+      <li><b><code>:active</code></b>: Durante click o tap.</li>
+      <li><b><code>@keyframes</code>:</b> Define los estados de una animación compleja.</li>
+      <li><b>Tip:</b> Usa <code>transition</code> para suavizar cambios, <code>animation</code> para movimientos repetidos.</li>
+    </ul>
+  </div>
+</section>
+
+
 
         <!-- Botón continuar -->
-        <div style="text-align: center; margin: 64px 0;">
-<a href="modulo3.html" class="next-button"> Siguiente</a>
-        </div>
+<div class="space-btn-wrapper">
+  <a href="modulo3.html" class="space-link" aria-label="Siguiente módulo">
+    <button type="button" class="space-btn">
+      <strong class="space-btn-text">Continuar</strong>
+      <div class="space-stars-container">
+        <div class="space-stars"></div>
+      </div>
+      <div class="space-glow">
+        <div class="space-circle"></div>
+        <div class="space-circle"></div>
+      </div>
+    </button>
+  </a>
+</div>
+
+
+
     </div>
 </body>
 </html>

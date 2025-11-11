@@ -1,0 +1,85 @@
+/* GENERALES */ body {
+  background-color: #0f0f0f;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* HEADER */ header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 48px;
+  margin: 0;
+  color: white;
+}
+
+/* BARRA DE BÚSQUEDA */ .search-bar {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* GRID */ .pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* TARJETA */ .pokemon-card {
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.pokemon-card:hover {
+  border-color: #667eea;
+  transform: translateY(-10px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.pokemon-card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: 20px 0;
+}
+
+.pokemon-card h2 {
+  font-size: 24px;
+  color: #667eea;
+  margin: 10px 0 5px;
+}
+
+.pokemon-card p {
+  font-size: 14px;
+  color: #aaa;
+  margin: 5px 0;
+}
