@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 9 - Examen Final Interactivo</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #b8c1ec;
+  margin: 10px 0;
+}
+
+.exam-wrapper {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(102,126,234,0.2);
+}
+
+.progress-section {
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  background: rgba(102,126,234,0.1);
+  border-radius: 10px;
+  height: 12px;
+  margin: 15px 0;
+  overflow: hidden;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  height: 100%;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #a78bfa;
+  font-size: 0.95rem;
+}
+
+.timer {
+  background: rgba(102,126,234,0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.question-card {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  display: none;
+  animation: slideIn 0.3s;
+}
+
+.question-card.active {
+  display: block;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.question-number {
+  background: #667eea;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.question-difficulty {
+  font-size: 1rem;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  color: #d1d5f0;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-btn {
+  background: rgba(102,126,234,0.15);
+  border: 2px solid rgba(102,126,234,0.3);
+  padding: 16px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #d1d5f0;
+  text-align: left;
+  font-size: 1.05rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: rgba(102,126,234,0.25);
+  border-color: #667eea;
+  transform: translateX(5px);
+}
+
+.option-btn.selected {
+  background: rgba(102,126,234,0.3);
+  border-color: #667eea;
+}
+
+.option-btn.correct {
+  background: rgba(76,175,80,0.2);
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.option-btn.incorrect {
+  background: rgba(255,107,107,0.2);
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.option-btn.disabled {
+  cursor: not-allowed;
+}
+
+.feedback-box {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  animation: fadeIn 0.3s;
+}
+
+.feedback-box.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.feedback-correct {
+  background: rgba(76,175,80,0.1);
+  border-left-color: #4caf50;
+  color: #4caf50;
+}
+
+.feedback-incorrect {
+  background: rgba(255,107,107,0.1);
+  border-left-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.feedback-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feedback-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-prev {
+  background: rgba(102,126,234,0.3);
+  border: 1px solid rgba(102,126,234,0.5);
+  color: #a78bfa;
+  flex: 0.8;
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  flex: 1.2;
+}
+
+.results-screen {
+  display: none;
+  animation: slideIn 0.5s;
+}
+
+.results-screen.show {
+  display: block;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.score-circle {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+  border: 3px solid #667eea;
+}
+
+.score-percentage {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 10px 0;
+}
+
+.result-title {
+  font-size: 2rem;
+  color: #d1d5f0;
+  margin: 20px 0;
+}
+
+.result-message {
+  font-size: 1.2rem;
+  color: #b8c1ec;
+  margin-bottom: 30px;
+}
+
+.status-banner {
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.status-pass {
+  background: rgba(76,175,80,0.15);
+  border-left: 4px solid #4caf50;
+  color: #4caf50;
+}
+
+.status-fail {
+  background: rgba(255,107,107,0.15);
+  border-left: 4px solid #ff6b6b;
+  color: #ff6b6b;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.stat-card {
+  background: rgba(102,126,234,0.1);
+  border: 1px solid rgba(102,126,234,0.3);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-label {
+  color: #a78bfa;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.stat-unit {
+  font-size: 0.8rem;
+  color: #b8c1ec;
+}
+
+.review-section {
+  margin: 40px 0;
+  padding: 25px;
+  background: rgba(102,126,234,0.05);
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.review-title {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+}
+
+.review-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(102,126,234,0.2);
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-number {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background: rgba(102,126,234,0.2);
+  color: #667eea;
+}
+
+.review-number.correct {
+  background: rgba(76,175,80,0.2);
+  color: #4caf50;
+}
+
+.review-number.incorrect {
+  background: rgba(255,107,107,0.2);
+  color: #ff6b6b;
+}
+
+.review-content {
+  flex: 1;
+}
+
+.review-question {
+  color: #d1d5f0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.review-answer {
+  font-size: 0.9rem;
+  color: #b8c1ec;
+  margin-top: 5px;
+}
+
+.final-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-finish {
+  padding: 15px 48px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4caf50, #43e97b);
+}
+
+.btn-retry {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.btn-home {
+  background: rgba(102,126,234,0.2);
+  color: #a78bfa;
+  border: 1px solid #667eea;
+}
+
+.completion-badge {
+  background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(67,233,123,0.2));
+  border: 2px solid #4caf50;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 30px 0;
+  color: #4caf50;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .exam-wrapper { padding: 25px; }
+  .score-circle { width: 150px; height: 150px; font-size: 3rem; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🧠 Examen Final JavaScript</h1>
+    <p>Demuestra todo lo que aprendiste en el Día 9</p>
+    <p style="font-size: 1rem; color: #a78bfa;">10 preguntas • Feedback inmediato • Interactivo</p>
+  </div>
+
+  <!-- Exam Wrapper -->
+  <div class="exam-wrapper">
+
+    <!-- Progress Section -->
+    <div class="progress-section">
+      <div class="progress-info">
+        <div>
+          <strong>Progreso:</strong> <span id="questionNumber">1</span> de <span id="totalQuestions">10</span>
+        </div>
+        <div class="timer">
+          <span id="timer">⏱️ 0:00</span>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div id="questionContainer"></div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+      
+      <div class="results-header">
+        <div class="score-circle" id="scoreIcon">🎯</div>
+        <div class="score-percentage" id="scorePercentage">0%</div>
+        <div class="result-title" id="resultTitle">Resultado</div>
+        <div class="result-message" id="resultMessage">Analizando resultados...</div>
+      </div>
+
+      <div class="status-banner" id="statusBanner"></div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Respuestas Correctas</div>
+          <div class="stat-value"><span id="correctCount">0</span><span class="stat-unit">/10</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Porcentaje Logrado</div>
+          <div class="stat-value" id="percentageValue">0<span class="stat-unit">%</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tiempo Empleado</div>
+          <div class="stat-value"><span id="finalTime">0:00</span><span class="stat-unit">min</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Preguntas Difíciles</div>
+          <div class="stat-value" id="hardCount">0<span class="stat-unit">Q</span></div>
+        </div>
+      </div>
+
+      <div class="review-section">
+        <div class="review-title">📋 Revisión de Respuestas</div>
+        <div id="reviewContainer"></div>
+      </div>
+
+      <div id="certificateBox"></div>
+
+      <div class="final-buttons">
+        <button class="btn btn-finish btn-success" id="completeBtn" style="display:none;" onclick="completeDay()">
+          ✅ Completar Día 9
+        </button>
+        <button class="btn btn-finish btn-retry" onclick="location.reload()">
+          🔄 Intentar de Nuevo
+        </button>
+        <button class="btn btn-finish btn-home" onclick="window.location.href='../menu.html'">
+          🏠 Volver al Inicio
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    id: 1,
+    text: "¿Cuál es la forma correcta de seleccionar un elemento por su ID?",
+    difficulty: "Fácil",
+    options: [
+      { text: "document.getElement('miID')", correct: false },
+      { text: "document.getElementById('miID')", correct: true },
+      { text: "document.select('#miID')", correct: false },
+      { text: "getElementById('miID')", correct: false }
+    ],
+    explanation: "getElementById() es el método estándar para obtener un elemento por ID. Debe llamarse desde document."
+  },
+  {
+    id: 2,
+    text: "¿Qué hace addEventListener?",
+    difficulty: "Fácil",
+    options: [
+      { text: "Añade un elemento visual al DOM", correct: false },
+      { text: "Escucha un evento y ejecuta una función cuando ocurre", correct: true },
+      { text: "Elimina un evento del DOM", correct: false },
+      { text: "Cambia el estilo de un elemento", correct: false }
+    ],
+    explanation: "addEventListener vincula un evento (click, keydown, etc.) a un elemento y ejecuta una función cuando ocurre."
+  },
+  {
+    id: 3,
+    text: "¿Cuál es la diferencia entre 'let' y 'const'?",
+    difficulty: "Medio",
+    options: [
+      { text: "No hay diferencia, son sinónimos", correct: false },
+      { text: "'let' es para strings y 'const' para números", correct: false },
+      { text: "'let' es reasignable, 'const' es constante", correct: true },
+      { text: "'const' es solo para arrays", correct: false }
+    ],
+    explanation: "let permite reasignar valores, const no. Ambos son variables con scope de bloque."
+  },
+  {
+    id: 4,
+    text: "¿Qué devuelve document.querySelectorAll('.clase')?",
+    difficulty: "Medio",
+    options: [
+      { text: "El primer elemento con esa clase", correct: false },
+      { text: "Todos los elementos con esa clase (NodeList)", correct: true },
+      { text: "Un array normal de elementos", correct: false },
+      { text: "null si no encuentra elementos", correct: false }
+    ],
+    explanation: "querySelectorAll devuelve una NodeList con TODOS los elementos. querySelector devuelve solo el primero."
+  },
+  {
+    id: 5,
+    text: "¿Cómo cambias el texto de un elemento?",
+    difficulty: "Fácil",
+    options: [
+      { text: "elemento.text = 'nuevo texto'", correct: false },
+      { text: "elemento.textContent = 'nuevo texto'", correct: true },
+      { text: "elemento.change('nuevo texto')", correct: false },
+      { text: "updateText(elemento, 'nuevo texto')", correct: false }
+    ],
+    explanation: ".textContent es la propiedad para cambiar el texto. .innerHTML es para HTML."
+  },
+  {
+    id: 6,
+    text: "¿Qué hace forEach en un array?",
+    difficulty: "Medio",
+    options: [
+      { text: "Busca un elemento específico", correct: false },
+      { text: "Itera sobre cada elemento ejecutando una función", correct: true },
+      { text: "Elimina elementos del array", correct: false },
+      { text: "Ordena los elementos", correct: false }
+    ],
+    explanation: "forEach ejecuta una función para cada elemento del array sin modificar el original."
+  },
+  {
+    id: 7,
+    text: "¿Cómo agregar una clase CSS a un elemento?",
+    difficulty: "Fácil",
+    options: [
+      { text: "elemento.class = 'miClase'", correct: false },
+      { text: "elemento.classList.add('miClase')", correct: true },
+      { text: "elemento.addClass('miClase')", correct: false },
+      { text: "addClass(elemento, 'miClase')", correct: false }
+    ],
+    explanation: ".classList.add() agrega clases. También está .toggle() y .remove()."
+  },
+  {
+    id: 8,
+    text: "¿Qué es localStorage?",
+    difficulty: "Difícil",
+    options: [
+      { text: "Un servidor en la nube", correct: false },
+      { text: "Almacenamiento local que persiste entre sesiones", correct: true },
+      { text: "Una carpeta en la computadora del usuario", correct: false },
+      { text: "Un tipo de variable temporal", correct: false }
+    ],
+    explanation: "localStorage guarda datos en el navegador. Se usa setItem() para guardar y getItem() para recuperar."
+  },
+  {
+    id: 9,
+    text: "¿Cuál es el resultado de parseFloat('42.5')?",
+    difficulty: "Medio",
+    options: [
+      { text: "'42.5' (string)", correct: false },
+      { text: "42.5 (número decimal)", correct: true },
+      { text: "42 (número entero)", correct: false },
+      { text: "NaN (error)", correct: false }
+    ],
+    explanation: "parseFloat() convierte un string a número decimal. parseInt() lo haría número entero."
+  },
+  {
+    id: 10,
+    text: "¿Qué es el DOM?",
+    difficulty: "Medio",
+    options: [
+      { text: "Un lenguaje de programación", correct: false },
+      { text: "La representación en árbol del HTML que JS manipula", correct: true },
+      { text: "Un servidor web", correct: false },
+      { text: "Una base de datos", correct: false }
+    ],
+    explanation: "El DOM (Document Object Model) es la interfaz que permite a JavaScript acceder y manipular HTML."
+  }
+];
+
+let currentQuestion = 0;
+let answers = [];
+let startTime = Date.now();
+let timerInterval;
+
+// Inicializar
+function init() {
+  renderQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    document.getElementById('timer').textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }, 1000);
+}
+
+function renderQuestion() {
+  const question = questions[currentQuestion];
+  const container = document.getElementById('questionContainer');
+  
+  let html = `
+    <div class="question-card active">
+      <div class="question-header">
+        <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+        <div class="question-difficulty">⭐ ${question.difficulty}</div>
+      </div>
+      <div class="question-text">${question.text}</div>
+      <div class="options-container" id="optionsContainer">
+  `;
+
+  question.options.forEach((option, index) => {
+    const isAnswered = answers[currentQuestion] !== undefined;
+    const selectedIndex = answers[currentQuestion];
+    const isSelected = selectedIndex === index;
+    const isCorrect = option.correct;
+    
+    let className = 'option-btn';
+    if (isAnswered) {
+      className += ' disabled';
+      if (isSelected && isCorrect) className = 'option-btn correct';
+      else if (isSelected && !isCorrect) className = 'option-btn incorrect';
+      else if (isCorrect) className = 'option-btn correct';
+    } else if (isSelected) {
+      className += ' selected';
+    }
+
+    html += `<button class="${className}" onclick="selectOption(${index})" ${isAnswered ? 'disabled' : ''}>${option.text}</button>`;
+  });
+
+  html += `</div>`;
+
+  // Feedback
+  if (answers[currentQuestion] !== undefined) {
+    const selectedIndex = answers[currentQuestion];
+    const selectedOption = question.options[selectedIndex];
+    const feedbackClass = selectedOption.correct ? 'feedback-correct' : 'feedback-incorrect';
+    const feedbackTitle = selectedOption.correct ? '✅ ¡CORRECTO!' : '❌ INCORRECTO';
+    
+    html += `
+      <div class="feedback-box show ${feedbackClass}">
+        <div class="feedback-title">${feedbackTitle}</div>
+        <div class="feedback-text"><strong>Explicación:</strong> ${question.explanation}</div>
+      </div>
+    `;
+  }
+
+  html += `</div>`;
+  container.innerHTML = html;
+
+  // Actualizar progreso
+  updateProgress();
+  updateButtons();
+}
+
+function selectOption(index) {
+  answers[currentQuestion] = index;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showResults();
+  }
+}
+
+function previousQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function updateProgress() {
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('questionNumber').textContent = currentQuestion + 1;
+}
+
+function updateButtons() {
+  const prevBtn = document.querySelector('.btn-prev') || createButtons();
+  const nextBtn = document.querySelector('.btn-next');
+  
+  prevBtn.disabled = currentQuestion === 0;
+  nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar Examen ✓' : 'Siguiente →';
+}
+
+function createButtons() {
+  const container = document.querySelector('.exam-wrapper');
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.className = 'buttons-container';
+  buttonsDiv.innerHTML = `
+    <button class="btn btn-prev" onclick="previousQuestion()" disabled>← Anterior</button>
+    <button class="btn btn-next" onclick="nextQuestion()">Siguiente →</button>
+  `;
+  container.appendChild(buttonsDiv);
+  return buttonsDiv.querySelector('.btn-prev');
+}
+
+createButtons();
+
+function showResults() {
+  clearInterval(timerInterval);
+  
+  document.getElementById('questionContainer').style.display = 'none';
+  document.querySelector('.buttons-container').style.display = 'none';
+  document.querySelector('.progress-section').style.display = 'none';
+  document.getElementById('resultsScreen').classList.add('show');
+
+  // Calcular puntuación
+  let correctCount = 0;
+  answers.forEach((answer, index) => {
+    if (questions[index].options[answer].correct) {
+      correctCount++;
+    }
+  });
+
+  const percentage = Math.round((correctCount / questions.length) * 100);
+  const passed = percentage >= 60;
+
+  // Actualizar resultados
+  const scorePercentage = document.getElementById('scorePercentage');
+  scorePercentage.textContent = percentage + '%';
+
+  const scoreIcon = document.getElementById('scoreIcon');
+  const resultTitle = document.getElementById('resultTitle');
+  const resultMessage = document.getElementById('resultMessage');
+  const statusBanner = document.getElementById('statusBanner');
+
+  if (passed) {
+    scoreIcon.textContent = '🏆';
+    resultTitle.textContent = '¡FELICIDADES!';
+    resultMessage.textContent = `Aprobaste con excelencia - ${percentage}%`;
+    statusBanner.className = 'status-banner status-pass';
+    statusBanner.innerHTML = `✅ EXAMEN APROBADO - ${percentage}% correcto`;
+    document.getElementById('completeBtn').style.display = 'inline-block';
+  } else {
+    scoreIcon.textContent = '📚';
+    resultTitle.textContent = 'Necesitas más práctica';
+    resultMessage.textContent = `Obtuviste ${percentage}%. Necesitabas 60% para aprobar.`;
+    statusBanner.className = 'status-banner status-fail';
+    statusBanner.innerHTML = `⚠️ NO APROBADO - ${percentage}% (Mínimo: 60%)`;
+  }
+
+  // Estadísticas
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  const minutes = Math.floor(elapsed / 60);
+  const seconds = elapsed % 60;
+
+  document.getElementById('correctCount').textContent = correctCount;
+  document.getElementById('percentageValue').textContent = percentage + '%';
+  document.getElementById('finalTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+  // Contar preguntas difíciles que fallaron
+  let hardWrong = 0;
+  answers.forEach((answer, index) => {
+    if (questions[index].difficulty === 'Difícil' && !questions[index].options[answer].correct) {
+      hardWrong++;
+    }
+  });
+  document.getElementById('hardCount').textContent = hardWrong;
+
+  // Review
+  const reviewContainer = document.getElementById('reviewContainer');
+  let reviewHTML = '';
+  answers.forEach((answer, index) => {
+    const question = questions[index];
+    const isCorrect = question.options[answer].correct;
+    const numberClass = isCorrect ? 'correct' : 'incorrect';
+    const icon = isCorrect ? '✅' : '❌';
+
+    reviewHTML += `
+      <div class="review-item">
+        <div class="review-number ${numberClass}">${icon}</div>
+        <div class="review-content">
+          <div class="review-question">Q${index + 1}: ${question.text}</div>
+          <div class="review-answer">Tu respuesta: ${question.options[answer].text}</div>
+        </div>
+      </div>
+    `;
+  });
+  reviewContainer.innerHTML = reviewHTML;
+
+  // Certificado
+  if (passed) {
+    const certBox = document.getElementById('certificateBox');
+    certBox.innerHTML = `
+      <div class="completion-badge">
+        🎓 CERTIFICADO DESBLOQUEADO<br>
+        Has completado exitosamente el Día 9<br>
+        <strong>Puntuación Final: ${percentage}%</strong>
+      </div>
+    `;
+  }
+}
+
+function completeDay() {
+  const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+  if (!completedDays.includes(9)) {
+    completedDays.push(9);
+    localStorage.setItem('completedDays', JSON.stringify(completedDays));
+  }
+  alert('✅ ¡Felicidades!\n\nHas completado exitosamente el Día 9: Proyecto Calculadora\n\n🎓 Certificado guardado\n🏆 Progreso actualizado');
+  window.location.href = '../menu.html';
+}
+
+// Iniciar
+init();
+</script>
+</body>
+</html>

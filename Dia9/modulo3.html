@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 9 - Módulo 3: JavaScript Funcionalidad</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.section p, .section li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+.section ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.challenge-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border: 3px solid #667eea;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px 0;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.challenge-icon {
+  font-size: 2.5rem;
+}
+
+.challenge-title {
+  font-size: 1.4rem;
+  color: #667eea;
+  font-weight: 700;
+  margin: 0;
+}
+
+.challenge-description {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 3px solid #667eea;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.challenge-description ul {
+  margin: 15px 0 0 20px;
+}
+
+.code-wrapper {
+  background: #0a0a14;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.code-header {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code-filename {
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.code-content {
+  padding: 20px;
+  overflow-x: auto;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.code-content code {
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  font-size: 0.9rem;
+  line-height: 2;
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hint-box {
+  background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,235,59,0.1));
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+}
+
+.hint-box strong {
+  color: #ffc107;
+}
+
+.hint-box pre {
+  background: #0a0a14;
+  padding: 10px;
+  border-radius: 6px;
+  color: #7dd3fc;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.solution-box {
+  background: rgba(102,126,234,0.1);
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.solution-header {
+  background: rgba(102,126,234,0.2);
+  padding: 15px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+.solution-header:hover {
+  background: rgba(102,126,234,0.3);
+}
+
+.solution-title {
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.solution-toggle {
+  font-size: 1.5rem;
+  color: #667eea;
+  transition: transform 0.3s;
+}
+
+.solution-content {
+  padding: 20px;
+  display: none;
+  border-top: 1px solid rgba(102,126,234,0.2);
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.solution-content.show {
+  display: block;
+}
+
+.solution-toggle.show {
+  transform: rotate(180deg);
+}
+
+.explanation-box {
+  background: rgba(102,126,234,0.05);
+  border-left: 3px solid #667eea;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.explanation-box strong {
+  color: #a78bfa;
+}
+
+.explanation-box ul {
+  margin: 10px 0 0 20px;
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.copy-btn.copied {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.demo-section {
+  background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(67,233,123,0.15));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid #4caf50;
+  margin: 30px 0;
+}
+
+.demo-title {
+  font-size: 1.3rem;
+  color: #4caf50;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.calculator-demo {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.calc-display {
+  background: #0f3460;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: right;
+  font-size: 2.5rem;
+  color: #00d4ff;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  border: 2px solid #667eea;
+  word-break: break-all;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-btn {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.calc-number {
+  background: #16213e;
+  color: #00d4ff;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.calc-operator {
+  background: #667eea;
+  color: white;
+}
+
+.calc-equals {
+  background: #4caf50;
+  color: white;
+  grid-column: span 2;
+}
+
+.calc-clear {
+  background: #ff6b6b;
+  color: white;
+  grid-column: span 2;
+}
+
+.calc-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.concept-card {
+  background: rgba(102,126,234,0.1);
+  border: 1px solid rgba(102,126,234,0.3);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.concept-card h4 {
+  color: #a78bfa;
+  margin-bottom: 10px;
+}
+
+.concept-card code {
+  background: #0a0a14;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #7dd3fc;
+  font-family: 'Courier New', monospace;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>⚙️ Módulo 3: JavaScript Funcionalidad</h1>
+    <p>Dale vida a tu calculadora con JavaScript. Aprenderás eventos, lógica y manipulación del DOM.</p>
+  </div>
+
+  <!-- Introducción -->
+  <div class="section">
+    <h2>🎯 ¿Qué haremos en este módulo?</h2>
+    <p>Ahora que tienes el HTML y CSS listos, agregaremos JavaScript para que la calculadora <strong>realmente funcione</strong>:</p>
+    <ul>
+      <li>✅ Capturas clicks en los botones</li>
+      <li>✅ Mostrar números en el display</li>
+      <li>✅ Realizar operaciones matemáticas</li>
+      <li>✅ Mostrar resultados</li>
+      <li>✅ Limpiar y borrar</li>
+    </ul>
+  </div>
+
+  <!-- CONCEPTO: Variables y DOM -->
+  <div class="section">
+    <h2>📚 Conceptos Clave Antes de Empezar</h2>
+    
+    <div class="concept-card">
+      <h4>1️⃣ Seleccionar elementos HTML con JavaScript</h4>
+      <p style="color: #d1d5f0; margin-bottom: 10px;">Para manipular HTML desde JavaScript, necesitamos "seleccionar" los elementos:</p>
+      <code>const display = document.getElementById('display');</code>
+    </div>
+
+    <div class="concept-card">
+      <h4>2️⃣ Event Listeners - Escuchar clicks</h4>
+      <p style="color: #d1d5f0; margin-bottom: 10px;">Podemos ejecutar código cuando el usuario clickea un botón:</p>
+      <code>boton.addEventListener('click', function() { ... });</code>
+    </div>
+
+    <div class="concept-card">
+      <h4>3️⃣ Variables - Almacenar datos</h4>
+      <p style="color: #d1d5f0; margin-bottom: 10px;">Guardar valores para usar después:</p>
+      <code>let numeroIngresado = 5;</code>
+    </div>
+
+    <div class="concept-card">
+      <h4>4️⃣ Cambiar el contenido del HTML</h4>
+      <p style="color: #d1d5f0; margin-bottom: 10px;">Actualizar lo que ve el usuario:</p>
+      <code>display.value = "42";</code>
+    </div>
+  </div>
+
+  <!-- RETO 1 -->
+  <div class="section">
+    <h2>🚀 Reto 1: Seleccionar Elementos HTML</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔍</div>
+        <h3 class="challenge-title">Accede al display desde JavaScript</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> En tu archivo <code>js/script.js</code>, obtén referencias a los elementos que necesitarás:
+        <ul>
+          <li>El display (con id="display")</li>
+          <li>Todos los botones (con clase "btn")</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Usa <code>document.getElementById()</code> para elementos por id
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Usa <code>document.querySelectorAll()</code> para obtener múltiples elementos
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 3:</strong> Guarda estas referencias en variables para usarlas después
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Reto 1</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code>// Obtener referencias a los elementos HTML
+const display = document.getElementById('display');
+const botones = document.querySelectorAll('.btn');</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Por qué funciona?</strong>
+            <ul>
+              <li><code>document.getElementById('display')</code> - Busca el elemento con id="display"</li>
+              <li><code>document.querySelectorAll('.btn')</code> - Obtiene TODOS los elementos con clase "btn"</li>
+              <li><code>const</code> - Guarda estas referencias en variables para usarlas después</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 2 -->
+  <div class="section">
+    <h2>🚀 Reto 2: Crear Variables para la Calculadora</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">📦</div>
+        <h3 class="challenge-title">Declara variables para guardar datos</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea variables para:
+        <ul>
+          <li>El número que está escribiendo el usuario (ej: "123")</li>
+          <li>El operador seleccionado (ej: "+")</li>
+          <li>El resultado anterior (para hacer la operación)</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Las variables deben estar FUERA de las funciones para poder usarlas en varios lugares
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Inicializa el display con "0"
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Variables Globales</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">// Variables globales para la calculadora
+let numeroActual = '0';      // Número que está escribiendo
+let numeroAnterior = '';     // Número guardado
+let operador = null;         // Operador seleccionado (+, -, ×, ÷)
+let nuevaOperacion = true;   // Para saber si debe limpiar el display</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Por qué estas variables?</strong>
+            <ul>
+              <li><code>numeroActual</code> - Guarda lo que el usuario está escribiendo</li>
+              <li><code>numeroAnterior</code> - Guarda el primer número de la operación</li>
+              <li><code>operador</code> - Recuerda si presionó +, -, ×, o ÷</li>
+              <li><code>nuevaOperacion</code> - Controla cuándo limpiar el display</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 3 -->
+  <div class="section">
+    <h2>🚀 Reto 3: Mostrar Números en el Display</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔢</div>
+        <h3 class="challenge-title">Que los botones de números funcionen</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea una función que:
+        <ul>
+          <li>Capte clics en botones con clase <code>.btn-number</code></li>
+          <li>Agregue el número al display</li>
+          <li>Actualice la variable <code>numeroActual</code></li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Usa <code>addEventListener('click', ...)</code> para captar clics
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Usa <code>event.target.textContent</code> para obtener el número del botón
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 3:</strong> Actualiza el display con <code>display.value = numeroActual</code>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Números</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">// Función para números
+botones.forEach(boton => {
+  boton.addEventListener('click', (evento) => {
+    const clase = evento.target.classList;
+
+    // Si es un botón de número
+    if (clase.contains('btn-number')) {
+      const numero = evento.target.textContent;
+
+      // Si es 0 y el display también es 0, no agregar otro 0
+      if (numeroActual === '0') {
+        numeroActual = numero;
+      } else {
+        numeroActual += numero;
+      }
+
+      // Actualizar el display
+      display.value = numeroActual;
+    }
+  });
+});</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Cómo funciona paso a paso?</strong>
+            <ul>
+              <li><code>forEach(boton => { ... })</code> - Itera sobre TODOS los botones</li>
+              <li><code>addEventListener('click', ...)</code> - Escucha clics en cada botón</li>
+              <li><code>evento.target.classList</code> - Obtiene las clases del botón clickeado</li>
+              <li><code>classList.contains('btn-number')</code> - Verifica si es un botón de número</li>
+              <li><code>numeroActual += numero</code> - Agrega el número al final (ej: "1" + "2" = "12")</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 4 -->
+  <div class="section">
+    <h2>🚀 Reto 4: Operadores (+, -, ×, ÷)</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🧮</div>
+        <h3 class="challenge-title">Guardar el operador y número anterior</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Cuando el usuario presiona +, -, ×, o ÷:
+        <ul>
+          <li>Guardar el número actual en <code>numeroAnterior</code></li>
+          <li>Guardar el operador en la variable <code>operador</code></li>
+          <li>Resetear para que el siguiente número sea nuevo</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Dentro del forEach, agrega otro if para <code>.btn-operator</code>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Obtén el operador del botón con <code>evento.target.textContent</code>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Operadores</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">    // Si es un botón de operador
+    if (clase.contains('btn-operator')) {
+      if (numeroActual !== '') {
+        numeroAnterior = numeroActual;
+        operador = evento.target.textContent;
+        numeroActual = '';
+        display.value = '';
+      }
+    }</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Qué pasa en cada paso?</strong>
+            <ul>
+              <li>Verificamos que el usuario escribió un número</li>
+              <li>Guardamos ese número en <code>numeroAnterior</code></li>
+              <li>Guardamos el operador (+, -, ×, ÷)</li>
+              <li>Seteamos <code>numeroActual = ''</code> para que el siguiente número sea nuevo</li>
+              <li>Limpiamos el display visualmente</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 5 -->
+  <div class="section">
+    <h2>🚀 Reto 5: El Botón Igual (Calcular Resultado)</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">✅</div>
+        <h3 class="challenge-title">Realizar la operación matemática</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Cuando presionan "=":
+        <ul>
+          <li>Usar <code>numeroAnterior</code> y <code>numeroActual</code></li>
+          <li>Aplicar el <code>operador</code> (+, -, ×, ÷)</li>
+          <li>Mostrar el resultado en el display</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Necesitarás convertir los strings a números: <code>parseFloat()</code>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Usa if/else para cada operador
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 3:</strong> Muestra el resultado en el display y en <code>numeroActual</code>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Igual</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">    // Si es el botón igual
+    if (clase.contains('btn-equals')) {
+      if (numeroAnterior !== '' && operador && numeroActual !== '') {
+        let resultado;
+        const num1 = parseFloat(numeroAnterior);
+        const num2 = parseFloat(numeroActual);
+
+        if (operador === '+') resultado = num1 + num2;
+        else if (operador === '−') resultado = num1 - num2;
+        else if (operador === '×') resultado = num1 * num2;
+        else if (operador === '÷') resultado = num1 / num2;
+
+        display.value = resultado;
+        numeroActual = resultado.toString();
+        numeroAnterior = '';
+        operador = null;
+      }
+    }</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Cómo funciona?</strong>
+            <ul>
+              <li><code>parseFloat()</code> - Convierte strings ("5") a números (5)</li>
+              <li>Usamos if/else para cada operador</li>
+              <li>Guardamos el resultado en <code>numeroActual</code> para siguientes operaciones</li>
+              <li>Reseteamos las variables después de calcular</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 6 -->
+  <div class="section">
+    <h2>🚀 Reto 6: Limpiar y Borrar</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🗑️</div>
+        <h3 class="challenge-title">Botones C (limpiar) y ← (borrar)</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong>
+        <ul>
+          <li><strong>C:</strong> Limpia todo (números, operadores, todo)</li>
+          <li><strong>←:</strong> Borra solo el último dígito del número actual</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Para limpiar, resetea todas las variables
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Para borrar: <code>numeroActual.slice(0, -1)</code> (quita el último carácter)
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Limpiar y Borrar</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">    // Botón C - Limpiar todo
+    if (evento.target.textContent === 'C') {
+      numeroActual = '0';
+      numeroAnterior = '';
+      operador = null;
+      display.value = '0';
+    }
+
+    // Botón ← - Borrar último dígito
+    if (evento.target.textContent === '←') {
+      if (numeroActual.length > 1) {
+        numeroActual = numeroActual.slice(0, -1);
+      } else {
+        numeroActual = '0';
+      }
+      display.value = numeroActual;
+    }</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Cómo funciona?</strong>
+            <ul>
+              <li>Para <strong>C:</strong> Reseteamos todos los valores a los iniciales</li>
+              <li><code>slice(0, -1)</code> - Toma todo EXCEPTO el último carácter</li>
+              <li>Si queda vacío, ponemos "0"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo -->
+  <div class="demo-section">
+    <div class="demo-title">✅ Ahora tu calculadora debería verse así:</div>
+    <div class="calculator-demo">
+      <div class="calc-display">0</div>
+      <div class="calc-buttons">
+        <button class="calc-btn calc-clear">C</button>
+        <button class="calc-btn calc-clear">←</button>
+        <button class="calc-btn calc-operator">÷</button>
+        <button class="calc-btn calc-operator">×</button>
+        
+        <button class="calc-btn calc-number">7</button>
+        <button class="calc-btn calc-number">8</button>
+        <button class="calc-btn calc-number">9</button>
+        <button class="calc-btn calc-operator">−</button>
+        
+        <button class="calc-btn calc-number">4</button>
+        <button class="calc-btn calc-number">5</button>
+        <button class="calc-btn calc-number">6</button>
+        <button class="calc-btn calc-operator">+</button>
+        
+        <button class="calc-btn calc-number">1</button>
+        <button class="calc-btn calc-number">2</button>
+        <button class="calc-btn calc-number">3</button>
+        <button class="calc-btn calc-operator">.</button>
+        
+        <button class="calc-btn calc-equals">=</button>
+        <button class="calc-btn calc-number">0</button>
+      </div>
+    </div>
+    <p style="text-align: center; margin-top: 20px; color: #d1d5f0;">
+      ✨ Y al hacer clic en los botones, ¡debería funcionar todo! ✨
+    </p>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section">
+    <h2>✅ Verificación Final</h2>
+    <p>Antes de continuar, prueba que:</p>
+    <ul>
+      <li>✔️ Puedo clickear números y aparecen en el display</li>
+      <li>✔️ Puedo hacer operaciones simples (ej: 5 + 3 =)</li>
+      <li>✔️ El botón C limpia todo y vuelve a mostrar 0</li>
+      <li>✔️ El botón ← borra el último dígito</li>
+      <li>✔️ Las divisiones funcionan correctamente</li>
+      <li>✔️ No hay errores en la consola (F12)</li>
+    </ul>
+  </div>
+
+  <!-- Botón Siguiente -->
+  <div class="btn-container">
+    <a href="modulo4.html" class="btn">
+      Siguiente: Mejoras Avanzadas →
+    </a>
+  </div>
+
+</div>
+
+<script>
+function toggleSolution(element) {
+  const content = element.nextElementSibling;
+  const toggle = element.querySelector('.solution-toggle');
+  
+  content.classList.toggle('show');
+  toggle.classList.toggle('show');
+}
+
+function copyCode(button) {
+  const codeElement = button.closest('.code-wrapper').querySelector('code');
+  const text = codeElement.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = '✅ ¡Copiado!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

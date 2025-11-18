@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día 10 - Módulo 3: Retos Avanzados</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 16px;
+      margin-bottom: 40px;
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    .section {
+      background: rgba(30,27,75,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102,126,234,0.3);
+    }
+    .section h2 { font-size: 1.8rem; color: #667eea; margin-bottom: 20px; }
+    .section h3 { font-size: 1.2rem; color: #a78bfa; margin: 25px 0 15px; }
+    .section p, .section li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #d1d5f0;
+      margin-bottom: 12px;
+    }
+    .section ul { margin-left: 20px; }
+    .challenge-box {
+      background: rgba(102,126,234,0.1);
+      border: 2px solid #667eea;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 25px 0;
+    }
+    .challenge-title { font-size: 1.3rem; color: #4caf50; margin-bottom: 15px; font-weight: 700; }
+    .code-wrapper {
+      background: #0a0a14;
+      border: 2px solid rgba(102,126,234,0.3);
+      border-radius: 12px;
+      padding: 0;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .code-header {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .code-filename { font-weight: 600; color: white; font-size: 0.95rem; }
+    .copy-btn {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.3); }
+    .copy-btn.copied { background: #4caf50; border-color: #4caf50; }
+    .code-content {
+      padding: 20px;
+      overflow-x: auto;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .code-content code {
+      font-family: 'Courier New', monospace;
+      color: #7dd3fc;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .hint {
+      background: rgba(255,193,7,0.1);
+      border-left: 3px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+      color: #d1d5f0;
+    }
+    .hint strong { color: #ffc107; }
+    .solution {
+      background: rgba(76,175,80,0.1);
+      border-left: 3px solid #4caf50;
+      padding: 0;
+      margin: 15px 0;
+      border-radius: 6px;
+      display: none;
+    }
+    .solution.show { display: block; }
+    .solution-header {
+      background: rgba(76,175,80,0.2);
+      padding: 15px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .solution-title { font-weight: 600; color: #4caf50; }
+    .solution-toggle { color: #4caf50; font-size: 1.2rem; transition: transform 0.3s; }
+    .solution-content { padding: 20px; display: none; }
+    .solution-content.show { display: block; }
+    .solution-toggle.show { transform: rotate(180deg); }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+      margin: 10px 5px 0 0;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+    .btn-secondary {
+      background: rgba(102,126,234,0.2);
+      color: #a78bfa;
+      border: 1px solid #667eea;
+    }
+    .btn-secondary:hover { background: rgba(102,126,234,0.3); }
+    .completion-badge {
+      background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(67,233,123,0.2));
+      border: 2px solid #4caf50;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 30px 0;
+      color: #4caf50;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>🔴 Pokédex Mejorada - Módulo 3</h1>
+    <p>Retos Avanzados: Favoritos, localStorage, Modal y Estadísticas</p>
+  </header>
+
+  <!-- RETO 5 -->
+  <div class="section">
+    <h2>✅ Reto 5: Ordenar por Ataque</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Crear un botón que ordene Pokémon de mayor a menor ataque.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 5</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function sortAtaque() {
+  pokemonActual.sort((a, b) => 
+    b.ataque - a.ataque
+  );
+  renderizarPokemon();
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> b - a = Mayor a menor</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">Usa b.ataque - a.ataque para ordenar de mayor a menor</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 6 -->
+  <div class="section">
+    <h2>✅ Reto 6: Mostrar Solo Favoritos</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Mostrar solo Pokémon guardados como favoritos.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 6</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>let favoritos = [];
+
+function showFavorites() {
+  pokemonActual = pokemonDatabase.filter(pokemon => 
+    favoritos.includes(pokemon.id)
+  );
+  renderizarPokemon();
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> .includes() verifica si está en el array</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">favoritos es array de IDs: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 7 -->
+  <div class="section">
+    <h2>✅ Reto 7: Guardar en localStorage</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Guardar favoritos para que persistan entre sesiones.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 7</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function toggleFavorito(id) {
+  const index = favoritos.indexOf(id);
+  
+  if (index > -1) {
+    favoritos.splice(index, 1);
+  } else {
+    favoritos.push(id);
+  }
+  
+  localStorage.setItem('pokemonFavoritos', 
+    JSON.stringify(favoritos)
+  );
+  renderizarPokemon();
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> JSON.stringify() convierte arrays a string</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">localStorage.setItem() guarda datos que persisten</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 8 -->
+  <div class="section">
+    <h2>✅ Reto 8: Modal Interactivo</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Mostrar modal con detalles al clickear Pokémon.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 8</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function abrirModal(id) {
+  const pokemon = pokemonDatabase.find(p => p.id === id);
+  const modal = document.getElementById('detailModal');
+  
+  modal.innerHTML = `
+    &lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;
+    &lt;p&gt;Tipo: ${pokemon.tipo}&lt;/p&gt;
+    &lt;p&gt;HP: ${pokemon.hp}&lt;/p&gt;
+  `;
+  
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  const modal = document.getElementById('detailModal');
+  modal.classList.remove('active');
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> classList.add() agrega clase CSS</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">.find() busca el primer elemento que coincide</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 9 -->
+  <div class="section">
+    <h2>✅ Reto 9: Resetear Filtros</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Limpiar todos los filtros.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 9</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function resetFilters() {
+  pokemonActual = [...pokemonDatabase];
+  document.getElementById('searchInput').value = '';
+  renderizarPokemon();
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> [...array] crea copia del array</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">Vuelve al estado inicial</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 10 -->
+  <div class="section">
+    <h2>✅ Reto 10: Mostrar Todos</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Botón que muestre todos los Pokémon.</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 10</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function showAll() {
+  pokemonActual = [...pokemonDatabase];
+  renderizarPokemon();
+}</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> Similar a Reto 9 pero sin limpiar inputs</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">Restaura todos los Pokémon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 11 -->
+  <div class="section">
+    <h2>✅ Reto 11: Estadísticas en Vivo</h2>
+    <div class="challenge-box">
+      <div class="challenge-title">🎯 Tu misión:</div>
+      <p>Mostrar contadores actualizados (Total, Encontrados, Favoritos).</p>
+      <h3>Código:</h3>
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-filename">js/script.js - Reto 11</span>
+          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+        </div>
+        <div class="code-content">
+          <code>function actualizarEstadisticas() {
+  document.getElementById('totalPokemon').textContent = 
+    pokemonDatabase.length;
+  
+  document.getElementById('foundPokemon').textContent = 
+    pokemonActual.length;
+  
+  document.getElementById('favoritesCount').textContent = 
+    favoritos.length;
+}
+
+renderizarPokemon();
+actualizarEstadisticas();</code>
+        </div>
+      </div>
+      <div class="hint"><strong>💡 Pista:</strong> .length devuelve cantidad de elementos</div>
+      <div class="solution">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">✅ Ver Explicación</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <p style="color: #d1d5f0;">Actualiza 3 contadores en tiempo real</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="completion-badge">
+    🎉 ¡Felicidades por completar los 11 Retos! 🎉<br>
+    <span style="font-size: 0.9rem; margin-top: 10px; display: block;">Aprendiste: filter, sort, map, localStorage, classList y más</span>
+  </div>
+
+  <!-- BOTONES -->
+  <div class="nav-buttons">
+    <a href="modulo2.html" class="btn btn-secondary">← Volver a Módulo 2</a>
+    <a href="modulo4.html" class="btn btn-primary">Ir al Final →</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(button) {
+  const codeElement = button.closest('.code-wrapper').querySelector('code');
+  const text = codeElement.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = '✅ ¡Copiado!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function toggleSolution(header) {
+  const content = header.nextElementSibling;
+  const toggle = header.querySelector('.solution-toggle');
+  
+  content.classList.toggle('show');
+  toggle.classList.toggle('show');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 8 - Módulo 2: Manipulación Avanzada del DOM</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Secciones */
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  color: #a78bfa;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.section p, .section li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+/* Demo interactiva */
+.demo-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid rgba(102,126,234,0.3);
+  margin: 25px 0;
+}
+
+.demo-title {
+  font-size: 1.2rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Elemento demo */
+.demo-element {
+  background: rgba(102,126,234,0.2);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px dashed rgba(102,126,234,0.5);
+  margin: 15px 0;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+/* Botones */
+.btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+}
+
+/* Input */
+.input {
+  background: rgba(30,27,75,0.8);
+  border: 2px solid rgba(102,126,234,0.5);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 15px rgba(102,126,234,0.5);
+}
+
+/* Code block */
+.code {
+  background: #1a1625;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  overflow-x: auto;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.code-label {
+  font-size: 0.85rem;
+  color: #a78bfa;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grid de cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  background: rgba(102,126,234,0.15);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(102,126,234,0.3);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+}
+
+.card.active {
+  background: rgba(102,126,234,0.4);
+  border-color: #667eea;
+}
+
+/* Tablas */
+.demo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: rgba(102,126,234,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.demo-table th, .demo-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(102,126,234,0.3);
+  color: #d1d5f0;
+}
+
+.demo-table th {
+  background: rgba(102,126,234,0.25);
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.demo-table tr:hover {
+  background: rgba(102,126,234,0.15);
+}
+
+.demo-table tr.hidden {
+  display: none;
+}
+
+/* Resultados */
+.result {
+  background: rgba(76,175,80,0.2);
+  border-left: 4px solid #4caf50;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  display: none;
+  color: #d1d5f0;
+}
+
+.result.show {
+  display: block;
+  animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón grande */
+.btn-large {
+  padding: 18px 60px;
+  font-size: 1.2rem;
+  display: block;
+  width: fit-content;
+  margin: 40px auto;
+  text-decoration: none;
+  text-align: center;
+}
+
+.live-output {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  color: #a78bfa;
+  min-height: 60px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.dashboard-item {
+  background: rgba(102,126,234,0.15);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid rgba(102,126,234,0.3);
+  transition: all 0.3s;
+}
+
+.dashboard-item h3 {
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+.dashboard-item p {
+  color: #d1d5f0;
+  font-size: 0.95rem;
+}
+
+.dashboard-item.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .demo-table { font-size: 0.9rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🚀 Módulo 2: Manipulación Avanzada del DOM</h1>
+    <p>Técnicas potentes: Atributos, clases, filtrado y transformación de elementos.</p>
+  </div>
+
+  <!-- Sección 1: Trabajar con Atributos -->
+  <div class="section">
+    <h2>🏷️ Trabajar con Atributos HTML</h2>
+    <p>Los atributos son información extra en tus elementos. Puedes leerlos, cambiarlos y eliminarlos desde JavaScript.</p>
+
+    <h3>Obtener un Atributo</h3>
+    <div class="code">
+      <div class="code-label">Leer el valor de un atributo</div>
+      const img = document.querySelector('img');
+const src = img.getAttribute('src');
+console.log(src);  // "imagen.jpg"
+    </div>
+
+    <h3>Cambiar un Atributo</h3>
+    <div class="code">
+      <div class="code-label">Modificar el valor de un atributo</div>
+      const boton = document.querySelector('button');
+boton.setAttribute('disabled', true);
+boton.setAttribute('class', 'btn-inactive');
+    </div>
+
+    <h3>Eliminar un Atributo</h3>
+    <div class="code">
+      <div class="code-label">Quitar un atributo del elemento</div>
+      const elemento = document.getElementById('miElemento');
+elemento.removeAttribute('disabled');
+elemento.removeAttribute('data-test');
+    </div>
+
+    <h3>Trabajar con Atributos Personalizados (data-*)</h3>
+    <div class="code">
+      <div class="code-label">Guardar y recuperar datos personalizados</div>
+      // Guardar en HTML: &lt;div data-pokemon="pikachu"&gt;
+const div = document.querySelector('div');
+
+// Leer atributo data
+const pokemon = div.getAttribute('data-pokemon');
+console.log(pokemon);  // "pikachu"
+
+// Cambiar atributo data
+div.setAttribute('data-level', '25');
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Manipular Atributos</div>
+      <input id="demoInput1" type="text" class="input" placeholder="Escribe un nuevo valor..." value="Mi atributo">
+      <div id="demoAttr" class="demo-element" data-test="valor-inicial">
+        Elemento con atributo
+      </div>
+      <button class="btn" onclick="readAttr()">Leer atributo</button>
+      <button class="btn btn-success" onclick="setAttr()">Cambiar atributo</button>
+      <button class="btn btn-danger" onclick="removeAttr()">Eliminar atributo</button>
+      <div id="attrResult" class="result"></div>
+    </div>
+  </div>
+
+  <!-- Sección 2: Trabajar con Clases CSS -->
+  <div class="section">
+    <h2>🎨 Trabajar con Clases CSS</h2>
+    <p>Las clases CSS son una forma más limpia que cambiar estilos directamente. Usa classList para manipularlas.</p>
+
+    <h3>Agregar una Clase</h3>
+    <div class="code">
+      <div class="code-label">Añadir una o más clases a un elemento</div>
+      const elemento = document.getElementById('miElemento');
+elemento.classList.add('activo');
+elemento.classList.add('highlight', 'importante');
+    </div>
+
+    <h3>Remover una Clase</h3>
+    <div class="code">
+      <div class="code-label">Quitar clases de un elemento</div>
+      elemento.classList.remove('activo');
+elemento.classList.remove('highlight', 'importante');
+    </div>
+
+    <h3>Alternar una Clase</h3>
+    <div class="code">
+      <div class="code-label">Si tiene la clase, la quita. Si no la tiene, la agrega.</div>
+      elemento.classList.toggle('activo');
+// Si tenía 'activo', la remove
+// Si no tenía 'activo', la agrega
+    </div>
+
+    <h3>Verificar si Tiene una Clase</h3>
+    <div class="code">
+      <div class="code-label">Comprobar si un elemento tiene cierta clase</div>
+      if(elemento.classList.contains('activo')) {
+  console.log('Tiene la clase activo');
+} else {
+  console.log('No tiene la clase activo');
+}
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Manipular Clases</div>
+      <style>
+        #demoClass.highlight {
+          background: linear-gradient(135deg, #667eea, #764ba2) !important;
+          font-size: 1.3rem !important;
+          font-weight: bold;
+        }
+        #demoClass.error {
+          background: rgba(255, 107, 107, 0.3) !important;
+          border-color: #ff6b6b !important;
+        }
+        #demoClass.success {
+          background: rgba(76, 175, 80, 0.3) !important;
+          border-color: #4caf50 !important;
+        }
+      </style>
+      <div id="demoClass" class="demo-element">
+        Aplícame clases CSS
+      </div>
+      <button class="btn" onclick="addCls()">Agregar clase 'highlight'</button>
+      <button class="btn btn-secondary" onclick="addError()">Agregar clase 'error'</button>
+      <button class="btn btn-success" onclick="toggleSuccess()">Alternar clase 'success'</button>
+      <button class="btn btn-danger" onclick="removeAllClasses()">Remover todas</button>
+      <div id="classResult" class="result"></div>
+    </div>
+  </div>
+
+  <!-- Sección 3: Buscar y Filtrar -->
+  <div class="section">
+    <h2>🔍 Buscar y Filtrar Elementos</h2>
+    <p>Obtén múltiples elementos y luego filtra para encontrar exactamente lo que necesitas.</p>
+
+    <h3>Filtrar con filter()</h3>
+    <div class="code">
+      <div class="code-label">Obtener todos los elementos y filtrar</div>
+      const elementos = document.querySelectorAll('.item');
+const largos = Array.from(elementos).filter(el => 
+  el.textContent.length > 10
+);
+console.log(largos);  // Solo elementos con más de 10 caracteres
+    </div>
+
+    <h3>Encontrar el Primero que Cumple</h3>
+    <div class="code">
+      <div class="code-label">Usar find() para obtener el primer elemento</div>
+      const items = document.querySelectorAll('tr');
+const primero = Array.from(items).find(el => 
+  el.getAttribute('data-price') > 100
+);
+console.log(primero);  // Primer elemento con precio > 100
+    </div>
+
+    <h3>Verificar si Alguno Cumple</h3>
+    <div class="code">
+      <div class="code-label">Usar some() para verificar una condición</div>
+      const elementos = document.querySelectorAll('.item');
+const existe = Array.from(elementos).some(el => 
+  el.classList.contains('activo')
+);
+console.log(existe);  // true si al menos uno tiene 'activo'
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Buscar y Filtrar</div>
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Pokémon</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody id="pokemonTable">
+          <tr data-price="150"><td>Pikachu</td><td>Eléctrico</td><td>$150</td></tr>
+          <tr data-price="200"><td>Charizard</td><td>Fuego</td><td>$200</td></tr>
+          <tr data-price="100"><td>Squirtle</td><td>Agua</td><td>$100</td></tr>
+          <tr data-price="180"><td>Venusaur</td><td>Planta</td><td>$180</td></tr>
+          <tr data-price="220"><td>Dragonite</td><td>Dragón</td><td>$220</td></tr>
+        </tbody>
+      </table>
+      <input type="number" id="priceFilter" class="input" placeholder="Precio mínimo (ej: 150)..." style="max-width: 300px;">
+      <button class="btn" onclick="filterByPrice()">Filtrar por precio</button>
+      <button class="btn btn-secondary" onclick="resetTable()">Ver todos</button>
+      <div id="filterResult" class="result"></div>
+    </div>
+  </div>
+
+  <!-- Sección 4: Cambios en Lote -->
+  <div class="section">
+    <h2>⚡ Modificar Múltiples Elementos a la Vez</h2>
+    <p>forEach() es perfecto para aplicar cambios a varios elementos simultáneamente.</p>
+
+    <h3>Cambiar Estilos a Todos</h3>
+    <div class="code">
+      <div class="code-label">Modificar propiedades CSS de múltiples elementos</div>
+      const cards = document.querySelectorAll('.card');
+cards.forEach((card, index) => {
+  card.style.backgroundColor = `hsl(${index * 40}, 70%, 50%)`;
+  card.style.fontSize = '1.1rem';
+});
+    </div>
+
+    <h3>Cambiar Contenido a Todos</h3>
+    <div class="code">
+      <div class="code-label">Modificar el texto de múltiples elementos</div>
+      const parrafos = document.querySelectorAll('p');
+parrafos.forEach((p, index) => {
+  p.textContent = `Párrafo ${index + 1}`;
+});
+    </div>
+
+    <h3>Agregar Clases a Todos</h3>
+    <div class="code">
+      <div class="code-label">Agregar la misma clase a múltiples elementos</div>
+      const botones = document.querySelectorAll('button');
+botones.forEach(btn => {
+  btn.classList.add('activo');
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Cambios en Lote</div>
+      <div class="card-grid" id="cardContainer">
+        <div class="card" style="cursor: pointer;">Card 1</div>
+        <div class="card" style="cursor: pointer;">Card 2</div>
+        <div class="card" style="cursor: pointer;">Card 3</div>
+        <div class="card" style="cursor: pointer;">Card 4</div>
+      </div>
+      <button class="btn" onclick="colorizeAll()">Colorear todos</button>
+      <button class="btn btn-success" onclick="enlargeAll()">Agrandar todos</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Resetear</button>
+    </div>
+  </div>
+
+  <!-- Sección 5: Buscar Dentro de Contenedores -->
+  <div class="section">
+    <h2>🎯 Buscar Dentro de Contenedores</h2>
+    <p>Puedes usar querySelector dentro de un elemento específico en lugar de toda la página.</p>
+
+    <h3>Buscar un Elemento</h3>
+    <div class="code">
+      <div class="code-label">Buscar dentro de un contenedor específico</div>
+      const contenedor = document.getElementById('miDiv');
+const primero = contenedor.querySelector('.item');
+console.log(primero);  // Primer .item dentro de miDiv
+    </div>
+
+    <h3>Buscar Múltiples Elementos</h3>
+    <div class="code">
+      <div class="code-label">Buscar todos dentro de un contenedor</div>
+      const contenedor = document.getElementById('miDiv');
+const todos = contenedor.querySelectorAll('.item');
+console.log(todos.length);  // Cantidad de .item en miDiv
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Búsqueda en Contenedor</div>
+      <div id="myContainer" style="background: rgba(102,126,234,0.1); padding: 20px; border-radius: 8px;">
+        <div class="item" style="margin: 10px 0; padding: 10px; background: rgba(102,126,234,0.2); border-radius: 4px;">Elemento 1</div>
+        <div class="item" style="margin: 10px 0; padding: 10px; background: rgba(102,126,234,0.2); border-radius: 4px;">Elemento 2</div>
+        <div class="item" style="margin: 10px 0; padding: 10px; background: rgba(102,126,234,0.2); border-radius: 4px;">Elemento 3</div>
+      </div>
+      <button class="btn" onclick="findInContainer()">Encontrar el primero</button>
+      <button class="btn btn-success" onclick="findAllInContainer()">Contar todos</button>
+      <button class="btn btn-secondary" onclick="changeInContainer()">Cambiar color del primero</button>
+      <div id="containerResult" class="result"></div>
+    </div>
+  </div>
+
+  <!-- Sección 6: Ejercicio Avanzado -->
+  <div class="section">
+    <h2>🎯 Ejercicio Avanzado: Dashboard Interactivo</h2>
+    <p>Practica todo lo aprendido: buscar, filtrar, cambiar clases y manipular elementos en lote.</p>
+
+    <div class="demo-box">
+      <h3 style="margin-top: 0;">Filtrar por nombre:</h3>
+      <input type="text" id="filterInput" class="input" placeholder="Escribe para filtrar..." style="max-width: 400px;">
+      
+      <div class="card-grid" id="dashboardGrid">
+        <div class="card dashboard-item" data-name="Python" data-level="Avanzado">
+          <h3>Python</h3>
+          <p>Nivel: <span class="level">Avanzado</span></p>
+          <button class="btn btn-danger" onclick="removeCard(this)">Eliminar</button>
+        </div>
+        <div class="card dashboard-item" data-name="JavaScript" data-level="Intermedio">
+          <h3>JavaScript</h3>
+          <p>Nivel: <span class="level">Intermedio</span></p>
+          <button class="btn btn-danger" onclick="removeCard(this)">Eliminar</button>
+        </div>
+        <div class="card dashboard-item" data-name="HTML/CSS" data-level="Avanzado">
+          <h3>HTML/CSS</h3>
+          <p>Nivel: <span class="level">Avanzado</span></p>
+          <button class="btn btn-danger" onclick="removeCard(this)">Eliminar</button>
+        </div>
+        <div class="card dashboard-item" data-name="React" data-level="Básico">
+          <h3>React</h3>
+          <p>Nivel: <span class="level">Básico</span></p>
+          <button class="btn btn-danger" onclick="removeCard(this)">Eliminar</button>
+        </div>
+      </div>
+
+      <h3>Agregar nuevo:</h3>
+      <input type="text" id="newName" class="input" placeholder="Nombre del lenguaje..." style="max-width: 300px;">
+      <select id="newLevel" class="input" style="max-width: 300px;">
+        <option>Básico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select>
+      <button class="btn btn-success" onclick="addCard()">Agregar</button>
+    </div>
+  </div>
+
+  <!-- Botón siguiente -->
+  <a href="modulo3.html" class="btn btn-large">
+    Siguiente Módulo →
+  </a>
+
+</div>
+
+<script>
+// Demo 1: Atributos
+function readAttr() {
+  const elem = document.getElementById('demoAttr');
+  const value = elem.getAttribute('data-test') || 'Sin atributo data-test';
+  document.getElementById('attrResult').textContent = '📖 Atributo: ' + value;
+  document.getElementById('attrResult').classList.add('show');
+  setTimeout(() => document.getElementById('attrResult').classList.remove('show'), 3000);
+}
+
+function setAttr() {
+  const elem = document.getElementById('demoAttr');
+  const input = document.getElementById('demoInput1').value;
+  elem.setAttribute('data-test', input);
+  document.getElementById('attrResult').textContent = '✅ Atributo guardado: ' + input;
+  document.getElementById('attrResult').classList.add('show');
+  setTimeout(() => document.getElementById('attrResult').classList.remove('show'), 3000);
+}
+
+function removeAttr() {
+  const elem = document.getElementById('demoAttr');
+  elem.removeAttribute('data-test');
+  document.getElementById('attrResult').textContent = '🗑️ Atributo eliminado';
+  document.getElementById('attrResult').classList.add('show');
+  setTimeout(() => document.getElementById('attrResult').classList.remove('show'), 3000);
+}
+
+// Demo 2: Clases
+function addCls() {
+  document.getElementById('demoClass').classList.add('highlight');
+}
+
+function addError() {
+  document.getElementById('demoClass').classList.add('error');
+}
+
+function toggleSuccess() {
+  document.getElementById('demoClass').classList.toggle('success');
+}
+
+function removeAllClasses() {
+  const elem = document.getElementById('demoClass');
+  elem.classList.remove('highlight', 'error', 'success');
+}
+
+// Demo 3: Filtrar
+function filterByPrice() {
+  const price = parseInt(document.getElementById('priceFilter').value);
+  const rows = document.querySelectorAll('#pokemonTable tr');
+  let count = 0;
+  
+  rows.forEach(row => {
+    const rowPrice = parseInt(row.getAttribute('data-price')) || 0;
+    if(rowPrice >= price) {
+      row.classList.remove('hidden');
+      count++;
+    } else {
+      row.classList.add('hidden');
+    }
+  });
+  
+  document.getElementById('filterResult').textContent = `✅ ${count} resultados encontrados`;
+  document.getElementById('filterResult').classList.add('show');
+  setTimeout(() => document.getElementById('filterResult').classList.remove('show'), 3000);
+}
+
+function resetTable() {
+  const rows = document.querySelectorAll('#pokemonTable tr');
+  rows.forEach(row => {
+    row.classList.remove('hidden');
+  });
+  document.getElementById('filterResult').textContent = `✅ Todos los elementos visibles`;
+  document.getElementById('filterResult').classList.add('show');
+  setTimeout(() => document.getElementById('filterResult').classList.remove('show'), 3000);
+}
+
+// Demo 4: Cambios en Lote
+function colorizeAll() {
+  const cards = document.querySelectorAll('#cardContainer .card');
+  cards.forEach((card, index) => {
+    card.style.background = `linear-gradient(135deg, hsl(${index * 90}, 100%, 60%), hsl(${index * 90 + 30}, 100%, 70%))`;
+  });
+}
+
+function enlargeAll() {
+  const cards = document.querySelectorAll('#cardContainer .card');
+  cards.forEach(card => {
+    card.style.transform = 'scale(1.15)';
+    card.style.fontSize = '1.2rem';
+  });
+}
+
+function resetAll() {
+  const cards = document.querySelectorAll('#cardContainer .card');
+  cards.forEach((card, index) => {
+    card.style.background = 'rgba(102,126,234,0.15)';
+    card.style.transform = 'scale(1)';
+    card.style.fontSize = '1rem';
+    card.textContent = `Card ${index + 1}`;
+  });
+}
+
+// Demo 5: Buscar en Contenedor
+function findInContainer() {
+  const item = document.querySelector('#myContainer .item');
+  document.getElementById('containerResult').textContent = '✅ Primer elemento: ' + item.textContent;
+  document.getElementById('containerResult').classList.add('show');
+  setTimeout(() => document.getElementById('containerResult').classList.remove('show'), 3000);
+}
+
+function findAllInContainer() {
+  const items = document.querySelectorAll('#myContainer .item');
+  document.getElementById('containerResult').textContent = `✅ Total de elementos: ${items.length}`;
+  document.getElementById('containerResult').classList.add('show');
+  setTimeout(() => document.getElementById('containerResult').classList.remove('show'), 3000);
+}
+
+function changeInContainer() {
+  const item = document.querySelector('#myContainer .item');
+  item.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+  document.getElementById('containerResult').textContent = `✅ Primer elemento cambiado de color`;
+  document.getElementById('containerResult').classList.add('show');
+  setTimeout(() => document.getElementById('containerResult').classList.remove('show'), 3000);
+}
+
+// Ejercicio Final: Dashboard
+function addCard() {
+  const name = document.getElementById('newName').value;
+  const level = document.getElementById('newLevel').value;
+  
+  if(!name) {
+    alert('Escribe un nombre');
+    return;
+  }
+  
+  const grid = document.getElementById('dashboardGrid');
+  const card = document.createElement('div');
+  card.className = 'card dashboard-item';
+  card.setAttribute('data-name', name);
+  card.setAttribute('data-level', level);
+  card.innerHTML = `
+    <h3>${name}</h3>
+    <p>Nivel: <span class="level">${level}</span></p>
+    <button class="btn btn-danger" onclick="removeCard(this)">Eliminar</button>
+  `;
+  
+  grid.appendChild(card);
+  document.getElementById('newName').value = '';
+}
+
+function removeCard(button) {
+  button.parentElement.remove();
+}
+
+// Filtro del dashboard
+document.addEventListener('DOMContentLoaded', function() {
+  const filterInput = document.getElementById('filterInput');
+  if(filterInput) {
+    filterInput.addEventListener('input', function() {
+      const filter = this.value.toLowerCase();
+      const items = document.querySelectorAll('.dashboard-item');
+      
+      items.forEach(item => {
+        const name = item.getAttribute('data-name').toLowerCase();
+        if(name.includes(filter)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  }
+});
+</script>
+</body>
+</html>

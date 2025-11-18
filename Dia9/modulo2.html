@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 9 - Módulo 2: Construcción HTML + CSS</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.section p, .section li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+.section ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.section li {
+  margin-bottom: 8px;
+}
+
+/* RETO */
+.challenge-box {
+  background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(67,233,123,0.15));
+  border: 3px solid #4caf50;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px 0;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.challenge-icon {
+  font-size: 2.5rem;
+}
+
+.challenge-title {
+  font-size: 1.4rem;
+  color: #4caf50;
+  font-weight: 700;
+  margin: 0;
+}
+
+.challenge-description {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 3px solid #4caf50;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.challenge-description ul {
+  margin: 15px 0 0 20px;
+}
+
+.challenge-description li {
+  margin-bottom: 8px;
+}
+
+.challenge-points {
+  background: rgba(102,126,234,0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+}
+
+.challenge-points strong {
+  color: #a78bfa;
+}
+
+.challenge-points ul {
+  margin: 10px 0 0 20px;
+}
+
+.challenge-points li {
+  margin: 5px 0;
+}
+
+/* Código mejorado */
+.code-wrapper {
+  background: #0a0a14;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.code-header {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.code-filename {
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.code-content {
+  padding: 20px;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.code-content code {
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  font-size: 0.9rem;
+  line-height: 2;
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hint-box {
+  background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,235,59,0.1));
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+}
+
+.hint-box strong {
+  color: #ffc107;
+}
+
+.hint-box pre {
+  background: #0a0a14;
+  padding: 10px;
+  border-radius: 6px;
+  color: #7dd3fc;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.solution-box {
+  background: rgba(102,126,234,0.1);
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.solution-header {
+  background: rgba(102,126,234,0.2);
+  padding: 15px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+.solution-header:hover {
+  background: rgba(102,126,234,0.3);
+}
+
+.solution-title {
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.solution-toggle {
+  font-size: 1.5rem;
+  color: #667eea;
+  transition: transform 0.3s;
+}
+
+.solution-content {
+  padding: 20px;
+  display: none;
+  border-top: 1px solid rgba(102,126,234,0.2);
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.solution-content.show {
+  display: block;
+}
+
+.solution-toggle.show {
+  transform: rotate(180deg);
+}
+
+.explanation-box {
+  background: rgba(102,126,234,0.05);
+  border-left: 3px solid #667eea;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.explanation-box strong {
+  color: #a78bfa;
+}
+
+.explanation-box ul {
+  margin: 10px 0 0 20px;
+}
+
+.explanation-box li {
+  margin-bottom: 6px;
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.copy-btn.copied {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.demo-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid rgba(102,126,234,0.3);
+  margin: 30px 0;
+}
+
+.demo-title {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.calculator-demo {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.calc-display {
+  background: #0f3460;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: right;
+  font-size: 2.5rem;
+  color: #00d4ff;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  border: 2px solid #667eea;
+  word-break: break-all;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-btn {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.calc-number {
+  background: #16213e;
+  color: #00d4ff;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.calc-operator {
+  background: #667eea;
+  color: white;
+}
+
+.calc-equals {
+  background: #4caf50;
+  color: white;
+  grid-column: span 2;
+}
+
+.calc-clear {
+  background: #ff6b6b;
+  color: white;
+  grid-column: span 2;
+}
+
+.calc-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Desplegables finales */
+.complete-code-section {
+  background: rgba(30,27,75,0.8);
+  padding: 30px;
+  border-radius: 16px;
+  margin: 40px 0;
+  border: 2px solid rgba(102,126,234,0.3);
+}
+
+.complete-code-section h2 {
+  color: #667eea;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.complete-code-section p {
+  color: #d1d5f0;
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+}
+
+.collapsible-code {
+  margin: 20px 0;
+}
+
+.collapsible-header {
+  background: linear-gradient(90deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3));
+  border: 2px solid rgba(102,126,234,0.4);
+  padding: 15px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.collapsible-header:hover {
+  background: linear-gradient(90deg, rgba(102,126,234,0.4), rgba(118,75,162,0.4));
+  border-color: #667eea;
+}
+
+.collapsible-title {
+  font-weight: 700;
+  color: #a78bfa;
+  font-size: 1.1rem;
+}
+
+.collapsible-arrow {
+  font-size: 1.3rem;
+  color: #667eea;
+  transition: transform 0.3s;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.collapsible-content.show {
+  max-height: 2000px;
+}
+
+.collapsible-arrow.show {
+  transform: rotate(180deg);
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .code-content { font-size: 0.8rem; }
+  .code-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🎨 Módulo 2: Construcción HTML + CSS</h1>
+    <p>Crea tu calculadora paso a paso mediante retos. ¡Aprende mientras la construyes!</p>
+  </div>
+
+  <!-- Introducción -->
+  <div class="section">
+    <h2>🎯 ¿Cómo funciona este módulo?</h2>
+    <p>No te daremos todo el código de una. En su lugar:</p>
+    <ul>
+      <li>📝 Recibirás un <strong>reto con instrucciones claras</strong></li>
+      <li>🤔 Deberás <strong>escribir el código</strong> basándote en las pistas</li>
+      <li>💡 Habrá <strong>pistas y explicaciones</strong> para guiarte</li>
+      <li>✅ Podrás ver la <strong>solución cuando lo necesites</strong></li>
+      <li>🔍 Aprenderás <strong>POR QUÉ funciona</strong> cada línea</li>
+    </ul>
+  </div>
+
+  <!-- RETO 1 -->
+  <div class="section">
+    <h2>🚀 Reto 1: Estructura HTML Básica</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔨</div>
+        <h3 class="challenge-title">Construye la estructura base</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea el HTML inicial con el doctype, meta tags y vincular CSS.
+      </div>
+
+      <div class="challenge-points">
+        <strong>✅ Puntos a incluir:</strong>
+        <ul>
+          <li>Doctype HTML5</li>
+          <li>Lenguaje español</li>
+          <li>UTF-8 y viewport meta tags</li>
+          <li>Título: "Calculadora Web"</li>
+          <li>Link a <code>css/style.css</code></li>
+          <li>Script vinculado a <code>js/script.js</code></li>
+        </ul>
+      </div>
+
+      <div class="explanation-box">
+        <strong>❓ ¿Por qué esto importa?</strong>
+        <ul>
+          <li><code>&lt;!DOCTYPE html&gt;</code> - Le dice al navegador que es HTML5</li>
+          <li><code>lang="es"</code> - Mejora accesibilidad y SEO</li>
+          <li><code>charset="UTF-8"</code> - Permite caracteres especiales (ñ, acentos)</li>
+          <li><code>viewport</code> - Hace la página responsiva en móviles</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista:</strong> Comienza con <code>&lt;!DOCTYPE html&gt;</code> y recuerda cerrar todas las etiquetas.
+      </div>
+
+      <!-- Solución -->
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">index.html</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" 
+    content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Calculadora Web&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 2 -->
+  <div class="section">
+    <h2>🚀 Reto 2: Container y Display</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">📦</div>
+        <h3 class="challenge-title">Crea el contenedor y display</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Dentro del &lt;body&gt;, crea:
+        <ul>
+          <li>Un <code>&lt;div&gt;</code> con clase "container"</li>
+          <li>Un <code>&lt;div&gt;</code> con clase "calculator" dentro</li>
+          <li>Un <code>&lt;input&gt;</code> con id="display" que sea readonly</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> El input debe tener <code>type="text"</code> y <code>value="0"</code>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Estructura:
+        <pre>container
+  └─ calculator
+     └─ display (input)</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">index.html - Inside &lt;body&gt;</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code>&lt;div class="container"&gt;
+  &lt;div class="calculator"&gt;
+    &lt;input 
+      type="text" 
+      id="display" 
+      class="display" 
+      value="0" 
+      readonly&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 3 -->
+  <div class="section">
+    <h2>🚀 Reto 3: Los 16 Botones</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔘</div>
+        <h3 class="challenge-title">Agrega todos los botones</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea un div con clase "buttons" que contenga 16 botones organizados en 5 filas
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Layout de grid:</strong>
+        <pre>Fila 1: [C] [←] [÷] [×]
+Fila 2: [7] [8] [9] [−]
+Fila 3: [4] [5] [6] [+]
+Fila 4: [1] [2] [3] [.]
+Fila 5: [   =    ] [0]</pre>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista:</strong> Los botones "=" y "C" ocupan 2 columnas
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">Agregar dentro de .calculator</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code>&lt;div class="buttons"&gt;
+  &lt;button class="btn btn-clear"&gt;C&lt;/button&gt;
+  &lt;button class="btn btn-clear"&gt;←&lt;/button&gt;
+  &lt;button class="btn btn-operator"&gt;÷&lt;/button&gt;
+  &lt;button class="btn btn-operator"&gt;×&lt;/button&gt;
+
+  &lt;button class="btn btn-number"&gt;7&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;8&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;9&lt;/button&gt;
+  &lt;button class="btn btn-operator"&gt;−&lt;/button&gt;
+
+  &lt;button class="btn btn-number"&gt;4&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;5&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;6&lt;/button&gt;
+  &lt;button class="btn btn-operator"&gt;+&lt;/button&gt;
+
+  &lt;button class="btn btn-number"&gt;1&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;2&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;3&lt;/button&gt;
+  &lt;button class="btn btn-decimal"&gt;.&lt;/button&gt;
+
+  &lt;button class="btn btn-equals"&gt;=&lt;/button&gt;
+  &lt;button class="btn btn-number"&gt;0&lt;/button&gt;
+&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 4 -->
+  <div class="section">
+    <h2>🚀 Reto 4: CSS - Variables y Base</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🎨</div>
+        <h3 class="challenge-title">Colorea con CSS variables</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> En <code>css/style.css</code>, crea:
+        <ul>
+          <li>Variables de colores en <code>:root</code></li>
+          <li>Reset global con <code>*</code></li>
+          <li>Estilos del body (centrado, fondo gradiente)</li>
+          <li>Estilos del .container y .calculator</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Variables CSS:</strong>
+        <pre>:root {
+  --primary: #667eea;
+  --cyan: #00d4ff;
+}</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">css/style.css - Parte 1</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">:root {
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --dark: #1a1a2e;
+  --darker: #0f3460;
+  --cyan: #00d4ff;
+  --green: #4caf50;
+  --red: #ff6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  background: linear-gradient(135deg, var(--dark), #16213e);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETO 5 -->
+  <div class="section">
+    <h2>🚀 Reto 5: CSS - Display y Botones</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🎨</div>
+        <h3 class="challenge-title">Estiliza el display y botones</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea estilos para:
+        <ul>
+          <li><code>.display</code> - Input con borde azul y texto cyan</li>
+          <li><code>.buttons</code> - Grid de 4 columnas</li>
+          <li><code>.btn</code> - Botones con padding y transiciones</li>
+          <li>Clases específicas: <code>.btn-number</code>, <code>.btn-operator</code>, etc.</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Grid 4 columnas:</strong>
+        <pre>display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">css/style.css - Parte 2</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code>.display {
+  width: 100%;
+  background: var(--darker);
+  border: 2px solid var(--primary);
+  color: var(--cyan);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 2.5rem;
+  text-align: right;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-number {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+  color: var(--cyan);
+  border: 1px solid var(--primary);
+}
+
+.btn-operator {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn-clear {
+  background: linear-gradient(135deg, var(--red), #ff8953);
+  color: white;
+  grid-column: span 2;
+}
+
+.btn-equals {
+  background: linear-gradient(135deg, var(--green), #43e97b);
+  color: white;
+  grid-column: span 2;
+}
+
+.btn-decimal {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Final -->
+  <div class="demo-box">
+    <div class="demo-title">📱 ¡Así debe verse tu calculadora ahora!</div>
+    <div class="calculator-demo">
+      <div class="calc-display">0</div>
+      <div class="calc-buttons">
+        <button class="calc-btn calc-clear">C</button>
+        <button class="calc-btn calc-clear">←</button>
+        <button class="calc-btn calc-operator">÷</button>
+        <button class="calc-btn calc-operator">×</button>
+        
+        <button class="calc-btn calc-number">7</button>
+        <button class="calc-btn calc-number">8</button>
+        <button class="calc-btn calc-number">9</button>
+        <button class="calc-btn calc-operator">−</button>
+        
+        <button class="calc-btn calc-number">4</button>
+        <button class="calc-btn calc-number">5</button>
+        <button class="calc-btn calc-number">6</button>
+        <button class="calc-btn calc-operator">+</button>
+        
+        <button class="calc-btn calc-number">1</button>
+        <button class="calc-btn calc-number">2</button>
+        <button class="calc-btn calc-number">3</button>
+        <button class="calc-btn calc-operator">.</button>
+        
+        <button class="calc-btn calc-equals">=</button>
+        <button class="calc-btn calc-number">0</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checklist Final -->
+  <div class="section">
+    <h2>✅ Verificación Final</h2>
+    <p>Antes de continuar, verifica que:</p>
+    <ul>
+      <li>✔️ Completé todos los 5 retos</li>
+      <li>✔️ Mi calculadora se parece a la vista previa</li>
+      <li>✔️ Los botones son clickeables</li>
+      <li>✔️ Se ve bien en móvil</li>
+      <li>✔️ No hay errores en consola (F12)</li>
+    </ul>
+  </div>
+
+  <!-- CÓDIGO COMPLETO DESPLEGABLE -->
+  <div class="complete-code-section">
+    <h2>📥 Código Completo (Para Copiar)</h2>
+    <p>Si necesitas ver el código completo, expande las secciones debajo:</p>
+
+    <!-- HTML Completo -->
+    <div class="collapsible-code">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span class="collapsible-title">📄 HTML Completo (index.html)</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-filename">index.html - COMPLETO</span>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copiar TODO</button>
+          </div>
+          <div class="code-content">
+            <code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Calculadora Web&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="calculator"&gt;
+      &lt;input type="text" id="display" class="display" value="0" readonly&gt;
+      
+      &lt;div class="buttons"&gt;
+        &lt;button class="btn btn-clear"&gt;C&lt;/button&gt;
+        &lt;button class="btn btn-clear"&gt;←&lt;/button&gt;
+        &lt;button class="btn btn-operator"&gt;÷&lt;/button&gt;
+        &lt;button class="btn btn-operator"&gt;×&lt;/button&gt;
+
+        &lt;button class="btn btn-number"&gt;7&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;8&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;9&lt;/button&gt;
+        &lt;button class="btn btn-operator"&gt;−&lt;/button&gt;
+
+        &lt;button class="btn btn-number"&gt;4&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;5&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;6&lt;/button&gt;
+        &lt;button class="btn btn-operator"&gt;+&lt;/button&gt;
+
+        &lt;button class="btn btn-number"&gt;1&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;2&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;3&lt;/button&gt;
+        &lt;button class="btn btn-decimal"&gt;.&lt;/button&gt;
+
+        &lt;button class="btn btn-equals"&gt;=&lt;/button&gt;
+        &lt;button class="btn btn-number"&gt;0&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CSS Completo -->
+    <div class="collapsible-code">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span class="collapsible-title">🎨 CSS Completo (style.css)</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-filename">css/style.css - COMPLETO</span>
+            <button class="copy-btn" onclick="copyCode(this)">📋 Copiar TODO</button>
+          </div>
+          <div class="code-content">
+            <code>:root {
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --dark: #1a1a2e;
+  --darker: #0f3460;
+  --cyan: #00d4ff;
+  --green: #4caf50;
+  --red: #ff6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  background: linear-gradient(135deg, var(--dark), #16213e);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+}
+
+.display {
+  width: 100%;
+  background: var(--darker);
+  border: 2px solid var(--primary);
+  color: var(--cyan);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 2.5rem;
+  text-align: right;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  cursor: default;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-number {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+  color: var(--cyan);
+  border: 1px solid var(--primary);
+}
+
+.btn-operator {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn-clear {
+  background: linear-gradient(135deg, var(--red), #ff8953);
+  color: white;
+  grid-column: span 2;
+}
+
+.btn-equals {
+  background: linear-gradient(135deg, var(--green), #43e97b);
+  color: white;
+  grid-column: span 2;
+}
+
+.btn-decimal {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    padding: 20px;
+  }
+
+  .btn {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+
+  .display {
+    font-size: 2rem;
+  }
+}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón Siguiente -->
+  <div class="btn-container">
+    <a href="modulo3.html" class="btn">
+      Siguiente: Agregar JavaScript →
+    </a>
+  </div>
+
+</div>
+
+<script>
+function toggleSolution(element) {
+  const content = element.nextElementSibling;
+  const toggle = element.querySelector('.solution-toggle');
+  
+  content.classList.toggle('show');
+  toggle.classList.toggle('show');
+}
+
+function toggleCollapsible(element) {
+  const content = element.nextElementSibling;
+  const arrow = element.querySelector('.collapsible-arrow');
+  
+  content.classList.toggle('show');
+  arrow.classList.toggle('show');
+}
+
+function copyCode(button) {
+  const codeElement = button.closest('.code-wrapper').querySelector('code');
+  const text = codeElement.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = '✅ ¡Copiado!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

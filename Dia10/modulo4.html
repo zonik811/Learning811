@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día 10 - Quiz Final</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 16px;
+      margin-bottom: 40px;
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    .section {
+      background: rgba(30,27,75,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102,126,234,0.3);
+    }
+    .section h2 { font-size: 1.8rem; color: #667eea; margin-bottom: 20px; }
+    .progress-bar {
+      background: rgba(102,126,234,0.1);
+      border-radius: 10px;
+      height: 10px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .progress-text { text-align: center; color: #a78bfa; font-size: 0.9rem; margin: 10px 0; }
+    .quiz-question {
+      background: rgba(102,126,234,0.1);
+      border: 2px solid rgba(102,126,234,0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 25px 0;
+      display: none;
+    }
+    .quiz-question.active { display: block; animation: slideIn 0.3s; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question-text { font-size: 1.2rem; color: #d1d5f0; margin-bottom: 20px; font-weight: 600; }
+    .options { display: flex; flex-direction: column; gap: 12px; }
+    .option {
+      background: rgba(102,126,234,0.15);
+      border: 2px solid rgba(102,126,234,0.3);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #d1d5f0;
+    }
+    .option:hover:not(.disabled) { background: rgba(102,126,234,0.25); border-color: #667eea; }
+    .option input[type="radio"] { cursor: pointer; margin-right: 10px; }
+    .option.disabled { opacity: 0.7; cursor: not-allowed; }
+    .option.correct { background: rgba(76,175,80,0.2); border-color: #4caf50; }
+    .option.incorrect { background: rgba(255,107,107,0.2); border-color: #ff6b6b; }
+    .feedback-box {
+      background: rgba(102,126,234,0.1);
+      border-left: 3px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      color: #d1d5f0;
+      display: none;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.correct {
+      background: rgba(76,175,80,0.1);
+      border-left-color: #4caf50;
+      color: #4caf50;
+    }
+    .feedback-box.incorrect {
+      background: rgba(255,107,107,0.1);
+      border-left-color: #ff6b6b;
+      color: #ff6b6b;
+    }
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      margin: 10px 5px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+    .btn-secondary {
+      background: rgba(102,126,234,0.2);
+      color: #a78bfa;
+      border: 1px solid #667eea;
+    }
+    .btn-secondary:hover:not(:disabled) { background: rgba(102,126,234,0.3); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .results-screen { display: none; }
+    .results-screen.show { display: block; }
+    .score-circle {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+      border: 3px solid #667eea;
+    }
+    .score-percentage { text-align: center; font-size: 3rem; color: #667eea; margin: 20px 0; font-weight: 700; }
+    .result-message { text-align: center; font-size: 1.3rem; color: #d1d5f0; margin: 20px 0; }
+    .result-message.pass { color: #4caf50; }
+    .result-message.fail { color: #ff6b6b; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .stat-box {
+      background: rgba(102,126,234,0.1);
+      border: 1px solid rgba(102,126,234,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-label { color: #a78bfa; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px; }
+    .stat-value { font-size: 2.5rem; font-weight: 700; color: #667eea; }
+    .stat-percent { font-size: 1rem; color: #d1d5f0; margin-top: 8px; }
+    .review-section {
+      background: rgba(102,126,234,0.05);
+      border: 1px solid rgba(102,126,234,0.2);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .review-item {
+      display: flex;
+      gap: 15px;
+      margin: 15px 0;
+      padding: 15px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      border-left: 3px solid #667eea;
+    }
+    .review-item.correct { border-left-color: #4caf50; }
+    .review-item.incorrect { border-left-color: #ff6b6b; }
+    .review-number {
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(102,126,234,0.2);
+      font-weight: 700;
+      color: #667eea;
+    }
+    .review-number.correct { background: rgba(76,175,80,0.2); color: #4caf50; }
+    .review-number.incorrect { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+    .review-content { flex: 1; }
+    .review-question { font-weight: 600; color: #d1d5f0; margin-bottom: 5px; }
+    .review-answer { font-size: 0.9rem; color: #b8c1ec; }
+    .completion-badge {
+      background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(67,233,123,0.2));
+      border: 2px solid #4caf50;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 30px 0;
+      color: #4caf50;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .final-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>🏆 Día 10: Quiz Final</h1>
+    <p>Pokédex Mejorada - Verifica tus conocimientos</p>
+  </header>
+
+  <!-- QUIZ SECTION -->
+  <div class="section" id="quizSection">
+    <h2>🧠 Quiz Interactivo: 5 Preguntas</h2>
+    
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text">
+      Pregunta <span id="currentQ">1</span> de 5
+    </div>
+
+    <!-- Q1 -->
+    <div class="quiz-question active" id="q1">
+      <div class="question-text">1. ¿Cuál es la forma correcta de usar filter()?</div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="q1" value="correct">
+          pokemonArray.filter(p => p.ataque > 50)
+        </label>
+        <label class="option">
+          <input type="radio" name="q1" value="incorrect">
+          pokemonArray.filter(ataque > 50)
+        </label>
+        <label class="option">
+          <input type="radio" name="q1" value="incorrect">
+          pokemonArray.where(p => p.ataque > 50)
+        </label>
+      </div>
+      <div class="feedback-box" id="feedback1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-question" id="q2">
+      <div class="question-text">2. ¿Cómo ordenar un array A-Z?</div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="q2" value="incorrect">
+          array.arrange()
+        </label>
+        <label class="option">
+          <input type="radio" name="q2" value="correct">
+          array.sort((a, b) => a.nombre.localeCompare(b.nombre))
+        </label>
+        <label class="option">
+          <input type="radio" name="q2" value="incorrect">
+          array.order()
+        </label>
+      </div>
+      <div class="feedback-box" id="feedback2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-question" id="q3">
+      <div class="question-text">3. ¿Cómo guardar datos en localStorage?</div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="q3" value="incorrect">
+          localStorage.save('key', valor)
+        </label>
+        <label class="option">
+          <input type="radio" name="q3" value="correct">
+          localStorage.setItem('key', JSON.stringify(valor))
+        </label>
+        <label class="option">
+          <input type="radio" name="q3" value="incorrect">
+          localStorage['key'] = valor
+        </label>
+      </div>
+      <div class="feedback-box" id="feedback3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-question" id="q4">
+      <div class="question-text">4. ¿Qué devuelve includes()?</div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="q4" value="incorrect">
+          Un nuevo array
+        </label>
+        <label class="option">
+          <input type="radio" name="q4" value="correct">
+          true o false
+        </label>
+        <label class="option">
+          <input type="radio" name="q4" value="incorrect">
+          El elemento encontrado
+        </label>
+      </div>
+      <div class="feedback-box" id="feedback4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-question" id="q5">
+      <div class="question-text">5. ¿Cómo manipular clases CSS?</div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="q5" value="incorrect">
+          elemento.class = 'nueva'
+        </label>
+        <label class="option">
+          <input type="radio" name="q5" value="incorrect">
+          elemento.style.class = 'nueva'
+        </label>
+        <label class="option">
+          <input type="radio" name="q5" value="correct">
+          elemento.classList.add('nueva')
+        </label>
+      </div>
+      <div class="feedback-box" id="feedback5"></div>
+    </div>
+
+    <!-- BOTONES -->
+    <div style="text-align: center; margin-top: 30px;">
+      <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn" disabled>← Anterior</button>
+      <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="section results-screen" id="resultsScreen">
+    <h2 style="text-align: center;">📊 Resultados Finales</h2>
+    
+    <div class="score-circle" id="scoreIcon">🎯</div>
+    <div class="score-percentage" id="scorePerc">0%</div>
+    <div class="result-message" id="resultMsg"></div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-label">Correctas</div>
+        <div class="stat-value" id="correctCount">0</div>
+        <div class="stat-percent">/5</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Porcentaje</div>
+        <div class="stat-value" id="percentValue">0%</div>
+        <div class="stat-percent">acierto</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Estado</div>
+        <div class="stat-value" id="statusValue" style="font-size: 1.5rem;">-</div>
+        <div class="stat-percent">resultado</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Calificación</div>
+        <div class="stat-value" id="gradeValue" style="font-size: 1.5rem;">-</div>
+        <div class="stat-percent">nota</div>
+      </div>
+    </div>
+
+    <div class="review-section">
+      <h3 style="color: #667eea; margin-bottom: 20px;">📋 Revisión de Respuestas</h3>
+      <div id="reviewContainer"></div>
+    </div>
+
+    <div class="section">
+      <h3 style="color: #667eea;">📈 Análisis</h3>
+      <div id="analysisContainer"></div>
+    </div>
+
+
+
+    <div class="final-buttons">
+      <button class="btn btn-primary" onclick="completeDay()" id="completeBtn" style="display:none;">✅ Completar Día 10</button>
+      <button class="btn btn-secondary" onclick="location.reload()">🔄 Intentar de Nuevo</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const explanations = {
+  q1: 'filter() usa arrow functions. Forma correcta: array.filter(elemento => condición)',
+  q2: 'localeCompare() compara strings. Para A-Z: (a,b) => a.nombre.localeCompare(b.nombre)',
+  q3: 'localStorage guarda strings. Usa JSON.stringify() para arrays/objetos',
+  q4: 'includes() devuelve true o false',
+  q5: 'classList.add() es la forma moderna de manipular clases'
+};
+
+let currentQuestion = 1;
+let answers = {};
+let answered = {};
+
+function nextQuestion() {
+  const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+  
+  if (!selected) {
+    alert('Por favor selecciona una respuesta');
+    return;
+  }
+  
+  if (!answered[currentQuestion]) {
+    answers[currentQuestion] = selected.value;
+    answered[currentQuestion] = true;
+    showFeedback(currentQuestion, selected.value);
+    
+    if (currentQuestion === 5) {
+      document.getElementById('nextBtn').textContent = 'Ver Resultados ✓';
+      document.getElementById('nextBtn').onclick = () => showResults();
+    }
+  } else {
+    if (currentQuestion < 5) {
+      currentQuestion++;
+      showQuestion();
+    } else {
+      showResults();
+    }
+  }
+}
+
+function showFeedback(qNum, answer) {
+  const feedbackBox = document.getElementById(`feedback${qNum}`);
+  const isCorrect = answer === 'correct';
+  
+  feedbackBox.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+  feedbackBox.innerHTML = `<strong>${isCorrect ? '✅ ¡CORRECTO!' : '❌ INCORRECTO'}</strong><br>${explanations[`q${qNum}`]}`;
+  
+  document.querySelectorAll(`input[name="q${qNum}"]`).forEach(opt => {
+    opt.disabled = true;
+    const label = opt.closest('.option');
+    label.classList.add('disabled');
+    if (opt.value === 'correct') {
+      label.classList.add('correct');
+    } else if (opt.checked && opt.value === 'incorrect') {
+      label.classList.add('incorrect');
+    }
+  });
+}
+
+function prevQuestion() {
+  if (currentQuestion > 1) {
+    currentQuestion--;
+    showQuestion();
+  }
+}
+
+function showQuestion() {
+  document.querySelectorAll('.quiz-question').forEach(q => q.classList.remove('active'));
+  document.getElementById(`q${currentQuestion}`).classList.add('active');
+  
+  const progress = (currentQuestion / 5) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('currentQ').textContent = currentQuestion;
+  document.getElementById('prevBtn').disabled = currentQuestion === 1;
+  
+  if (!answered[currentQuestion]) {
+    document.getElementById('nextBtn').textContent = 'Siguiente →';
+    document.getElementById('nextBtn').onclick = () => nextQuestion();
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showResults() {
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('resultsScreen').classList.add('show');
+  
+  let correct = 0;
+  for (let q in answers) {
+    if (answers[q] === 'correct') correct++;
+  }
+  
+  const percentage = Math.round((correct / 5) * 100);
+  const passed = percentage >= 60;
+  
+  document.getElementById('scorePerc').textContent = percentage + '%';
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('percentValue').textContent = percentage + '%';
+  
+  const scoreIcon = document.getElementById('scoreIcon');
+  const resultMsg = document.getElementById('resultMsg');
+  const statusValue = document.getElementById('statusValue');
+  const gradeValue = document.getElementById('gradeValue');
+  const completeBtn = document.getElementById('completeBtn');
+  const certBox = document.getElementById('certBox');
+  
+  if (passed) {
+    scoreIcon.textContent = '🏆';
+    resultMsg.className = 'result-message pass';
+    resultMsg.textContent = '¡FELICIDADES! Aprobaste el Quiz';
+    statusValue.textContent = 'APROBADO';
+    statusValue.style.color = '#4caf50';
+    gradeValue.textContent = 'A+';
+    gradeValue.style.color = '#4caf50';
+    certBox.style.display = 'block';
+    completeBtn.style.display = 'inline-block';
+  } else {
+    scoreIcon.textContent = '📚';
+    resultMsg.className = 'result-message fail';
+    resultMsg.textContent = `No aprobaste. Necesitabas 60%, obtuviste ${percentage}%`;
+    statusValue.textContent = 'NO APROBADO';
+    statusValue.style.color = '#ff6b6b';
+    gradeValue.textContent = percentage >= 50 ? 'B' : percentage >= 40 ? 'C' : 'D';
+    gradeValue.style.color = '#ff6b6b';
+  }
+  
+  const reviewHTML = Object.entries(answers).map(([q, answer], i) => {
+    const isCorrect = answer === 'correct';
+    return `
+      <div class="review-item ${isCorrect ? 'correct' : 'incorrect'}">
+        <div class="review-number ${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '✓' : '✗'}</div>
+        <div class="review-content">
+          <div class="review-question">Pregunta ${i + 1}</div>
+          <div class="review-answer">${isCorrect ? '✅ Correcta' : '❌ Incorrecta'}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('reviewContainer').innerHTML = reviewHTML;
+  
+  const analysis = passed ? 
+    '✅ Excelente. Dominaste JavaScript. Estás listo para proyectos complejos.' : 
+    '📚 Necesitas practicar más. Revisa los módulos nuevamente.';
+  document.getElementById('analysisContainer').innerHTML = `<p style="color: #d1d5f0;">${analysis}</p>`;
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function completeDay() {
+  const completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+  if (!completedDays.includes(10)) {
+    completedDays.push(10);
+  }
+  localStorage.setItem('completedDays', JSON.stringify(completedDays));
+  localStorage.setItem('dia10Completado', 'true');
+  
+  alert('✅ ¡Día 10 completado!\n\nTu progreso ha sido guardado.');
+  window.location.href = '../menu.html';
+}
+</script>
+</body>
+</html>

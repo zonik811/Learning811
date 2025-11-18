@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 9 - Módulo 1: Calculadora - Introducción</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  color: #a78bfa;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.section p, .section li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+.section ul {
+  margin-left: 20px;
+}
+
+.code-block {
+  background: #0a0a14;
+  border: 1px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.code-label {
+  font-size: 0.85rem;
+  color: #a78bfa;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.step-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  border-left: 4px solid #667eea;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.step-number {
+  display: inline-flex;
+  background: #667eea;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-right: 15px;
+}
+
+.step-title {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.step-description {
+  font-size: 1rem;
+  color: #d1d5f0;
+  line-height: 1.6;
+}
+
+.demo-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid rgba(102,126,234,0.3);
+  margin: 25px 0;
+}
+
+.demo-title {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.calculator-preview {
+  background: #1a1a2e;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.display {
+  background: #0f3460;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: right;
+  font-size: 2rem;
+  color: #00d4ff;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn-calc {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-number {
+  background: #16213e;
+  color: #00d4ff;
+}
+
+.btn-operator {
+  background: #667eea;
+  color: white;
+}
+
+.btn-equals {
+  background: #4caf50;
+  color: white;
+  grid-column: span 2;
+}
+
+.btn-clear {
+  background: #ff6b6b;
+  color: white;
+  grid-column: span 2;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.feature-card {
+  background: rgba(102,126,234,0.1);
+  border: 2px solid rgba(102,126,234,0.3);
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  border-color: #667eea;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.2);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  color: #667eea;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.feature-description {
+  font-size: 0.95rem;
+  color: #d1d5f0;
+  line-height: 1.6;
+}
+
+/* Estilos para la Estructura del Proyecto */
+.project-structure {
+  background: #0a0a14;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 20px 0;
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.folder-item {
+  margin-left: 0;
+  position: relative;
+}
+
+.folder-item .folder-item {
+  margin-left: 30px;
+}
+
+.folder-item .file-item {
+  margin-left: 30px;
+}
+
+.folder-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.folder-header:hover {
+  background: rgba(102,126,234,0.15);
+  border-left: 3px solid #667eea;
+  padding-left: 9px;
+}
+
+.folder-icon {
+  font-size: 1.2rem;
+  display: inline-block;
+  width: 20px;
+}
+
+.folder-name {
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.toggle-arrow {
+  margin-left: auto;
+  color: #667eea;
+  font-size: 0.9rem;
+  transition: transform 0.3s;
+}
+
+.folder-item.collapsed .toggle-arrow {
+  transform: rotate(-90deg);
+}
+
+.folder-content {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.folder-content.hidden {
+  max-height: 0;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.file-item:hover:not(.empty) {
+  background: rgba(102,126,234,0.1);
+  border-left: 3px solid rgba(102,126,234,0.5);
+}
+
+.file-icon {
+  font-size: 1.2rem;
+  display: inline-block;
+  width: 20px;
+}
+
+.file-name {
+  font-weight: 600;
+  color: #7dd3fc;
+}
+
+.file-description {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  margin-left: auto;
+}
+
+.file-item.empty {
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+
+.structure-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 2px solid rgba(102,126,234,0.2);
+}
+
+.stat-item {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  border: 1px solid rgba(102,126,234,0.3);
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s;
+}
+
+.stat-item:hover {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+}
+
+.stat-text {
+  font-size: 0.95rem;
+  color: #d1d5f0;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 16px 48px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .calculator-preview { padding: 20px; }
+  .project-structure { padding: 15px; font-size: 0.85rem; }
+  .structure-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🧮 Día 9: Proyecto Calculadora</h1>
+    <p>Construye una calculadora funcional desde cero. Aprenderás HTML, CSS, JavaScript y DOM manipulation en un proyecto real.</p>
+  </div>
+
+  <!-- Sección 1: Visión General -->
+  <div class="section">
+    <h2>🎯 ¿Qué Vamos a Construir?</h2>
+    <p>Una <strong>calculadora web funcional</strong> que permitirá a los usuarios:</p>
+    <ul>
+      <li>✅ Realizar operaciones matemáticas básicas (suma, resta, multiplicación, división)</li>
+      <li>✅ Escribir números y decimales</li>
+      <li>✅ Ver el resultado en tiempo real</li>
+      <li>✅ Limpiar el display y reiniciar cálculos</li>
+      <li>✅ Manejo de errores (división por cero, etc.)</li>
+      <li>✅ Interfaz moderna y responsiva</li>
+    </ul>
+
+    <h3>🛠️ Tecnologías que Usaremos</h3>
+    <div class="feature-list">
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <div class="feature-title">HTML</div>
+        <div class="feature-description">Estructura semántica del proyecto</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">CSS</div>
+        <div class="feature-description">Estilos modernos y gradientes</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <div class="feature-title">JavaScript</div>
+        <div class="feature-description">Lógica y funcionalidad</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖱️</div>
+        <div class="feature-title">DOM</div>
+        <div class="feature-description">Manipulación interactiva</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview de la Calculadora -->
+  <div class="demo-box">
+    <div class="demo-title">📱 Vista Previa: Cómo Se Verá</div>
+    <div class="calculator-preview">
+      <div class="display">0</div>
+      <div class="buttons-grid">
+        <button class="btn-calc btn-clear">C</button>
+        <button class="btn-calc btn-clear">←</button>
+        <button class="btn-calc btn-operator">÷</button>
+        <button class="btn-calc btn-operator">×</button>
+        
+        <button class="btn-calc btn-number">7</button>
+        <button class="btn-calc btn-number">8</button>
+        <button class="btn-calc btn-number">9</button>
+        <button class="btn-calc btn-operator">−</button>
+        
+        <button class="btn-calc btn-number">4</button>
+        <button class="btn-calc btn-number">5</button>
+        <button class="btn-calc btn-number">6</button>
+        <button class="btn-calc btn-operator">+</button>
+        
+        <button class="btn-calc btn-number">1</button>
+        <button class="btn-calc btn-number">2</button>
+        <button class="btn-calc btn-number">3</button>
+        <button class="btn-calc btn-operator">.</button>
+        
+        <button class="btn-calc btn-equals">=</button>
+        <button class="btn-calc btn-number">0</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 2: Configuración del Proyecto -->
+  <div class="section">
+    <h2>⚙️ Configuración del Proyecto en VS Code</h2>
+    <p>Sigue estos pasos para crear la estructura de carpetas desde cero:</p>
+
+    <!-- Paso 1 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">1</span>
+        <div style="flex: 1;">
+          <div class="step-title">Crea una carpeta para el proyecto</div>
+          <div class="step-description">
+            Abre tu terminal (Cmd + K en Mac, Ctrl + ` en Windows) y ejecuta:
+          </div>
+          <div class="code-block">
+            <div class="code-label">Terminal</div>
+mkdir calculadora-web
+cd calculadora-web
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">2</span>
+        <div style="flex: 1;">
+          <div class="step-title">Abre el proyecto en VS Code</div>
+          <div class="step-description">
+            Desde la terminal:
+          </div>
+          <div class="code-block">
+            <div class="code-label">Terminal</div>
+code .
+          </div>
+          <p style="margin-top: 10px; color: #d1d5f0;">O abre VS Code y ve a File → Open Folder → selecciona "calculadora-web"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">3</span>
+        <div style="flex: 1;">
+          <div class="step-title">Crea la estructura de carpetas</div>
+          <div class="step-description">
+            En VS Code, crea las siguientes carpetas y archivos:
+          </div>
+          <div class="code-block">
+calculadora-web/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── img/
+    └── (para imágenes si las necesitas)
+          </div>
+          <p style="margin-top: 15px; color: #d1d5f0;"><strong>Cómo crear:</strong></p>
+          <ul style="margin-top: 10px; color: #d1d5f0;">
+            <li>Haz clic derecho en el explorador → Nueva carpeta</li>
+            <li>Nombra: <code>css</code>, luego <code>js</code>, luego <code>img</code></li>
+            <li>Dentro de <code>css</code> crea archivo: <code>style.css</code></li>
+            <li>Dentro de <code>js</code> crea archivo: <code>script.js</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 4 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">4</span>
+        <div style="flex: 1;">
+          <div class="step-title">Crea el archivo index.html</div>
+          <div class="step-description">
+            En la raíz del proyecto, crea <code>index.html</code> y copia este contenido básico:
+          </div>
+          <div class="code-block">
+            <div class="code-label">index.html</div>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Calculadora Web&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="calculator"&gt;
+    &lt;h1&gt;Calculadora&lt;/h1&gt;
+    &lt;!-- Aquí irá el HTML de la calculadora --&gt;
+  &lt;/div&gt;
+  
+  &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 5 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">5</span>
+        <div style="flex: 1;">
+          <div class="step-title">Crea archivos CSS y JS vacíos</div>
+          <div class="step-description">
+            Crea <code>css/style.css</code> con un comentario base:
+          </div>
+          <div class="code-block">
+            <div class="code-label">css/style.css</div>
+/* Estilos de la Calculadora */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+          </div>
+          <p style="margin-top: 15px; color: #d1d5f0;">Y crea <code>js/script.js</code> con un comentario base:</p>
+          <div class="code-block">
+            <div class="code-label">js/script.js</div>
+// Funcionalidad de la Calculadora
+console.log('Script cargado');
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 6 -->
+    <div class="step-box">
+      <div style="display: flex; align-items: flex-start;">
+        <span class="step-number">6</span>
+        <div style="flex: 1;">
+          <div class="step-title">Instala Live Server</div>
+          <div class="step-description">
+            Para ver cambios en tiempo real:
+          </div>
+          <ul style="margin: 10px 0; color: #d1d5f0;">
+            <li>En VS Code, ve a Extensiones (Ctrl + Shift + X)</li>
+            <li>Busca "Live Server" de Ritwick Dey</li>
+            <li>Haz clic en instalar</li>
+            <li>Click derecho en index.html → "Open with Live Server"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estructura de Proyecto Completa - MEJORADA -->
+  <div class="section">
+    <h2>📁 Estructura Final del Proyecto</h2>
+    <p>Aquí está cómo debe verse tu carpeta en VS Code. Click en las carpetas para expandir/contraer:</p>
+    
+    <div class="project-structure">
+      <!-- Raíz -->
+      <div class="folder-item root-folder">
+        <div class="folder-header" onclick="toggleFolder(this)">
+          <span class="folder-icon">📁</span>
+          <span class="folder-name">calculadora-web/</span>
+          <span class="toggle-arrow">▼</span>
+        </div>
+        
+        <!-- Contenido raíz -->
+        <div class="folder-content show">
+          <!-- index.html -->
+          <div class="file-item">
+            <span class="file-icon">📄</span>
+            <span class="file-name">index.html</span>
+            <span class="file-description">Estructura HTML principal</span>
+          </div>
+
+          <!-- Carpeta CSS -->
+          <div class="folder-item">
+            <div class="folder-header" onclick="toggleFolder(this)">
+              <span class="folder-icon">📁</span>
+              <span class="folder-name">css/</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+            <div class="folder-content show">
+              <div class="file-item">
+                <span class="file-icon">🎨</span>
+                <span class="file-name">style.css</span>
+                <span class="file-description">Estilos de la calculadora</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carpeta JS -->
+          <div class="folder-item">
+            <div class="folder-header" onclick="toggleFolder(this)">
+              <span class="folder-icon">📁</span>
+              <span class="folder-name">js/</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+            <div class="folder-content show">
+              <div class="file-item">
+                <span class="file-icon">⚙️</span>
+                <span class="file-name">script.js</span>
+                <span class="file-description">Lógica de la calculadora</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carpeta img -->
+          <div class="folder-item">
+            <div class="folder-header" onclick="toggleFolder(this)">
+              <span class="folder-icon">📁</span>
+              <span class="folder-name">img/</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+            <div class="folder-content show">
+              <div class="file-item empty">
+                <span class="file-description">Archivos de imágenes (opcional)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="structure-stats">
+      <div class="stat-item">
+        <span class="stat-icon">📊</span>
+        <span class="stat-text"><strong>Total:</strong> 1 HTML + 1 CSS + 1 JS</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">💾</span>
+        <span class="stat-text"><strong>Tamaño estimado:</strong> ~15 KB</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">⚡</span>
+        <span class="stat-text"><strong>Rendimiento:</strong> Muy rápido</span>
+      </div>
+    </div>
+
+    <h3>✅ Verificación Final</h3>
+    <p>Antes de continuar, asegúrate de que:</p>
+    <ul>
+      <li>✔️ Puedes ver "Calculadora Web" en la pestaña del navegador</li>
+      <li>✔️ Los archivos CSS y JS están vinculados (sin errores en consola)</li>
+      <li>✔️ Live Server funciona (los cambios se ven automáticamente)</li>
+      <li>✔️ La carpeta de proyecto está organizada correctamente</li>
+    </ul>
+  </div>
+
+  <!-- Próximos Pasos -->
+  <div class="section">
+    <h2>🚀 Próximos Pasos</h2>
+    <p>Una vez completada la configuración:</p>
+    <ol style="margin-left: 20px; color: #d1d5f0;">
+      <li><strong>Módulo 2:</strong> Construiremos el HTML y CSS de la calculadora</li>
+      <li><strong>Módulo 3:</strong> Agregaremos funcionalidad básica con JavaScript</li>
+      <li><strong>Módulo 4:</strong> Mejoras avanzadas y manejo de errores</li>
+      <li><strong>Módulo 5:</strong> Evaluación práctica y desafíos</li>
+    </ol>
+  </div>
+
+  <!-- Botón Siguiente -->
+  <div class="btn-container">
+    <a href="modulo2.html" class="btn">
+      Siguiente: Construir HTML + CSS →
+    </a>
+  </div>
+
+</div>
+
+<script>
+function toggleFolder(element) {
+  const folder = element.closest('.folder-item');
+  const content = folder.querySelector('.folder-content');
+  const arrow = element.querySelector('.toggle-arrow');
+  
+  if(content) {
+    folder.classList.toggle('collapsed');
+    content.classList.toggle('hidden');
+    arrow.textContent = folder.classList.contains('collapsed') ? '▶' : '▼';
+  }
+}
+</script>
+</body>
+</html>

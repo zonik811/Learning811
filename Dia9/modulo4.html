@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 9 - Módulo 4: Mejoras Avanzadas</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  font-size: 1.3rem;
+  color: #a78bfa;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.section p, .section li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+.section ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.challenge-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border: 3px solid #667eea;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px 0;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.challenge-icon {
+  font-size: 2.5rem;
+}
+
+.challenge-title {
+  font-size: 1.4rem;
+  color: #667eea;
+  font-weight: 700;
+  margin: 0;
+}
+
+.challenge-description {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 3px solid #667eea;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.challenge-description ul {
+  margin: 15px 0 0 20px;
+}
+
+.code-wrapper {
+  background: #0a0a14;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.code-header {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code-filename {
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.code-content {
+  padding: 20px;
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.code-content code {
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  font-size: 0.9rem;
+  line-height: 2;
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hint-box {
+  background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,235,59,0.1));
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+}
+
+.hint-box strong {
+  color: #ffc107;
+}
+
+.hint-box pre {
+  background: #0a0a14;
+  padding: 10px;
+  border-radius: 6px;
+  color: #7dd3fc;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.solution-box {
+  background: rgba(102,126,234,0.1);
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 0;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.solution-header {
+  background: rgba(102,126,234,0.2);
+  padding: 15px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+.solution-header:hover {
+  background: rgba(102,126,234,0.3);
+}
+
+.solution-title {
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.solution-toggle {
+  font-size: 1.5rem;
+  color: #667eea;
+  transition: transform 0.3s;
+}
+
+.solution-content {
+  padding: 20px;
+  display: none;
+  border-top: 1px solid rgba(102,126,234,0.2);
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.solution-content.show {
+  display: block;
+}
+
+.solution-toggle.show {
+  transform: rotate(180deg);
+}
+
+.explanation-box {
+  background: rgba(102,126,234,0.05);
+  border-left: 3px solid #667eea;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #d1d5f0;
+  line-height: 1.7;
+}
+
+.explanation-box strong {
+  color: #a78bfa;
+}
+
+.explanation-box ul {
+  margin: 10px 0 0 20px;
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.copy-btn.copied {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(67,233,123,0.15));
+  border: 2px solid #4caf50;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 15px 0;
+}
+
+.feature-card h4 {
+  color: #4caf50;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.feature-card p {
+  color: #d1d5f0;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.demo-section {
+  background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(67,233,123,0.15));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid #4caf50;
+  margin: 30px 0;
+}
+
+.demo-title {
+  font-size: 1.3rem;
+  color: #4caf50;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.comparison-card {
+  background: rgba(102,126,234,0.1);
+  border: 1px solid rgba(102,126,234,0.3);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.comparison-card h4 {
+  color: #a78bfa;
+  margin-bottom: 10px;
+}
+
+.comparison-card code {
+  background: #0a0a14;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #7dd3fc;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .comparison-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🚀 Módulo 4: Mejoras Avanzadas</h1>
+    <p>Haz tu calculadora más robusta con validaciones, decimales, historial y más características profesionales.</p>
+  </div>
+
+  <!-- Introducción -->
+  <div class="section">
+    <h2>🎯 ¿Qué agregaremos?</h2>
+    <p>Tu calculadora ya funciona, pero los programadores profesionales agregan características extras para mejorar la experiencia:</p>
+    <ul>
+      <li>✅ <strong>Manejo de decimales</strong> - Solo un punto por operación</li>
+      <li>✅ <strong>Validación de errores</strong> - Evitar divisiones por cero</li>
+      <li>✅ <strong>Operaciones encadenadas</strong> - 5 + 3 - 2 = (sin presionar = cada vez)</li>
+      <li>✅ <strong>Historial de operaciones</strong> - Ver lo que hiciste</li>
+      <li>✅ <strong>Tema oscuro/claro</strong> - Toggle de colores</li>
+    </ul>
+  </div>
+
+  <!-- MEJORA 1: División por Cero -->
+  <div class="section">
+    <h2>🚀 Mejora 1: Validar División por Cero</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">⚠️</div>
+        <h3 class="challenge-title">Evitar errores matemáticos</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> En el botón igual, verifica si intentan dividir por cero y muestra un error
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista:</strong> Agrega una validación antes de hacer la división:
+        <pre>if (operador === '÷' && num2 === 0) {
+  display.value = 'Error';
+  return;
+}</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Validación División</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">    // Si es el botón igual
+    if (clase.contains('btn-equals')) {
+      if (numeroAnterior !== '' && operador && numeroActual !== '') {
+        const num1 = parseFloat(numeroAnterior);
+        const num2 = parseFloat(numeroActual);
+
+        // VALIDACIÓN: Evitar división por cero
+        if (operador === '÷' && num2 === 0) {
+          display.value = 'Error: ÷0';
+          numeroActual = '0';
+          numeroAnterior = '';
+          operador = null;
+          return;
+        }
+
+        let resultado;
+        if (operador === '+') resultado = num1 + num2;
+        else if (operador === '−') resultado = num1 - num2;
+        else if (operador === '×') resultado = num1 * num2;
+        else if (operador === '÷') resultado = num1 / num2;
+
+        display.value = resultado;
+        numeroActual = resultado.toString();
+        numeroAnterior = '';
+        operador = null;
+      }
+    }</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Por qué es importante?</strong>
+            <ul>
+              <li>Divide por cero = infinito (error matemático)</li>
+              <li>Mejora la experiencia del usuario mostrando un mensaje de error</li>
+              <li>Previene que la calculadora se bloquee o muestre NaN</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEJORA 2: Decimal -->
+  <div class="section">
+    <h2>🚀 Mejora 2: Botón Decimal Inteligente</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔢</div>
+        <h3 class="challenge-title">Solo un decimal por número</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> El botón decimal (.) debe:
+        <ul>
+          <li>Agregar "." solo si no existe en el número actual</li>
+          <li>Si el display está vacío, mostrar "0."</li>
+          <li>Evitar números como "5..4"</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista:</strong> Usa <code>.includes('.')</code> para verificar si ya tiene un punto
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Decimal Inteligente</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">    // Si es el botón decimal
+    if (clase.contains('btn-decimal')) {
+      // Si ya tiene un punto, no agregar otro
+      if (numeroActual.includes('.')) {
+        return;
+      }
+
+      // Si está vacío, comenzar con "0."
+      if (numeroActual === '' || numeroActual === '0') {
+        numeroActual = '0.';
+      } else {
+        numeroActual += '.';
+      }
+
+      display.value = numeroActual;
+    }</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Por qué esto es mejor?</strong>
+            <ul>
+              <li><code>includes('.')</code> - Comprueba si ya existe un punto</li>
+              <li>Previene números inválidos como "5..4"</li>
+              <li>"0." es más intuitivo que ".5"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEJORA 3: Operaciones Encadenadas -->
+  <div class="section">
+    <h2>🚀 Mejora 3: Operaciones Encadenadas</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🔗</div>
+        <h3 class="challenge-title">5 + 3 - 2 = 6 (sin múltiples =)</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Cuando presionan un operador:
+        <ul>
+          <li>Si ya hay una operación pendiente, calcularla primero</li>
+          <li>Luego guardar el nuevo operador</li>
+          <li>Esto permite: 5 + 3 - 2 = para obtener 6</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista:</strong> Crea una función separada para calcular:
+        <pre>function calcular(num1, num2, operador) {
+  // ... realizar la operación
+}</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Función Calcular</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">// Función para realizar operaciones
+function realizarOperacion(num1, num2, operador) {
+  if (operador === '+') return num1 + num2;
+  if (operador === '−') return num1 - num2;
+  if (operador === '×') return num1 * num2;
+  if (operador === '÷') {
+    if (num2 === 0) return null; // Error
+    return num1 / num2;
+  }
+}
+
+// Cuando presionan otro operador
+if (clase.contains('btn-operator')) {
+  if (numeroActual !== '' && numeroAnterior !== '' && operador) {
+    // Hay una operación pendiente, calcularla primero
+    const resultado = realizarOperacion(
+      parseFloat(numeroAnterior),
+      parseFloat(numeroActual),
+      operador
+    );
+
+    if (resultado === null) {
+      display.value = 'Error: ÷0';
+      numeroActual = '0';
+      numeroAnterior = '';
+      operador = null;
+    } else {
+      numeroAnterior = resultado.toString();
+      numeroActual = '';
+      operador = evento.target.textContent;
+      display.value = numeroAnterior;
+    }
+  } else if (numeroActual !== '') {
+    numeroAnterior = numeroActual;
+    operador = evento.target.textContent;
+    numeroActual = '';
+  }
+}</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Cómo mejora esto?</strong>
+            <ul>
+              <li>Separa la lógica en una función reutilizable</li>
+              <li>Permite operaciones encadenadas (5 + 3 - 2 =)</li>
+              <li>Reduce código duplicado</li>
+              <li>Más fácil de mantener y debuggear</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEJORA 4: Historial de Operaciones -->
+  <div class="section">
+    <h2>🚀 Mejora 4: Historial de Operaciones</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">📜</div>
+        <h3 class="challenge-title">Guardar y mostrar lo que hizo el usuario</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Crea un historial que muestre:
+        <ul>
+          <li>Las últimas 5 operaciones realizadas</li>
+          <li>En formato: "5 + 3 = 8"</li>
+          <li>Con un botón para limpiar el historial</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Crea un array para guardar operaciones:
+        <pre>let historial = [];</pre>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Cuando calculen, agrega a historial:
+        <pre>historial.push(`${num1} ${op} ${num2} = ${resultado}`);</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución (Concepto)</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Historial</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">// Array para guardar el historial
+let historial = [];
+
+// Cuando calculen, agregar al historial
+if (clase.contains('btn-equals')) {
+  if (numeroAnterior !== '' && operador && numeroActual !== '') {
+    const num1 = parseFloat(numeroAnterior);
+    const num2 = parseFloat(numeroActual);
+    const resultado = realizarOperacion(num1, num2, operador);
+
+    // Agregar a historial
+    historial.push(`${num1} ${operador} ${num2} = ${resultado}`);
+
+    // Guardar solo las últimas 5
+    if (historial.length > 5) {
+      historial.shift(); // Quita el primero
+    }
+
+    display.value = resultado;
+    numeroActual = resultado.toString();
+    numeroAnterior = '';
+    operador = null;
+  }
+}
+
+// Para mostrar el historial (en HTML adicional):
+// &lt;ul id="historial"&gt;&lt;/ul&gt;
+// Luego actualizar con: document.getElementById('historial').innerHTML = historial.map(h => `&lt;li&gt;${h}&lt;/li&gt;`).join('');</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Por qué es útil?</strong>
+            <ul>
+              <li>El usuario puede ver sus operaciones anteriores</li>
+              <li><code>shift()</code> - Quita el elemento más antiguo cuando hay más de 5</li>
+              <li><code>map()</code> - Convierte el array en HTML</li>
+              <li>Mejora la experiencia del usuario</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEJORA 5: Tema Oscuro/Claro -->
+  <div class="section">
+    <h2>🚀 Mejora 5: Toggle Tema Oscuro/Claro</h2>
+    
+    <div class="challenge-box">
+      <div class="challenge-header">
+        <div class="challenge-icon">🌙</div>
+        <h3 class="challenge-title">Cambiar colores de la aplicación</h3>
+      </div>
+
+      <div class="challenge-description">
+        <strong>Tu misión:</strong> Agregar un botón para cambiar entre tema oscuro y claro
+        <ul>
+          <li>Crear clases CSS para tema claro</li>
+          <li>JavaScript togglea la clase</li>
+          <li>Guardar preferencia en localStorage</li>
+        </ul>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 1:</strong> Crear clases en CSS:
+        <pre>body.light-theme {
+  background: #f5f5f5;
+  color: #333;
+}</pre>
+      </div>
+
+      <div class="hint-box">
+        <strong>💡 Pista 2:</strong> Usar classList.toggle():
+        <pre>document.body.classList.toggle('light-theme');</pre>
+      </div>
+
+      <div class="solution-box">
+        <div class="solution-header" onclick="toggleSolution(this)">
+          <span class="solution-title">📋 Ver Solución (Concepto)</span>
+          <span class="solution-toggle">▼</span>
+        </div>
+        <div class="solution-content">
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="code-filename">js/script.js - Tema Toggle</span>
+              <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+            </div>
+            <div class="code-content">
+              <code">// Toggle de tema
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('light-theme');
+  
+  // Guardar preferencia en localStorage
+  if (document.body.classList.contains('light-theme')) {
+    localStorage.setItem('theme', 'light');
+  } else {
+    localStorage.setItem('theme', 'dark');
+  }
+});
+
+// Cargar preferencia al iniciar
+window.addEventListener('load', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+  }
+});</code>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            <strong>¿Cómo funciona?</strong>
+            <ul>
+              <li><code>classList.toggle()</code> - Agrega/quita una clase</li>
+              <li><code>localStorage</code> - Guarda la preferencia entre sesiones</li>
+              <li><code>window.addEventListener('load')</code> - Carga al iniciar</li>
+              <li>CSS proporciona los estilos para cada tema</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen de Mejoras -->
+  <div class="demo-section">
+    <div class="demo-title">📊 Resumen de Mejoras</div>
+    
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <h4>✅ Validación</h4>
+        <p>División por cero detectada</p>
+      </div>
+      <div class="comparison-card">
+        <h4>✅ Decimales Inteligentes</h4>
+        <p>Solo un punto por número</p>
+      </div>
+      <div class="comparison-card">
+        <h4>✅ Operaciones Encadenadas</h4>
+        <p>5 + 3 - 2 = funciona directamente</p>
+      </div>
+      <div class="comparison-card">
+        <h4>✅ Historial</h4>
+        <p>Ver últimas 5 operaciones</p>
+      </div>
+      <div class="comparison-card">
+        <h4>✅ Tema Oscuro/Claro</h4>
+        <p>Toggle con localStorage</p>
+      </div>
+      <div class="comparison-card">
+        <h4>✅ Código Limpio</h4>
+        <p>Funciones reutilizables</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Opcionales -->
+  <div class="section">
+    <h2>🌟 Features Opcionales Adicionales</h2>
+    
+    <div class="feature-card">
+      <h4>📱 Soporte de Teclado</h4>
+      <p>Permitir que el usuario use el teclado numérico para escribir números y presionar Enter para =</p>
+    </div>
+
+    <div class="feature-card">
+      <h4>🎵 Sonidos</h4>
+      <p>Reproducir un pequeño "beep" cuando presionan un botón</p>
+    </div>
+
+    <div class="feature-card">
+      <h4>📊 Memoria (M+, M-, MR)</h4>
+      <p>Guardar valores en memoria para operaciones complejas</p>
+    </div>
+
+    <div class="feature-card">
+      <h4>📐 Funciones Avanzadas</h4>
+      <p>Raíz cuadrada, porcentaje, factorial, etc.</p>
+    </div>
+
+    <div class="feature-card">
+      <h4>🌐 Exportar Operaciones</h4>
+      <p>Descargar el historial como archivo .txt o .csv</p>
+    </div>
+
+    <div class="feature-card">
+      <h4>⌨️ Atajos de Teclado</h4>
+      <p>Ctrl+H para limpiar historial, Ctrl+T para cambiar tema</p>
+    </div>
+  </div>
+
+  <!-- Checklist Final -->
+  <div class="section">
+    <h2>✅ Checklist de Mejoras</h2>
+    <p>Si completaste las mejoras, tu calculadora debe tener:</p>
+    <ul>
+      <li>✔️ Validación de división por cero</li>
+      <li>✔️ Decimales que funcionen correctamente</li>
+      <li>✔️ Operaciones encadenadas (5 + 3 - 2 =)</li>
+      <li>✔️ Historial de operaciones (opcional)</li>
+      <li>✔️ Toggle tema oscuro/claro (opcional)</li>
+      <li>✔️ Código organizado en funciones</li>
+      <li>✔️ Sin errores en consola</li>
+      <li>✔️ Interfaz intuitiva y responsiva</li>
+    </ul>
+  </div>
+
+  <!-- Botón Quiz -->
+  <div class="btn-container">
+    <a href="modulo5.html" class="btn">
+      Siguiente: Quiz Final & Evaluación →
+    </a>
+  </div>
+
+</div>
+
+<script>
+function toggleSolution(element) {
+  const content = element.nextElementSibling;
+  const toggle = element.querySelector('.solution-toggle');
+  
+  content.classList.toggle('show');
+  toggle.classList.toggle('show');
+}
+
+function copyCode(button) {
+  const codeElement = button.closest('.code-wrapper').querySelector('code');
+  const text = codeElement.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = '✅ ¡Copiado!';
+    button.classList.add('copied');
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

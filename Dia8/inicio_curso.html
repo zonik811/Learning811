@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 8 - DOM e Interactividad</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Secciones */
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section p, .section li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+/* Demo interactiva */
+.demo-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid rgba(102,126,234,0.3);
+  margin: 25px 0;
+}
+
+.demo-title {
+  font-size: 1.2rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Elemento demo */
+.demo-element {
+  background: rgba(102,126,234,0.2);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px dashed rgba(102,126,234,0.5);
+  margin: 15px 0;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+/* Botones */
+.btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+/* Input */
+.input {
+  background: rgba(30,27,75,0.8);
+  border: 2px solid rgba(102,126,234,0.5);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 15px rgba(102,126,234,0.5);
+}
+
+/* Code block */
+.code {
+  background: #1a1625;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  overflow-x: auto;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Lista interactiva */
+.interactive-list {
+  list-style: none;
+  padding: 0;
+}
+
+.interactive-list li {
+  background: rgba(102,126,234,0.15);
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-left: 4px solid transparent;
+}
+
+.interactive-list li:hover {
+  background: rgba(102,126,234,0.25);
+  border-left-color: #667eea;
+  transform: translateX(5px);
+}
+
+.interactive-list li.completed {
+  background: rgba(76,175,80,0.2);
+  text-decoration: line-through;
+  color: #81c784;
+  border-left-color: #4caf50;
+}
+
+/* Grid de cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  background: rgba(102,126,234,0.15);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(102,126,234,0.3);
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+}
+
+/* Resultados */
+.result {
+  background: rgba(76,175,80,0.2);
+  border-left: 4px solid #4caf50;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  display: none;
+}
+
+.result.show {
+  display: block;
+  animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón grande */
+.btn-large {
+  padding: 18px 60px;
+  font-size: 1.2rem;
+  display: inline-block;
+  text-decoration: none;
+  margin: 40px auto;
+  display: block;
+  width: fit-content;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>🧩 Día 8: Manipulación del DOM</h1>
+    <p>Aprende a hacer tus páginas web interactivas con JavaScript. Experimenta en vivo con cada concepto.</p>
+  </div>
+
+  <!-- Sección 1: Qué es el DOM -->
+  <div class="section">
+    <h2>🔍 ¿Qué es el DOM?</h2>
+    <p>
+      El <strong>DOM (Document Object Model)</strong> es la representación de tu página web como un árbol de objetos.
+      Cada elemento HTML (div, p, button) es un nodo que JavaScript puede manipular.
+    </p>
+    <p><strong>¿Por qué es importante?</strong></p>
+    <ul>
+      <li>✅ Cambiar contenido sin recargar la página</li>
+      <li>✅ Responder a acciones del usuario (clics, teclado, etc.)</li>
+      <li>✅ Crear, eliminar y modificar elementos dinámicamente</li>
+      <li>✅ Hacer páginas web interactivas y modernas</li>
+    </ul>
+  </div>
+
+  <!-- Sección 2: Seleccionar elementos -->
+  <div class="section">
+    <h2>🎯 Seleccionar elementos del DOM</h2>
+    <p>Antes de manipular un elemento, debes seleccionarlo. Aquí los métodos principales:</p>
+    
+    <div class="code">
+// Por ID
+const elemento = document.getElementById('miElemento');
+
+// Por clase (el primero)
+const primero = document.querySelector('.mi-clase');
+
+// Por clase (todos)
+const todos = document.querySelectorAll('.mi-clase');
+
+// Por etiqueta
+const parrafos = document.getElementsByTagName('p');
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo Interactiva: Seleccionar Elementos</div>
+      <div id="demoElement1" class="demo-element">
+        ¡Soy un elemento con ID "demoElement1"!
+      </div>
+      <button class="btn" onclick="selectDemo()">Seleccionar y cambiar color</button>
+      <button class="btn btn-secondary" onclick="resetDemo1()">Resetear</button>
+    </div>
+  </div>
+
+  <!-- Sección 3: Modificar contenido -->
+  <div class="section">
+    <h2>✏️ Modificar contenido y estilos</h2>
+    <p>Una vez seleccionado un elemento, puedes cambiar su texto, HTML y estilos:</p>
+    
+    <div class="code">
+// Cambiar texto
+elemento.textContent = "Nuevo texto";
+
+// Cambiar HTML interno
+elemento.innerHTML = "&lt;strong&gt;Texto en negrita&lt;/strong&gt;";
+
+// Cambiar estilos
+elemento.style.backgroundColor = "blue";
+elemento.style.fontSize = "24px";
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo Interactiva: Modificar Contenido</div>
+      <div id="demoElement2" class="demo-element">
+        Texto original
+      </div>
+      <input type="text" id="newText" class="input" placeholder="Escribe nuevo texto...">
+      <button class="btn" onclick="changeText()">Cambiar texto</button>
+      <button class="btn btn-success" onclick="changeStyle()">Cambiar estilo</button>
+      <button class="btn btn-secondary" onclick="resetDemo2()">Resetear</button>
+    </div>
+  </div>
+
+  <!-- Sección 4: Crear y eliminar -->
+  <div class="section">
+    <h2>➕ Crear, eliminar y clonar elementos</h2>
+    <p>Puedes agregar nuevos elementos o quitar existentes:</p>
+    
+    <div class="code">
+// Crear elemento
+const nuevoDiv = document.createElement('div');
+nuevoDiv.textContent = "Soy nuevo";
+document.body.appendChild(nuevoDiv);
+
+// Clonar elemento
+const copia = nuevoDiv.cloneNode(true);
+
+// Eliminar elemento
+nuevoDiv.remove();
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo Interactiva: Crear y Eliminar</div>
+      <div id="demoContainer" style="min-height: 100px; padding: 20px;">
+        <!-- Aquí se agregarán elementos -->
+      </div>
+      <input type="text" id="newElementText" class="input" placeholder="Texto del nuevo elemento...">
+      <button class="btn" onclick="createElement()">Crear elemento</button>
+      <button class="btn btn-secondary" onclick="clearElements()">Limpiar todo</button>
+    </div>
+  </div>
+
+  <!-- Sección 5: Eventos -->
+  <div class="section">
+    <h2>🚦 Gestión de eventos</h2>
+    <p>Los eventos permiten responder a las acciones del usuario:</p>
+    
+    <div class="code">
+// Click
+elemento.addEventListener('click', function() {
+  alert('¡Click!');
+});
+
+// Input (escribir)
+input.addEventListener('input', function(e) {
+  console.log(e.target.value);
+});
+
+// Hover
+elemento.addEventListener('mouseenter', function() {
+  this.style.background = 'red';
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo Interactiva: Eventos</div>
+      <div class="card-grid">
+        <div class="card" onclick="this.style.background='rgba(102,126,234,0.4)'">
+          <h3>Click</h3>
+          <p>Haz click aquí</p>
+        </div>
+        <div class="card" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+          <h3>Hover</h3>
+          <p>Pasa el mouse</p>
+        </div>
+        <div class="card" ondblclick="this.style.background='rgba(245,87,108,0.4)'">
+          <h3>Doble Click</h3>
+          <p>Doble click aquí</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ejercicio final -->
+  <div class="section">
+    <h2>🎯 Ejercicio Final: Lista de Tareas Interactiva</h2>
+    <p>Crea tu propia lista de tareas con todas las técnicas aprendidas:</p>
+    
+    <div class="demo-box">
+      <input type="text" id="taskInput" class="input" placeholder="Nueva tarea...">
+      <button class="btn" onclick="addTask()">Agregar Tarea</button>
+      
+      <ul id="taskList" class="interactive-list" style="margin-top: 20px;">
+        <li onclick="toggleTask(this)">Aprender DOM</li>
+        <li onclick="toggleTask(this)">Practicar JavaScript</li>
+        <li onclick="toggleTask(this)">Crear proyectos</li>
+      </ul>
+      
+      <div id="taskResult" class="result"></div>
+    </div>
+    
+    <details style="margin-top: 20px; padding: 20px; background: rgba(102,126,234,0.1); border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600; color: #a78bfa;">Ver código de la solución</summary>
+      <div class="code" style="margin-top: 15px;">
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const list = document.getElementById('taskList');
+  
+  if(input.value.trim() === '') return;
+  
+  const li = document.createElement('li');
+  li.textContent = input.value;
+  li.onclick = function() { toggleTask(this); };
+  list.appendChild(li);
+  
+  input.value = '';
+}
+
+function toggleTask(element) {
+  element.classList.toggle('completed');
+}
+      </div>
+    </details>
+  </div>
+
+  <!-- Botón siguiente -->
+  <a href="modulo2.html" class="btn btn-large">
+    Siguiente Módulo →
+  </a>
+
+</div>
+
+<script>
+// Demo 1: Seleccionar
+function selectDemo() {
+  const elem = document.getElementById('demoElement1');
+  elem.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+  elem.textContent = '¡Elemento seleccionado y modificado!';
+}
+
+function resetDemo1() {
+  const elem = document.getElementById('demoElement1');
+  elem.style.background = 'rgba(102,126,234,0.2)';
+  elem.textContent = '¡Soy un elemento con ID "demoElement1"!';
+}
+
+// Demo 2: Modificar
+function changeText() {
+  const elem = document.getElementById('demoElement2');
+  const newText = document.getElementById('newText').value;
+  if(newText) elem.textContent = newText;
+}
+
+function changeStyle() {
+  const elem = document.getElementById('demoElement2');
+  elem.style.background = 'linear-gradient(135deg, #f093fb, #f5576c)';
+  elem.style.fontSize = '1.5rem';
+  elem.style.fontWeight = 'bold';
+}
+
+function resetDemo2() {
+  const elem = document.getElementById('demoElement2');
+  elem.style.background = 'rgba(102,126,234,0.2)';
+  elem.style.fontSize = '1.1rem';
+  elem.style.fontWeight = 'normal';
+  elem.textContent = 'Texto original';
+  document.getElementById('newText').value = '';
+}
+
+// Demo 3: Crear elementos
+let elementCount = 0;
+function createElement() {
+  const input = document.getElementById('newElementText');
+  const container = document.getElementById('demoContainer');
+  
+  if(input.value.trim() === '') {
+    alert('Escribe algo primero');
+    return;
+  }
+  
+  const newDiv = document.createElement('div');
+  newDiv.className = 'demo-element';
+  newDiv.textContent = input.value;
+  newDiv.style.marginBottom = '10px';
+  newDiv.onclick = function() {
+    this.remove();
+  };
+  
+  container.appendChild(newDiv);
+  input.value = '';
+  elementCount++;
+}
+
+function clearElements() {
+  document.getElementById('demoContainer').innerHTML = '';
+  elementCount = 0;
+}
+
+// Ejercicio final
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const list = document.getElementById('taskList');
+  const result = document.getElementById('taskResult');
+  
+  if(input.value.trim() === '') {
+    alert('Escribe una tarea primero');
+    return;
+  }
+  
+  const li = document.createElement('li');
+  li.textContent = input.value;
+  li.onclick = function() { toggleTask(this); };
+  list.appendChild(li);
+  
+  result.textContent = '✅ Tarea agregada correctamente';
+  result.classList.add('show');
+  setTimeout(() => result.classList.remove('show'), 2000);
+  
+  input.value = '';
+}
+
+function toggleTask(element) {
+  element.classList.toggle('completed');
+}
+</script>
+</body>
+</html>

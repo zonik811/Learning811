@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 8 - Módulo 3: Eventos Avanzados</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(150deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #e8eaf6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15));
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(102,126,234,0.3);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #b8c1ec;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Secciones */
+.section {
+  background: rgba(30,27,75,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(102,126,234,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: #667eea;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section p, .section li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #d1d5f0;
+}
+
+/* Demo interactiva */
+.demo-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid rgba(102,126,234,0.3);
+  margin: 25px 0;
+}
+
+.demo-title {
+  font-size: 1.2rem;
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Elemento demo */
+.demo-element {
+  background: rgba(102,126,234,0.2);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px dashed rgba(102,126,234,0.5);
+  margin: 15px 0;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+/* Botones */
+.btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+}
+
+/* Input */
+.input {
+  background: rgba(30,27,75,0.8);
+  border: 2px solid rgba(102,126,234,0.5);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 15px rgba(102,126,234,0.5);
+}
+
+/* Code block */
+.code {
+  background: #1a1625;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  font-family: 'Courier New', monospace;
+  color: #7dd3fc;
+  overflow-x: auto;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.code-label {
+  font-size: 0.85rem;
+  color: #a78bfa;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grid de cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  background: rgba(102,126,234,0.15);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(102,126,234,0.3);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+}
+
+.card.active {
+  background: rgba(102,126,234,0.4);
+  border-color: #667eea;
+}
+
+/* Event log */
+.event-log {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.event-item {
+  color: #a78bfa;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(102,126,234,0.1);
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+/* Resultados */
+.result {
+  background: rgba(76,175,80,0.2);
+  border-left: 4px solid #4caf50;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  display: none;
+}
+
+.result.show {
+  display: block;
+  animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón grande */
+.btn-large {
+  padding: 18px 60px;
+  font-size: 1.2rem;
+  display: block;
+  width: fit-content;
+  margin: 40px auto;
+  text-decoration: none;
+  text-align: center;
+}
+
+.live-output {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  color: #a78bfa;
+  min-height: 60px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.selector-option {
+  background: rgba(102,126,234,0.15);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid rgba(102,126,234,0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  font-weight: 600;
+}
+
+.selector-option:hover {
+  border-color: #667eea;
+  background: rgba(102,126,234,0.3);
+}
+
+.selector-option.selected {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .section { padding: 25px; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>⚡ Módulo 3: Eventos Avanzados</h1>
+    <p>Domina los eventos del navegador, propaga eventos y delega acciones de forma eficiente.</p>
+  </div>
+
+  <!-- Sección 1: Tipos de Eventos -->
+  <div class="section">
+    <h2>🎪 Tipos de Eventos Principales</h2>
+    <p>El navegador dispara eventos constantemente. Aquí están los más comunes que debes conocer:</p>
+    
+    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📱 Eventos del Mouse</h3>
+    <div class="code">
+      <div class="code-label">click - Clic simple del ratón</div>
+      elemento.addEventListener('click', function() {
+  console.log('Usuario hizo clic');
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">dblclick - Doble clic</div>
+      elemento.addEventListener('dblclick', function() {
+  console.log('Usuario hizo doble clic');
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">mouseover y mouseout - Pasar mouse</div>
+      elemento.addEventListener('mouseover', function() {
+  console.log('Mouse entró');
+});
+
+elemento.addEventListener('mouseout', function() {
+  console.log('Mouse salió');
+});
+    </div>
+
+    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">⌨️ Eventos del Teclado</h3>
+    <div class="code">
+      <div class="code-label">keydown - Presionar una tecla</div>
+      elemento.addEventListener('keydown', function(e) {
+  console.log('Tecla presionada:', e.key);
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">keyup - Soltar una tecla</div>
+      elemento.addEventListener('keyup', function(e) {
+  console.log('Tecla soltada:', e.key);
+});
+    </div>
+
+    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📝 Eventos de Entrada</h3>
+    <div class="code">
+      <div class="code-label">input - Escribir en un input</div>
+      input.addEventListener('input', function(e) {
+  console.log('Texto:', e.target.value);
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">focus y blur - Enfocar/desenfocar</div>
+      input.addEventListener('focus', function() {
+  console.log('Input enfocado');
+});
+
+input.addEventListener('blur', function() {
+  console.log('Input desenfocado');
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo Interactiva: Prueba los Eventos</div>
+      <div id="eventElement" class="demo-element">
+        Haz clic, doble clic, pasa el mouse aquí
+      </div>
+      <input id="eventInput" type="text" class="input" placeholder="Escribe aquí para ver eventos...">
+      <div class="event-log" id="eventLog"></div>
+      <button class="btn btn-danger" onclick="clearLog()">Limpiar Log</button>
+    </div>
+  </div>
+
+  <!-- Sección 2: El Objeto Event -->
+  <div class="section">
+    <h2>📦 El Objeto Event - Información del Evento</h2>
+    <p>Cuando ocurre un evento, se pasa automáticamente un objeto con información importante:</p>
+
+    <div class="code">
+      <div class="code-label">Accediendo a información del evento</div>
+      elemento.addEventListener('click', function(e) {
+  console.log(e.type);        // 'click'
+  console.log(e.target);      // Elemento clickeado
+  console.log(e.clientX);     // Posición X del mouse
+  console.log(e.clientY);     // Posición Y del mouse
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">Información de teclado</div>
+      input.addEventListener('keydown', function(e) {
+  console.log(e.key);         // 'a', 'Enter', 'Shift', etc.
+  console.log(e.code);        // 'KeyA', 'Enter', 'ShiftLeft'
+  console.log(e.timeStamp);   // Tiempo del evento
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Ver Información del Evento</div>
+      <div id="eventInfoDemo" class="demo-element" style="cursor: pointer;">
+        Haz clic para ver la información del evento
+      </div>
+      <div class="live-output" id="eventInfoOutput">Haz clic arriba para ver los datos</div>
+    </div>
+  </div>
+
+  <!-- Sección 3: Event Bubbling -->
+  <div class="section">
+    <h2>🫧 Event Bubbling - Cómo Suben los Eventos</h2>
+    <p>Los eventos "suben" desde el elemento donde ocurren hacia sus elementos padres. Esto se llama bubbling (burbujeo).</p>
+
+    <div class="code">
+      <div class="code-label">El evento sube automáticamente (bubbling)</div>
+      // Si haces clic en el botón, el evento sube al div padre
+const div = document.getElementById('padre');
+const boton = document.getElementById('boton');
+
+div.addEventListener('click', function() {
+  console.log('Padre recibió el evento');
+});
+
+boton.addEventListener('click', function() {
+  console.log('Botón fue clickeado');
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">Detener la propagación con stopPropagation()</div>
+      boton.addEventListener('click', function(e) {
+  e.stopPropagation();  // Evita que suba al padre
+  console.log('Botón clickeado, pero el padre no lo ve');
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">Prevenir comportamiento por defecto</div>
+      link.addEventListener('click', function(e) {
+  e.preventDefault();   // El link NO se abre
+  console.log('Link no se abrió');
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Observa el Bubbling</div>
+      <div id="parent" style="background: rgba(102,126,234,0.1); padding: 20px; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <p style="margin: 0 0 15px 0; color: #a78bfa; font-weight: 600;">Padre (Contenedor) - Click aquí</p>
+        <button class="btn" id="childBtn">Hijo (Botón) - Click aquí</button>
+      </div>
+      <div class="event-log" id="bubblingLog"></div>
+      <p style="margin-top: 15px; color: #d1d5f0; font-size: 0.95rem;">
+        💡 Intenta hacer clic en el botón. Verás que el evento sube al padre también.
+      </p>
+    </div>
+  </div>
+
+  <!-- Sección 4: Event Delegation -->
+  <div class="section">
+    <h2>🎯 Event Delegation - Delegar Eventos</h2>
+    <p>En lugar de poner un listener en cada elemento, pon uno en el padre. Esto es más eficiente especialmente con muchos elementos.</p>
+
+    <div class="code">
+      <div class="code-label">Sin delegación - Un listener por botón (ineficiente)</div>
+      const botones = document.querySelectorAll('.btn');
+botones.forEach(btn => {
+  btn.addEventListener('click', function() {
+    console.log('Botón clickeado');
+  });
+});
+    </div>
+
+    <div class="code">
+      <div class="code-label">Con delegación - Un listener en el contenedor (eficiente)</div>
+      const contenedor = document.getElementById('contenedor');
+contenedor.addEventListener('click', function(e) {
+  if(e.target.classList.contains('btn')) {
+    console.log('Botón clickeado');
+  }
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Delegación en Acción</div>
+      <p style="margin-bottom: 15px; color: #d1d5f0;">Haz clic en cualquier tarjeta (los eventos están delegados en el contenedor padre)</p>
+      <div class="card-grid" id="delegationContainer">
+        <div class="card">Tarjeta 1</div>
+        <div class="card">Tarjeta 2</div>
+        <div class="card">Tarjeta 3</div>
+        <div class="card">Tarjeta 4</div>
+      </div>
+      <button class="btn btn-success" onclick="addNewCard()" style="margin-top: 15px;">Agregar Nueva Tarjeta</button>
+      <p style="margin-top: 15px; color: #d1d5f0; font-size: 0.95rem;">
+        💡 Las nuevas tarjetas también funcionan automáticamente gracias a la delegación
+      </p>
+      <div class="event-log" id="delegationLog"></div>
+    </div>
+  </div>
+
+  <!-- Sección 5: Eventos de Teclado -->
+  <div class="section">
+    <h2>⌨️ Manejo Avanzado de Teclado</h2>
+    <p>Aprende a detectar qué tecla presionó el usuario y reaccionar en consecuencia:</p>
+
+    <div class="code">
+      <div class="code-label">Detectar teclas específicas</div>
+      input.addEventListener('keydown', function(e) {
+  if(e.key === 'Enter') {
+    console.log('Usuario presionó Enter');
+  }
+  
+  if(e.key === ' ') {
+    console.log('Usuario presionó Espacio');
+  }
+  
+  if(e.ctrlKey && e.key === 's') {
+    console.log('Usuario presionó Ctrl+S');
+  }
+});
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">🎮 Demo: Eventos de Teclado</div>
+      <input id="keyboardInput" type="text" class="input" placeholder="Presiona Enter para procesar...">
+      <div class="live-output" id="keyboardOutput">Escribe y presiona Enter</div>
+      <div class="event-log" id="keyboardLog"></div>
+    </div>
+  </div>
+
+  <!-- Sección 6: Ejercicio Final -->
+  <div class="section">
+    <h2>🎯 Ejercicio Final: Selector Multi-Opción</h2>
+    <p>Practica delegación de eventos con un selector interactivo donde puedes elegir múltiples opciones:</p>
+
+    <div class="demo-box">
+      <div class="demo-title">Elige tus lenguajes de programación favoritos</div>
+      
+      <div id="selectorContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        <div class="selector-option" data-id="1">Python</div>
+        <div class="selector-option" data-id="2">JavaScript</div>
+        <div class="selector-option" data-id="3">HTML/CSS</div>
+        <div class="selector-option" data-id="4">React</div>
+        <div class="selector-option" data-id="5">Node.js</div>
+        <div class="selector-option" data-id="6">Vue.js</div>
+      </div>
+      
+      <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+        <p style="color: #a78bfa; margin-bottom: 15px; font-weight: 600;">Tu selección:</p>
+        <div id="selectedItems" style="color: #d1d5f0; line-height: 1.8;">Ninguno seleccionado aún</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón siguiente -->
+  <a href="quiz.html" class="btn btn-large">
+    Ir a Quiz Final →
+  </a>
+
+</div>
+
+<script>
+// Demo 1: Tipos de Eventos
+const eventElement = document.getElementById('eventElement');
+const eventInput = document.getElementById('eventInput');
+const eventLog = document.getElementById('eventLog');
+
+function addLog(message) {
+  const item = document.createElement('div');
+  item.className = 'event-item';
+  item.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+  eventLog.insertBefore(item, eventLog.firstChild);
+  
+  if(eventLog.children.length > 20) {
+    eventLog.removeChild(eventLog.lastChild);
+  }
+}
+
+eventElement.addEventListener('click', () => addLog('✓ Click'));
+eventElement.addEventListener('dblclick', () => addLog('✓✓ Doble click'));
+eventElement.addEventListener('mouseover', () => addLog('→ Mouse entra'));
+eventElement.addEventListener('mouseout', () => addLog('← Mouse sale'));
+
+eventInput.addEventListener('input', (e) => addLog(`⌨️ Input: ${e.target.value.length} caracteres`));
+eventInput.addEventListener('focus', () => addLog('🔍 Input enfocado'));
+eventInput.addEventListener('blur', () => addLog('🔍 Input desenfocado'));
+
+function clearLog() {
+  eventLog.innerHTML = '';
+}
+
+// Demo 2: Event Info
+const eventInfoDemo = document.getElementById('eventInfoDemo');
+const eventInfoOutput = document.getElementById('eventInfoOutput');
+
+eventInfoDemo.addEventListener('click', function(e) {
+  const info = `Tipo de evento: ${e.type}
+Elemento: ${e.target.tagName}
+Posición X: ${e.clientX}
+Posición Y: ${e.clientY}
+Timestamp: ${new Date(e.timeStamp).toLocaleTimeString()}`;
+  eventInfoOutput.textContent = info;
+});
+
+// Demo 3: Event Bubbling
+const parent = document.getElementById('parent');
+const childBtn = document.getElementById('childBtn');
+const bubblingLog = document.getElementById('bubblingLog');
+
+function addBubblingLog(message) {
+  const item = document.createElement('div');
+  item.className = 'event-item';
+  item.textContent = message;
+  bubblingLog.insertBefore(item, bubblingLog.firstChild);
+}
+
+parent.addEventListener('click', () => {
+  addBubblingLog('📦 Padre: Evento recibido (bubbling)');
+});
+
+childBtn.addEventListener('click', (e) => {
+  addBubblingLog('🔘 Botón: Click ejecutado');
+});
+
+// Demo 4: Event Delegation
+const delegationContainer = document.getElementById('delegationContainer');
+const delegationLog = document.getElementById('delegationLog');
+let cardCount = 4;
+
+delegationContainer.addEventListener('click', function(e) {
+  if(e.target.classList.contains('card')) {
+    e.target.classList.toggle('active');
+    const estado = e.target.classList.contains('active') ? '✓ Seleccionada' : '✗ Deseleccionada';
+    
+    const item = document.createElement('div');
+    item.className = 'event-item';
+    item.textContent = `"${e.target.textContent}" ${estado}`;
+    delegationLog.insertBefore(item, delegationLog.firstChild);
+  }
+});
+
+function addNewCard() {
+  cardCount++;
+  const newCard = document.createElement('div');
+  newCard.className = 'card';
+  newCard.textContent = `Tarjeta ${cardCount}`;
+  delegationContainer.appendChild(newCard);
+}
+
+// Demo 5: Keyboard
+const keyboardInput = document.getElementById('keyboardInput');
+const keyboardOutput = document.getElementById('keyboardOutput');
+const keyboardLog = document.getElementById('keyboardLog');
+
+keyboardInput.addEventListener('input', function() {
+  keyboardOutput.textContent = `${this.value.length} caracteres`;
+});
+
+keyboardInput.addEventListener('keydown', function(e) {
+  if(e.key === 'Enter') {
+    const item = document.createElement('div');
+    item.className = 'event-item';
+    item.textContent = `⌨️ Enter presionado: "${this.value}"`;
+    keyboardLog.insertBefore(item, keyboardLog.firstChild);
+    this.value = '';
+    keyboardOutput.textContent = '0 caracteres';
+  }
+});
+
+// Ejercicio Final: Selector
+const selectorContainer = document.getElementById('selectorContainer');
+const selectedItems = document.getElementById('selectedItems');
+const selectedArray = [];
+
+selectorContainer.addEventListener('click', function(e) {
+  if(e.target.classList.contains('selector-option')) {
+    e.target.classList.toggle('selected');
+    
+    const id = e.target.getAttribute('data-id');
+    const text = e.target.textContent;
+    
+    if(e.target.classList.contains('selected')) {
+      selectedArray.push({id, text});
+    } else {
+      const index = selectedArray.findIndex(item => item.id === id);
+      if(index > -1) selectedArray.splice(index, 1);
+    }
+    
+    updateSelectedList();
+  }
+});
+
+function updateSelectedList() {
+  if(selectedArray.length === 0) {
+    selectedItems.textContent = 'Ninguno seleccionado aún';
+  } else {
+    selectedItems.innerHTML = selectedArray
+      .map((item, idx) => `${idx + 1}. ${item.text}`)
+      .join('<br>');
+  }
+}
+</script>
+</body>
+</html>
