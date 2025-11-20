@@ -271,189 +271,516 @@ body {
 
   <!-- Sección 1: Qué es el DOM -->
   <div class="section">
-    <h2>🔍 ¿Qué es el DOM?</h2>
-    <p>
-      El <strong>DOM (Document Object Model)</strong> es la representación de tu página web como un árbol de objetos.
-      Cada elemento HTML (div, p, button) es un nodo que JavaScript puede manipular.
-    </p>
-    <p><strong>¿Por qué es importante?</strong></p>
+
+  <h2>🔍 ¿Qué es el DOM?</h2>
+
+  <p>
+    El <strong>DOM (Document Object Model)</strong> es la manera en que el navegador <b>interpreta tu HTML</b> como una estructura de nodos (un "árbol" de objetos).
+    Cada elemento (<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>) se convierte en un nodo que puedes manipular con JavaScript.
+  </p>
+
+  <div class="code" style="margin: 20px 0;">
+    <!-- Ejemplo visual: HTML vs DOM -->
+    <b>HTML:</b>
+    <pre style="background:#222;color:#fff;padding:10px;border-radius:6px;">
+&lt;body&gt;
+  &lt;h1 id="titulo"&gt;Hola DOM&lt;/h1&gt;
+  &lt;p&gt;Este es un párrafo&lt;/p&gt;
+&lt;/body&gt;
+    </pre>
+    <b>DOM:</b>
+    <pre style="background:#f7fafc;color:#333;padding:10px;border-radius:6px;">
+body
+ ├─ h1 (id="titulo"): "Hola DOM"
+ └─ p: "Este es un párrafo"
+    </pre>
+  </div>
+
+  <p style="margin-top:18px;"><strong>¿Por qué es importante?</strong></p>
+  <ul>
+    <li>✅ <b>Cambia contenido</b> sin recargar la página</li>
+    <li>✅ <b>Responde a acciones</b> (clics, teclado, mouse...)</li>
+    <li>✅ <b>Crea, elimina y modifica</b> elementos fácilmente</li>
+    <li>✅ <b>Haz webs interactivas</b> y divertidas</li>
+  </ul>
+
+  <div class="demo-box" style="margin-top:20px;">
+    <div class="demo-title">💡 Tip interactivo: Tu página nunca es solo lo que ves</div>
+    <div style="margin-bottom:10px;">Usa la consola del navegador <code>(F12 &gt; Console &gt; document.body)</code> para explorar el DOM en vivo.</div>
+    <button class="btn" onclick="alert(document.body.innerHTML)">Ver estructura HTML actual</button>
+  </div>
+
+</div>
+
+<!-- Sección 2: Seleccionar elementos -->
+<div class="section">
+
+  <h2>🎯 Seleccionar elementos del DOM</h2>
+
+  <p>Antes de manipular cualquier elemento, primero debes <b>seleccionarlo</b>. Aquí tienes los métodos más usados:</p>
+  
+  <div class="code">
+    <span style="color:#22d3ee">// Por ID</span>
+    <br>const elemento = document.getElementById('miElemento');
+    <br><br><span style="color:#22d3ee">// Por clase (el primero que encuentre)</span>
+    <br>const primero = document.querySelector('.mi-clase');
+    <br><br><span style="color:#22d3ee">// Por clase (todos los elementos)</span>
+    <br>const todos = document.querySelectorAll('.mi-clase');
+    <br><br><span style="color:#22d3ee">// Por etiqueta</span>
+    <br>const parrafos = document.getElementsByTagName('p');
+  </div>
+
+  <p style="margin-top:18px;">👀 <b>Ejemplo extra:</b> ¿Cómo seleccionar el tercer elemento de una lista?</p>
+  <div class="code">
+    const tercer = document.querySelectorAll('li')[2];
+    <br>tercer.style.color = "green";
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo Interactiva: Selección en acción</div>
     <ul>
-      <li>✅ Cambiar contenido sin recargar la página</li>
-      <li>✅ Responder a acciones del usuario (clics, teclado, etc.)</li>
-      <li>✅ Crear, eliminar y modificar elementos dinámicamente</li>
-      <li>✅ Hacer páginas web interactivas y modernas</li>
+      <li id="seleccionable1">Esto es un li con id "seleccionable1"</li>
+      <li class="seleccionable">Esto es un li con clase "seleccionable"</li>
+      <li class="seleccionable">Este es el tercer elemento</li>
     </ul>
+    <button class="btn" onclick="document.getElementById('seleccionable1').style.background='#fdcfb6'">Seleccionar por ID</button>
+    <button class="btn" onclick="document.querySelector('.seleccionable').style.background='#b1e4f9'">Seleccionar primer por clase</button>
+    <button class="btn" onclick="document.querySelectorAll('.seleccionable')[1].style.background='#c2f7bf'">Seleccionar tercer elemento</button>
+    <button class="btn btn-secondary" onclick="resetSelection()">Resetear selección</button>
   </div>
 
-  <!-- Sección 2: Seleccionar elementos -->
-  <div class="section">
-    <h2>🎯 Seleccionar elementos del DOM</h2>
-    <p>Antes de manipular un elemento, debes seleccionarlo. Aquí los métodos principales:</p>
-    
-    <div class="code">
-// Por ID
-const elemento = document.getElementById('miElemento');
-
-// Por clase (el primero)
-const primero = document.querySelector('.mi-clase');
-
-// Por clase (todos)
-const todos = document.querySelectorAll('.mi-clase');
-
-// Por etiqueta
-const parrafos = document.getElementsByTagName('p');
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo Interactiva: Seleccionar Elementos</div>
-      <div id="demoElement1" class="demo-element">
-        ¡Soy un elemento con ID "demoElement1"!
-      </div>
-      <button class="btn" onclick="selectDemo()">Seleccionar y cambiar color</button>
-      <button class="btn btn-secondary" onclick="resetDemo1()">Resetear</button>
-    </div>
+  <div class="demo-box" style="margin-top:18px;">
+    <div class="demo-title">💡 Consejo: Usa el inspector del navegador</div>
+    <div>Haz clic derecho en cualquier elemento y selecciona "Inspeccionar". Te ayuda a identificar sus clase, id y etiqueta para seleccionarlos en JS.</div>
   </div>
+</div>
+
+<script>
+  // Reset demo selection
+  function resetSelection() {
+    document.getElementById('seleccionable1').style.background = '';
+    var elementos = document.querySelectorAll('.seleccionable');
+    for(var i=0; i<elementos.length; i++) {
+      elementos[i].style.background = '';
+    }
+  }
+</script>
+
 
   <!-- Sección 3: Modificar contenido -->
-  <div class="section">
-    <h2>✏️ Modificar contenido y estilos</h2>
-    <p>Una vez seleccionado un elemento, puedes cambiar su texto, HTML y estilos:</p>
-    
-    <div class="code">
-// Cambiar texto
-elemento.textContent = "Nuevo texto";
+<div class="section">
+  <h2>✏️ Modificar contenido y estilos</h2>
+  <p>
+    Una vez que seleccionas un elemento, puedes <b>cambiar su texto, su HTML o sus estilos</b> fácilmente.
+    Aquí tienes los métodos más usados:
+  </p>
 
-// Cambiar HTML interno
-elemento.innerHTML = "&lt;strong&gt;Texto en negrita&lt;/strong&gt;";
-
-// Cambiar estilos
-elemento.style.backgroundColor = "blue";
-elemento.style.fontSize = "24px";
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo Interactiva: Modificar Contenido</div>
-      <div id="demoElement2" class="demo-element">
-        Texto original
-      </div>
-      <input type="text" id="newText" class="input" placeholder="Escribe nuevo texto...">
-      <button class="btn" onclick="changeText()">Cambiar texto</button>
-      <button class="btn btn-success" onclick="changeStyle()">Cambiar estilo</button>
-      <button class="btn btn-secondary" onclick="resetDemo2()">Resetear</button>
-    </div>
+  <div class="code" style="margin-bottom:18px;">
+    // Cambiar solo el texto:
+    <br><code>elemento.textContent = "Nuevo texto";</code><br>
+    <br>// Cambiar el contenido interno (con etiquetas HTML):
+    <br><code>elemento.innerHTML = "&lt;strong&gt;Texto en negrita&lt;/strong&gt;";</code><br>
+    <br>// Cambiar estilos CSS directamente:
+    <br><code>elemento.style.backgroundColor = "blue";</code>
+    <br><code>elemento.style.fontSize = "24px";</code>
   </div>
 
-  <!-- Sección 4: Crear y eliminar -->
-  <div class="section">
-    <h2>➕ Crear, eliminar y clonar elementos</h2>
-    <p>Puedes agregar nuevos elementos o quitar existentes:</p>
-    
-    <div class="code">
-// Crear elemento
-const nuevoDiv = document.createElement('div');
-nuevoDiv.textContent = "Soy nuevo";
-document.body.appendChild(nuevoDiv);
+  <p><strong>Ejercicio rápido:</strong> ¿Cómo harías para que un párrafo tenga color rojo y texto "¡Hola DOM!"?</p>
+  <div class="code">
+    const parrafo = document.querySelector('p');
+    <br>parrafo.textContent = "¡Hola DOM!";
+    <br>parrafo.style.color = "red";
+  </div>
 
-// Clonar elemento
-const copia = nuevoDiv.cloneNode(true);
-
-// Eliminar elemento
-nuevoDiv.remove();
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo Interactiva: Modificar Contenido</div>
+    <div id="demoElement2" class="demo-element">
+      Texto original
     </div>
+    <input type="text" id="newText" class="input" placeholder="Escribe nuevo texto...">
+    <button class="btn" onclick="changeText()">Cambiar texto</button>
+    <button class="btn btn-success" onclick="changeStyle()">Cambiar estilo</button>
+    <button class="btn btn-secondary" onclick="resetDemo2()">Resetear</button>
+  </div>
 
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo Interactiva: Crear y Eliminar</div>
-      <div id="demoContainer" style="min-height: 100px; padding: 20px;">
-        <!-- Aquí se agregarán elementos -->
-      </div>
-      <input type="text" id="newElementText" class="input" placeholder="Texto del nuevo elemento...">
-      <button class="btn" onclick="createElement()">Crear elemento</button>
-      <button class="btn btn-secondary" onclick="clearElements()">Limpiar todo</button>
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">💡 Tip: .innerHTML vs .textContent</div>
+    <div>
+      <b>textContent</b> cambia solo el texto, <b>innerHTML</b> puede agregar etiquetas (¡ojo! Si recibes texto de usuarios, mejor usa <b>textContent</b> para evitar problemas de seguridad).
     </div>
   </div>
+</div>
+
+<!-- Sección 4: Crear y eliminar -->
+<div class="section">
+
+  <h2>➕ Crear, eliminar y clonar elementos</h2>
+  <p>
+    ¡Puedes <b>agregar</b> nuevos elementos, <b>eliminar</b> los existentes, o <b>clonarlos</b> para hacer copias rápidamente!
+  </p>
+  
+  <div class="code" style="margin-bottom:18px;">
+    // Crear un elemento nuevo y agregarlo a la página:
+    <br><code>const nuevoDiv = document.createElement('div');</code>
+    <br><code>nuevoDiv.textContent = "Soy nuevo";</code>
+    <br><code>document.body.appendChild(nuevoDiv);</code>
+    <br><br>// Clonar un elemento (deep-copy):
+    <br><code>const copia = nuevoDiv.cloneNode(true);</code>
+    <br><br>// Eliminar elemento:
+    <br><code>nuevoDiv.remove();</code>
+  </div>
+  
+  <p><b>Ejercicio de prueba:</b> ¿Cómo agregar una lista con tres elementos?</p>
+  <div class="code">
+    const lista = document.createElement('ul');
+    <br>for(let i=1; i&lt;=3; i++) {
+      <br>&nbsp;&nbsp;const li = document.createElement('li');
+      <br>&nbsp;&nbsp;li.textContent = "Item " + i;
+      <br>&nbsp;&nbsp;lista.appendChild(li);
+      <br>}
+    <br>document.body.appendChild(lista);
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo Interactiva: Crear y Eliminar</div>
+    <div id="demoContainer" style="min-height: 100px; padding: 20px;">
+      <!-- Aquí se agregarán elementos -->
+    </div>
+    <input type="text" id="newElementText" class="input" placeholder="Texto del nuevo elemento...">
+    <button class="btn" onclick="createElement()">Crear elemento</button>
+    <button class="btn btn-secondary" onclick="clearElements()">Limpiar todo</button>
+  </div>
+
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">💡 Tip: Puedes crear cualquier etiqueta — incluso listas, imágenes o botones — sólo con JS.</div>
+    <div>
+      Prueba crear un elemento <code>&lt;button&gt;</code> y agrégalo a la página. ¡Haz clic para que se elimine solo!
+    </div>
+  </div>
+</div>
+
+<script>
+function changeText() {
+  const elem = document.getElementById('demoElement2');
+  const newText = document.getElementById('newText').value;
+  if(newText) elem.textContent = newText;
+}
+function changeStyle() {
+  const elem = document.getElementById('demoElement2');
+  elem.style.background = 'linear-gradient(135deg, #f093fb, #f5576c)';
+  elem.style.fontSize = '1.5rem';
+  elem.style.fontWeight = 'bold';
+}
+function resetDemo2() {
+  const elem = document.getElementById('demoElement2');
+  elem.style.background = 'rgba(102,126,234,0.2)';
+  elem.style.fontSize = '1.1rem';
+  elem.style.fontWeight = 'normal';
+  elem.textContent = 'Texto original';
+  document.getElementById('newText').value = '';
+}
+// Crear y eliminar demo
+let elementCount1 = 0;
+function createElement() {
+  const input = document.getElementById('newElementText');
+  const container = document.getElementById('demoContainer');
+  if(input.value.trim() === '') {
+    alert('Escribe algo primero');
+    return;
+  }
+  const newDiv = document.createElement('div');
+  newDiv.className = 'demo-element';
+  newDiv.textContent = input.value;
+  newDiv.style.marginBottom = '10px';
+  newDiv.onclick = function() {
+    this.remove();
+  };
+  container.appendChild(newDiv);
+  input.value = '';
+  elementCount1++;
+}
+function clearElements() {
+  document.getElementById('demoContainer').innerHTML = '';
+  elementCount = 0;
+}
+</script>
+
+
+<div class="section">
+  <h2>📖 Detalle: innerHTML, innerText y textContent</h2>
+  <p>
+    Para leer o cambiar el contenido de un elemento tienes varios métodos. Cada uno sirve para diferentes situaciones:
+  </p>
+
+  <div class="code" style="margin-bottom:18px;">
+    // Solo texto plano, tal y como está en el HTML:
+    <br><code>elemento.textContent = "Texto plano";</code>
+    <br><br>// Solo el texto visible, lo que “muestra” el navegador:
+    <br><code>elemento.innerText = "Texto visible";</code>
+    <br><br>// El contenido completo, incluyendo etiquetas HTML:
+    <br><code>elemento.innerHTML = "&lt;strong&gt;Texto en negrita&lt;/strong&gt;";</code>
+  </div>
+
+  <ul>
+    <li><b>textContent:</b> Lee o cambia TODO el texto, incluya o no espacios ocultos o saltos. No interpreta HTML.</li>
+    <li><b>innerText:</b> Lee/cambia solo el texto que realmente es visible en pantalla. Respeta estilos (por ejemplo <code>display: none</code> no lo muestra).</li>
+    <li><b>innerHTML:</b> Lee/cambia el contenido completo, incluyendo etiquetas HTML. Si escribes código HTML aquí, se renderiza en la página.</li>
+  </ul>
+
+  <div class="demo-box" style="margin-top:20px;">
+    <div class="demo-title">🎮 Demo: Prueba las diferencias</div>
+    <div id="demoInner" class="demo-element" style="margin-bottom:12px;">
+      <span style="display:none;">Oculto</span>
+      <strong>Hola <i>DOM</i></strong>
+      <span>Visible y <u>Subrayado</u></span>
+    </div>
+    <button class="btn" onclick="
+      alert('textContent: ' + document.getElementById('demoInner').textContent);
+    ">Mostrar textContent</button>
+    <button class="btn btn-success" onclick="
+      alert('innerText: ' + document.getElementById('demoInner').innerText);
+    ">Mostrar innerText</button>
+    <button class="btn btn-secondary" onclick="
+      alert('innerHTML: ' + document.getElementById('demoInner').innerHTML);
+    ">Mostrar innerHTML</button>
+    <button class="btn" onclick="
+      document.getElementById('demoInner').innerHTML = '<span style=\'color:crimson;font-weight:bold;\'>¡Modificado con innerHTML!</span>';
+    ">Cambiar con innerHTML</button>
+    <button class="btn btn-secondary" onclick="
+      document.getElementById('demoInner').innerHTML = '<span style=\'display:none;\'>Oculto</span><strong>Hola <i>DOM</i></strong><span>Visible y <u>Subrayado</u></span>';
+    ">Resetear</button>
+  </div>
+  
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">⚠️ Buenas prácticas</div>
+    <ul>
+      <li>Si incluyes texto de usuarios, prefiere <b>textContent</b> (¡evitas scripts peligrosos y errores de diseño!).</li>
+      <li>Usa <b>innerHTML</b> solo si sabes que la cadena es segura.</li>
+      <li><b>innerText</b> puede variar según el navegador y estilos, pero es útil para mostrar solo lo visible.</li>
+    </ul>
+  </div>
+</div>
+
 
   <!-- Sección 5: Eventos -->
   <div class="section">
-    <h2>🚦 Gestión de eventos</h2>
-    <p>Los eventos permiten responder a las acciones del usuario:</p>
+  <h2>🚦 Gestión de eventos</h2>
+  <p>
+    Los <strong>eventos</strong> permiten detectar y responder a las acciones del usuario: clicks, teclado, movimientos del mouse, escritura, etc.<br>
+    ¡Son la clave de la interactividad!
+  </p>
+
+  <div class="code" style="margin-bottom:18px;">
+    // Hacer algo cuando el usuario hace click:<br>
+    <code>elemento.addEventListener('click', function() {<br>
+      &nbsp;alert('¡Click!');<br>
+    });</code><br><br>
     
+    // Responder cuando el usuario escribe en un input:<br>
+    <code>input.addEventListener('input', function(e) {<br>
+      &nbsp;console.log(e.target.value);<br>
+    });</code><br><br>
+    
+    // Detectar cuando pasa el mouse por encima:<br>
+    <code>elemento.addEventListener('mouseenter', function() {<br>
+      &nbsp;this.style.background = 'red';<br>
+    });</code>
+  </div>
+
+  <ul style="margin-bottom:18px;">
+    <li><b>'click'</b>: Cuando el usuario hace clic sobre un elemento.</li>
+    <li><b>'input'</b>: Cada vez que se escribe/modifica algo en un campo de entrada.</li>
+    <li><b>'mouseenter'</b>: Cuando el mouse entra en el área de un elemento.</li>
+    <li><b>'mouseleave'</b>: Cuando el mouse sale del área.</li>
+    <li><b>'dblclick'</b>: Cuando se hace doble clic.</li>
+    <li><b>'keydown'</b> y <b>'keyup'</b>: Cuando se presiona o suelta una tecla.</li>
+  </ul>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo Interactiva: Eventos</div>
+    <div class="card-grid">
+      <div class="card" onclick="this.style.background='rgba(102,126,234,0.4)'; alert('¡Click detectado!')">
+        <h3>Click</h3>
+        <p>Haz click aquí</p>
+      </div>
+      <div class="card" onmouseenter="this.style.transform='scale(1.1)'; this.style.background='#c6f6d5'"
+           onmouseleave="this.style.transform='scale(1)'; this.style.background='white'">
+        <h3>Hover</h3>
+        <p>Pasa el mouse</p>
+      </div>
+      <div class="card" ondblclick="this.style.background='rgba(245,87,108,0.4)'; alert('¡Doble click!')">
+        <h3>Doble Click</h3>
+        <p>Doble click aquí</p>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      <label for="eventoInput"><b>Ejemplo de input:</b></label>
+      <input type="text" id="eventoInput" class="input" placeholder="Escribe algo..." oninput="mostrarInputValor()">
+      <span id="eventoOutput" style="margin-left:10px;color:#667eea"></span>
+    </div>
+  </div>
+
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">💡 Tip: Puedes combinar varios eventos para experiencias avanzadas</div>
+    <ul>
+      <li>Detecta <b>doble click</b> para editar, click para seleccionar, mouseenter para animar.</li>
+      <li>Usa el método <code>.addEventListener</code> para separar la lógica de JS de tu HTML y mantener tu código organizado.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function mostrarInputValor() {
+  const input = document.getElementById('eventoInput');
+  const output = document.getElementById('eventoOutput');
+  output.textContent = 'Valor: ' + input.value;
+}
+</script>
+
+<div class="section">
+  <h2>🌳 Visualización Interactiva del DOM</h2>
+  <p>
+    Explora cómo funciona el <b>árbol del DOM</b>. Agrega, elimina y modifica elementos para ver cómo cambian las relaciones padre-hijo en tiempo real.
+  </p>
+
+  <div class="demo-box" style="margin-bottom:20px;">
+    <div class="demo-title">📊 Árbol DOM en vivo</div>
+    
+    <!-- Contenedor con visualización del árbol -->
+    <div id="domTree" class="code">
+    </div>
+
+    <!-- Contenedor interactivo donde se agregan elementos -->
+    <div id="interactiveContainer" class="code">
+      <!-- Los elementos se irán agregando aquí -->
+    </div>
+
+    <!-- Controles para agregar y manipular -->
+    <div style="margin-bottom:16px;">
+      <input type="text" id="elementoNombre" class="input" placeholder="Nombre del elemento (ej: div, p, h3)..." value="div" style="margin-right:8px;">
+      <input type="text" id="elementoTexto" class="input" placeholder="Contenido/texto..." style="margin-right:8px;">
+      <button class="btn" onclick="agregarElementoInteractivo()">➕ Agregar elemento</button>
+      <button class="btn btn-secondary" onclick="limpiarTodo()">🗑️ Limpiar todo</button>
+    </div>
+
+    <!-- Instrucciones -->
     <div class="code">
-// Click
-elemento.addEventListener('click', function() {
-  alert('¡Click!');
-});
-
-// Input (escribir)
-input.addEventListener('input', function(e) {
-  console.log(e.target.value);
-});
-
-// Hover
-elemento.addEventListener('mouseenter', function() {
-  this.style.background = 'red';
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo Interactiva: Eventos</div>
-      <div class="card-grid">
-        <div class="card" onclick="this.style.background='rgba(102,126,234,0.4)'">
-          <h3>Click</h3>
-          <p>Haz click aquí</p>
-        </div>
-        <div class="card" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
-          <h3>Hover</h3>
-          <p>Pasa el mouse</p>
-        </div>
-        <div class="card" ondblclick="this.style.background='rgba(245,87,108,0.4)'">
-          <h3>Doble Click</h3>
-          <p>Doble click aquí</p>
-        </div>
-      </div>
+      <b>📝 Cómo usar:</b>
+      <ol style="margin:8px 0;padding-left:20px;">
+        <li>Escribe el tipo de elemento (div, p, span, button)</li>
+        <li>Escribe el contenido/texto del elemento</li>
+        <li>Haz clic en "Agregar elemento"</li>
+        <li>Observa cómo el árbol DOM se actualiza en tiempo real</li>
+        <li>Haz clic en cualquier elemento para eliminarlo</li>
+      </ol>
     </div>
   </div>
 
-  <!-- Ejercicio final -->
-  <div class="section">
-    <h2>🎯 Ejercicio Final: Lista de Tareas Interactiva</h2>
-    <p>Crea tu propia lista de tareas con todas las técnicas aprendidas:</p>
-    
-    <div class="demo-box">
-      <input type="text" id="taskInput" class="input" placeholder="Nueva tarea...">
-      <button class="btn" onclick="addTask()">Agregar Tarea</button>
-      
-      <ul id="taskList" class="interactive-list" style="margin-top: 20px;">
-        <li onclick="toggleTask(this)">Aprender DOM</li>
-        <li onclick="toggleTask(this)">Practicar JavaScript</li>
-        <li onclick="toggleTask(this)">Crear proyectos</li>
-      </ul>
-      
-      <div id="taskResult" class="result"></div>
+  <!-- Explicación de relaciones -->
+  <div class="demo-box">
+    <div class="demo-title">🔗 Relaciones en el DOM</div>
+    <ul>
+      <li><b>Padre:</b> El elemento que contiene a otros. En el árbol, está arriba.</li>
+      <li><b>Hijo:</b> El elemento contenido dentro de un padre. En el árbol, está abajo.</li>
+      <li><b>Hermano:</b> Elementos que tienen el mismo padre.</li>
+      <li><b>Anidamiento:</b> Un hijo puede tener sus propios hijos (es a la vez hijo y padre).</li>
+    </ul>
+    <div style="margin-top:12px;padding:12px;background:#ebc23d;border-radius:6px;border-left:4px solid #b88a00; color:#222">
+      <b>💡 Ejemplo:</b> Si agregas 3 elementos seguidos, todos serán <b>hermanos</b> (hijos del mismo contenedor). Si agregas un elemento dentro de otro, crearás una <b>relación padre-hijo</b>.
     </div>
+  </div>
+</div>
+
+<script>
+function actualizarArbolDOM() {
+  const container = document.getElementById('interactiveContainer');
+  const treeDisplay = document.getElementById('domTree');
+  
+  function construirArbol(elemento, nivel = 0) {
+    const indent = '  '.repeat(nivel);
+    const tagName = elemento.tagName.toLowerCase();
+    const contenido = elemento.textContent.substring(0, 30) + (elemento.textContent.length > 30 ? '...' : '');
+    let resultado = `${indent}<span style="color:#667eea">&lt;${tagName}&gt;</span>`;
     
-    <details style="margin-top: 20px; padding: 20px; background: rgba(102,126,234,0.1); border-radius: 8px;">
-      <summary style="cursor: pointer; font-weight: 600; color: #a78bfa;">Ver código de la solución</summary>
-      <div class="code" style="margin-top: 15px;">
-function addTask() {
-  const input = document.getElementById('taskInput');
-  const list = document.getElementById('taskList');
+    if(contenido.trim()) {
+      resultado += ` <span style="color:#333">"${contenido}"</span>`;
+    }
+    resultado += `\n`;
+    
+    for(let hijo of elemento.children) {
+      resultado += construirArbol(hijo, nivel + 1);
+    }
+    
+    resultado += `${indent}<span style="color:#667eea">&lt;/${tagName}&gt;</span>\n`;
+    return resultado;
+  }
   
-  if(input.value.trim() === '') return;
+  let arbolTexto = '<span style="color:#667eea">&lt;div id="interactiveContainer"&gt;</span>\n';
   
-  const li = document.createElement('li');
-  li.textContent = input.value;
-  li.onclick = function() { toggleTask(this); };
-  list.appendChild(li);
+  for(let hijo of container.children) {
+    arbolTexto += construirArbol(hijo, 1);
+  }
   
-  input.value = '';
+  arbolTexto += '<span style="color:#667eea">&lt;/div&gt;</span>';
+  
+  treeDisplay.innerHTML = arbolTexto;
 }
 
-function toggleTask(element) {
-  element.classList.toggle('completed');
+function agregarElementoInteractivo() {
+  const container = document.getElementById('interactiveContainer');
+  const nombreElemento = document.getElementById('elementoNombre').value.trim() || 'div';
+  const textoElemento = document.getElementById('elementoTexto').value.trim() || 'Nuevo elemento';
+  
+  // Crear elemento
+  const nuevoElemento = document.createElement(nombreElemento);
+  nuevoElemento.textContent = textoElemento;
+  nuevoElemento.style.cssText = `
+    background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(240,147,251,0.2));
+    padding: 12px;
+    margin: 8px;
+    border: 2px solid #667eea;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  `;
+  
+  // Al pasar el mouse, resaltar
+  nuevoElemento.onmouseenter = function() {
+    this.style.background = 'linear-gradient(135deg, rgba(102,126,234,0.4), rgba(240,147,251,0.4))';
+    this.style.transform = 'scale(1.05)';
+  };
+  
+  nuevoElemento.onmouseleave = function() {
+    this.style.background = 'linear-gradient(135deg, rgba(102,126,234,0.2), rgba(240,147,251,0.2))';
+    this.style.transform = 'scale(1)';
+  };
+  
+  // Al hacer click, eliminar
+  nuevoElemento.onclick = function(e) {
+    e.stopPropagation();
+    this.remove();
+    actualizarArbolDOM();
+  };
+  
+  container.appendChild(nuevoElemento);
+  document.getElementById('elementoNombre').value = 'div';
+  document.getElementById('elementoTexto').value = '';
+  
+  actualizarArbolDOM();
 }
-      </div>
-    </details>
-  </div>
+
+function limpiarTodo() {
+  document.getElementById('interactiveContainer').innerHTML = '';
+  actualizarArbolDOM();
+}
+
+// Inicializar árbol al cargar
+window.addEventListener('DOMContentLoaded', function() {
+  actualizarArbolDOM();
+});
+</script>
 
   <!-- Botón siguiente -->
   <a href="modulo2.html" class="btn btn-large">
@@ -468,6 +795,8 @@ function selectDemo() {
   const elem = document.getElementById('demoElement1');
   elem.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
   elem.textContent = '¡Elemento seleccionado y modificado!';
+  elem.innerHTML = "<p class='btn'>Texto en negrita</p>"
+
 }
 
 function resetDemo1() {

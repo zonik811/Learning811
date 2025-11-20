@@ -333,234 +333,929 @@ body {
     <p>Técnicas potentes: Atributos, clases, filtrado y transformación de elementos.</p>
   </div>
 
-  <!-- Sección 1: Trabajar con Atributos -->
   <div class="section">
-    <h2>🏷️ Trabajar con Atributos HTML</h2>
-    <p>Los atributos son información extra en tus elementos. Puedes leerlos, cambiarlos y eliminarlos desde JavaScript.</p>
+  <h2>🏷️ Trabajar con Atributos HTML</h2>
+  <p>
+    Los <b>atributos</b> son información extra que agregan propiedades a tus elementos (como `src`, `class`, `id`, `disabled`, etc.).
+    Desde JavaScript puedes <b>leerlos, modificarlos y eliminarlos</b> fácilmente.
+  </p>
 
-    <h3>Obtener un Atributo</h3>
-    <div class="code">
-      <div class="code-label">Leer el valor de un atributo</div>
-      const img = document.querySelector('img');
-const src = img.getAttribute('src');
-console.log(src);  // "imagen.jpg"
+  <h3>📖 Obtener un Atributo</h3>
+  <div class="code">
+    const img = document.querySelector('img');
+    <br>const src = img.getAttribute('src');
+    <br>console.log(src);  <span style="color:#22d3ee;">// "imagen.jpg"</span>
+  </div>
+
+  <h3>✏️ Cambiar un Atributo</h3>
+  <div class="code">
+    const boton = document.querySelector('button');
+    <br>boton.setAttribute('disabled', true);
+    <br>boton.setAttribute('class', 'btn-inactive');
+  </div>
+
+  <h3>❌ Eliminar un Atributo</h3>
+  <div class="code">
+    const elemento = document.getElementById('miElemento');
+    <br>elemento.removeAttribute('disabled');
+    <br>elemento.removeAttribute('data-test');
+  </div>
+
+  <h3>🎁 Atributos Personalizados (data-*)</h3>
+  <p>Puedes crear tus propios atributos usando el prefijo <code>data-</code> para guardar información personalizada:</p>
+  <div class="code">
+    <span style="color:#22d3ee;">// En HTML:</span>
+    <br>&lt;div data-pokemon="pikachu" data-level="25"&gt;
+    <br><br><span style="color:#22d3ee;">// En JavaScript:</span>
+    <br>const div = document.querySelector('div');
+    <br>const pokemon = div.getAttribute('data-pokemon');
+    <br>console.log(pokemon);  <span style="color:#22d3ee;">// "pikachu"</span>
+  </div>
+
+  <!-- Ejercicio 1: Leer atributos -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 1: Leer Atributos</div>
+    <p><b>Objetivo:</b> Lee los atributos del elemento y muéstralos en la consola.</p>
+    <div id="ejercicio1Element" class="demo-element" data-color="azul" data-tamaño="grande">
+      Elemento con datos
     </div>
-
-    <h3>Cambiar un Atributo</h3>
-    <div class="code">
-      <div class="code-label">Modificar el valor de un atributo</div>
-      const boton = document.querySelector('button');
-boton.setAttribute('disabled', true);
-boton.setAttribute('class', 'btn-inactive');
-    </div>
-
-    <h3>Eliminar un Atributo</h3>
-    <div class="code">
-      <div class="code-label">Quitar un atributo del elemento</div>
-      const elemento = document.getElementById('miElemento');
-elemento.removeAttribute('disabled');
-elemento.removeAttribute('data-test');
-    </div>
-
-    <h3>Trabajar con Atributos Personalizados (data-*)</h3>
-    <div class="code">
-      <div class="code-label">Guardar y recuperar datos personalizados</div>
-      // Guardar en HTML: &lt;div data-pokemon="pikachu"&gt;
-const div = document.querySelector('div');
-
-// Leer atributo data
-const pokemon = div.getAttribute('data-pokemon');
-console.log(pokemon);  // "pikachu"
-
-// Cambiar atributo data
-div.setAttribute('data-level', '25');
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Manipular Atributos</div>
-      <input id="demoInput1" type="text" class="input" placeholder="Escribe un nuevo valor..." value="Mi atributo">
-      <div id="demoAttr" class="demo-element" data-test="valor-inicial">
-        Elemento con atributo
-      </div>
-      <button class="btn" onclick="readAttr()">Leer atributo</button>
-      <button class="btn btn-success" onclick="setAttr()">Cambiar atributo</button>
-      <button class="btn btn-danger" onclick="removeAttr()">Eliminar atributo</button>
-      <div id="attrResult" class="result"></div>
+    <button class="btn" onclick="ejercicio1()">Leer atributo data-color</button>
+    <button class="btn btn-success" onclick="ejercicio1_2()">Leer atributo data-tamaño</button>
+    <div id="ejercicio1Result" style="margin-top:12px;padding:10px;background:#505050;border-radius:6px;display:none;">
+      <b>Resultado:</b> <span id="ejercicio1Text"></span>
     </div>
   </div>
+
+  <!-- Ejercicio 2: Cambiar atributos -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 2: Cambiar Atributos</div>
+    <p><b>Objetivo:</b> Modifica los atributos del elemento y observa cómo cambian.</p>
+    <div id="ejercicio2Element" class="demo-element" style="background-color:lightblue;">
+      Haz click para cambiar mi color
+    </div>
+    <button class="btn" onclick="ejercicio2_rojo()">Cambiar a ROJO</button>
+    <button class="btn" onclick="ejercicio2_verde()">Cambiar a VERDE</button>
+    <button class="btn" onclick="ejercicio2_amarillo()">Cambiar a AMARILLO</button>
+    <button class="btn btn-secondary" onclick="ejercicio2_reset()">Resetear</button>
+    <p style="margin-top:10px;"><small>💡 <b>Pista:</b> Usa `setAttribute('style', 'background-color: ...')`</small></p>
+  </div>
+
+  <!-- Ejercicio 3: Eliminar atributos -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 3: Eliminar Atributos</div>
+    <p><b>Objetivo:</b> Elimina atributos del elemento.</p>
+    <input id="ejercicio3Input" type="text" class="input" placeholder="Escribe algo..." disabled style="margin-bottom:12px;">
+    <button class="btn" onclick="ejercicio3_habilitar()">Habilitar Input (eliminar disabled)</button>
+    <button class="btn btn-danger" onclick="ejercicio3_deshabilitar()">Deshabilitar Input (agregar disabled)</button>
+    <div id="ejercicio3Result" style="margin-top:12px;padding:10px;background:#363636;border-radius:6px;display:none;">
+      <b>✓ Atributo disabled <span id="ejercicio3Text"></span></b>
+    </div>
+  </div>
+
+  <!-- Ejercicio 4: Data attributes avanzado -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 4: Atributos Personalizados (data-*)</div>
+    <p><b>Objetivo:</b> Guarda y recupera información personalizada en datos.</p>
+    <div style="margin-bottom:12px;">
+      <label>Guardar información de un usuario:</label>
+      <input type="text" id="dataInputNombre" class="input" placeholder="Nombre..." style="margin-bottom:8px;">
+      <input type="text" id="dataInputEdad" class="input" placeholder="Edad..." style="margin-bottom:8px;">
+      <button class="btn" onclick="ejercicio4_guardar()">Guardar datos personalizados</button>
+    </div>
+    <div id="ejercicio4Element" class="demo-element" data-nombre="" data-edad="">
+      Usuario guardado aquí
+    </div>
+    <button class="btn btn-success" onclick="ejercicio4_leer()">Leer datos guardados</button>
+    <div id="ejercicio4Result" style="margin-top:12px;padding:10px;background:#474747;border-radius:6px;display:none;">
+      <b>Datos guardados:</b>
+      <div>Nombre: <span id="ejercicio4Nombre"></span></div>
+      <div>Edad: <span id="ejercicio4Edad"></span></div>
+    </div>
+  </div>
+
+  <!-- Desafío final -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🏆 Desafío Final: Tablero de Control</div>
+    <p><b>Objetivo:</b> Combina todo lo aprendido. Crea un tablero simple.</p>
+    <div style="margin-bottom:12px;">
+      <input type="text" id="desafioTexto" class="input" placeholder="Escribe el nombre de un item..." style="margin-bottom:8px;">
+      <input type="number" id="desafioPrecio" class="input" placeholder="Precio..." style="margin-bottom:8px;">
+      <button class="btn" onclick="desafio_crear()">Crear Item</button>
+    </div>
+    <div id="desafioLista" style="background:#383838;padding:12px;border-radius:6px;min-height:60px;">
+      <!-- Los items aparecerán aquí -->
+    </div>
+    <button class="btn btn-secondary" onclick="desafio_limpiar()">Limpiar todo</button>
+  </div>
+</div>
+
+<script>
+// ========== EJERCICIO 1: Leer Atributos ==========
+function ejercicio1() {
+  const elem = document.getElementById('ejercicio1Element');
+  const color = elem.getAttribute('data-color');
+  const result = document.getElementById('ejercicio1Result');
+  const text = document.getElementById('ejercicio1Text');
+  text.textContent = `data-color = "${color}"`;
+  result.style.display = 'block';
+  console.log('data-color:', color);
+}
+
+function ejercicio1_2() {
+  const elem = document.getElementById('ejercicio1Element');
+  const tamaño = elem.getAttribute('data-tamaño');
+  const result = document.getElementById('ejercicio1Result');
+  const text = document.getElementById('ejercicio1Text');
+  text.textContent = `data-tamaño = "${tamaño}"`;
+  result.style.display = 'block';
+  console.log('data-tamaño:', tamaño);
+}
+
+// ========== EJERCICIO 2: Cambiar Atributos ==========
+function ejercicio2_rojo() {
+  document.getElementById('ejercicio2Element').setAttribute('style', 'background-color: #ffcccc; color: red; font-weight: bold;');
+}
+
+function ejercicio2_verde() {
+  document.getElementById('ejercicio2Element').setAttribute('style', 'background-color: #ccffcc; color: green; font-weight: bold;');
+}
+
+function ejercicio2_amarillo() {
+  document.getElementById('ejercicio2Element').setAttribute('style', 'background-color: #ffffcc; color: orange; font-weight: bold;');
+}
+
+function ejercicio2_reset() {
+  document.getElementById('ejercicio2Element').setAttribute('style', 'background-color: lightblue;');
+}
+
+// ========== EJERCICIO 3: Eliminar Atributos ==========
+function ejercicio3_habilitar() {
+  const input = document.getElementById('ejercicio3Input');
+  input.removeAttribute('disabled');
+  const result = document.getElementById('ejercicio3Result');
+  const text = document.getElementById('ejercicio3Text');
+  text.textContent = 'ELIMINADO ✓';
+  result.style.display = 'block';
+}
+
+function ejercicio3_deshabilitar() {
+  const input = document.getElementById('ejercicio3Input');
+  input.setAttribute('disabled', 'true');
+  const result = document.getElementById('ejercicio3Result');
+  const text = document.getElementById('ejercicio3Text');
+  text.textContent = 'AGREGADO ✓';
+  result.style.display = 'block';
+}
+
+// ========== EJERCICIO 4: Data Attributes ==========
+function ejercicio4_guardar() {
+  const nombre = document.getElementById('dataInputNombre').value;
+  const edad = document.getElementById('dataInputEdad').value;
+  const elem = document.getElementById('ejercicio4Element');
+  
+  if(!nombre || !edad) {
+    alert('Completa nombre y edad');
+    return;
+  }
+  
+  elem.setAttribute('data-nombre', nombre);
+  elem.setAttribute('data-edad', edad);
+  elem.textContent = `Usuario: ${nombre}, Edad: ${edad}`;
+  alert('✓ Datos guardados en atributos personalizados');
+}
+
+function ejercicio4_leer() {
+  const elem = document.getElementById('ejercicio4Element');
+  const nombre = elem.getAttribute('data-nombre');
+  const edad = elem.getAttribute('data-edad');
+  
+  document.getElementById('ejercicio4Nombre').textContent = nombre || 'No guardado';
+  document.getElementById('ejercicio4Edad').textContent = edad || 'No guardado';
+  document.getElementById('ejercicio4Result').style.display = 'block';
+}
+
+// ========== DESAFÍO FINAL ==========
+function desafio_crear() {
+  const texto = document.getElementById('desafioTexto').value;
+  const precio = document.getElementById('desafioPrecio').value;
+  
+  if(!texto || !precio) {
+    alert('Completa nombre y precio');
+    return;
+  }
+  
+  const lista = document.getElementById('desafioLista');
+  const item = document.createElement('div');
+  item.setAttribute('data-item', texto);
+  item.setAttribute('data-precio', precio);
+  item.style.cssText = 'background:white;padding:10px;margin:8px 0;border-radius:6px;border-left:4px solid #667eea;cursor:pointer;';
+  item.innerHTML = `<b>${texto}</b> - $${precio} <small style="color:#999;float:right;">(click para eliminar)</small>`;
+  item.onclick = function() { this.remove(); };
+  
+  lista.appendChild(item);
+  document.getElementById('desafioTexto').value = '';
+  document.getElementById('desafioPrecio').value = '';
+}
+
+function desafio_limpiar() {
+  document.getElementById('desafioLista').innerHTML = '';
+}
+</script>
+
 
   <!-- Sección 2: Trabajar con Clases CSS -->
   <div class="section">
-    <h2>🎨 Trabajar con Clases CSS</h2>
-    <p>Las clases CSS son una forma más limpia que cambiar estilos directamente. Usa classList para manipularlas.</p>
+  <h2>🎨 Trabajar con Clases CSS</h2>
+  <p>
+    Las <b>clases CSS</b> son una forma más limpia y profesional que cambiar estilos directamente con JavaScript.
+    Usa <code>classList</code> para manipularlas dinámicamente.
+  </p>
 
-    <h3>Agregar una Clase</h3>
-    <div class="code">
-      <div class="code-label">Añadir una o más clases a un elemento</div>
-      const elemento = document.getElementById('miElemento');
-elemento.classList.add('activo');
-elemento.classList.add('highlight', 'importante');
+  <h3>➕ Agregar una Clase</h3>
+  <div class="code">
+    const elemento = document.getElementById('miElemento');
+    <br>elemento.classList.add('activo');
+    <br>elemento.classList.add('highlight', 'importante');  <span style="color:#22d3ee;">// Agregar varias a la vez</span>
+  </div>
+
+  <h3>➖ Remover una Clase</h3>
+  <div class="code">
+    elemento.classList.remove('activo');
+    <br>elemento.classList.remove('highlight', 'importante');  <span style="color:#22d3ee;">// Remover varias a la vez</span>
+  </div>
+
+  <h3>🔄 Alternar una Clase (toggle)</h3>
+  <div class="code">
+    elemento.classList.toggle('activo');
+    <br><span style="color:#22d3ee;">// Si tiene 'activo', la quita. Si no la tiene, la agrega.</span>
+  </div>
+
+  <h3>🔍 Verificar si Tiene una Clase</h3>
+  <div class="code">
+    if(elemento.classList.contains('activo')) {
+    <br>&nbsp;&nbsp;console.log('¡Tiene la clase activo!');
+    <br>} else {
+    <br>&nbsp;&nbsp;console.log('No tiene la clase activo');
+    <br>}
+  </div>
+
+  <style>
+    .highlight {
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      color: white !important;
+      font-size: 1.3rem !important;
+      font-weight: bold !important;
+      transform: scale(1.05) !important;
+    }
+    .error {
+      background: rgba(255, 107, 107, 0.3) !important;
+      border: 2px solid #ff6b6b !important;
+      color: #c33 !important;
+    }
+    .success {
+      background: rgba(76, 175, 80, 0.3) !important;
+      border: 2px solid #4caf50 !important;
+      color: #2d5016 !important;
+    }
+    .disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+    }
+    .pulsing {
+      animation: pulse 1s infinite !important;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+
+  <!-- Ejercicio 1: Agregar Clases -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 1: Agregar Clases</div>
+    <p><b>Objetivo:</b> Agrega clases para aplicar estilos al elemento.</p>
+    <div id="ej1Element" class="demo-element">
+      Haz clic en los botones para agregar clases
     </div>
+    <button class="btn" onclick="ej1_addHighlight()">Agregar 'highlight'</button>
+    <button class="btn btn-success" onclick="ej1_addSuccess()">Agregar 'success'</button>
+    <button class="btn btn-secondary" onclick="ej1_reset()">Resetear</button>
+  </div>
 
-    <h3>Remover una Clase</h3>
-    <div class="code">
-      <div class="code-label">Quitar clases de un elemento</div>
-      elemento.classList.remove('activo');
-elemento.classList.remove('highlight', 'importante');
+  <!-- Ejercicio 2: Remover Clases -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 2: Remover Clases</div>
+    <p><b>Objetivo:</b> Quita clases para restaurar el estilo original.</p>
+    <div id="ej2Element" class="demo-element highlight success" style="margin-bottom:12px;">
+      Tengo varias clases aplicadas
     </div>
+    <button class="btn" onclick="ej2_removeHighlight()">Remover 'highlight'</button>
+    <button class="btn" onclick="ej2_removeSuccess()">Remover 'success'</button>
+    <button class="btn btn-secondary" onclick="ej2_removeAll()">Remover todas</button>
+  </div>
 
-    <h3>Alternar una Clase</h3>
-    <div class="code">
-      <div class="code-label">Si tiene la clase, la quita. Si no la tiene, la agrega.</div>
-      elemento.classList.toggle('activo');
-// Si tenía 'activo', la remove
-// Si no tenía 'activo', la agrega
+  <!-- Ejercicio 3: Toggle (alternar) -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 3: Alternar Clases (toggle)</div>
+    <p><b>Objetivo:</b> Alterna clases entre activadas y desactivadas.</p>
+    <div id="ej3Element" class="demo-element" style="margin-bottom:12px;">
+      Haz clic para activar/desactivar estilos
     </div>
+    <button class="btn" onclick="ej3_toggleHighlight()">Toggle 'highlight'</button>
+    <button class="btn" onclick="ej3_toggleError()">Toggle 'error'</button>
+    <button class="btn" onclick="ej3_togglePulsing()">Toggle 'pulsing' (animación)</button>
+    <button class="btn btn-secondary" onclick="ej3_reset()">Resetear</button>
+    <div id="ej3Status" style="margin-top:10px;padding:10px;background:#e3f2fd;border-radius:6px;display:none;">
+      <b>Estado actual:</b> <span id="ej3StatusText"></span>
+    </div>
+  </div>
 
-    <h3>Verificar si Tiene una Clase</h3>
-    <div class="code">
-      <div class="code-label">Comprobar si un elemento tiene cierta clase</div>
-      if(elemento.classList.contains('activo')) {
-  console.log('Tiene la clase activo');
-} else {
-  console.log('No tiene la clase activo');
+  <!-- Ejercicio 4: Verificar clases -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 4: Verificar Clases (contains)</div>
+    <p><b>Objetivo:</b> Verifica si un elemento tiene una clase específica.</p>
+    <div id="ej4Element" class="demo-element highlight" style="margin-bottom:12px;">
+      Elemento con clase 'highlight'
+    </div>
+    <button class="btn" onclick="ej4_checkHighlight()">¿Tiene 'highlight'?</button>
+    <button class="btn" onclick="ej4_checkSuccess()">¿Tiene 'success'?</button>
+    <button class="btn" onclick="ej4_checkError()">¿Tiene 'error'?</button>
+    <div id="ej4Result" style="margin-top:12px;padding:10px;background:#82528a;border-radius:6px;display:none;">
+      <b>Resultado:</b> <span id="ej4ResultText"></span>
+    </div>
+  </div>
+
+  <!-- Ejercicio 5: Combinación de métodos -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 5: Sistema de Estados (Combinado)</div>
+    <p><b>Objetivo:</b> Combina add, remove y toggle para crear un sistema de estados.</p>
+    <div id="ej5Element" class="demo-element" style="margin-bottom:12px;">
+      Botón sin estado
+    </div>
+    <button class="btn" onclick="ej5_setActive()">Marcar como Activo</button>
+    <button class="btn" onclick="ej5_setInactive()">Marcar como Inactivo</button>
+    <button class="btn" onclick="ej5_toggleDisabled()">Toggle Deshabilitado</button>
+    <button class="btn btn-secondary" onclick="ej5_reset()">Resetear</button>
+    <div id="ej5Status" style="margin-top:10px;padding:10px;background:#887b50;border-radius:6px;">
+      <b>Clases actuales:</b> <span id="ej5Classes">ninguna</span>
+    </div>
+  </div>
+
+  <!-- Desafío final: Editor de temas -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🏆 Desafío Final: Editor de Tema</div>
+    <p><b>Objetivo:</b> Crea un selector de temas usando classList.</p>
+    <div id="desafioElement" class="demo-element" style="margin-bottom:12px;padding:20px;text-align:center;">
+      🎨 Elemento con Tema
+    </div>
+    <div style="margin-bottom:12px;">
+      <label><b>Selecciona un tema:</b></label><br><br>
+      <button class="btn" onclick="desafio_setTema('light')">☀️ Claro</button>
+      <button class="btn" onclick="desafio_setTema('dark')">🌙 Oscuro</button>
+      <button class="btn" onclick="desafio_setTema('highlight')">✨ Destacado</button>
+      <button class="btn" onclick="desafio_setTema('success')">✅ Éxito</button>
+      <button class="btn" onclick="desafio_setTema('error')">❌ Error</button>
+    </div>
+    <div id="desafioStatus" style="padding:10px;background:#4e6d81;border-radius:6px;text-align:center;">
+      <b>Tema actual:</b> <span id="desafioCurrentTema">ninguno</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ========== EJERCICIO 1: Agregar Clases ==========
+function ej1_addHighlight() {
+  document.getElementById('ej1Element').classList.add('highlight');
 }
-    </div>
 
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Manipular Clases</div>
-      <style>
-        #demoClass.highlight {
-          background: linear-gradient(135deg, #667eea, #764ba2) !important;
-          font-size: 1.3rem !important;
-          font-weight: bold;
-        }
-        #demoClass.error {
-          background: rgba(255, 107, 107, 0.3) !important;
-          border-color: #ff6b6b !important;
-        }
-        #demoClass.success {
-          background: rgba(76, 175, 80, 0.3) !important;
-          border-color: #4caf50 !important;
-        }
-      </style>
-      <div id="demoClass" class="demo-element">
-        Aplícame clases CSS
-      </div>
-      <button class="btn" onclick="addCls()">Agregar clase 'highlight'</button>
-      <button class="btn btn-secondary" onclick="addError()">Agregar clase 'error'</button>
-      <button class="btn btn-success" onclick="toggleSuccess()">Alternar clase 'success'</button>
-      <button class="btn btn-danger" onclick="removeAllClasses()">Remover todas</button>
-      <div id="classResult" class="result"></div>
+function ej1_addSuccess() {
+  document.getElementById('ej1Element').classList.add('success');
+}
+
+function ej1_reset() {
+  document.getElementById('ej1Element').className = 'demo-element';
+}
+
+// ========== EJERCICIO 2: Remover Clases ==========
+function ej2_removeHighlight() {
+  document.getElementById('ej2Element').classList.remove('highlight');
+}
+
+function ej2_removeSuccess() {
+  document.getElementById('ej2Element').classList.remove('success');
+}
+
+function ej2_removeAll() {
+  document.getElementById('ej2Element').className = 'demo-element';
+}
+
+// ========== EJERCICIO 3: Toggle ==========
+function ej3_toggleHighlight() {
+  document.getElementById('ej3Element').classList.toggle('highlight');
+  ej3_updateStatus();
+}
+
+function ej3_toggleError() {
+  document.getElementById('ej3Element').classList.toggle('error');
+  ej3_updateStatus();
+}
+
+function ej3_togglePulsing() {
+  document.getElementById('ej3Element').classList.toggle('pulsing');
+  ej3_updateStatus();
+}
+
+function ej3_updateStatus() {
+  const elem = document.getElementById('ej3Element');
+  const clases = elem.className.replace('demo-element', '').trim() || 'ninguna';
+  document.getElementById('ej3StatusText').textContent = clases;
+  document.getElementById('ej3Status').style.display = 'block';
+}
+
+function ej3_reset() {
+  document.getElementById('ej3Element').className = 'demo-element';
+  document.getElementById('ej3Status').style.display = 'none';
+}
+
+// ========== EJERCICIO 4: Verificar Clases ==========
+function ej4_checkHighlight() {
+  const tiene = document.getElementById('ej4Element').classList.contains('highlight');
+  mostrarResultado('ej4', tiene ? '✅ SÍ tiene la clase "highlight"' : '❌ NO tiene la clase "highlight"');
+}
+
+function ej4_checkSuccess() {
+  const tiene = document.getElementById('ej4Element').classList.contains('success');
+  mostrarResultado('ej4', tiene ? '✅ SÍ tiene la clase "success"' : '❌ NO tiene la clase "success"');
+}
+
+function ej4_checkError() {
+  const tiene = document.getElementById('ej4Element').classList.contains('error');
+  mostrarResultado('ej4', tiene ? '✅ SÍ tiene la clase "error"' : '❌ NO tiene la clase "error"');
+}
+
+function mostrarResultado(id, texto) {
+  document.getElementById(id + 'ResultText').textContent = texto;
+  document.getElementById(id + 'Result').style.display = 'block';
+}
+
+// ========== EJERCICIO 5: Sistema de Estados ==========
+function ej5_setActive() {
+  const elem = document.getElementById('ej5Element');
+  elem.classList.remove('error', 'disabled');
+  elem.classList.add('success');
+  elem.textContent = '✅ Activo';
+  ej5_updateStatus();
+}
+
+function ej5_setInactive() {
+  const elem = document.getElementById('ej5Element');
+  elem.classList.remove('success', 'disabled');
+  elem.classList.add('error');
+  elem.textContent = '❌ Inactivo';
+  ej5_updateStatus();
+}
+
+function ej5_toggleDisabled() {
+  const elem = document.getElementById('ej5Element');
+  elem.classList.toggle('disabled');
+  ej5_updateStatus();
+}
+
+function ej5_updateStatus() {
+  const elem = document.getElementById('ej5Element');
+  const clases = elem.className.replace('demo-element', '').trim() || 'ninguna';
+  document.getElementById('ej5Classes').textContent = clases;
+}
+
+function ej5_reset() {
+  document.getElementById('ej5Element').className = 'demo-element';
+  document.getElementById('ej5Element').textContent = 'Botón sin estado';
+  ej5_updateStatus();
+}
+
+// ========== DESAFÍO: Editor de Temas ==========
+function desafio_setTema(tema) {
+  const elem = document.getElementById('desafioElement');
+  
+  // Remover todas las clases de tema
+  elem.classList.remove('highlight', 'success', 'error', 'disabled');
+  
+  // Agregar la nueva clase si no es 'light'
+  if(tema !== 'light') {
+    elem.classList.add(tema);
+  }
+  
+  // Actualizar emojis según el tema
+  const emojis = {
+    light: '☀️',
+    dark: '🌙',
+    highlight: '✨',
+    success: '✅',
+    error: '❌'
+  };
+  
+  elem.textContent = emojis[tema] + ' Elemento con Tema';
+  document.getElementById('desafioCurrentTema').textContent = tema;
+}
+</script>
+
+<div class="section">
+  <h2>🔍 Buscar y Filtrar Elementos</h2>
+  <p>
+    Aprende a: 
+    <ul>
+      <li>✔️ Seleccionar muchos elementos a la vez (con <code>querySelectorAll</code>).</li>
+      <li>✔️ Filtrar esos elementos con métodos como <code>filter()</code>, <code>find()</code> y <code>some()</code>.</li>
+      <li>✔️ Verificar y mostrar resultados fácilmente en la interfaz, ¡sin cambiar de página!</li>
+    </ul>
+    Los métodos principales son: <code>filter()</code>, <code>find()</code>, <code>some()</code>, <code>map()</code>.
+  </p>
+
+  <h3>🔎 Filtrar con filter()</h3>
+  <div class="code">
+    const elementos = document.querySelectorAll('.item');
+    <br>const largos = Array.from(elementos).filter(el => el.textContent.length > 10);
+    <br>console.log(largos);  <span style="color:#22d3ee;">// Solo elementos con más de 10 caracteres</span>
+  </div>
+
+  <h3>🎯 Encontrar el Primero que Cumple (find)</h3>
+  <div class="code">
+    const items = document.querySelectorAll('tr');
+    <br>const primero = Array.from(items).find(el => el.getAttribute('data-price') > 100);
+    <br>console.log(primero);  <span style="color:#22d3ee;">// Primer elemento con precio > 100</span>
+  </div>
+
+  <h3>✅ Verificar si Alguno Cumple (some)</h3>
+  <div class="code">
+    const elementos = document.querySelectorAll('.item');
+    <br>const existe = Array.from(elementos).some(el => el.classList.contains('activo'));
+    <br>console.log(existe);  <span style="color:#22d3ee;">// true si al menos uno tiene 'activo'</span>
+  </div>
+
+  <!-- Ejercicio 1: Filtrar por propiedad -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 1: Filtrar Pokémon por Precio</div>
+    <p><b>Objetivo:</b> Filtra la tabla de Pokémon para mostrar solo los que cumplen el precio mínimo.</p>
+    <table class="demo-table" style="width:100%;margin-bottom:12px;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#667eea;color:white;">
+          <th style="padding:10px;text-align:left;">Pokémon</th>
+          <th style="padding:10px;text-align:left;">Tipo</th>
+          <th style="padding:10px;text-align:center;">Precio</th>
+        </tr>
+      </thead>
+      <tbody id="pokemonTable">
+        <tr data-price="150" style="border-bottom:1px solid #ddd;"><td style="padding:10px;">Pikachu</td><td style="padding:10px;">Eléctrico</td><td style="padding:10px;text-align:center;">$150</td></tr>
+        <tr data-price="200" style="border-bottom:1px solid #ddd;"><td style="padding:10px;">Charizard</td><td style="padding:10px;">Fuego</td><td style="padding:10px;text-align:center;">$200</td></tr>
+        <tr data-price="100" style="border-bottom:1px solid #ddd;"><td style="padding:10px;">Squirtle</td><td style="padding:10px;">Agua</td><td style="padding:10px;text-align:center;">$100</td></tr>
+        <tr data-price="180" style="border-bottom:1px solid #ddd;"><td style="padding:10px;">Venusaur</td><td style="padding:10px;">Planta</td><td style="padding:10px;text-align:center;">$180</td></tr>
+        <tr data-price="220" style="border-bottom:1px solid #ddd;"><td style="padding:10px;">Dragonite</td><td style="padding:10px;">Dragón</td><td style="padding:10px;text-align:center;">$220</td></tr>
+      </tbody>
+    </table>
+    <input type="number" id="priceFilter" class="input" placeholder="Precio mínimo (ej: 150)..." style="margin-bottom:8px;">
+    <button class="btn" onclick="ej1_filterByPrice()">Filtrar por precio</button>
+    <button class="btn btn-secondary" onclick="ej1_resetTable()">Ver todos</button>
+    <div id="ej1Result" style="margin-top:12px;padding:10px;background:#588f5c;border-radius:6px;display:none;">
+      <b>Resultados:</b> <span id="ej1ResultText"></span>
     </div>
   </div>
 
-  <!-- Sección 3: Buscar y Filtrar -->
-  <div class="section">
-    <h2>🔍 Buscar y Filtrar Elementos</h2>
-    <p>Obtén múltiples elementos y luego filtra para encontrar exactamente lo que necesitas.</p>
-
-    <h3>Filtrar con filter()</h3>
-    <div class="code">
-      <div class="code-label">Obtener todos los elementos y filtrar</div>
-      const elementos = document.querySelectorAll('.item');
-const largos = Array.from(elementos).filter(el => 
-  el.textContent.length > 10
-);
-console.log(largos);  // Solo elementos con más de 10 caracteres
-    </div>
-
-    <h3>Encontrar el Primero que Cumple</h3>
-    <div class="code">
-      <div class="code-label">Usar find() para obtener el primer elemento</div>
-      const items = document.querySelectorAll('tr');
-const primero = Array.from(items).find(el => 
-  el.getAttribute('data-price') > 100
-);
-console.log(primero);  // Primer elemento con precio > 100
-    </div>
-
-    <h3>Verificar si Alguno Cumple</h3>
-    <div class="code">
-      <div class="code-label">Usar some() para verificar una condición</div>
-      const elementos = document.querySelectorAll('.item');
-const existe = Array.from(elementos).some(el => 
-  el.classList.contains('activo')
-);
-console.log(existe);  // true si al menos uno tiene 'activo'
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Buscar y Filtrar</div>
-      <table class="demo-table">
-        <thead>
-          <tr>
-            <th>Pokémon</th>
-            <th>Tipo</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody id="pokemonTable">
-          <tr data-price="150"><td>Pikachu</td><td>Eléctrico</td><td>$150</td></tr>
-          <tr data-price="200"><td>Charizard</td><td>Fuego</td><td>$200</td></tr>
-          <tr data-price="100"><td>Squirtle</td><td>Agua</td><td>$100</td></tr>
-          <tr data-price="180"><td>Venusaur</td><td>Planta</td><td>$180</td></tr>
-          <tr data-price="220"><td>Dragonite</td><td>Dragón</td><td>$220</td></tr>
-        </tbody>
-      </table>
-      <input type="number" id="priceFilter" class="input" placeholder="Precio mínimo (ej: 150)..." style="max-width: 300px;">
-      <button class="btn" onclick="filterByPrice()">Filtrar por precio</button>
-      <button class="btn btn-secondary" onclick="resetTable()">Ver todos</button>
-      <div id="filterResult" class="result"></div>
+  <!-- Ejercicio 2: Encontrar el primero (find) -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 2: Encontrar el Primero (find)</div>
+    <p><b>Objetivo:</b> Encuentra el primer Pokémon que sea más caro que un precio específico.</p>
+    <input type="number" id="findPrice" class="input" placeholder="Buscar Pokémon más caro que..." style="margin-bottom:8px;">
+    <button class="btn" onclick="ej2_findExpensive()">Buscar primero caro</button>
+    <button class="btn btn-secondary" onclick="ej2_resetFind()">Resetear</button>
+    <div id="ej2Result" style="margin-top:12px;padding:10px;background:#4d6f88;border-radius:6px;display:none;">
+      <b>Encontrado:</b> <span id="ej2ResultText"></span>
     </div>
   </div>
 
-  <!-- Sección 4: Cambios en Lote -->
-  <div class="section">
-    <h2>⚡ Modificar Múltiples Elementos a la Vez</h2>
-    <p>forEach() es perfecto para aplicar cambios a varios elementos simultáneamente.</p>
-
-    <h3>Cambiar Estilos a Todos</h3>
-    <div class="code">
-      <div class="code-label">Modificar propiedades CSS de múltiples elementos</div>
-      const cards = document.querySelectorAll('.card');
-cards.forEach((card, index) => {
-  card.style.backgroundColor = `hsl(${index * 40}, 70%, 50%)`;
-  card.style.fontSize = '1.1rem';
-});
-    </div>
-
-    <h3>Cambiar Contenido a Todos</h3>
-    <div class="code">
-      <div class="code-label">Modificar el texto de múltiples elementos</div>
-      const parrafos = document.querySelectorAll('p');
-parrafos.forEach((p, index) => {
-  p.textContent = `Párrafo ${index + 1}`;
-});
-    </div>
-
-    <h3>Agregar Clases a Todos</h3>
-    <div class="code">
-      <div class="code-label">Agregar la misma clase a múltiples elementos</div>
-      const botones = document.querySelectorAll('button');
-botones.forEach(btn => {
-  btn.classList.add('activo');
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Cambios en Lote</div>
-      <div class="card-grid" id="cardContainer">
-        <div class="card" style="cursor: pointer;">Card 1</div>
-        <div class="card" style="cursor: pointer;">Card 2</div>
-        <div class="card" style="cursor: pointer;">Card 3</div>
-        <div class="card" style="cursor: pointer;">Card 4</div>
-      </div>
-      <button class="btn" onclick="colorizeAll()">Colorear todos</button>
-      <button class="btn btn-success" onclick="enlargeAll()">Agrandar todos</button>
-      <button class="btn btn-secondary" onclick="resetAll()">Resetear</button>
+  <!-- Ejercicio 3: Verificar si existe (some) -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 3: Verificar si Existe (some)</div>
+    <p><b>Objetivo:</b> Verifica si existe algún Pokémon que sea más caro que $180, más barato que $120, o de tipo "Fuego".</p>
+    <button class="btn" onclick="ej3_checkExpensive()">¿Hay alguno > $180?</button>
+    <button class="btn" onclick="ej3_checkCheap()">¿Hay alguno < $120?</button>
+    <button class="btn" onclick="ej3_checkType()">¿Hay tipo 'Fuego'?</button>
+    <div id="ej3Result" style="margin-top:12px;padding:10px;background:#968757;border-radius:6px;display:none;">
+      <b>Resultado:</b> <span id="ej3ResultText"></span>
     </div>
   </div>
+</div>
+
+<script>
+// ========== EJERCICIO 1 ==========
+function ej1_filterByPrice() {
+  const minPrice = parseInt(document.getElementById('priceFilter').value);
+  if(!minPrice) {
+    alert('Ingresa un precio válido');
+    return;
+  }
+  const filas = document.querySelectorAll('#pokemonTable tr');
+  let contador = 0;
+  let resultados = [];
+  filas.forEach(fila => {
+    const price = parseInt(fila.getAttribute('data-price'));
+    if(price >= minPrice) {
+      fila.style.display = '';
+      resultados.push(fila.querySelector('td').textContent);
+      contador++;
+    } else {
+      fila.style.display = 'none';
+    }
+  });
+  document.getElementById('ej1ResultText').textContent = `Se encontraron ${contador} Pokémon >= $${minPrice}: ${resultados.join(', ')}`;
+  document.getElementById('ej1Result').style.display = 'block';
+}
+function ej1_resetTable() {
+  document.querySelectorAll('#pokemonTable tr').forEach(fila => {
+    fila.style.display = '';
+  });
+  document.getElementById('priceFilter').value = '';
+  document.getElementById('ej1Result').style.display = 'none';
+}
+
+// ========== EJERCICIO 2 ==========
+function ej2_findExpensive() {
+  const minPrice = parseInt(document.getElementById('findPrice').value);
+  if(!minPrice) {
+    alert('Ingresa un precio válido');
+    return;
+  }
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const primero = filas.find(fila => parseInt(fila.getAttribute('data-price')) > minPrice);
+  if(primero) {
+    document.getElementById('ej2ResultText').textContent = `${primero.querySelector('td').textContent} ($${primero.getAttribute('data-price')})`;
+  } else {
+    document.getElementById('ej2ResultText').textContent = 'No encontrado';
+  }
+  document.getElementById('ej2Result').style.display = 'block';
+}
+function ej2_resetFind() {
+  document.getElementById('findPrice').value = '';
+  document.getElementById('ej2Result').style.display = 'none';
+}
+
+// ========== EJERCICIO 3 ==========
+function ej3_checkExpensive() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => parseInt(fila.getAttribute('data-price')) > 180);
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay Pokémon > $180' : '❌ NO hay Pokémon > $180';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+function ej3_checkCheap() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => parseInt(fila.getAttribute('data-price')) < 120);
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay Pokémon < $120' : '❌ NO hay Pokémon < $120';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+function ej3_checkType() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => fila.querySelector('td:nth-child(2)').textContent === 'Fuego');
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay tipo Fuego' : '❌ NO hay tipo Fuego';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+</script>
+
+<!-- Sección 4: Modificar Múltiples Elementos -->
+<div class="section">
+
+  <h2>⚡ Modificar Múltiples Elementos a la Vez</h2>
+  <p>
+    <code>forEach()</code> es perfecto para aplicar cambios a varios elementos simultáneamente.
+    Recorres todos los elementos y cambias cada uno según lo que necesites.
+  </p>
+
+  <h3>🎨 Cambiar Estilos a Todos</h3>
+  <div class="code">
+    const cards = document.querySelectorAll('.card');
+    <br>cards.forEach((card, index) => {
+    <br>&nbsp;&nbsp;card.style.backgroundColor = `hsl(${index * 40}, 70%, 50%)`;
+    <br>&nbsp;&nbsp;card.style.fontSize = '1.1rem';
+    <br>});
+  </div>
+
+  <h3>📝 Cambiar Contenido a Todos</h3>
+  <div class="code">
+    const parrafos = document.querySelectorAll('p');
+    <br>parrafos.forEach((p, index) => {
+    <br>&nbsp;&nbsp;p.textContent = `Párrafo ${index + 1}`;
+    <br>});
+  </div>
+
+  <h3>📌 Agregar Clases a Todos</h3>
+  <div class="code">
+    const botones = document.querySelectorAll('button');
+    <br>botones.forEach(btn => {
+    <br>&nbsp;&nbsp;btn.classList.add('activo');
+    <br>});
+  </div>
+
+  <!-- Ejercicio 4: Cambiar estilos en lote -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 4: Colorear Todos los Elementos</div>
+    <p><b>Objetivo:</b> Aplica colores diferentes a cada card usando forEach().</p>
+    <div class="card-grid" id="cardContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:12px;">
+      <div class="card" style="padding:20px;border-radius:8px;background:#7e4c4c;border:2px solid #ddd;cursor:pointer;text-align:center;">Card 1</div>
+      <div class="card" style="padding:20px;border-radius:8px;background:#7e4c4c;border:2px solid #ddd;cursor:pointer;text-align:center;">Card 2</div>
+      <div class="card" style="padding:20px;border-radius:8px;background:#7e4c4c;border:2px solid #ddd;cursor:pointer;text-align:center;">Card 3</div>
+      <div class="card" style="padding:20px;border-radius:8px;background:#7e4c4c;border:2px solid #ddd;cursor:pointer;text-align:center;">Card 4</div>
+    </div>
+    <button class="btn" onclick="ej4_colorizeAll()">Colorear todos</button>
+    <button class="btn btn-success" onclick="ej4_enlargeAll()">Agrandar todos</button>
+    <button class="btn btn-secondary" onclick="ej4_resetAll()">Resetear</button>
+  </div>
+
+  <!-- Ejercicio 5: Cambiar contenido en lote -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 5: Numerar Párrafos</div>
+    <p><b>Objetivo:</b> Renumera automáticamente todos los párrafos.</p>
+    <div style="background:#663d3d;padding:12px;border-radius:6px;margin-bottom:12px;">
+      <p style="margin:8px 0;">Este es el primer párrafo</p>
+      <p style="margin:8px 0;">Este es el segundo párrafo</p>
+      <p style="margin:8px 0;">Este es el tercer párrafo</p>
+    </div>
+    <button class="btn" onclick="ej5_numerateParagraphs()">Numerar párrafos</button>
+    <button class="btn btn-secondary" onclick="ej5_resetParagraphs()">Resetear</button>
+  </div>
+
+  <!-- Ejercicio 6: Agregar clases en lote -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 6: Aplicar Clases a Múltiples Elementos</div>
+    <p><b>Objetivo:</b> Agrega la clase 'highlight' a todos los botones.</p>
+    <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button style="padding:10px 16px;background:#7e4c4c;border:none;border-radius:6px;cursor:pointer;">Botón 1</button>
+      <button style="padding:10px 16px;background:#7e4c4c;border:none;border-radius:6px;cursor:pointer;">Botón 2</button>
+      <button style="padding:10px 16px;background:#7e4c4c;border:none;border-radius:6px;cursor:pointer;">Botón 3</button>
+      <button style="padding:10px 16px;background:#7e4c4c;border:none;border-radius:6px;cursor:pointer;">Botón 4</button>
+    </div>
+    <button class="btn" onclick="ej6_highlightAll()">Destacar todos</button>
+    <button class="btn" onclick="ej6_disableAll()">Deshabilitar todos</button>
+    <button class="btn btn-secondary" onclick="ej6_resetButtons()">Resetear</button>
+  </div>
+
+</div>
+
+<script>
+// ========== EJERCICIO 1: Filtrar por precio ==========
+function ej1_filterByPrice() {
+  const minPrice = parseInt(document.getElementById('priceFilter').value);
+  if(!minPrice) {
+    alert('Ingresa un precio válido');
+    return;
+  }
+  
+  const filas = document.querySelectorAll('#pokemonTable tr');
+  let contador = 0;
+  let resultados = [];
+  
+  filas.forEach(fila => {
+    const price = parseInt(fila.getAttribute('data-price'));
+    if(price >= minPrice) {
+      fila.style.display = '';
+      resultados.push(fila.querySelector('td').textContent);
+      contador++;
+    } else {
+      fila.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('ej1ResultText').textContent = `Se encontraron ${contador} Pokémon >= $${minPrice}: ${resultados.join(', ')}`;
+  document.getElementById('ej1Result').style.display = 'block';
+}
+
+function ej1_resetTable() {
+  document.querySelectorAll('#pokemonTable tr').forEach(fila => {
+    fila.style.display = '';
+  });
+  document.getElementById('priceFilter').value = '';
+  document.getElementById('ej1Result').style.display = 'none';
+}
+
+// ========== EJERCICIO 2: Encontrar primero (find) ==========
+function ej2_findExpensive() {
+  const minPrice = parseInt(document.getElementById('findPrice').value);
+  if(!minPrice) {
+    alert('Ingresa un precio válido');
+    return;
+  }
+  
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const primero = filas.find(fila => parseInt(fila.getAttribute('data-price')) > minPrice);
+  
+  if(primero) {
+    document.getElementById('ej2ResultText').textContent = `${primero.querySelector('td').textContent} ($${primero.getAttribute('data-price')})`;
+  } else {
+    document.getElementById('ej2ResultText').textContent = 'No encontrado';
+  }
+  document.getElementById('ej2Result').style.display = 'block';
+}
+
+function ej2_resetFind() {
+  document.getElementById('findPrice').value = '';
+  document.getElementById('ej2Result').style.display = 'none';
+}
+
+// ========== EJERCICIO 3: Verificar si existe (some) ==========
+function ej3_checkExpensive() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => parseInt(fila.getAttribute('data-price')) > 180);
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay Pokémon > $180' : '❌ NO hay Pokémon > $180';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+
+function ej3_checkCheap() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => parseInt(fila.getAttribute('data-price')) < 120);
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay Pokémon < $120' : '❌ NO hay Pokémon < $120';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+
+function ej3_checkType() {
+  const filas = Array.from(document.querySelectorAll('#pokemonTable tr'));
+  const existe = filas.some(fila => fila.querySelector('td:nth-child(2)').textContent === 'Fuego');
+  document.getElementById('ej3ResultText').textContent = existe ? '✅ SÍ hay tipo Fuego' : '❌ NO hay tipo Fuego';
+  document.getElementById('ej3Result').style.display = 'block';
+}
+
+// ========== EJERCICIO 4: Colorear todos ==========
+function ej4_colorizeAll() {
+  const cards = document.querySelectorAll('#cardContainer .card');
+  cards.forEach((card, index) => {
+    const colors = ['#ffcccc', '#ccffcc', '#ccccff', '#ffccff'];
+    card.style.backgroundColor = colors[index];
+    card.style.fontWeight = 'bold';
+  });
+}
+
+function ej4_enlargeAll() {
+  document.querySelectorAll('#cardContainer .card').forEach(card => {
+    card.style.fontSize = '1.3rem';
+    card.style.padding = '30px';
+  });
+}
+
+function ej4_resetAll() {
+  document.querySelectorAll('#cardContainer .card').forEach(card => {
+    card.style.backgroundColor = '#f0f0f0';
+    card.style.fontSize = '1rem';
+    card.style.padding = '20px';
+    card.style.fontWeight = 'normal';
+  });
+}
+
+// ========== EJERCICIO 5: Numerar párrafos ==========
+function ej5_numerateParagraphs() {
+  const parrafos = document.querySelectorAll('.section:last-of-type p');
+  parrafos.forEach((p, index) => {
+    if(index > 1) { // Saltar los dos primeros que son descripción
+      p.textContent = `Párrafo ${index - 1}`;
+    }
+  });
+}
+
+function ej5_resetParagraphs() {
+  const parrafos = document.querySelectorAll('.section:last-of-type p');
+  const textos = ['Este es el primer párrafo', 'Este es el segundo párrafo', 'Este es el tercer párrafo'];
+  parrafos.forEach((p, index) => {
+    if(index > 1 && textos[index - 2]) {
+      p.textContent = textos[index - 2];
+    }
+  });
+}
+
+// ========== EJERCICIO 6: Aplicar clases ==========
+function ej6_highlightAll() {
+  const botones = document.querySelectorAll('.section:last-of-type button');
+  botones.forEach(btn => {
+    btn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+    btn.style.color = 'white';
+    btn.style.fontWeight = 'bold';
+  });
+}
+
+function ej6_disableAll() {
+  const botones = document.querySelectorAll('.section:last-of-type button');
+  botones.forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+  });
+}
+
+function ej6_resetButtons() {
+  const botones = document.querySelectorAll('.section:last-of-type button');
+  botones.forEach(btn => {
+    btn.style.background = '#e0e0e0';
+    btn.style.color = '#333';
+    btn.style.fontWeight = 'normal';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  });
+}
+</script>
 
   <!-- Sección 5: Buscar Dentro de Contenedores -->
   <div class="section">

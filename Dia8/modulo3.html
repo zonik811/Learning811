@@ -316,258 +316,952 @@ body {
   </div>
 
   <!-- Sección 1: Tipos de Eventos -->
-  <div class="section">
-    <h2>🎪 Tipos de Eventos Principales</h2>
-    <p>El navegador dispara eventos constantemente. Aquí están los más comunes que debes conocer:</p>
+ <div class="section">
+  <h2>🎪 Tipos de Eventos Principales</h2>
+  <p>
+    El navegador dispara <b>eventos constantemente</b>. Los eventos son acciones que el usuario realiza 
+    (o que el sistema genera). Aquí están los más comunes que debes conocer y cómo capturarlos:
+  </p>
+
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📱 Eventos del Mouse</h3>
+  
+  <div class="code">
+    <b>click</b> - Clic simple del ratón
+    <br><code>elemento.addEventListener('click', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Usuario hizo clic');</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>dblclick</b> - Doble clic
+    <br><code>elemento.addEventListener('dblclick', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Usuario hizo doble clic');</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>mouseover / mouseout</b> - Pasar mouse por encima o salir
+    <br><code>elemento.addEventListener('mouseover', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Mouse entró');</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>mouseenter / mouseleave</b> - Similar pero sin bubbling
+    <br><code>elemento.addEventListener('mouseenter', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Mouse entró al elemento');</code>
+    <br><code>});</code>
+  </div>
+
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">⌨️ Eventos del Teclado</h3>
+
+  <div class="code">
+    <b>keydown</b> - Presionar una tecla (se dispara mientras se mantiene presionada)
+    <br><code>documento.addEventListener('keydown', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Tecla presionada:', e.key, 'Código:', e.keyCode);</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>keyup</b> - Soltar una tecla (se dispara cuando se suelta)
+    <br><code>documento.addEventListener('keyup', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Tecla soltada:', e.key);</code>
+    <br><code>});</code>
+  </div>
+
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📝 Eventos de Entrada (Inputs)</h3>
+
+  <div class="code">
+    <b>input</b> - Se dispara cada vez que cambia el valor (mientras escribes)
+    <br><code>input.addEventListener('input', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Texto actual:', e.target.value);</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>focus</b> - Se dispara cuando el input recibe el foco
+    <br><code>input.addEventListener('focus', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Input enfocado');</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>blur</b> - Se dispara cuando el input pierde el foco
+    <br><code>input.addEventListener('blur', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Input desenfocado');</code>
+    <br><code>});</code>
+  </div>
+
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📋 Eventos de Formulario</h3>
+
+  <div class="code">
+    <b>submit</b> - Se dispara cuando envías un formulario
+    <br><code>formulario.addEventListener('submit', function(e) {</code>
+    <br><code>&nbsp;&nbsp;e.preventDefault();  // Evita recargar la página</code>
+    <br><code>&nbsp;&nbsp;console.log('Formulario enviado');</code>
+    <br><code>});</code>
+  </div>
+
+  <div class="code">
+    <b>change</b> - Se dispara cuando el valor de un select o checkbox cambia
+    <br><code>select.addEventListener('change', function(e) {</code>
+    <br><code>&nbsp;&nbsp;console.log('Nuevo valor:', e.target.value);</code>
+    <br><code>});</code>
+  </div>
+
+  <!-- Demo Interactiva: Logger de Eventos -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 1: Visualiza los Eventos en Tiempo Real</div>
+    <p><b>Objetivo:</b> Haz diferentes acciones y observa los eventos que se disparan en el logger.</p>
     
-    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📱 Eventos del Mouse</h3>
-    <div class="code">
-      <div class="code-label">click - Clic simple del ratón</div>
-      elemento.addEventListener('click', function() {
-  console.log('Usuario hizo clic');
-});
+    <div id="eventElement" class="demo-element" style="margin-bottom:12px;padding:20px;cursor:pointer;user-select:none;">
+      ⬅️ Haz clic aquí / Doble clic / Pasa el mouse
     </div>
+    
+    <input id="eventInput" type="text" class="input" placeholder="👉 Escribe aquí para ver eventos de teclado e input..." style="margin-bottom:12px;">
+    
+    <div id="eventLog" style="
+      background:#1a1a1a;
+      color:#0f0;
+      padding:12px;
+      border-radius:6px;
+      font-family:monospace;
+      font-size:12px;
+      max-height:200px;
+      overflow-y:auto;
+      border:2px solid #0f0;
+      margin-bottom:12px;
+    "></div>
+    
+    <button class="btn btn-danger" onclick="clearLog()">Limpiar Log</button>
+  </div>
 
-    <div class="code">
-      <div class="code-label">dblclick - Doble clic</div>
-      elemento.addEventListener('dblclick', function() {
-  console.log('Usuario hizo doble clic');
-});
+  <!-- Ejercicio 2: Contador de Clics -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 2: Contador de Clics</div>
+    <p><b>Objetivo:</b> Cuenta cuántas veces haces clic. Aprende que los eventos se pueden disparar múltiples veces.</p>
+    <div style="text-align:center;margin-bottom:12px;">
+      <button id="clickButton" class="btn" style="font-size:1.2rem;padding:20px 40px;">Haz clic aquí</button>
     </div>
-
-    <div class="code">
-      <div class="code-label">mouseover y mouseout - Pasar mouse</div>
-      elemento.addEventListener('mouseover', function() {
-  console.log('Mouse entró');
-});
-
-elemento.addEventListener('mouseout', function() {
-  console.log('Mouse salió');
-});
+    <div style="text-align:center;">
+      <p style="font-size:1.8rem;font-weight:bold;margin:0;">Clics: <span id="clickCount">0</span></p>
     </div>
+    <button class="btn btn-secondary" onclick="resetClickCount()" style="width:100%;margin-top:12px;">Resetear contador</button>
+  </div>
 
-    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">⌨️ Eventos del Teclado</h3>
-    <div class="code">
-      <div class="code-label">keydown - Presionar una tecla</div>
-      elemento.addEventListener('keydown', function(e) {
-  console.log('Tecla presionada:', e.key);
-});
-    </div>
-
-    <div class="code">
-      <div class="code-label">keyup - Soltar una tecla</div>
-      elemento.addEventListener('keyup', function(e) {
-  console.log('Tecla soltada:', e.key);
-});
-    </div>
-
-    <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">📝 Eventos de Entrada</h3>
-    <div class="code">
-      <div class="code-label">input - Escribir en un input</div>
-      input.addEventListener('input', function(e) {
-  console.log('Texto:', e.target.value);
-});
-    </div>
-
-    <div class="code">
-      <div class="code-label">focus y blur - Enfocar/desenfocar</div>
-      input.addEventListener('focus', function() {
-  console.log('Input enfocado');
-});
-
-input.addEventListener('blur', function() {
-  console.log('Input desenfocado');
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo Interactiva: Prueba los Eventos</div>
-      <div id="eventElement" class="demo-element">
-        Haz clic, doble clic, pasa el mouse aquí
+  <!-- Ejercicio 3: Monitorear Mouse -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 3: Monitorear Eventos del Mouse</div>
+    <p><b>Objetivo:</b> Observa la diferencia entre mouseover/mouseout y mouseenter/mouseleave.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div id="mouseBox1" style="padding:20px;background:#ff6b6b;border-radius:6px;text-align:center;color:white;font-weight:bold;">
+        mouseover/out
       </div>
-      <input id="eventInput" type="text" class="input" placeholder="Escribe aquí para ver eventos...">
-      <div class="event-log" id="eventLog"></div>
-      <button class="btn btn-danger" onclick="clearLog()">Limpiar Log</button>
+      <div id="mouseBox2" style="padding:20px;background:#4ecdc4;border-radius:6px;text-align:center;color:white;font-weight:bold;">
+        mouseenter/leave
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#e0e0e0;padding:8px;border-radius:6px;font-size:12px;">
+        <b>mouseover/out:</b> <span id="mouseCount1">0</span>
+      </div>
+      <div style="background:#e0e0e0;padding:8px;border-radius:6px;font-size:12px;">
+        <b>mouseenter/leave:</b> <span id="mouseCount2">0</span>
+      </div>
+    </div>
+    <button class="btn btn-secondary" onclick="resetMouseCounts()" style="width:100%;margin-top:12px;">Resetear</button>
+  </div>
+
+  <!-- Ejercicio 4: Detectar Teclas Específicas -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 4: Detectar Teclas Específicas</div>
+    <p><b>Objetivo:</b> Presiona las teclas flecha arriba, abajo, izquierda, derecha y observa qué sucede.</p>
+    <input id="keyInput" type="text" class="input" placeholder="Presiona las flechas del teclado aquí..." style="margin-bottom:12px;">
+    <div id="keyDisplay" style="text-align:center;font-size:3rem;margin:20px 0;">⬆️</div>
+    <div style="text-align:center;font-size:12px;">
+      <p>Última tecla: <b id="lastKeyDisplay">ninguna</b></p>
     </div>
   </div>
+
+  <!-- Ejercicio 5: Validación en Tiempo Real -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 5: Validación en Tiempo Real con 'input'</div>
+    <p><b>Objetivo:</b> Valida un email mientras escribes. Los eventos 'input' te permiten reaccionar al instante.</p>
+    <input id="emailInput" type="text" class="input" placeholder="Escribe un email (debe contener @)..." style="margin-bottom:12px;">
+    <div id="validationStatus" style="padding:10px;border-radius:6px;text-align:center;font-weight:bold;display:none;">
+      <!-- Se actualiza en tiempo real -->
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ========== LOGGER DE EVENTOS ==========
+let logCount = 0;
+function addLog(mensaje) {
+  logCount++;
+  const log = document.getElementById('eventLog');
+  const timestamp = new Date().toLocaleTimeString();
+  const entry = document.createElement('div');
+  entry.textContent = `[${timestamp}] ${logCount}. ${mensaje}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+  if(logCount > 20) {
+    log.removeChild(log.firstChild);
+  }
+}
+
+function clearLog() {
+  document.getElementById('eventLog').innerHTML = '';
+  logCount = 0;
+}
+
+// Eventos del elemento
+const eventElement = document.getElementById('eventElement');
+eventElement.addEventListener('click', () => addLog('🖱️ CLICK'));
+eventElement.addEventListener('dblclick', () => addLog('🖱️ DOBLE CLICK'));
+eventElement.addEventListener('mouseover', () => addLog('🖱️ MOUSEOVER'));
+eventElement.addEventListener('mouseout', () => addLog('🖱️ MOUSEOUT'));
+
+// Eventos del input
+const eventInput = document.getElementById('eventInput');
+eventInput.addEventListener('input', (e) => addLog(`⌨️ INPUT: "${e.target.value}"`));
+eventInput.addEventListener('keydown', (e) => addLog(`⌨️ KEYDOWN: ${e.key}`));
+eventInput.addEventListener('keyup', (e) => addLog(`⌨️ KEYUP: ${e.key}`));
+eventInput.addEventListener('focus', () => addLog('⌨️ FOCUS'));
+eventInput.addEventListener('blur', () => addLog('⌨️ BLUR'));
+
+// ========== EJERCICIO 2: Contador de Clics ==========
+let clickCount = 0;
+document.getElementById('clickButton').addEventListener('click', () => {
+  clickCount++;
+  document.getElementById('clickCount').textContent = clickCount;
+});
+
+function resetClickCount() {
+  clickCount = 0;
+  document.getElementById('clickCount').textContent = '0';
+}
+
+// ========== EJERCICIO 3: Monitorear Mouse ==========
+let mouseCount1 = 0, mouseCount2 = 0;
+const mouseBox1 = document.getElementById('mouseBox1');
+const mouseBox2 = document.getElementById('mouseBox2');
+
+mouseBox1.addEventListener('mouseover', () => {
+  mouseCount1++;
+  document.getElementById('mouseCount1').textContent = mouseCount1;
+});
+
+mouseBox2.addEventListener('mouseenter', () => {
+  mouseCount2++;
+  document.getElementById('mouseCount2').textContent = mouseCount2;
+});
+
+function resetMouseCounts() {
+  mouseCount1 = 0;
+  mouseCount2 = 0;
+  document.getElementById('mouseCount1').textContent = '0';
+  document.getElementById('mouseCount2').textContent = '0';
+}
+
+// ========== EJERCICIO 4: Detectar Teclas ==========
+const keyInput = document.getElementById('keyInput');
+const keyDisplay = document.getElementById('keyDisplay');
+const lastKeyDisplay = document.getElementById('lastKeyDisplay');
+
+const keyArrows = {
+  'ArrowUp': '⬆️',
+  'ArrowDown': '⬇️',
+  'ArrowLeft': '⬅️',
+  'ArrowRight': '➡️'
+};
+
+keyInput.addEventListener('keydown', (e) => {
+  if(keyArrows[e.key]) {
+    keyDisplay.textContent = keyArrows[e.key];
+    lastKeyDisplay.textContent = e.key;
+  }
+});
+
+// ========== EJERCICIO 5: Validación Email ==========
+const emailInput = document.getElementById('emailInput');
+const validationStatus = document.getElementById('validationStatus');
+
+emailInput.addEventListener('input', (e) => {
+  const email = e.target.value;
+  const isValid = email.includes('@') && email.includes('.');
+  
+  if(email.length === 0) {
+    validationStatus.style.display = 'none';
+  } else if(isValid) {
+    validationStatus.style.display = 'block';
+    validationStatus.textContent = '✅ Email válido';
+    validationStatus.style.background = '#c8e6c9';
+    validationStatus.style.color = '#2d5016';
+  } else {
+    validationStatus.style.display = 'block';
+    validationStatus.textContent = '❌ Email inválido (debe tener @ y .)';
+    validationStatus.style.background = '#ffcccc';
+    validationStatus.style.color = '#c33';
+  }
+});
+</script>
+
+<style>
+  #eventLog::-webkit-scrollbar {
+    width: 8px;
+  }
+  #eventLog::-webkit-scrollbar-track {
+    background: #333;
+  }
+  #eventLog::-webkit-scrollbar-thumb {
+    background: #0f0;
+    border-radius: 4px;
+  }
+</style>
+
 
   <!-- Sección 2: El Objeto Event -->
-  <div class="section">
-    <h2>📦 El Objeto Event - Información del Evento</h2>
-    <p>Cuando ocurre un evento, se pasa automáticamente un objeto con información importante:</p>
+ <div class="section">
+  <h2>📦 El Objeto Event - Información del Evento</h2>
+  <p>
+    Cada vez que ocurre un evento (un clic, una tecla presionada, etc.), el navegador <b>crea automáticamente un objeto</b> 
+    llamado <code>event</code> (o <code>e</code>) que contiene <b>toda la información sobre qué sucedió</b>. 
+    Es como si el navegador dijera: "Oye, el usuario hizo esto, aquí tienes los detalles".
+  </p>
 
-    <div class="code">
-      <div class="code-label">Accediendo a información del evento</div>
-      elemento.addEventListener('click', function(e) {
-  console.log(e.type);        // 'click'
-  console.log(e.target);      // Elemento clickeado
-  console.log(e.clientX);     // Posición X del mouse
-  console.log(e.clientY);     // Posición Y del mouse
-});
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">🎯 ¿Qué información tiene el Objeto Event?</h3>
+  
+  <p>
+    Algunos de los datos más útiles:
+  </p>
+  <ul>
+    <li><b>e.type</b>: Tipo de evento ('click', 'keydown', 'input', etc.)</li>
+    <li><b>e.target</b>: El elemento HTML donde ocurrió el evento</li>
+    <li><b>e.clientX / e.clientY</b>: Posición del mouse en la pantalla</li>
+    <li><b>e.key</b>: La tecla presionada ('a', 'Enter', 'Shift', etc.)</li>
+    <li><b>e.code</b>: Código de la tecla ('KeyA', 'Enter', 'ShiftLeft')</li>
+    <li><b>e.timeStamp</b>: Momento exacto en que ocurrió el evento</li>
+  </ul>
+
+  <!-- EJERCICIO 1: Información Básica del Click -->
+  <div class="demo-box">
+    <div class="demo-title">🎮 Ejercicio 1: Información Básica del Click</div>
+    <p><b>Objetivo:</b> Haz clic en el elemento y observa qué información contiene el evento.</p>
+    
+    <div id="clickDemo" class="demo-element" style="cursor:pointer;margin-bottom:12px;padding:20px;text-align:center;">
+      👆 Haz clic aquí
     </div>
-
-    <div class="code">
-      <div class="code-label">Información de teclado</div>
-      input.addEventListener('keydown', function(e) {
-  console.log(e.key);         // 'a', 'Enter', 'Shift', etc.
-  console.log(e.code);        // 'KeyA', 'Enter', 'ShiftLeft'
-  console.log(e.timeStamp);   // Tiempo del evento
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Ver Información del Evento</div>
-      <div id="eventInfoDemo" class="demo-element" style="cursor: pointer;">
-        Haz clic para ver la información del evento
+    
+    <!-- Mostrador de información -->
+    <div style="background:#383b7c;border-radius:6px;padding:12px;margin-bottom:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <b style="color:#667eea;">Tipo de evento:</b>
+          <div id="output1Type" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">Elemento clickeado:</b>
+          <div id="output1Target" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">Posición X del mouse:</b>
+          <div id="output1X" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">Posición Y del mouse:</b>
+          <div id="output1Y" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
       </div>
-      <div class="live-output" id="eventInfoOutput">Haz clic arriba para ver los datos</div>
     </div>
   </div>
+
+  <!-- EJERCICIO 2: Información de Teclado -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 2: Información de Teclado</div>
+    <p><b>Objetivo:</b> Presiona teclas en el input y observa la información que genera cada evento.</p>
+    
+    <input id="keyboardDemo" type="text" class="input" placeholder="Presiona teclas aquí..." style="margin-bottom:12px;">
+    
+    <!-- Mostrador de información -->
+    <div style="background:#383b7c;border-radius:6px;padding:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <b style="color:#667eea;">Tecla presionada (e.key):</b>
+          <div id="output2Key" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;font-size:1.2rem;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">Código de tecla (e.code):</b>
+          <div id="output2Code" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">¿Shift presionado?</b>
+          <div id="output2Shift" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">¿Control presionado?</b>
+          <div id="output2Ctrl" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO 3: Información de Input (escritura) -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 3: Información del Evento 'input'</div>
+    <p><b>Objetivo:</b> Escribe en el input y observa cómo cambia la información en tiempo real.</p>
+    
+    <input id="inputDemo" type="text" class="input" placeholder="Escribe algo..." style="margin-bottom:12px;">
+    
+    <!-- Mostrador de información -->
+    <div style="background:#383b7c;border-radius:6px;padding:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <b style="color:#667eea;">Texto actual:</b>
+          <div id="output3Value" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div>
+          <b style="color:#667eea;">Longitud del texto:</b>
+          <div id="output3Length" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+        <div colspan="2">
+          <b style="color:#667eea;">Tipo de evento:</b>
+          <div id="output3Type" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO 4: Información de Mouse (movimiento) -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 4: Seguir Posición del Mouse</div>
+    <p><b>Objetivo:</b> Mueve el mouse sobre el área y observa cómo cambian las coordenadas X e Y en tiempo real.</p>
+    
+    <div id="mouseTracker" style="
+      width:100%;
+      height:150px;
+      background:#383b7c;
+      border-radius:6px;
+      border:2px dashed #667eea;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      margin-bottom:12px;
+      cursor:crosshair;
+      position:relative;
+      overflow:hidden;
+    ">
+      Posición: 0, 0
+    </div>
+    
+    <!-- Mostrador de información -->
+    <div style="background:#383b7c;border-radius:6px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <b style="color:#667eea;">Posición X:</b>
+        <div id="output4X" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;font-size:1.1rem;">-</div>
+      </div>
+      <div>
+        <b style="color:#667eea;">Posición Y:</b>
+        <div id="output4Y" style="background:#383b7c;padding:8px;border-radius:4px;margin-top:4px;font-family:monospace;font-size:1.1rem;">-</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO 5: Comparar Todos los Datos -->
+  <div class="demo-box" style="margin-top:16px;">
+    <div class="demo-title">🎮 Ejercicio 5: Resumen Completo del Evento</div>
+    <p><b>Objetivo:</b> Haz clic en el botón y ve el resumen completo de TODOS los datos del evento.</p>
+    
+    <button id="summaryButton" class="btn" style="width:100%;padding:16px;font-size:1.1rem;">
+      Haz clic para ver TODOS los datos del evento
+    </button>
+    
+    <div id="summaryOutput" style="
+      background:#1a1a1a;
+      color:#0f0;
+      padding:12px;
+      border-radius:6px;
+      font-family:monospace;
+      font-size:11px;
+      margin-top:12px;
+      max-height:300px;
+      overflow-y:auto;
+      border:2px solid #0f0;
+      display:none;
+    "></div>
+  </div>
+
+</div>
+
+<script>
+// ========== EJERCICIO 1: Click Info ==========
+document.getElementById('clickDemo').addEventListener('click', (e) => {
+  document.getElementById('output1Type').textContent = e.type;
+  document.getElementById('output1Target').textContent = e.target.tagName + (e.target.id ? '#' + e.target.id : '');
+  document.getElementById('output1X').textContent = e.clientX + 'px';
+  document.getElementById('output1Y').textContent = e.clientY + 'px';
+});
+
+// ========== EJERCICIO 2: Keyboard Info ==========
+document.getElementById('keyboardDemo').addEventListener('keydown', (e) => {
+  document.getElementById('output2Key').textContent = e.key;
+  document.getElementById('output2Code').textContent = e.code;
+  document.getElementById('output2Shift').textContent = e.shiftKey ? '✅ SÍ' : '❌ NO';
+  document.getElementById('output2Ctrl').textContent = e.ctrlKey ? '✅ SÍ' : '❌ NO';
+});
+
+// ========== EJERCICIO 3: Input Info ==========
+document.getElementById('inputDemo').addEventListener('input', (e) => {
+  document.getElementById('output3Value').textContent = e.target.value || '(vacío)';
+  document.getElementById('output3Length').textContent = e.target.value.length;
+  document.getElementById('output3Type').textContent = e.type;
+});
+
+// ========== EJERCICIO 4: Mouse Tracker ==========
+const mouseTracker = document.getElementById('mouseTracker');
+mouseTracker.addEventListener('mousemove', (e) => {
+  const rect = mouseTracker.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  document.getElementById('output4X').textContent = Math.round(x) + 'px';
+  document.getElementById('output4Y').textContent = Math.round(y) + 'px';
+  
+  mouseTracker.textContent = `Posición: ${Math.round(x)}, ${Math.round(y)}`;
+});
+
+// ========== EJERCICIO 5: Summary ==========
+document.getElementById('summaryButton').addEventListener('click', (e) => {
+  const output = document.getElementById('summaryOutput');
+  output.style.display = 'block';
+  
+  const data = {
+    'e.type': e.type,
+    'e.target': e.target.tagName + (e.target.id ? '#' + e.target.id : ''),
+    'e.clientX': e.clientX + 'px',
+    'e.clientY': e.clientY + 'px',
+    'e.pageX': e.pageX + 'px',
+    'e.pageY': e.pageY + 'px',
+    'e.timeStamp': e.timeStamp + 'ms',
+    'e.isTrusted': e.isTrusted ? 'SÍ (evento real del usuario)' : 'NO (evento generado por JS)',
+    'e.bubbles': e.bubbles ? 'SÍ' : 'NO',
+    'e.cancelable': e.cancelable ? 'SÍ' : 'NO'
+  };
+  
+  let html = '<b>📋 INFORMACIÓN COMPLETA DEL EVENTO:</b><br><br>';
+  for(let key in data) {
+    html += `${key} → <span style="color:#ffff00;">${data[key]}</span><br>`;
+  }
+  
+  output.innerHTML = html;
+});
+
+// Mostrador que desaparece al hacer scroll
+document.getElementById('summaryOutput').addEventListener('mouseleave', () => {
+  document.getElementById('summaryOutput').style.display = 'none';
+});
+</script>
+
 
   <!-- Sección 3: Event Bubbling -->
   <div class="section">
-    <h2>🫧 Event Bubbling - Cómo Suben los Eventos</h2>
-    <p>Los eventos "suben" desde el elemento donde ocurren hacia sus elementos padres. Esto se llama bubbling (burbujeo).</p>
+  <h2>🫧 Event Bubbling - Cómo Suben los Eventos</h2>
+  <p>
+    Cuando ocurre un evento (por ejemplo, <b>click</b>), este “burbujea” desde el elemento donde ocurrió hacia arriba, pasando por cada padre. Esto se llama <b>bubbling</b>.
+    <br>¡Es muy útil para manejar acciones en grupos de elementos!
+  </p>
 
-    <div class="code">
-      <div class="code-label">El evento sube automáticamente (bubbling)</div>
-      // Si haces clic en el botón, el evento sube al div padre
-const div = document.getElementById('padre');
-const boton = document.getElementById('boton');
-
-div.addEventListener('click', function() {
-  console.log('Padre recibió el evento');
-});
-
-boton.addEventListener('click', function() {
-  console.log('Botón fue clickeado');
-});
-    </div>
-
-    <div class="code">
-      <div class="code-label">Detener la propagación con stopPropagation()</div>
-      boton.addEventListener('click', function(e) {
-  e.stopPropagation();  // Evita que suba al padre
-  console.log('Botón clickeado, pero el padre no lo ve');
-});
-    </div>
-
-    <div class="code">
-      <div class="code-label">Prevenir comportamiento por defecto</div>
-      link.addEventListener('click', function(e) {
-  e.preventDefault();   // El link NO se abre
-  console.log('Link no se abrió');
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Observa el Bubbling</div>
-      <div id="parent" style="background: rgba(102,126,234,0.1); padding: 20px; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-        <p style="margin: 0 0 15px 0; color: #a78bfa; font-weight: 600;">Padre (Contenedor) - Click aquí</p>
-        <button class="btn" id="childBtn">Hijo (Botón) - Click aquí</button>
-      </div>
-      <div class="event-log" id="bubblingLog"></div>
-      <p style="margin-top: 15px; color: #d1d5f0; font-size: 0.95rem;">
-        💡 Intenta hacer clic en el botón. Verás que el evento sube al padre también.
-      </p>
-    </div>
+  <div class="code">
+    <b>Ejemplo: El evento sube automáticamente</b>
+    <br><code>
+      // Si haces clic en el botón, el evento sube al div padre<br>
+      const div = document.getElementById('padre');<br>
+      const boton = document.getElementById('boton');<br><br>
+      div.addEventListener('click', function() {<br>
+         console.log('Padre recibió el evento');<br>
+      });<br>
+      boton.addEventListener('click', function() {<br>
+         console.log('Botón fue clickeado');<br>
+      });
+    </code>
   </div>
+
+  <div class="code">
+    <b>Detener la propagación (stopPropagation)</b>
+    <br><code>
+      boton.addEventListener('click', function(e) {<br>
+         e.stopPropagation(); // Detiene el bubbling<br>
+         console.log('Botón clickeado, el padre NO lo sabe');<br>
+      });
+    </code>
+  </div>
+
+  <div class="code">
+    <b>Prevenir comportamiento por defecto (preventDefault)</b>
+    <br><code>
+      link.addEventListener('click', function(e) {<br>
+         e.preventDefault(); // El link NO se abre<br>
+         console.log('Link no se abrió');<br>
+      });
+    </code>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo: Observa el Bubbling</div>
+    <div id="parent" style="background: rgba(102,126,234,0.1); padding: 20px; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+      <p style="margin: 0 0 15px 0; color: #a78bfa; font-weight: 600;">Padre (Contenedor) - Click aquí</p>
+      <button class="btn" id="childBtn">Hijo (Botón) - Click aquí</button>
+      <a href="https://google.com" target="_blank" id="demoLink" style="margin-left:20px;color:#667eea;text-decoration:underline;">Link (preventDefault)</a>
+    </div>
+    <div class="event-log" id="bubblingLog" style="background:#222;color:#0f0;padding:10px 16px;border-radius:8px;height:80px;overflow:auto;font-family:monospace;font-size:0.9rem;margin-bottom:10px;"></div>
+    <button class="btn btn-secondary" onclick="clearBubblingLog()">Limpiar Log</button>
+    <p style="margin-top: 15px; color: #a78bfa; font-size: 0.95rem;">
+      💡 Haz clic en el <b>botón</b>: verás que el evento primero lo recibe el Hijo y también el Padre.<br>
+      Haz clic en el <b>Padre</b>: solo el padre lo recibe.<br>
+      Haz clic en el <b>link</b>: verás cómo se previene el comportamiento por defecto.
+    </p>
+    <button class="btn btn-danger" onclick="togglePropagation()">Activar / Desactivar stopPropagation</button> 
+    <span id="propagationStatus" style="margin-left:16px; font-weight:bold; color:#f093fb;">Propagación activa</span>
+  </div>
+</div>
+
+<script>
+// Bubbling logger
+function logBubbling(msg) {
+  const log = document.getElementById('bubblingLog');
+  const entry = document.createElement('div');
+  entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+  if(log.children.length > 10) log.removeChild(log.firstChild);
+}
+function clearBubblingLog() {
+  document.getElementById('bubblingLog').innerHTML = '';
+}
+
+// Propagation toggle
+let propagationActive = true;
+document.getElementById('propagationStatus').textContent = 'Propagación activa';
+
+// Eventos
+document.getElementById('parent').addEventListener('click', function(e){
+  logBubbling('Padre recibió el evento (burbujeo)');
+});
+document.getElementById('childBtn').addEventListener('click', function(e){
+  logBubbling('Botón fue clickeado');
+  if(!propagationActive){
+    e.stopPropagation();
+    logBubbling('Propagación detenida con stopPropagation');
+  }
+});
+document.getElementById('demoLink').addEventListener('click', function(e){
+  e.preventDefault();
+  logBubbling('Comportamiento por defecto prevenido (el link NO se abrió)');
+});
+
+function togglePropagation(){
+  propagationActive = !propagationActive;
+  document.getElementById('propagationStatus').textContent = propagationActive ? 'Propagación activa' : 'Propagación detenida';
+}
+</script>
 
   <!-- Sección 4: Event Delegation -->
   <div class="section">
-    <h2>🎯 Event Delegation - Delegar Eventos</h2>
-    <p>En lugar de poner un listener en cada elemento, pon uno en el padre. Esto es más eficiente especialmente con muchos elementos.</p>
+  <h2>🎯 Event Delegation - Delegar Eventos</h2>
+  <p>
+    <b>Delegación de eventos</b> significa poner <b>solo UN event listener en el padre</b> en vez de muchos listeners en cada hijo.  
+    Esto hace tu código más eficiente, especialmente cuando tienes muchos elementos que se pueden crear, borrar o modificar.
+  </p>
 
-    <div class="code">
-      <div class="code-label">Sin delegación - Un listener por botón (ineficiente)</div>
-      const botones = document.querySelectorAll('.btn');
-botones.forEach(btn => {
-  btn.addEventListener('click', function() {
-    console.log('Botón clickeado');
-  });
-});
+  <h3 style="color: #a78bfa; margin-top: 25px; margin-bottom: 15px;">❌ Sin delegación (ineficiente)</h3>
+  <div class="code">
+    <span style="color:#e3342f;"><b>Múltiples listeners:</b></span><br>
+    const botones = document.querySelectorAll('.btn');<br>
+    botones.forEach(btn => {<br>
+      &nbsp;&nbsp;btn.addEventListener('click', function() {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log('Botón clickeado');<br>
+      &nbsp;&nbsp;});<br>
+    });
+  </div>
+
+  <h3 style="color: #38c172; margin-top: 25px; margin-bottom: 15px;">✅ Con delegación (eficiente)</h3>
+  <div class="code">
+    <span style="color:#38c172;"><b>Un solo listener:</b></span><br>
+    const contenedor = document.getElementById('contenedor');<br>
+    contenedor.addEventListener('click', function(e) {<br>
+      &nbsp;&nbsp;if(e.target.classList.contains('btn')) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log('Botón clickeado');<br>
+      &nbsp;&nbsp;}<br>
+    });
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo: Delegación en Acción</div>
+    <p style="margin-bottom: 15px; color: #a78bfa;">
+      Haz clic en cualquier tarjeta.<br>
+      <b>Solo el contenedor tiene el event listener, pero detecta cuál tarjeta fue clickeada.</b>
+    </p>
+    <div class="card-grid" id="delegationContainer" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(110px,1fr)); gap:12px; margin-bottom: 10px;">
+      <div class="card btn">Tarjeta 1</div>
+      <div class="card btn">Tarjeta 2</div>
+      <div class="card btn">Tarjeta 3</div>
+      <div class="card btn">Tarjeta 4</div>
     </div>
+    <button class="btn btn-success" onclick="addNewCard()" style="margin-top: 15px;">Agregar Nueva Tarjeta</button>
+    <p style="margin-top: 15px; color: #a78bfa; font-size: 0.95rem;">
+      💡 Las nuevas tarjetas también funcionan automáticamente gracias a la delegación.
+    </p>
+    <div class="event-log" id="delegationLog" style="background: #222; color: #0f0; padding: 10px 16px; border-radius: 8px; min-height: 50px; font-family: monospace; font-size: 0.95rem; margin-bottom:10px;"></div>
+    <button class="btn btn-secondary" onclick="clearDelegationLog()">Limpiar Log</button>
+  </div>
+</div>
 
-    <div class="code">
-      <div class="code-label">Con delegación - Un listener en el contenedor (eficiente)</div>
-      const contenedor = document.getElementById('contenedor');
-contenedor.addEventListener('click', function(e) {
-  if(e.target.classList.contains('btn')) {
-    console.log('Botón clickeado');
+<script>
+function logDelegation(msg) {
+  const log = document.getElementById('delegationLog');
+  const entry = document.createElement('div');
+  entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+  if (log.children.length > 14) log.removeChild(log.firstChild);
+}
+function clearDelegationLog() {
+  document.getElementById('delegationLog').innerHTML = '';
+}
+
+// Manejador con delegación de eventos
+document.getElementById('delegationContainer').addEventListener('click', function(e) {
+  if (e.target.classList.contains('btn')) {
+    logDelegation('Tarjeta clickeada: ' + e.target.textContent.trim());
+    e.target.style.background = "linear-gradient(135deg, #667eea, #f093fb)";
+    setTimeout(()=>{e.target.style.background="";},600);
   }
 });
-    </div>
 
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Delegación en Acción</div>
-      <p style="margin-bottom: 15px; color: #d1d5f0;">Haz clic en cualquier tarjeta (los eventos están delegados en el contenedor padre)</p>
-      <div class="card-grid" id="delegationContainer">
-        <div class="card">Tarjeta 1</div>
-        <div class="card">Tarjeta 2</div>
-        <div class="card">Tarjeta 3</div>
-        <div class="card">Tarjeta 4</div>
-      </div>
-      <button class="btn btn-success" onclick="addNewCard()" style="margin-top: 15px;">Agregar Nueva Tarjeta</button>
-      <p style="margin-top: 15px; color: #d1d5f0; font-size: 0.95rem;">
-        💡 Las nuevas tarjetas también funcionan automáticamente gracias a la delegación
-      </p>
-      <div class="event-log" id="delegationLog"></div>
-    </div>
-  </div>
+// Agregar nuevas tarjetas dinámicamente
+let cardCounter = 5;
+function addNewCard() {
+  const container = document.getElementById('delegationContainer');
+  const newCard = document.createElement('div');
+  newCard.className = "card btn";
+  newCard.textContent = "Tarjeta " + cardCounter;
+  container.appendChild(newCard);
+  cardCounter++;
+  logDelegation('Nueva tarjeta agregada: Tarjeta '+(cardCounter-1));
+}
+</script>
 
   <!-- Sección 5: Eventos de Teclado -->
   <div class="section">
-    <h2>⌨️ Manejo Avanzado de Teclado</h2>
-    <p>Aprende a detectar qué tecla presionó el usuario y reaccionar en consecuencia:</p>
+  <h2>⌨️ Manejo Avanzado de Teclado</h2>
+  <p>
+    Aprende a detectar <b>qué tecla presionó el usuario</b> y responde a combinaciones, teclas especiales y acciones relevantes.
+    <br>Esto es fundamental para formularios dinámicos, accesibilidad y atajos de teclado.
+  </p>
 
-    <div class="code">
-      <div class="code-label">Detectar teclas específicas</div>
-      input.addEventListener('keydown', function(e) {
-  if(e.key === 'Enter') {
-    console.log('Usuario presionó Enter');
-  }
-  
-  if(e.key === ' ') {
-    console.log('Usuario presionó Espacio');
-  }
-  
-  if(e.ctrlKey && e.key === 's') {
-    console.log('Usuario presionó Ctrl+S');
-  }
-});
-    </div>
-
-    <div class="demo-box">
-      <div class="demo-title">🎮 Demo: Eventos de Teclado</div>
-      <input id="keyboardInput" type="text" class="input" placeholder="Presiona Enter para procesar...">
-      <div class="live-output" id="keyboardOutput">Escribe y presiona Enter</div>
-      <div class="event-log" id="keyboardLog"></div>
-    </div>
+  <div class="code">
+    <b>Detectar teclas específicas y combinaciones</b>
+    <br><code>
+      input.addEventListener('keydown', function(e) {<br>
+        &nbsp;if(e.key === 'Enter') {<br>
+          &nbsp;&nbsp;console.log('Usuario presionó Enter');<br>
+        &nbsp;}<br>
+        &nbsp;if(e.key === ' ') {<br>
+          &nbsp;&nbsp;console.log('Usuario presionó Espacio');<br>
+        &nbsp;}<br>
+        &nbsp;if(e.ctrlKey && e.key === 's') {<br>
+          &nbsp;&nbsp;console.log('Usuario presionó Ctrl+S');<br>
+        &nbsp;}<br>
+      });
+    </code>
   </div>
+
+  <ul style="margin:18px 0;">
+    <li>✔️ <b>e.key</b>: El valor textual de la tecla presionada ('Enter', 'a', '1', ' ').</li>
+    <li>✔️ <b>e.code</b>: El código físico del teclado ('Enter', 'KeyA', 'Digit1').</li>
+    <li>✔️ <b>e.ctrlKey</b>: <span style="color:#38c172;">true</span> si la tecla Ctrl está presionada.</li>
+    <li>✔️ <b>e.altKey</b> y <b>e.shiftKey</b>: Para Alt y Shift.</li>
+  </ul>
+
+  <div class="demo-box">
+    <div class="demo-title">🎮 Demo: Eventos de Teclado</div>
+    <p style="margin-bottom:12px;">Escribe algo y prueba con <b>Enter</b>, <b>Espacio</b> y <b>Ctrl+S</b>. Observa la respuesta en el log.</p>
+    <input id="keyboardInput" type="text" class="input" placeholder="Presiona Enter para procesar...">
+    <div class="live-output" id="keyboardOutput" style="background:#e0e7ef;padding:8px;border-radius:6px;margin:12px 0;">Escribe y presiona Enter</div>
+    <div class="event-log" id="keyboardLog" style="background:#222;color:#0f0;padding:10px;border-radius:8px;min-height:50px;font-family:monospace;font-size:0.96rem;margin-bottom:10px;"></div>
+    <button class="btn btn-secondary" onclick="clearKeyboardLog()">Limpiar Log</button>
+  </div>
+</div>
+
+<script>
+function addKeyboardLog(msg) {
+  const log = document.getElementById('keyboardLog');
+  const entry = document.createElement('div');
+  entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+  if(log.children.length > 16) log.removeChild(log.firstChild);
+}
+function clearKeyboardLog() {
+  document.getElementById('keyboardLog').innerHTML = '';
+}
+
+document.getElementById('keyboardInput').addEventListener('keydown', function(e) {
+  let output = document.getElementById('keyboardOutput');
+  if(e.key === 'Enter') {
+    addKeyboardLog('⏎ Enter presionado');
+    output.textContent = '¡Enter procesado! Input: "' + e.target.value + '"';
+  }
+  if(e.key === ' ') {
+    addKeyboardLog('␣ Espacio presionado');
+    output.textContent = '¡Espacio detectado!';
+  }
+  if(e.ctrlKey && (e.key === 's' || e.key === 'S')) {
+    addKeyboardLog('💾 Ctrl+S detectado - Prevenir guardado por defecto');
+    e.preventDefault();
+    output.textContent = '¡Ctrl+S detectado! Puede usarse para atajos personalizados.';
+  }
+  // Mostrar la última tecla siempre
+  output.textContent = 'Última tecla: ' + e.key + ' (code: ' + e.code + ')';
+});
+</script>
 
   <!-- Sección 6: Ejercicio Final -->
-  <div class="section">
-    <h2>🎯 Ejercicio Final: Selector Multi-Opción</h2>
-    <p>Practica delegación de eventos con un selector interactivo donde puedes elegir múltiples opciones:</p>
+ <div class="section">
+  <h2>🎯 Ejercicio Final: Selector Multi-Opción</h2>
+  <p>
+    Integra <b>delegación de eventos</b>, manipulación del DOM, clases CSS dinámicas y retroalimentación visual.<br>
+    Elige tus lenguajes favoritos, agrega nuevos, y observa cómo todo funciona gracias a los conceptos del módulo.
+  </p>
 
-    <div class="demo-box">
-      <div class="demo-title">Elige tus lenguajes de programación favoritos</div>
-      
-      <div id="selectorContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
-        <div class="selector-option" data-id="1">Python</div>
-        <div class="selector-option" data-id="2">JavaScript</div>
-        <div class="selector-option" data-id="3">HTML/CSS</div>
-        <div class="selector-option" data-id="4">React</div>
-        <div class="selector-option" data-id="5">Node.js</div>
-        <div class="selector-option" data-id="6">Vue.js</div>
-      </div>
-      
-      <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
-        <p style="color: #a78bfa; margin-bottom: 15px; font-weight: 600;">Tu selección:</p>
-        <div id="selectedItems" style="color: #d1d5f0; line-height: 1.8;">Ninguno seleccionado aún</div>
-      </div>
+  <div class="demo-box">
+    <div class="demo-title">🔥 Elige tus lenguajes de programación favoritos</div>
+    
+    <div id="selectorContainer" style="
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+      gap: 15px; 
+      margin-bottom: 20px;">
+      <div class="selector-option" data-id="1">Python</div>
+      <div class="selector-option" data-id="2">JavaScript</div>
+      <div class="selector-option" data-id="3">HTML/CSS</div>
+      <div class="selector-option" data-id="4">React</div>
+      <div class="selector-option" data-id="5">Node.js</div>
+      <div class="selector-option" data-id="6">Vue.js</div>
     </div>
+    
+    <div style="background: rgba(0,0,0,0.15); padding: 18px; border-radius: 8px; margin-bottom: 14px;">
+      <p style="color: #a78bfa; margin-bottom: 10px; font-weight: 600;">Tu selección:</p>
+      <div id="selectedItems" style="color: #fff; line-height: 1.6; min-height: 24px;">Ninguno seleccionado aún</div>
+    </div>
+
+    <input id="newLangInput" type="text" class="input" placeholder="Agregar nuevo lenguaje..." style="margin-bottom:8px;">
+    <button class="btn btn-success" onclick="addLanguage()">Agregar Lenguaje</button>
+    <button class="btn btn-danger" onclick="clearSelection()" style="margin-left:8px;">Limpiar Selección</button>
+    <button class="btn btn-secondary" onclick="resetLanguages()" style="margin-left:8px;">Resetear Opciones</button>
   </div>
+</div>
+
+<style>
+.selector-option {
+  background: linear-gradient(135deg, #667eea55, #f093fb44);
+  color: #221a34;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 14px 0;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  user-select: none;
+  border: 2px solid #e0e7ef;
+}
+.selector-option.selected {
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  color: white !important;
+  border: 2px solid #a78bfa;
+  box-shadow: 0 4px 16px #c1b3f0a0;
+}
+.selector-option:hover {
+  transform: scale(1.06);
+  border-color: #667eea;
+}
+</style>
+
+<script>
+const container = document.getElementById('selectorContainer');
+const selectedItems1 = document.getElementById('selectedItems');
+let selectedSet = new Set();
+let defaultLanguages = [
+  {name:"Python", id:1},
+  {name:"JavaScript", id:2},
+  {name:"HTML/CSS", id:3},
+  {name:"React", id:4},
+  {name:"Node.js", id:5},
+  {name:"Vue.js", id:6}
+];
+
+function updateSelectedDisplay() {
+  if (selectedSet.size === 0) {
+    selectedItems1.textContent = 'Ninguno seleccionado aún';
+  } else {
+    selectedItems1.innerHTML = Array.from(selectedSet)
+      .map(x=>`<span style="background:#667eea;color:#fff;padding:4px 10px;border-radius:6px;margin:0 2px;">${x}</span>`).join(' ');
+  }
+}
+
+// Delegación de eventos (click en opción)
+container.addEventListener('click', function(e){
+  if (e.target.classList.contains('selector-option')) {
+    const langName = e.target.textContent;
+    if (e.target.classList.contains('selected')) {
+      e.target.classList.remove('selected');
+      selectedSet.delete(langName);
+    } else {
+      e.target.classList.add('selected');
+      selectedSet.add(langName);
+    }
+    updateSelectedDisplay();
+  }
+});
+
+// Agregar nueva opción
+function addLanguage() {
+  const input = document.getElementById('newLangInput');
+  const lang = input.value.trim();
+  if (!lang) return;
+  // Evitar duplicados
+  if ([...container.children].some(el=>el.textContent.toLowerCase()===lang.toLowerCase())) {
+    alert("Ese lenguaje ya está en la lista");
+    input.value = '';
+    return;
+  }
+  const newDiv = document.createElement('div');
+  newDiv.className = "selector-option";
+  newDiv.textContent = lang;
+  newDiv.setAttribute('data-id', Date.now());
+  container.appendChild(newDiv);
+  input.value = '';
+}
+
+// Limpiar selección
+function clearSelection() {
+  [...container.children].forEach(el=>el.classList.remove('selected'));
+  selectedSet.clear();
+  updateSelectedDisplay();
+}
+
+// Resetear a opciones por defecto
+function resetLanguages() {
+  container.innerHTML = defaultLanguages.map(l=>`
+    <div class="selector-option" data-id="${l.id}">${l.name}</div>
+  `).join('');
+  clearSelection();
+}
+
+updateSelectedDisplay();
+</script>
 
   <!-- Botón siguiente -->
   <a href="quiz.html" class="btn btn-large">
@@ -578,8 +1272,8 @@ contenedor.addEventListener('click', function(e) {
 
 <script>
 // Demo 1: Tipos de Eventos
-const eventElement = document.getElementById('eventElement');
-const eventInput = document.getElementById('eventInput');
+const eventElement1 = document.getElementById('eventElement');
+const eventInput1 = document.getElementById('eventInput');
 const eventLog = document.getElementById('eventLog');
 
 function addLog(message) {
@@ -593,14 +1287,14 @@ function addLog(message) {
   }
 }
 
-eventElement.addEventListener('click', () => addLog('✓ Click'));
-eventElement.addEventListener('dblclick', () => addLog('✓✓ Doble click'));
-eventElement.addEventListener('mouseover', () => addLog('→ Mouse entra'));
-eventElement.addEventListener('mouseout', () => addLog('← Mouse sale'));
+eventElement1.addEventListener('click', () => addLog('✓ Click'));
+eventElement1.addEventListener('dblclick', () => addLog('✓✓ Doble click'));
+eventElement1.addEventListener('mouseover', () => addLog('→ Mouse entra'));
+eventElement1.addEventListener('mouseout', () => addLog('← Mouse sale'));
 
-eventInput.addEventListener('input', (e) => addLog(`⌨️ Input: ${e.target.value.length} caracteres`));
-eventInput.addEventListener('focus', () => addLog('🔍 Input enfocado'));
-eventInput.addEventListener('blur', () => addLog('🔍 Input desenfocado'));
+eventInput1.addEventListener('input', (e) => addLog(`⌨️ Input: ${e.target.value.length} caracteres`));
+eventInput1.addEventListener('focus', () => addLog('🔍 Input enfocado'));
+eventInput1.addEventListener('blur', () => addLog('🔍 Input desenfocado'));
 
 function clearLog() {
   eventLog.innerHTML = '';
