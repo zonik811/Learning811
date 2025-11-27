@@ -205,7 +205,7 @@ function initializeChallengesBanner() {
             box-shadow: 0 8px 32px rgba(195, 0, 255, 0.3);
             animation: challengePulse 2s infinite;
         ">
-            <a href="../Desafios/desafio10.html" style="
+            <a href="/Desafios/desafio10.html" style="
                 display: inline-block;
                 background: linear-gradient(135deg, #2d5016, #4a7c2c);
                 color: #7bed9f;
