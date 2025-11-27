@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 10 - Módulo 2: Retos Básicos</title>
+  <title>Día 10 - Módulo 2: Búsqueda y Filtros</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -15,7 +15,7 @@
       min-height: 100vh;
     }
     
-    .container { max-width: 1200px; margin: 0 auto; }
+    .container { max-width: 1000px; margin: 0 auto; }
     
     header {
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -23,9 +23,8 @@
       text-align: center;
       border-radius: 16px;
       margin-bottom: 40px;
-      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 8px 32px rgba(102,126,234,0.3);
     }
-    
     header h1 { font-size: 2.5rem; margin-bottom: 10px; }
     header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
     
@@ -36,669 +35,727 @@
       margin-bottom: 30px;
       border: 1px solid rgba(102,126,234,0.3);
     }
-    
-    .section h2 { font-size: 1.8rem; color: #667eea; margin-bottom: 20px; }
-    .section h3 { font-size: 1.2rem; color: #a78bfa; margin: 25px 0 15px; }
-    
+    .section h2 {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      font-size: 1.3rem;
+      color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
     .section p, .section li {
       font-size: 1.05rem;
       line-height: 1.8;
       color: #d1d5f0;
-      margin-bottom: 12px;
-    }
-    
-    .section ul { margin-left: 20px; }
-    
-    .challenge-box {
-      background: rgba(102,126,234,0.1);
-      border: 2px solid #667eea;
-      border-radius: 12px;
-      padding: 25px;
-      margin: 25px 0;
-    }
-    
-    .challenge-title {
-      font-size: 1.3rem;
-      color: #4caf50;
       margin-bottom: 15px;
-      font-weight: 700;
     }
-    
-    /* CÓDIGO */
-    .code-wrapper {
-      background: #0a0a14;
-      border: 2px solid rgba(102,126,234,0.3);
-      border-radius: 12px;
-      padding: 0;
-      margin: 20px 0;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    
-    .code-header {
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .code-filename {
-      font-weight: 600;
-      color: white;
-      font-size: 0.95rem;
-    }
-    
-    .copy-btn {
-      background: rgba(255,255,255,0.2);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 6px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    
-    .copy-btn:hover {
-      background: rgba(255,255,255,0.3);
-      transform: translateY(-2px);
-    }
-    
-    .copy-btn.copied {
-      background: #4caf50;
-      border-color: #4caf50;
-    }
-    
-    .code-content {
-      padding: 20px;
-      overflow-x: auto;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    
-    .code-content code {
+    .section ul { margin-left: 20px; }
+    .section code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #a78bfa;
       font-family: 'Courier New', monospace;
-      color: #7dd3fc;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      display: block;
-      white-space: pre-wrap;
-      word-break: break-word;
     }
     
-    .hint {
-      background: rgba(255,193,7,0.1);
-      border-left: 3px solid #ffc107;
-      padding: 15px;
-      margin: 15px 0;
-      border-radius: 6px;
-      color: #d1d5f0;
+    .objective-box {
+      background: rgba(102,126,234,0.1);
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
     }
+    .objective-box strong { color: #a78bfa; }
     
-    .hint strong { color: #ffc107; }
-    .hint ul { margin: 10px 0 0 20px; }
-    
-    .solution {
-      background: rgba(76,175,80,0.1);
-      border-left: 3px solid #4caf50;
-      padding: 0;
-      margin: 15px 0;
-      border-radius: 6px;
-      overflow: hidden;
-      display: none;
+    .code-block {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(102,126,234,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      position: relative;
     }
+    .code-block .comment { color: #888; }
+    .code-block .keyword { color: #667eea; }
+    .code-block .string { color: #4caf50; }
+    .code-block .number { color: #f093fb; }
     
-    .solution.show { display: block; }
-    
-    .solution-header {
-      background: rgba(76,175,80,0.2);
-      padding: 15px;
-      cursor: pointer;
-      user-select: none;
+    .button-group {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
     }
-    
-    .solution-title { font-weight: 600; color: #4caf50; }
-    .solution-toggle { color: #4caf50; font-size: 1.2rem; transition: transform 0.3s; }
-    .solution-content { padding: 20px; display: none; }
-    .solution-content.show { display: block; }
-    .solution-toggle.show { transform: rotate(180deg); }
-    
     .btn {
-      padding: 10px 20px;
+      padding: 12px 30px;
       border: none;
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
-      font-size: 0.95rem;
-      margin: 10px 5px 0 0;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
     }
-    
     .btn-primary {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
     }
-    
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(102,126,234,0.4);
     }
-    
     .btn-secondary {
       background: rgba(102,126,234,0.2);
       color: #a78bfa;
       border: 1px solid #667eea;
     }
-    
     .btn-secondary:hover {
       background: rgba(102,126,234,0.3);
     }
     
-    /* POKÉDEX DEMO */
-    .pokedex-section {
-      background: rgba(102,126,234,0.05);
-      border: 2px solid rgba(102,126,234,0.3);
-      padding: 25px;
-      border-radius: 12px;
-      margin: 30px 0;
-    }
-    
-    .controls {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .controls input {
-      flex: 1;
-      min-width: 250px;
-      padding: 12px 15px;
-      border: 2px solid #667eea;
-      border-radius: 8px;
-      background-color: #1a1a2e;
-      color: white;
-      font-size: 1rem;
-    }
-    
-    .controls input:focus {
-      outline: none;
-      border-color: #a78bfa;
-      box-shadow: 0 0 12px rgba(102,126,234,0.3);
-    }
-    
-    .pokemon-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-    
-    .pokemon-card {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      border: 2px solid rgba(102,126,234,0.3);
-      border-radius: 12px;
+    .step-box {
+      background: rgba(118,75,162,0.15);
+      border: 1px solid rgba(167,139,250,0.4);
       padding: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      margin: 25px 0;
     }
-    
-    .pokemon-card:hover {
-      border-color: #667eea;
-      transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(102,126,234,0.4);
-    }
-    
-    .pokemon-id {
-      font-size: 0.85rem;
+    .step-box h3 {
       color: #a78bfa;
-      margin-bottom: 8px;
-      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
     }
-    
-    .pokemon-card h2 {
-      font-size: 1.5rem;
-      color: #667eea;
-      margin: 8px 0;
-      text-transform: capitalize;
-    }
-    
-    .pokemon-type {
-      display: inline-block;
-      padding: 6px 12px;
-      background: rgba(102,126,234,0.2);
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: #b8c1ec;
-      margin: 8px 4px;
-    }
-    
-    .pokemon-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 12px 0;
-      font-size: 0.85rem;
-    }
-    
-    .stat {
-      background: rgba(102,126,234,0.1);
-      padding: 8px;
-      border-radius: 6px;
-      color: #d1d5f0;
-    }
-    
-    .empty-message {
-      text-align: center;
-      padding: 40px 20px;
-      color: #b8c1ec;
-      font-size: 1.1rem;
-    }
-    
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 30px;
-      flex-wrap: wrap;
-      gap: 10px;
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
     }
 
-    @media (max-width: 768px) {
-      header h1 { font-size: 2rem; }
-      .pokemon-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-      .controls { flex-direction: column; }
-      .code-content { font-size: 0.8rem; }
+    .checklist {
+      list-style: none;
+      margin: 15px 0;
+    }
+    .checklist li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(102,126,234,0.2);
+    }
+    .checklist li:before {
+      content: "☐ ";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    /* EXPANDABLE CODE SECTIONS */
+    .code-section {
+      margin: 25px 0;
+    }
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(102,126,234,0.15);
+      padding: 15px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid rgba(102,126,234,0.3);
+      margin-bottom: 0;
+    }
+    .code-header:hover {
+      background: rgba(102,126,234,0.25);
+    }
+    .code-header h4 {
+      margin: 0;
+      color: #a78bfa;
+      font-size: 1.1rem;
+      flex: 1;
+    }
+    .code-header .toggle-icon {
+      color: #667eea;
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+    .code-header.expanded .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .code-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .code-content.expanded {
+      max-height: 1000px;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 16px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .copy-btn:hover {
+      background: #764ba2;
+      transform: scale(1.05);
+    }
+    .copy-feedback {
+      display: none;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #4caf50;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
+    <header>
+      <h1>🔍 Módulo 2: Búsqueda y Filtros</h1>
+      <p>Aprende a buscar Pokémon por nombre y filtrar por tipo</p>
+    </header>
 
-  <header>
-    <h1>🔴 Pokédex Mejorada - Módulo 2</h1>
-    <p>Retos Básicos: Renderizar, Buscar, Filtrar y Ordenar</p>
-  </header>
-
-  <!-- ===================== RETO 1 ===================== -->
-  <div class="section">
-    <h2>✅ Reto 1: Renderizar Pokémon Dinámicamente</h2>
-    
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Mostrar los Pokémon usando JavaScript. Crea una función que genere las tarjetas dinámicamente con <code>innerHTML</code> y <code>map()</code>.</p>
+    <div class="section">
+      <h2>🎯 ¿Qué vamos a hacer?</h2>
+      <p>
+        En el Módulo 1, cargamos todos los Pokémon dinámicamente. Ahora vamos a hacer que la Pokédex 
+        sea interactiva: el usuario podrá <strong>buscar por nombre</strong> y <strong>filtrar por tipo</strong>. 
+        ¡Como una Pokédex de verdad!
+      </p>
       
-      <h3>Código Base (INCOMPLETO):</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 1</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>// Base de datos de Pokémon
-const pokemonDatabase = [
-  { id: 1, nombre: 'Pikachu', tipo: 'Eléctrico', hp: 35, ataque: 55 },
-  { id: 4, nombre: 'Charizard', tipo: 'Fuego', hp: 78, ataque: 84 },
-  { id: 7, nombre: 'Blastoise', tipo: 'Agua', hp: 79, ataque: 83 }
-];
+      <div class="objective-box">
+        <strong>📌 Objetivo:</strong><br>
+        Agregar dos funcionalidades:
+        <ul style="margin-top: 10px;">
+          <li>🔍 Búsqueda en tiempo real (mientras escribe, filtra Pokémon)</li>
+          <li>🎯 Filtro por tipo (botones para mostrar solo Eléctricos, Fuego, Agua, etc.)</li>
+        </ul>
+      </div>
+    </div>
 
-function renderizarPokemon() {
-  const grid = document.getElementById('pokemonGrid');
-  
-  grid.innerHTML = pokemonDatabase.map(pokemon => `
-    &lt;div class="pokemon-card"&gt;
-      &lt;div class="pokemon-id"&gt;#${pokemon.id}&lt;/div&gt;
-      &lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;
-      &lt;span class="pokemon-type"&gt;${pokemon.tipo}&lt;/span&gt;
-      &lt;div class="pokemon-stats"&gt;
-        &lt;div class="stat"&gt;HP: ${pokemon.hp}&lt;/div&gt;
-        &lt;div class="stat"&gt;ATK: ${pokemon.ataque}&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  `).join('');
+    <div class="section">
+      <h2>📝 Paso 1: Modificar el HTML</h2>
+      <p>Vamos a agregar elementos nuevos para la búsqueda y filtros.</p>
+
+      <div class="step-box">
+        <h3><span class="step-number">1</span>Modificar el input</h3>
+        <p><strong>En tu <code>index.html</code>, busca el elemento search-bar y modifícalo:</strong></p>
+
+        <p><strong>❌ Antes (Módulo 1):</strong></p>
+        <div class="code-block">
+&lt;div class="search-bar"&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" placeholder="Buscar Pokémon..."&gt;<br>
+&lt;/div&gt;
+        </div>
+
+        <p><strong>✅ Después (Módulo 2):</strong></p>
+        <div class="code-block">
+&lt;div class="search-bar"&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" id="searchInput" placeholder="Buscar Pokémon..."&gt;<br>
+&lt;/div&gt;
+        </div>
+
+        <p><strong>¿Por qué?</strong> El atributo <code>id="searchInput"</code> permite que JavaScript encuentre este elemento y escuche cuando el usuario escribe.</p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">2</span>Agregar filtros por tipo</h3>
+        <p><strong>Justo después <code>&lt;div class="search-bar"&gt;</code>, agrega esto:</strong></p>
+
+        <div class="code-block">
+&lt;div class="filter-buttons"&gt;<br>
+&nbsp;&nbsp;&lt;button class="filter-btn active" data-filter="Todos"&gt;Todos&lt;/button&gt;<br>
+&nbsp;&nbsp;&lt;button class="filter-btn" data-filter="Eléctrico"&gt;⚡ Eléctrico&lt;/button&gt;<br>
+&nbsp;&nbsp;&lt;button class="filter-btn" data-filter="Fuego"&gt;🔥 Fuego&lt;/button&gt;<br>
+&nbsp;&nbsp;&lt;button class="filter-btn" data-filter="Agua"&gt;💧 Agua&lt;/button&gt;<br>
+&lt;/div&gt;
+        </div>
+
+        <p><strong>¿Qué es <code>data-filter</code>?</strong> Es atributo personalizado que guarda tipo a filtrar. JavaScript lo usa para saber cuál botón fue clickeado.</p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">3</span>Agregar CSS para los botones</h3>
+        <p><strong>En tu <code>css/estilos.css</code>, agrega al final:</strong></p>
+
+        <div class="code-block">
+<span class="comment">/* FILTROS */</span><br>
+.filter-buttons {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;justify-content: center;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+&nbsp;&nbsp;flex-wrap: wrap;<br>
+}<br>
+<br>
+.filter-btn {<br>
+&nbsp;&nbsp;padding: 10px 20px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;background: transparent;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;border-radius: 20px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+}<br>
+<br>
+.filter-btn:hover {<br>
+&nbsp;&nbsp;background: rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transform: translateY(-2px);<br>
+}<br>
+<br>
+.filter-btn.active {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border-color: #764ba2;<br>
 }
-
-renderizarPokemon();</code>
-        </div>
-      </div>
-
-      <div class="hint">
-        <strong>💡 Pista 1:</strong> .map() transforma cada Pokémon en HTML
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 2:</strong> Usa template literals con ${} para insertar variables
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 3:</strong> .join('') convierte el array de strings en un único string
-      </div>
-
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0; line-height: 1.7;">
-            <strong style="color: #4caf50;">El código arriba ya es la solución correcta.</strong><br><br>
-            ✓ Usa <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">map()</code> para convertir cada Pokémon en HTML<br>
-            ✓ Template literals (<code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">\`\`</code>) permiten insertar variables con <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">${}</code><br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">.join('')</code> convierte el array en string
-          </p>
         </div>
       </div>
     </div>
 
-    <h3>🎮 Pruébalo aquí:</h3>
-    <div class="pokedex-section">
-      <div class="pokemon-grid" id="pokemonGrid1"></div>
-    </div>
-    <button class="btn btn-primary" onclick="ejecutarReto1()">▶ Ejecutar Reto 1</button>
-  </div>
+    <div class="section">
+      <h2>⚙️ Paso 2: Modificar JavaScript</h2>
+      <p>Ahora viene parte más importante: agregar funciones búsqueda y filtro archivo <code>js/pokedex.js</code>.</p>
 
-  <!-- ===================== RETO 2 ===================== -->
-  <div class="section">
-    <h2>✅ Reto 2: Búsqueda en Tiempo Real</h2>
-    
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Cuando el usuario escriba en el input, filtrar los Pokémon automáticamente.</p>
-      
-      <h3>Código Base (INCOMPLETO):</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 2</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+      <div class="step-box">
+        <h3><span class="step-number">4</span>Agregar variables estado</h3>
+        <p><strong>Al inicio tu <code>js/pokedex.js</code>, después <code>pokemonDatabase</code>, agrega:</strong></p>
+
+        <div class="code-block">
+<span class="comment">// Variables para guardar estado actual</span><br>
+<span class="keyword">let</span> filtroActual = <span class="string">'Todos'</span>;<br>
+<span class="keyword">let</span> busquedaActual = <span class="string">''</span>;
+        </div>
+
+        <p><strong>¿Qué es esto?</strong> Son variables que guardan qué tipo está seleccionado y qué está escribiendo usuario en búsqueda. Las usaremos para filtrar Pokémon.</p>
+      </div>
+
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>📄 Ver HTML completo hasta ahora</h4>
+          <span class="toggle-icon">▼</span>
         </div>
         <div class="code-content">
-          <code>let pokemonActual = [...pokemonDatabase];
-
-const searchInput = document.getElementById('searchInput');
-
-searchInput.addEventListener('input', function() {
-  const busqueda = this.value.toLowerCase();
-  
-  pokemonActual = pokemonDatabase.filter(pokemon => 
-    pokemon.nombre.toLowerCase().includes(busqueda)
-  );
-  
-  renderizarPokemon();
-});</code>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'html-code-1')">📋 Copiar</button>
+            <div id="html-code-1" style="white-space: pre-wrap; word-wrap: break-word;"><span class="keyword">&lt;!DOCTYPE html&gt;</span><br>
+<span class="keyword">&lt;html lang="es"&gt;</span><br>
+<span class="keyword">&lt;head&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;meta charset="UTF-8"&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;title&gt;</span>Mi Pokédex - Día 10<span class="keyword">&lt;/title&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;link rel="stylesheet" href="css/estilos.css"&gt;</span><br>
+<span class="keyword">&lt;/head&gt;</span><br>
+<span class="keyword">&lt;body&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;div class="container"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;header&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;h1&gt;</span>Mi Pokédex<span class="keyword">&lt;/h1&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/header&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="search-bar"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="text" id="searchInput" placeholder="Buscar Pokémon..."&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="filter-buttons"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn active" data-filter="Todos"&gt;</span>Todos<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Eléctrico"&gt;</span>⚡ Eléctrico<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Fuego"&gt;</span>🔥 Fuego<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Agua"&gt;</span>💧 Agua<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="pokemon-grid" id="pokemonGrid"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">&lt;!-- JAVASCRIPT --&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;script src="js/pokedex.js"&gt;&lt;/script&gt;</span><br>
+<span class="keyword">&lt;/body&gt;</span><br>
+<span class="keyword">&lt;/html&gt;</span>
+            </div>
+            <span class="copy-feedback" id="html-code-1-feedback">✅ Copiado</span>
+          </div>
         </div>
       </div>
 
-      <div class="hint">
-        <strong>💡 Pista 1:</strong> El evento 'input' escucha mientras el usuario escribe
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 2:</strong> .toLowerCase() convierte a minúsculas para comparar sin problemas
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 3:</strong> .includes() busca si el nombre contiene lo escrito
-      </div>
-
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0; line-height: 1.7;">
-            <strong style="color: #4caf50;">El código arriba es correcto.</strong><br><br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">addEventListener('input')</code> ejecuta el código mientras escribes<br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">filter()</code> crea un nuevo array con solo los Pokémon que coinciden<br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">includes()</code> devuelve true/false si contiene el texto
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <h3>🎮 Pruébalo aquí:</h3>
-    <div class="pokedex-section">
-      <div class="controls">
-        <input type="text" id="searchInput2" placeholder="Escribe el nombre del Pokémon...">
-      </div>
-      <div class="pokemon-grid" id="pokemonGrid2"></div>
-    </div>
-    <button class="btn btn-primary" onclick="ejecutarReto2()">▶ Ejecutar Reto 2</button>
-  </div>
-
-  <!-- ===================== RETO 3 ===================== -->
-  <div class="section">
-    <h2>✅ Reto 3: Mostrar Filtros Activos</h2>
-    
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Mostrar etiquetas visuales cuando hay un filtro activo (búsqueda).</p>
-      
-      <h3>Código Base (INCOMPLETO):</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 3</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>🎨 Ver CSS para filtros</h4>
+          <span class="toggle-icon">▼</span>
         </div>
         <div class="code-content">
-          <code>function mostrarFiltrosActivos(filtros) {
-  const container = document.getElementById('activeFilters');
-  
-  container.innerHTML = Object.entries(filtros)
-    .filter(([key, value]) => value)
-    .map(([key, value]) => `
-      &lt;div style="background: rgba(102,126,234,0.2); 
-                  padding: 8px 12px; 
-                  border-radius: 20px; 
-                  font-size: 0.9rem;"&gt;
-        &lt;strong&gt;${key}:&lt;/strong&gt; ${value}
-      &lt;/div&gt;
-    `).join('');
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'css-code-1')">📋 Copiar</button>
+          <div class="code-section">
+  <div class="code-header" onclick="toggleCodeSection(this)">
+    <h4>🎨 Ver CSS completo (Día 5 + Módulo 2)</h4>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="code-content">
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this, 'css-code-completo')">📋 Copiar</button>
+      <div id="css-code-completo" style="white-space: pre-wrap; word-wrap: break-word;"><span class="comment">/* GENERALES */</span><br>
+body {<br>
+&nbsp;&nbsp;background-color: #0f0f0f;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;font-family: Arial, sans-serif;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;padding: 0;<br>
+}<br>
+<br>
+.container {<br>
+&nbsp;&nbsp;max-width: 1200px;<br>
+&nbsp;&nbsp;margin: 0 auto;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+}<br>
+<br>
+<span class="comment">/* HEADER */</span><br>
+header {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;padding: 40px 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+}<br>
+header h1 {<br>
+&nbsp;&nbsp;font-size: 48px;<br>
+&nbsp;&nbsp;margin: 0;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+<span class="comment">/* BARRA DE BÚSQUEDA */</span><br>
+.search-bar {<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;margin-bottom: 40px;<br>
+}<br>
+.search-bar input {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 400px;<br>
+&nbsp;&nbsp;padding: 12px 20px;<br>
+&nbsp;&nbsp;font-size: 16px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+<span class="comment">/* GRID */</span><br>
+.pokemon-grid {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));<br>
+&nbsp;&nbsp;gap: 20px;<br>
+&nbsp;&nbsp;margin-top: 20px;<br>
+}<br>
+<br>
+<span class="comment">/* TARJETA */</span><br>
+.pokemon-card {<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;border: 2px solid #333;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+}<br>
+<br>
+.pokemon-card:hover {<br>
+&nbsp;&nbsp;border-color: #667eea;<br>
+&nbsp;&nbsp;transform: translateY(-10px);<br>
+&nbsp;&nbsp;box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);<br>
+}<br>
+<br>
+.pokemon-card img {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 200px;<br>
+&nbsp;&nbsp;height: auto;<br>
+&nbsp;&nbsp;margin: 20px 0;<br>
+}<br>
+<br>
+.pokemon-card h2 {<br>
+&nbsp;&nbsp;font-size: 24px;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin: 10px 0 5px;<br>
+}<br>
+<br>
+.pokemon-card p {<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+&nbsp;&nbsp;color: #aaa;<br>
+&nbsp;&nbsp;margin: 5px 0;<br>
+}<br>
+<br>
+<span class="comment">/* FILTROS - MÓDULO 2 */</span><br>
+.filter-buttons {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;justify-content: center;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+&nbsp;&nbsp;flex-wrap: wrap;<br>
+}<br>
+<br>
+.filter-btn {<br>
+&nbsp;&nbsp;padding: 10px 20px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;background: transparent;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;border-radius: 20px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+}<br>
+<br>
+.filter-btn:hover {<br>
+&nbsp;&nbsp;background: rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transform: translateY(-2px);<br>
+}<br>
+<br>
+.filter-btn.active {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border-color: #764ba2;<br>
 }
-
-// Ejemplo:
-mostrarFiltrosActivos({ 'Búsqueda': 'pikachu' });</code>
-        </div>
       </div>
-
-      <div class="hint">
-        <strong>💡 Pista 1:</strong> Object.entries() convierte un objeto en array de pares [clave, valor]
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 2:</strong> .filter() quita los valores vacíos
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 3:</strong> Usa ${key}: ${value} para mostrar "Búsqueda: pikachu"
-      </div>
-
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0; line-height: 1.7;">
-            <strong style="color: #4caf50;">El código arriba es correcto.</strong><br><br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">Object.entries()</code> convierte {búsqueda: 'pikachu'} en [['búsqueda', 'pikachu']]<br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">map()</code> lo convierte en HTML
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <h3>🎮 Pruébalo aquí:</h3>
-    <div class="pokedex-section">
-      <div id="activeFilters3" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
-    </div>
-    <button class="btn btn-primary" onclick="ejecutarReto3()">▶ Ejecutar Reto 3</button>
-  </div>
-
-  <!-- ===================== RETO 4 ===================== -->
-  <div class="section">
-    <h2>✅ Reto 4: Ordenar A-Z</h2>
-    
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Crear un botón que ordene los Pokémon alfabéticamente de A a Z.</p>
-      
-      <h3>Código Base (INCOMPLETO):</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 4</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>function sortAZ() {
-  pokemonActual.sort((a, b) => 
-    a.nombre.localeCompare(b.nombre)
-  );
-  
-  renderizarPokemon();
-}</code>
-        </div>
-      </div>
-
-      <div class="hint">
-        <strong>💡 Pista 1:</strong> .sort() ordena un array
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 2:</strong> .localeCompare() compara strings alfabéticamente
-      </div>
-      <div class="hint">
-        <strong>💡 Pista 3:</strong> Para A-Z: a.nombre.localeCompare(b.nombre)
-      </div>
-
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0; line-height: 1.7;">
-            <strong style="color: #4caf50;">El código arriba es correcto.</strong><br><br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">.sort((a, b) => ...)</code> ordena comparando dos elementos<br>
-            ✓ <code style="background: #0a0a14; padding: 2px 6px; border-radius: 3px;">localeCompare()</code> devuelve negativo/positivo/0 según el orden
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <h3>🎮 Pruébalo aquí:</h3>
-    <div class="pokedex-section">
-      <div class="controls">
-        <button class="btn btn-primary" onclick="ejecutarReto4()">A-Z Ordenar</button>
-      </div>
-      <div class="pokemon-grid" id="pokemonGrid4"></div>
+      <span class="copy-feedback" id="css-code-completo-feedback">✅ Copiado</span>
     </div>
   </div>
-
-  <!-- NAVEGACIÓN -->
-  <div class="nav-buttons">
-    <a href="modulo1.html" class="btn btn-secondary">← Volver a Módulo 1</a>
-    <a href="modulo3.html" class="btn btn-primary">Ir a Módulo 3 →</a>
-  </div>
-
 </div>
 
-<script>
-// ========== BASE DE DATOS ==========
-const pokemonDatabase = [
-  { id: 1, nombre: 'Pikachu', tipo: 'Eléctrico', hp: 35, ataque: 55 },
-  { id: 4, nombre: 'Charizard', tipo: 'Fuego', hp: 78, ataque: 84 },
-  { id: 7, nombre: 'Blastoise', tipo: 'Agua', hp: 79, ataque: 83 },
-  { id: 25, nombre: 'Bulbasaur', tipo: 'Planta', hp: 45, ataque: 49 },
-  { id: 22, nombre: 'Fearow', tipo: 'Volador', hp: 65, ataque: 90 }
-];
+            <span class="copy-feedback" id="css-code-1-feedback">✅ Copiado</span>
+          </div>
+        </div>
+      </div>
 
-let pokemonActual = [...pokemonDatabase];
-
-// ========== RENDERIZAR ==========
-function renderizarPokemon(pokemonArray = pokemonActual, gridId = 'pokemonGrid1') {
-  const grid = document.getElementById(gridId);
-  
-  if (!pokemonArray || pokemonArray.length === 0) {
-    grid.innerHTML = '<div class="empty-message">No hay Pokémon para mostrar</div>';
-    return;
-  }
-
-  grid.innerHTML = pokemonArray.map(pokemon => `
-    <div class="pokemon-card">
-      <div class="pokemon-id">#${String(pokemon.id).padStart(3, '0')}</div>
-      <h2>${pokemon.nombre}</h2>
-      <span class="pokemon-type">${pokemon.tipo}</span>
-      <div class="pokemon-stats">
-        <div class="stat">HP: ${pokemon.hp}</div>
-        <div class="stat">ATK: ${pokemon.ataque}</div>
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>⚙️ Ver JavaScript completo</h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="code-content">
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'js-code-1')">📋 Copiar</button>
+            <div id="js-code-1" style="white-space: pre-wrap; word-wrap: break-word;"><span class="comment">// 🔴 BASE DATOS - Array Pokémon</span><br>
+<span class="keyword">const</span> pokemonDatabase = [<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">1</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Pikachu'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Eléctrico'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">35</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">55</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/pikachu.png'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">4</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Charizard'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Fuego/Volador'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">78</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">84</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/charizard.png'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">7</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Blastoise'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Agua'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">79</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">83</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/blastoise.png'</span><br>
+&nbsp;&nbsp;}<br>
+];<br>
+<br>
+<span class="comment">// Variables para guardar estado actual</span><br>
+<span class="keyword">let</span> filtroActual = <span class="string">'Todos'</span>;<br>
+<span class="keyword">let</span> busquedaActual = <span class="string">''</span>;<br>
+<br>
+<span class="comment">// 🟠 FUNCIÓN MEJORADA PARA RENDERIZAR POKÉMON CON FILTROS</span><br>
+<span class="keyword">function</span> renderizarPokemon() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> grid = document.getElementById(<span class="string">'pokemonGrid'</span>);<br>
+&nbsp;&nbsp;grid.innerHTML = <span class="string">''</span>;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// Filtrar Pokémon según búsqueda y tipo</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> pokemonFiltrados = pokemonDatabase.filter(pokemon =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Condición 1: Búsqueda por nombre</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> coincideNombre = pokemon.nombre.toLowerCase().includes(busquedaActual.toLowerCase());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Condición 2: Filtro por tipo</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> coincideTipo = filtroActual === <span class="string">'Todos'</span> || pokemon.tipo.includes(filtroActual);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Retorna true si cumple AMBAS condiciones</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> coincideNombre && coincideTipo;<br>
+&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// Si no hay Pokémon que coincidan, mostrar mensaje</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span> (pokemonFiltrados.length === <span class="number">0</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid.innerHTML = <span class="string">'&lt;p style="text-align:center; color:#aaa;"&gt;No se encontraron Pokémon :/&lt;/p&gt;'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// Renderizar los Pokémon filtrados</span><br>
+&nbsp;&nbsp;pokemonFiltrados.forEach(pokemon =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> card = `<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;${pokemon.tipo}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="${pokemon.imagen}" alt="${pokemon.nombre}"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;`;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid.innerHTML += card;<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟡 FUNCIÓN PARA BÚSQUEDA EN TIEMPO REAL</span><br>
+<span class="keyword">function</span> setupSearchListener() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> searchInput = document.getElementById(<span class="string">'searchInput'</span>);<br>
+&nbsp;&nbsp;searchInput.addEventListener(<span class="string">'input'</span>, (e) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;busquedaActual = e.target.value;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟡 FUNCIÓN PARA FILTROS POR TIPO</span><br>
+<span class="keyword">function</span> setupFilterListeners() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> botones = document.querySelectorAll(<span class="string">'.filter-btn'</span>);<br>
+&nbsp;&nbsp;botones.forEach(boton =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boton.addEventListener(<span class="string">'click'</span>, (e) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Remover clase active todos los botones</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;botones.forEach(b =&gt; b.classList.remove(<span class="string">'active'</span>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Agregar clase active al botón clickeado</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.target.classList.add(<span class="string">'active'</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Guardar filtro seleccionado</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filtroActual = e.target.dataset.filter;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Re-renderizar con nuevo filtro</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟢 EJECUTAR TODO AL CARGAR LA PÁGINA</span><br>
+document.addEventListener(<span class="string">'DOMContentLoaded'</span>, () =&gt; {<br>
+&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;setupSearchListener();<br>
+&nbsp;&nbsp;setupFilterListeners();<br>
+});<br>
+<br>
+<span class="comment">// 📋 FUNCIÓN PARA COPIAR CÓDIGO</span><br>
+<span class="keyword">function</span> copyCode(button, elementId) {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> element = document.getElementById(elementId);<br>
+&nbsp;&nbsp;<span class="keyword">const</span> text = element.textContent;<br>
+&nbsp;&nbsp;navigator.clipboard.writeText(text).then(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> btn = button;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;btn.style.display = <span class="string">'none'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> feedback = document.getElementById(elementId + <span class="string">'-feedback'</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;feedback.style.display = <span class="string">'block'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">setTimeout</span>(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;btn.style.display = <span class="string">'block'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;feedback.style.display = <span class="string">'none'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}, <span class="number">2000</span>);<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🔄 FUNCIÓN PARA EXPANDIR/CONTRAER SECCIONES</span><br>
+<span class="keyword">function</span> toggleCodeSection(element) {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> header = element;<br>
+&nbsp;&nbsp;<span class="keyword">const</span> content = header.nextElementSibling;<br>
+&nbsp;&nbsp;header.classList.toggle(<span class="string">'expanded'</span>);<br>
+&nbsp;&nbsp;content.classList.toggle(<span class="string">'expanded'</span>);<br>
+}
+            </div>
+            <span class="copy-feedback" id="js-code-1-feedback">✅ Copiado</span>
+          </div>
+        </div>
       </div>
     </div>
-  `).join('');
-}
 
-// ========== RETO 1 ==========
-function ejecutarReto1() {
-  renderizarPokemon(pokemonDatabase, 'pokemonGrid1');
-}
+    <div class="section">
+      <h2>✅ Checklist pasos completados</h2>
+      <ul class="checklist">
+        <li>Agregué <code>id="searchInput"</code> al input búsqueda</li>
+        <li>Agregué botones filtro con <code>data-filter</code></li>
+        <li>Agregué CSS para botones filtro</li>
+        <li>Agregué variables <code>filtroActual</code> y <code>busquedaActual</code></li>
+        <li>Reemplacé función <code>renderizarPokemon()</code> versión mejorada</li>
+        <li>Agregué función <code>setupSearchListener()</code></li>
+        <li>Agregué función <code>setupFilterListeners()</code></li>
+        <li>Actualicé <code>DOMContentLoaded</code> para llamar todas funciones</li>
+        <li>¡Abrí página y puedo buscar por nombre!</li>
+        <li>¡Puedo filtrar por tipo clickeando botones!</li>
+      </ul>
+    </div>
 
-// ========== RETO 2 ==========
-function ejecutarReto2() {
-  renderizarPokemon(pokemonDatabase, 'pokemonGrid2');
-  const searchInput = document.getElementById('searchInput2');
+    <div class="section">
+      <h2>🎓 Desafío extra</h2>
+      <p><strong>¿Quieres un desafío?</strong></p>
+      <ul>
+        <li>Agrega 2 tipos más Pokémon a base datos</li>
+        <li>Crea 2 botones adicionales para esos tipos</li>
+        <li>Prueba que búsqueda y filtros funcionen correctamente</li>
+      </ul>
+    </div>
+
+    <div class="button-group">
+      <a href="modulo3.html" class="btn btn-primary">
+        Siguiente: Módulo 3 (Agregar, Eliminar, Favoritos) →
+      </a>
+      <a href="index.html" class="btn btn-secondary">
+        ← Volver a Introducción
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function toggleCodeSection(element) {
+      const header = element;
+      const content = header.nextElementSibling;
+      header.classList.toggle('expanded');
+      content.classList.toggle('expanded');
+    }
+
+function copyCode(button, elementId) {
+  const element = document.getElementById(elementId);
+  let text = element.textContent;
   
-  searchInput.addEventListener('input', function() {
-    const busqueda = this.value.toLowerCase();
-    const resultados = pokemonDatabase.filter(pokemon => 
-      pokemon.nombre.toLowerCase().includes(busqueda)
-    );
-    renderizarPokemon(resultados, 'pokemonGrid2');
-  });
-}
-
-// ========== RETO 3 ==========
-function ejecutarReto3() {
-  const container = document.getElementById('activeFilters3');
-  const filtros = { 'Búsqueda': 'pikachu' };
-  
-  container.innerHTML = Object.entries(filtros)
-    .filter(([key, value]) => value)
-    .map(([key, value]) => `
-      <div style="background: rgba(102,126,234,0.2); padding: 8px 12px; border-radius: 20px; font-size: 0.9rem;">
-        <strong>${key}:</strong> ${value}
-      </div>
-    `).join('');
-}
-
-// ========== RETO 4 ==========
-function ejecutarReto4() {
-  let temp = [...pokemonDatabase];
-  temp.sort((a, b) => a.nombre.localeCompare(b.nombre));
-  renderizarPokemon(temp, 'pokemonGrid4');
-}
-
-// ========== COPIAR CÓDIGO ==========
-function copyCode(button) {
-  const codeElement = button.closest('.code-wrapper').querySelector('code');
-  const text = codeElement.textContent;
+  // Limpiar los espacios HTML codificados (&nbsp;) y convertir a espacios normales
+  text = text.replace(/\u00A0/g, ' ');  // \u00A0 es el código para &nbsp;
   
   navigator.clipboard.writeText(text).then(() => {
-    const originalText = button.textContent;
-    button.textContent = '✅ ¡Copiado!';
-    button.classList.add('copied');
-    
+    const btn = button;
+    btn.style.display = 'none';
+    const feedback = document.getElementById(elementId + '-feedback');
+    feedback.style.display = 'block';
     setTimeout(() => {
-      button.textContent = originalText;
-      button.classList.remove('copied');
+      btn.style.display = 'block';
+      feedback.style.display = 'none';
     }, 2000);
   });
 }
 
-// ========== TOGGLE SOLUCIONES ==========
-function toggleSolution(header) {
-  const content = header.nextElementSibling;
-  const toggle = header.querySelector('.solution-toggle');
-  
-  content.classList.toggle('show');
-  toggle.classList.toggle('show');
-}
-</script>
+  </script>
 </body>
 </html>

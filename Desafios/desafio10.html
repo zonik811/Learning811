@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏆 Desafíos Minecraft - Día 10</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    header {
+      background: linear-gradient(135deg, #2d5016, #4a7c2c);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(74, 124, 44, 0.3);
+      border: 3px solid #8b0000;
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    
+    .prize-banner {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #333;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+    }
+    .prize-banner h2 { font-size: 2rem; margin-bottom: 10px; }
+    .prize-banner p { font-size: 1.2rem; font-weight: bold; }
+    
+    .section {
+      background: rgba(30,27,75,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102,126,234,0.3);
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      color: #7bed9f;
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      font-size: 1.3rem;
+      color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+    .section p, .section li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #d1d5f0;
+      margin-bottom: 15px;
+    }
+    .section ul { margin-left: 20px; }
+    .section code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #7bed9f;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+    
+    .challenge-card {
+      background: rgba(45, 80, 22, 0.3);
+      border: 3px solid #4a7c2c;
+      padding: 25px;
+      border-radius: 12px;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .challenge-card::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #2d5016, #4a7c2c);
+      border-radius: 12px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .challenge-card:hover::before {
+      opacity: 0.5;
+    }
+    
+    .challenge-card:hover {
+      border-color: #7bed9f;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(123, 237, 159, 0.3);
+    }
+    
+    .challenge-card .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #2d5016;
+      color: #7bed9f;
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      border: 2px solid #7bed9f;
+    }
+    
+    .challenge-card h3 {
+      color: #7bed9f;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .challenge-card .difficulty {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      border: 1px solid;
+    }
+    
+    .difficulty.easy {
+      background: rgba(76, 175, 80, 0.2);
+      color: #7bed9f;
+      border-color: #7bed9f;
+    }
+    
+    .difficulty.medium {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+      border-color: #ffc107;
+    }
+    
+    .difficulty.hard {
+      background: rgba(244, 67, 54, 0.2);
+      color: #ff6b6b;
+      border-color: #ff6b6b;
+    }
+    
+    .challenge-card .description {
+      color: #d1d5f0;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    
+    .challenge-card .requirements {
+      background: rgba(0,0,0,0.5);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #4a7c2c;
+    }
+    
+    .challenge-card .requirements h4 {
+      color: #7bed9f;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      font-weight: bold;
+    }
+    
+    .challenge-card .requirements ul {
+      margin-left: 20px;
+      font-size: 0.95rem;
+    }
+    
+    .challenge-card .requirements li {
+      margin-bottom: 8px;
+      color: #d1d5f0;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2d5016, #4a7c2c);
+      color: #7bed9f;
+      border: 2px solid #7bed9f;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(123, 237, 159, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(123, 237, 159, 0.1);
+      color: #7bed9f;
+      border: 2px solid #7bed9f;
+    }
+    .btn-secondary:hover {
+      background: rgba(123, 237, 159, 0.2);
+    }
+    
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #333;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 15px;
+      transition: all 0.3s;
+    }
+    
+    .submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+    }
+    
+    .info-box {
+      background: rgba(45, 80, 22, 0.3);
+      border-left: 4px solid #7bed9f;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .info-box strong { color: #7bed9f; }
+    
+    .step-box {
+      background: rgba(45, 80, 22, 0.2);
+      border: 1px solid #4a7c2c;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+    .step-box h3 {
+      color: #7bed9f;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .step-number {
+      background: #2d5016;
+      color: #7bed9f;
+      width: 35px;
+      height: 35px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+      border: 2px solid #7bed9f;
+    }
+
+    .minecraft-text {
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="minecraft-text">⛏️ DESAFÍOS MINECRAFT ⛏️</h1>
+      <p>¡Demuestra tu dominio en HTML, CSS y JavaScript puro!</p>
+    </header>
+
+    <div class="prize-banner">
+      <h2>💰 PREMIO: 10 DÓLARES EN ROBUX 💰</h2>
+      <p>El primero que complete y entregue todos los desafíos ganará el premio</p>
+    </div>
+
+    <div class="section">
+      <h2>📋 ¿Cómo funciona?</h2>
+      <div class="info-box">
+        <strong>✨ Instrucciones:</strong><br>
+        <ul style="margin-top: 10px;">
+          <li>📝 Completa los 3 desafíos a continuación</li>
+          <li>💾 Guarda todos tus archivos HTML, CSS y JS</li>
+          <li>📦 Empaqueta todo en una carpeta o archivo ZIP</li>
+          <li>📤 Envía tus soluciones por Discord o email</li>
+          <li>✅ Espera la validación de tu código</li>
+          <li>🎉 ¡Recibe tus 10 dólares en Robux!</li>
+        </ul>
+      </div>
+
+      <p style="margin-top: 20px; font-style: italic; color: #7bed9f;">
+        <strong>⚡ IMPORTANTE:</strong> Solo HTML, CSS y JavaScript puro. Sin APIs, sin librerías. Solo tu creatividad y habilidades de programación.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🎯 Los 3 Desafíos Temáticos</h2>
+      
+      <div class="challenges-grid">
+        <!-- DESAFÍO 1 -->
+        <div class="challenge-card">
+          <div class="number">1</div>
+          <h3>Mobs Enciclopedia</h3>
+          <span class="difficulty easy">Fácil</span>
+          
+          <p class="description">
+            Crea una enciclopedia interactiva de mobs (criaturas) de Minecraft con información, imágenes y búsqueda.
+          </p>
+          
+          <div class="requirements">
+            <h4>📌 Requisitos Mínimos:</h4>
+            <ul>
+              <li>✅ Base de datos de 10+ mobs (Zombie, Creeper, Skeleton, etc.)</li>
+              <li>✅ Mostrar imagen, nombre, descripción y tipo de mob</li>
+              <li>✅ Búsqueda por nombre en tiempo real</li>
+              <li>✅ Filtrar por tipo (Hostil, Pasivo, Neutral)</li>
+              <li>✅ Diseño temático de Minecraft (bloques, colores verdes)</li>
+              <li>✅ Responsive (funciona en móvil y desktop)</li>
+            </ul>
+          </div>
+          
+          <button class="submit-btn">📤 Enviar Desafío 1</button>
+        </div>
+
+        <!-- DESAFÍO 2 -->
+        <div class="challenge-card">
+          <div class="number">2</div>
+          <h3>Inventario Interactivo</h3>
+          <span class="difficulty medium">Medio</span>
+          
+          <p class="description">
+            Construye un sistema de inventario funcional de Minecraft donde puedas agregar, eliminar y organizar items.
+          </p>
+          
+          <div class="requirements">
+            <h4>📌 Requisitos Mínimos:</h4>
+            <ul>
+              <li>✅ Grid de 27 slots (como Minecraft)</li>
+              <li>✅ Agregar items por búsqueda o selector</li>
+              <li>✅ Drag and drop entre slots</li>
+              <li>✅ Stack de items (agrupa ítems iguales)</li>
+              <li>✅ Contador de cantidad</li>
+              <li>✅ Guardar inventario en localStorage</li>
+              <li>✅ Estilo visual como Minecraft</li>
+            </ul>
+          </div>
+          
+          <button class="submit-btn">📤 Enviar Desafío 2</button>
+        </div>
+
+        <!-- DESAFÍO 3 -->
+        <div class="challenge-card">
+          <div class="number">3</div>
+          <h3>Generador de Mundos</h3>
+          <span class="difficulty hard">Difícil</span>
+          
+          <p class="description">
+            Crea un generador de mundos Minecraft simple con bloques, terreno aleatorio y visualización en grid.
+          </p>
+          
+          <div class="requirements">
+            <h4>📌 Requisitos Mínimos:</h4>
+            <ul>
+              <li>✅ Grid de bloques (16x16 mínimo)</li>
+              <li>✅ Diferentes tipos de bloques (Tierra, Piedra, Arena, Agua, Pasto)</li>
+              <li>✅ Generador aleatorio de terreno</li>
+              <li>✅ Botón para generar nuevo mundo</li>
+              <li>✅ Click para cambiar bloques manualmente</li>
+              <li>✅ Guardar mapa actual en localStorage</li>
+              <li>✅ Mostrar nombre del bloque al pasar mouse</li>
+            </ul>
+          </div>
+          
+          <button class="submit-btn">📤 Enviar Desafío 3</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📝 Instrucciones de Entrega</h2>
+      
+      <div class="step-box">
+        <h3><span class="step-number">1</span>Estructura de carpetas</h3>
+        <p>Organiza tus archivos así:</p>
+        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; font-family: monospace; margin-top: 10px; font-size: 0.95rem;">
+Desafios_Minecraft/<br>
+├── Desafio1_MobsEnciclopedia/<br>
+│   ├── index.html<br>
+│   ├── estilos.css<br>
+│   └── script.js<br>
+├── Desafio2_Inventario/<br>
+│   ├── index.html<br>
+│   ├── estilos.css<br>
+│   └── script.js<br>
+└── Desafio3_GeneradorMundos/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── index.html<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── estilos.css<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── script.js
+        </div>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">2</span>Crear un archivo ZIP</h3>
+        <p>Comprime la carpeta "Desafios_Minecraft" en un archivo ZIP llamado: <code>TuNombre_DesafiosMinecraft.zip</code></p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">3</span>Enviar tu solución</h3>
+        <p>
+          Envía el archivo ZIP a través de:<br>
+          💬 <strong>Discord:</strong> Envía el archivo directamente al servidor del curso<br>
+          📧 <strong>Email:</strong> oscarcubillos811@gmail.com]<br>
+          📎 <strong>Asunto:</strong> "Desafío Minecraft Día 10 - [Tu Nombre]"
+        </p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">4</span>Validación</h3>
+        <p>Tu código será validado para verificar que:<br>
+        ✅ Funcione correctamente<br>
+        ✅ Sea 100% HTML, CSS y JavaScript puro<br>
+        ✅ Cumpla todos los requisitos<br>
+        ✅ Tenga buen diseño y experiencia de usuario
+        </p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">5</span>¡Recibe tu premio!</h3>
+        <p>Si eres el primero en completar todos los desafíos correctamente, ¡recibirás 10 dólares en Robux! 🎉</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>⚡ Consejos para tener éxito</h2>
+      <ul>
+        <li>💡 <strong>Empieza simple:</strong> Implementa lo básico primero, luego agrega más funciones</li>
+        <li>🎨 <strong>Diseño temático:</strong> Mantén el estilo Minecraft con colores verdes y negros</li>
+        <li>🔧 <strong>Funcionalidad antes que perfección:</strong> Que funcione correctamente es lo más importante</li>
+        <li>📱 <strong>Responsive:</strong> Prueba en móvil, tablet y desktop</li>
+        <li>⚙️ <strong>Validación:</strong> Maneja errores del usuario gracefully</li>
+        <li>💾 <strong>localStorage:</strong> Guarda los datos para que persistan</li>
+        <li>📝 <strong>Código limpio:</strong> Usa nombres descriptivos y comenta secciones complejas</li>
+        <li>🧪 <strong>Prueba exhaustivamente:</strong> Prueba todos los casos posibles antes de enviar</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>💡 Ideas para inspirarte</h2>
+      
+      <div class="step-box">
+        <h3>Para Desafío 1 (Mobs):</h3>
+        <p>Puedes agregar info como: vida, daño, habitat, comportamiento. Haz que sea fácil navegar entre mobs.</p>
+      </div>
+
+      <div class="step-box">
+        <h3>Para Desafío 2 (Inventario):</h3>
+        <p>Implementa apilamiento inteligente, intercambio de items, y contador de slots usados. Puedes agregar un sistema simple de crafting.</p>
+      </div>
+
+      <div class="step-box">
+        <h3>Para Desafío 3 (Generador):</h3>
+        <p>Usa números aleatorios simples para generar el terreno. Crea una paleta de colores para cada bloque. Permite editar el mapa haciendo click.</p>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a href="menu.html" class="btn btn-secondary">
+        ← Volver al Menú
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Escuchar clicks en botones de envío
+    document.querySelectorAll('.submit-btn').forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        const desafios = [
+          'Mobs Enciclopedia',
+          'Inventario Interactivo',
+          'Generador de Mundos'
+        ];
+        const desafio = index + 1;
+        alert(`📤 Desafío ${desafio} - ${desafios[index]} seleccionado.\n\nPrepara tu código y envíalo cuando esté listo.\n\n💡 Recuerda: Los 3 desafíos deben estar completos para ganar el premio.\n\n⚠️ IMPORTANTE: Solo HTML, CSS y JavaScript puro. ¡Sin APIs!`);
+      });
+    });
+  </script>
+</body>
+</html>

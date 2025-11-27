@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 10 - Módulo 1: Introducción</title>
+  <title>Día 10 - Pokédex Interactiva con JavaScript</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: white;
@@ -13,13 +14,16 @@
       padding: 20px;
       min-height: 100vh;
     }
+    
     .container { max-width: 1000px; margin: 0 auto; }
+    
     header {
       background: linear-gradient(135deg, #667eea, #764ba2);
       padding: 40px 20px;
       text-align: center;
       border-radius: 16px;
       margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.3);
     }
     header h1 { font-size: 2.5rem; margin-bottom: 10px; }
     header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
@@ -67,6 +71,8 @@
       cursor: pointer;
       transition: all 0.3s;
       font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
     }
     .btn-primary {
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -97,6 +103,11 @@
       padding: 20px;
       border-radius: 8px;
       text-align: center;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      background: rgba(102,126,234,0.1);
+      transform: translateY(-5px);
     }
     .feature-card h3 {
       color: #667eea;
@@ -107,130 +118,141 @@
       font-size: 0.95rem;
       margin: 0;
     }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      background: rgba(118,75,162,0.15);
+      border: 1px solid rgba(167,139,250,0.4);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+    .info-box h3 {
+      color: #a78bfa;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
   </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
+    <header>
+      <h1>🎮 Día 10: Pokédex Interactiva</h1>
+      <p>Dale vida a tu Pokédex con JavaScript</p>
+    </header>
 
-  <header>
-    <h1>🔴 Día 10: Pokédex Mejorada</h1>
-    <p>Módulo 1: Introducción y Objetivos</p>
-  </header>
+    <div class="section">
+      <h2>🚀 ¡Bienvenido al Día 10!</h2>
+      <p>
+        ¿Recuerdas la Pokédex que creamos en el <strong>Día 5</strong>? Era bonita, pero solo mostraba 3 Pokémon y no podías hacer nada con ella. 
+        ¡Hoy vamos a convertirla en una aplicación REAL e interactiva usando JavaScript! 🎉
+      </p>
+      
+      <div class="objective-box">
+        <strong>📌 Objetivo del día:</strong><br>
+        Transformar tu Pokédex estática en una aplicación web funcional donde puedas buscar, filtrar, agregar, 
+        eliminar y guardar tus Pokémon favoritos. ¡Como un entrenador Pokémon de verdad!
+      </div>
+    </div>
 
-  <div class="section">
-    <h2>📚 ¿Qué haremos en este día?</h2>
-    <p>Continuaremos el proyecto Pokédex del Día 5, pero esta vez aprenderemos a <strong>manipular el DOM</strong> y agregar <strong>interactividad con JavaScript</strong>.</p>
-    
-    <div class="objective-box">
-      <strong>🎯 Objetivo Principal:</strong>
-      <p>Convertir la Pokédex estática en una aplicación interactiva donde los estudiantes practiquen:</p>
-      <ul style="margin-top: 10px;">
-        <li>Manipulación del DOM</li>
-        <li>Event listeners</li>
-        <li>Array methods (filter, sort, map)</li>
-        <li>localStorage</li>
-        <li>Búsqueda y filtrado en tiempo real</li>
+    <div class="section">
+      <h2>✨ ¿Qué vamos a aprender?</h2>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Base de Datos</h3>
+          <p>Crear un array con todos tus Pokémon y cargarlos dinámicamente</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Búsqueda</h3>
+          <p>Buscar Pokémon por nombre en tiempo real mientras escribes</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Filtros</h3>
+          <p>Filtrar por tipo: Fuego, Agua, Eléctrico, etc.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">➕</div>
+          <h3>Agregar</h3>
+          <p>Crear nuevos Pokémon y añadirlos a tu colección</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🗑️</div>
+          <h3>Eliminar</h3>
+          <p>Borrar Pokémon de tu Pokédex con un click</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Favoritos</h3>
+          <p>Marcar tus Pokémon favoritos y guardarlos en el navegador</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Detalles</h3>
+          <p>Ver estadísticas completas en un modal emergente</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Ordenar</h3>
+          <p>Ordenar alfabéticamente o por número de Pokédex</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🛠️ ¿Cómo lo vamos a hacer?</h2>
+      
+      <div class="info-box">
+        <h3>📂 Archivos que vamos a modificar:</h3>
+        <ul>
+          <li><strong>index.html</strong> - Vamos a agregar nuevos elementos (botones, formularios, modal)</li>
+          <li><strong>css/estilos.css</strong> - Añadiremos estilos para los nuevos componentes</li>
+          <li><strong>js/pokedex.js</strong> - ¡NUEVO! Aquí irá toda la magia de JavaScript</li>
+        </ul>
+      </div>
+
+      <p><strong>El curso está dividido en 4 módulos:</strong></p>
+      <ul>
+        <li><strong>Módulo 1:</strong> Base de datos y carga dinámica de Pokémon</li>
+        <li><strong>Módulo 2:</strong> Búsqueda y filtros por tipo</li>
+        <li><strong>Módulo 3:</strong> Agregar, eliminar, favoritos y modal de detalles</li>
+        <li><strong>Módulo 4:</strong> Quiz final para demostrar lo que aprendiste</li>
       </ul>
     </div>
-  </div>
 
-  <div class="section">
-    <h2>🏗️ Estructura del Día 10</h2>
-    <p>Este día está dividido en 3 módulos progresivos:</p>
-    
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3>Módulo 1️⃣</h3>
-        <p><strong>Introducción</strong></p>
-        <p style="font-size:0.85rem; color:#b8c1ec; margin-top:10px;">Este módulo - Explicación de objetivos y estructura</p>
-      </div>
-      <div class="feature-card">
-        <h3>Módulo 2️⃣</h3>
-        <p><strong>4 Retos Básicos</strong></p>
-        <p style="font-size:0.85rem; color:#b8c1ec; margin-top:10px;">Renderizar, buscar, filtrar, ordenar</p>
-      </div>
-      <div class="feature-card">
-        <h3>Módulo 3️⃣</h3>
-        <p><strong>7 Retos Avanzados</strong></p>
-        <p style="font-size:0.85rem; color:#b8c1ec; margin-top:10px;">Favoritos, localStorage, modal, estadísticas</p>
-      </div>
+    <div class="section">
+      <h2>⚠️ Importante antes de empezar</h2>
+      <p>
+        Vamos a trabajar sobre la Pokédex del <strong>Día 5</strong>. Si no la tienes, no te preocupes, 
+        en el Módulo 1 te daremos el código base completo para que empieces desde cero.
+      </p>
+      <p>
+        En cada módulo te diremos <strong>EXACTAMENTE</strong> qué cambiar, qué agregar y dónde ponerlo. 
+        Solo sigue las instrucciones paso a paso y ¡lo lograrás! 💪
+      </p>
+    </div>
+
+    <div class="button-group">
+      <a href="modulo1.html" class="btn btn-primary">
+        Comenzar Módulo 1 →
+      </a>
+      <a href="../Menu.html" class="btn btn-secondary">
+        ← Volver al Menú
+      </a>
     </div>
   </div>
-
-  <div class="section">
-    <h2>🎓 ¿Cómo funciona?</h2>
-    <p>Cada módulo tendrá:</p>
-    <ul>
-      <li><strong>Explicación clara</strong> de qué se va a hacer</li>
-      <li><strong>Código base</strong> que los estudiantes deben completar</li>
-      <li><strong>Pistas</strong> sobre cómo hacerlo</li>
-      <li><strong>Solución</strong> que pueden ver si se quedan</li>
-      <li><strong>Feedback</strong> si lo hacen correcto o no</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>📋 Conceptos JavaScript que practicaremos</h2>
-    
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3>getElementById</h3>
-        <p>Seleccionar elementos por ID</p>
-      </div>
-      <div class="feature-card">
-        <h3>addEventListener</h3>
-        <p>Escuchar eventos del usuario</p>
-      </div>
-      <div class="feature-card">
-        <h3>innerHTML/textContent</h3>
-        <p>Cambiar contenido del DOM</p>
-      </div>
-      <div class="feature-card">
-        <h3>Array.filter()</h3>
-        <p>Filtrar elementos de un array</p>
-      </div>
-      <div class="feature-card">
-        <h3>Array.sort()</h3>
-        <p>Ordenar elementos</p>
-      </div>
-      <div class="feature-card">
-        <h3>localStorage</h3>
-        <p>Guardar datos en el navegador</p>
-      </div>
-      <div class="feature-card">
-        <h3>classList</h3>
-        <p>Manipular clases CSS</p>
-      </div>
-      <div class="feature-card">
-        <h3>Template literals</h3>
-        <p>Crear strings dinámicos</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>💾 Base de datos de Pokémon</h2>
-    <p>En cada módulo tendremos esta base de datos estática:</p>
-    
-    <div class="objective-box">
-      <strong>5 Pokémon para practicar:</strong>
-      <ul style="margin-top: 10px;">
-        <li>Pikachu (Eléctrico)</li>
-        <li>Charizard (Fuego/Volador)</li>
-        <li>Blastoise (Agua)</li>
-        <li>Bulbasaur (Planta)</li>
-        <li>Fearow (Volador)</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="button-group">
-    <a href="modulo2.html" class="btn btn-primary">
-      ➜ Ir a Módulo 2: Retos Básicos
-    </a>
-
-  </div>
-
-</div>
 </body>
 </html>

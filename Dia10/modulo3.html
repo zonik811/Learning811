@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 10 - Módulo 3: Retos Avanzados</title>
+  <title>Día 10 - Módulo 3: Agregar, Eliminar y Favoritos</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: white;
@@ -13,16 +14,20 @@
       padding: 20px;
       min-height: 100vh;
     }
-    .container { max-width: 1200px; margin: 0 auto; }
+    
+    .container { max-width: 1000px; margin: 0 auto; }
+    
     header {
       background: linear-gradient(135deg, #667eea, #764ba2);
       padding: 40px 20px;
       text-align: center;
       border-radius: 16px;
       margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.3);
     }
     header h1 { font-size: 2.5rem; margin-bottom: 10px; }
     header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    
     .section {
       background: rgba(30,27,75,0.6);
       padding: 30px;
@@ -30,449 +35,888 @@
       margin-bottom: 30px;
       border: 1px solid rgba(102,126,234,0.3);
     }
-    .section h2 { font-size: 1.8rem; color: #667eea; margin-bottom: 20px; }
-    .section h3 { font-size: 1.2rem; color: #a78bfa; margin: 25px 0 15px; }
+    .section h2 {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      font-size: 1.3rem;
+      color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
     .section p, .section li {
       font-size: 1.05rem;
       line-height: 1.8;
       color: #d1d5f0;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
     }
     .section ul { margin-left: 20px; }
-    .challenge-box {
+    .section code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #a78bfa;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .objective-box {
       background: rgba(102,126,234,0.1);
-      border: 2px solid #667eea;
-      border-radius: 12px;
-      padding: 25px;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .objective-box strong { color: #a78bfa; }
+    
+    .code-block {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(102,126,234,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    .code-block .comment { color: #888; }
+    .code-block .keyword { color: #667eea; }
+    .code-block .string { color: #4caf50; }
+    .code-block .number { color: #f093fb; }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+    }
+    .btn-secondary {
+      background: rgba(102,126,234,0.2);
+      color: #a78bfa;
+      border: 1px solid #667eea;
+    }
+    .btn-secondary:hover {
+      background: rgba(102,126,234,0.3);
+    }
+    
+    .step-box {
+      background: rgba(118,75,162,0.15);
+      border: 1px solid rgba(167,139,250,0.4);
+      padding: 20px;
+      border-radius: 10px;
       margin: 25px 0;
     }
-    .challenge-title { font-size: 1.3rem; color: #4caf50; margin-bottom: 15px; font-weight: 700; }
-    .code-wrapper {
-      background: #0a0a14;
-      border: 2px solid rgba(102,126,234,0.3);
-      border-radius: 12px;
-      padding: 0;
-      margin: 20px 0;
-      overflow: hidden;
+    .step-box h3 {
+      color: #a78bfa;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 15px 0;
+    }
+    .checklist li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(102,126,234,0.2);
+    }
+    .checklist li:before {
+      content: "☐ ";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .code-section {
+      margin: 25px 0;
     }
     .code-header {
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: rgba(102,126,234,0.15);
+      padding: 15px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid rgba(102,126,234,0.3);
+      margin-bottom: 0;
     }
-    .code-filename { font-weight: 600; color: white; font-size: 0.95rem; }
+    .code-header:hover {
+      background: rgba(102,126,234,0.25);
+    }
+    .code-header h4 {
+      margin: 0;
+      color: #a78bfa;
+      font-size: 1.1rem;
+      flex: 1;
+    }
+    .code-header .toggle-icon {
+      color: #667eea;
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+    .code-header.expanded .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .code-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .code-content.expanded {
+      max-height: 2000px;
+    }
     .copy-btn {
-      background: rgba(255,255,255,0.2);
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 16px;
+      background: #667eea;
       color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 6px 16px;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
       font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.3s;
     }
-    .copy-btn:hover { background: rgba(255,255,255,0.3); }
-    .copy-btn.copied { background: #4caf50; border-color: #4caf50; }
-    .code-content {
-      padding: 20px;
-      overflow-x: auto;
-      max-height: 400px;
-      overflow-y: auto;
+    .copy-btn:hover {
+      background: #764ba2;
+      transform: scale(1.05);
     }
-    .code-content code {
-      font-family: 'Courier New', monospace;
-      color: #7dd3fc;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      display: block;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .hint {
-      background: rgba(255,193,7,0.1);
-      border-left: 3px solid #ffc107;
-      padding: 15px;
-      margin: 15px 0;
-      border-radius: 6px;
-      color: #d1d5f0;
-    }
-    .hint strong { color: #ffc107; }
-    .solution {
-      background: rgba(76,175,80,0.1);
-      border-left: 3px solid #4caf50;
-      padding: 0;
-      margin: 15px 0;
-      border-radius: 6px;
+    .copy-feedback {
       display: none;
-    }
-    .solution.show { display: block; }
-    .solution-header {
-      background: rgba(76,175,80,0.2);
-      padding: 15px;
-      cursor: pointer;
-      user-select: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .solution-title { font-weight: 600; color: #4caf50; }
-    .solution-toggle { color: #4caf50; font-size: 1.2rem; transition: transform 0.3s; }
-    .solution-content { padding: 20px; display: none; }
-    .solution-content.show { display: block; }
-    .solution-toggle.show { transform: rotate(180deg); }
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 0.95rem;
-      margin: 10px 5px 0 0;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #4caf50;
       color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
-    .btn-secondary {
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(102,126,234,0.3);
+    }
+    table th {
       background: rgba(102,126,234,0.2);
       color: #a78bfa;
-      border: 1px solid #667eea;
-    }
-    .btn-secondary:hover { background: rgba(102,126,234,0.3); }
-    .completion-badge {
-      background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(67,233,123,0.2));
-      border: 2px solid #4caf50;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      margin: 30px 0;
-      color: #4caf50;
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 30px;
-      flex-wrap: wrap;
-      gap: 10px;
     }
   </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
+    <header>
+      <h1>➕ Módulo 3: Agregar, Eliminar y Favoritos</h1>
+      <p>Completa tu Pokédex: agrega, elimina y guarda favoritos</p>
+    </header>
 
-  <header>
-    <h1>🔴 Pokédex Mejorada - Módulo 3</h1>
-    <p>Retos Avanzados: Favoritos, localStorage, Modal y Estadísticas</p>
-  </header>
-
-  <!-- RETO 5 -->
-  <div class="section">
-    <h2>✅ Reto 5: Ordenar por Ataque</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Crear un botón que ordene Pokémon de mayor a menor ataque.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 5</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>function sortAtaque() {
-  pokemonActual.sort((a, b) => 
-    b.ataque - a.ataque
-  );
-  renderizarPokemon();
-}</code>
-        </div>
-      </div>
-      <div class="hint"><strong>💡 Pista:</strong> b - a = Mayor a menor</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">Usa b.ataque - a.ataque para ordenar de mayor a menor</p>
-        </div>
+    <div class="section">
+      <h2>🎯 ¿Qué vamos a aprender?</h2>
+      <p>
+        En los módulos anteriores, tu Pokédex puede buscar y filtrar. Ahora vamos a hacerla 100% funcional:
+        los usuarios podrán <strong>agregar nuevos Pokémon</strong>, <strong>eliminarlos</strong>, 
+        <strong>marcar favoritos</strong> y los datos se guardarán automáticamente.
+      </p>
+      
+      <div class="objective-box">
+        <strong>📌 Objetivos del Módulo 3:</strong><br>
+        <ul style="margin-top: 10px;">
+          <li>➕ Agregar nuevos Pokémon con un formulario</li>
+          <li>🗑️ Eliminar Pokémon de la colección</li>
+          <li>⭐ Marcar/desmarcar favoritos</li>
+          <li>💾 Guardar datos en localStorage (persistencia)</li>
+          <li>📊 Botones en tarjetas para acciones</li>
+        </ul>
       </div>
     </div>
-  </div>
 
-  <!-- RETO 6 -->
-  <div class="section">
-    <h2>✅ Reto 6: Mostrar Solo Favoritos</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Mostrar solo Pokémon guardados como favoritos.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 6</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>let favoritos = [];
-
-function showFavorites() {
-  pokemonActual = pokemonDatabase.filter(pokemon => 
-    favoritos.includes(pokemon.id)
-  );
-  renderizarPokemon();
-}</code>
+    <div class="section">
+      <h2>📝 Cambios necesarios</h2>
+      
+      <div class="step-box">
+        <h3><span class="step-number">1</span>Agregar formulario al HTML</h3>
+        <p><strong>Después <code>&lt;div class="filter-buttons"&gt;</code>, agrega esto:</strong></p>
+        
+        <div class="code-block">
+&lt;div class="add-pokemon-form"&gt;<br>
+&nbsp;&nbsp;&lt;h3&gt;Agregar nuevo Pokémon&lt;/h3&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" id="pokemonName" placeholder="Nombre"&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" id="pokemonType" placeholder="Tipo"&gt;<br>
+&nbsp;&nbsp;&lt;input type="number" id="pokemonHp" placeholder="HP"&gt;<br>
+&nbsp;&nbsp;&lt;input type="number" id="pokemonAtaque" placeholder="Ataque"&gt;<br>
+&nbsp;&nbsp;&lt;input type="text" id="pokemonImagen" placeholder="URL imagen"&gt;<br>
+&nbsp;&nbsp;&lt;button id="addPokemonBtn"&gt;➕ Agregar Pokémon&lt;/button&gt;<br>
+&lt;/div&gt;
         </div>
       </div>
-      <div class="hint"><strong>💡 Pista:</strong> .includes() verifica si está en el array</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">favoritos es array de IDs: </p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- RETO 7 -->
-  <div class="section">
-    <h2>✅ Reto 7: Guardar en localStorage</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Guardar favoritos para que persistan entre sesiones.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 7</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>function toggleFavorito(id) {
-  const index = favoritos.indexOf(id);
-  
-  if (index > -1) {
-    favoritos.splice(index, 1);
-  } else {
-    favoritos.push(id);
-  }
-  
-  localStorage.setItem('pokemonFavoritos', 
-    JSON.stringify(favoritos)
-  );
-  renderizarPokemon();
-}</code>
-        </div>
-      </div>
-      <div class="hint"><strong>💡 Pista:</strong> JSON.stringify() convierte arrays a string</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">localStorage.setItem() guarda datos que persisten</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RETO 8 -->
-  <div class="section">
-    <h2>✅ Reto 8: Modal Interactivo</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Mostrar modal con detalles al clickear Pokémon.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 8</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
-        </div>
-        <div class="code-content">
-          <code>function abrirModal(id) {
-  const pokemon = pokemonDatabase.find(p => p.id === id);
-  const modal = document.getElementById('detailModal');
-  
-  modal.innerHTML = `
-    &lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;
-    &lt;p&gt;Tipo: ${pokemon.tipo}&lt;/p&gt;
-    &lt;p&gt;HP: ${pokemon.hp}&lt;/p&gt;
-  `;
-  
-  modal.classList.add('active');
+      <div class="step-box">
+        <h3><span class="step-number">2</span>Agregar CSS para formulario</h3>
+        <p><strong>En <code>css/estilos.css</code>, agrega:</strong></p>
+        
+        <div class="code-block">
+<span class="comment">/* FORMULARIO AGREGAR POKÉMON */</span><br>
+.add-pokemon-form {<br>
+&nbsp;&nbsp;background: rgba(102, 126, 234, 0.1);<br>
+&nbsp;&nbsp;border: 1px solid rgba(102, 126, 234, 0.3);<br>
+&nbsp;&nbsp;padding: 25px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;flex-wrap: wrap;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;align-items: flex-end;<br>
+}<br>
+<br>
+.add-pokemon-form h3 {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin-bottom: 15px;<br>
+}<br>
+<br>
+.add-pokemon-form input {<br>
+&nbsp;&nbsp;padding: 10px 15px;<br>
+&nbsp;&nbsp;border: 1px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;background: rgba(0, 0, 0, 0.3);<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;flex: 1;<br>
+&nbsp;&nbsp;min-width: 150px;<br>
+}<br>
+<br>
+.add-pokemon-form button {<br>
+&nbsp;&nbsp;padding: 10px 20px;<br>
+&nbsp;&nbsp;background: #667eea;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border: none;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+}<br>
+<br>
+<span class="comment">/* BOTONES EN TARJETAS */</span><br>
+.pokemon-actions {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;margin-top: 15px;<br>
+&nbsp;&nbsp;justify-content: center;<br>
+}<br>
+<br>
+.action-btn {<br>
+&nbsp;&nbsp;padding: 8px 12px;<br>
+&nbsp;&nbsp;border: none;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;font-size: 12px;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+}<br>
+<br>
+.favorite-btn {<br>
+&nbsp;&nbsp;background: #f093fb;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+.favorite-btn.active {<br>
+&nbsp;&nbsp;background: #764ba2;<br>
+}<br>
+<br>
+.delete-btn {<br>
+&nbsp;&nbsp;background: #ff6b6b;<br>
+&nbsp;&nbsp;color: white;<br>
 }
-
-function closeModal() {
-  const modal = document.getElementById('detailModal');
-  modal.classList.remove('active');
-}</code>
         </div>
       </div>
-      <div class="hint"><strong>💡 Pista:</strong> classList.add() agrega clase CSS</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">.find() busca el primer elemento que coincide</p>
+
+      <div class="step-box">
+        <h3><span class="step-number">3</span>Actualizar tarjeta con botones</h3>
+        <p><strong>En la función <code>renderizarPokemon()</code>, reemplaza el card HTML por:</strong></p>
+        
+        <div class="code-block">
+<span class="keyword">const</span> card = `<br>
+&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;${pokemon.tipo}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;HP: ${pokemon.hp} | Ataque: ${pokemon.ataque}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="${pokemon.imagen}" alt="${pokemon.nombre}"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-actions"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="action-btn favorite-btn ${pokemon.favorito ? <span class="string">'active'</span> : <span class="string">''</span>}" onclick="toggleFavorito(${pokemon.id})"&gt;⭐ Favorito&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="action-btn delete-btn" onclick="eliminarPokemon(${pokemon.id})"&gt;🗑️ Eliminar&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+`;
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- RETO 9 -->
-  <div class="section">
-    <h2>✅ Reto 9: Resetear Filtros</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Limpiar todos los filtros.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 9</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+    <div class="section">
+      <h2>⚙️ Nuevas funciones JavaScript</h2>
+      
+      <table>
+        <tr>
+          <th>Función</th>
+          <th>Propósito</th>
+        </tr>
+        <tr>
+          <td><code>guardarEnLocalStorage()</code></td>
+          <td>Guardar array en localStorage cada vez que cambia</td>
+        </tr>
+        <tr>
+          <td><code>cargarDelLocalStorage()</code></td>
+          <td>Cargar Pokémon guardados al iniciar</td>
+        </tr>
+        <tr>
+          <td><code>agregarPokemon()</code></td>
+          <td>Agregar nuevo Pokémon al array</td>
+        </tr>
+        <tr>
+          <td><code>eliminarPokemon(id)</code></td>
+          <td>Eliminar Pokémon por ID</td>
+        </tr>
+        <tr>
+          <td><code>toggleFavorito(id)</code></td>
+          <td>Marcar/desmarcar favorito</td>
+        </tr>
+        <tr>
+          <td><code>setupAddPokemonListener()</code></td>
+          <td>Escuchar botón para agregar Pokémon</td>
+        </tr>
+      </table>
+
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>📄 HTML Completo (Módulo 1+2+3)</h4>
+          <span class="toggle-icon">▼</span>
         </div>
         <div class="code-content">
-          <code>function resetFilters() {
-  pokemonActual = [...pokemonDatabase];
-  document.getElementById('searchInput').value = '';
-  renderizarPokemon();
-}</code>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'html-m3')">📋 Copiar</button>
+            <div id="html-m3" style="white-space: pre-wrap; word-wrap: break-word;"><span class="keyword">&lt;!DOCTYPE html&gt;</span><br>
+<span class="keyword">&lt;html lang="es"&gt;</span><br>
+<span class="keyword">&lt;head&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;meta charset="UTF-8"&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;title&gt;</span>Mi Pokédex<span class="keyword">&lt;/title&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;link rel="stylesheet" href="css/estilos.css"&gt;</span><br>
+<span class="keyword">&lt;/head&gt;</span><br>
+<span class="keyword">&lt;body&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;div class="container"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;header&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;h1&gt;</span>Mi Pokédex<span class="keyword">&lt;/h1&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/header&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="search-bar"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="text" id="searchInput" placeholder="Buscar Pokémon..."&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="filter-buttons"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn active" data-filter="Todos"&gt;</span>Todos<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Eléctrico"&gt;</span>⚡ Eléctrico<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Fuego"&gt;</span>🔥 Fuego<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button class="filter-btn" data-filter="Agua"&gt;</span>💧 Agua<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="add-pokemon-form"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;h3&gt;</span>Agregar nuevo Pokémon<span class="keyword">&lt;/h3&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="text" id="pokemonName" placeholder="Nombre"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="text" id="pokemonType" placeholder="Tipo"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="number" id="pokemonHp" placeholder="HP"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="number" id="pokemonAtaque" placeholder="Ataque"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;input type="text" id="pokemonImagen" placeholder="URL imagen"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;button id="addPokemonBtn"&gt;</span>➕ Agregar Pokémon<span class="keyword">&lt;/button&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;div class="pokemon-grid" id="pokemonGrid"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">&lt;/div&gt;</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">&lt;script src="js/pokedex.js"&gt;&lt;/script&gt;</span><br>
+<span class="keyword">&lt;/body&gt;</span><br>
+<span class="keyword">&lt;/html&gt;</span>
+            </div>
+            <span class="copy-feedback" id="html-m3-feedback">✅ Copiado</span>
+          </div>
         </div>
       </div>
-      <div class="hint"><strong>💡 Pista:</strong> [...array] crea copia del array</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">Vuelve al estado inicial</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- RETO 10 -->
-  <div class="section">
-    <h2>✅ Reto 10: Mostrar Todos</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Botón que muestre todos los Pokémon.</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 10</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>🎨 CSS Completo (Módulo 1+2+3)</h4>
+          <span class="toggle-icon">▼</span>
         </div>
         <div class="code-content">
-          <code>function showAll() {
-  pokemonActual = [...pokemonDatabase];
-  renderizarPokemon();
-}</code>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'css-m3')">📋 Copiar</button>
+            <div id="css-m3" style="white-space: pre-wrap; word-wrap: break-word;"><span class="comment">/* GENERALES */</span><br>
+* { margin: 0; padding: 0; box-sizing: border-box; }<br>
+body {<br>
+&nbsp;&nbsp;background-color: #0f0f0f;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;font-family: Arial, sans-serif;<br>
+}<br>
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }<br>
+<br>
+<span class="comment">/* HEADER */</span><br>
+header {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;padding: 40px 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+}<br>
+header h1 { font-size: 48px; margin: 0; }<br>
+<br>
+<span class="comment">/* BÚSQUEDA */</span><br>
+.search-bar {<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;margin-bottom: 40px;<br>
+}<br>
+.search-bar input {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 400px;<br>
+&nbsp;&nbsp;padding: 12px 20px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 8px;<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;font-size: 16px;<br>
+}<br>
+<br>
+<span class="comment">/* FILTROS */</span><br>
+.filter-buttons {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;justify-content: center;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+&nbsp;&nbsp;flex-wrap: wrap;<br>
+}<br>
+<br>
+.filter-btn {<br>
+&nbsp;&nbsp;padding: 10px 20px;<br>
+&nbsp;&nbsp;border: 2px solid #667eea;<br>
+&nbsp;&nbsp;background: transparent;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;border-radius: 20px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+}<br>
+<br>
+.filter-btn:hover {<br>
+&nbsp;&nbsp;background: rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transform: translateY(-2px);<br>
+}<br>
+<br>
+.filter-btn.active {<br>
+&nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border-color: #764ba2;<br>
+}<br>
+<br>
+<span class="comment">/* FORMULARIO AGREGAR POKÉMON */</span><br>
+.add-pokemon-form {<br>
+&nbsp;&nbsp;background: rgba(102, 126, 234, 0.1);<br>
+&nbsp;&nbsp;border: 1px solid rgba(102, 126, 234, 0.3);<br>
+&nbsp;&nbsp;padding: 25px;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;margin-bottom: 30px;<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;flex-wrap: wrap;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;align-items: flex-end;<br>
+}<br>
+<br>
+.add-pokemon-form h3 {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin-bottom: 15px;<br>
+}<br>
+<br>
+.add-pokemon-form input {<br>
+&nbsp;&nbsp;padding: 10px 15px;<br>
+&nbsp;&nbsp;border: 1px solid #667eea;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;background: rgba(0, 0, 0, 0.3);<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;flex: 1;<br>
+&nbsp;&nbsp;min-width: 150px;<br>
+}<br>
+<br>
+.add-pokemon-form button {<br>
+&nbsp;&nbsp;padding: 10px 20px;<br>
+&nbsp;&nbsp;background: #667eea;<br>
+&nbsp;&nbsp;color: white;<br>
+&nbsp;&nbsp;border: none;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+}<br>
+<br>
+.add-pokemon-form button:hover {<br>
+&nbsp;&nbsp;background: #764ba2;<br>
+}<br>
+<br>
+<span class="comment">/* GRID */</span><br>
+.pokemon-grid {<br>
+&nbsp;&nbsp;display: grid;<br>
+&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));<br>
+&nbsp;&nbsp;gap: 20px;<br>
+&nbsp;&nbsp;margin-top: 20px;<br>
+}<br>
+<br>
+<span class="comment">/* TARJETA */</span><br>
+.pokemon-card {<br>
+&nbsp;&nbsp;background-color: #1a1a1a;<br>
+&nbsp;&nbsp;border: 2px solid #333;<br>
+&nbsp;&nbsp;border-radius: 12px;<br>
+&nbsp;&nbsp;padding: 20px;<br>
+&nbsp;&nbsp;text-align: center;<br>
+&nbsp;&nbsp;box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);<br>
+&nbsp;&nbsp;transition: all 0.3s ease;<br>
+}<br>
+<br>
+.pokemon-card:hover {<br>
+&nbsp;&nbsp;border-color: #667eea;<br>
+&nbsp;&nbsp;transform: translateY(-10px);<br>
+&nbsp;&nbsp;box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);<br>
+}<br>
+<br>
+.pokemon-card img {<br>
+&nbsp;&nbsp;width: 100%;<br>
+&nbsp;&nbsp;max-width: 200px;<br>
+&nbsp;&nbsp;height: auto;<br>
+&nbsp;&nbsp;margin: 20px 0;<br>
+}<br>
+<br>
+.pokemon-card h2 {<br>
+&nbsp;&nbsp;font-size: 24px;<br>
+&nbsp;&nbsp;color: #667eea;<br>
+&nbsp;&nbsp;margin: 10px 0 5px;<br>
+}<br>
+<br>
+.pokemon-card p {<br>
+&nbsp;&nbsp;font-size: 14px;<br>
+&nbsp;&nbsp;color: #aaa;<br>
+&nbsp;&nbsp;margin: 5px 0;<br>
+}<br>
+<br>
+<span class="comment">/* BOTONES EN TARJETAS */</span><br>
+.pokemon-actions {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;gap: 10px;<br>
+&nbsp;&nbsp;margin-top: 15px;<br>
+&nbsp;&nbsp;justify-content: center;<br>
+}<br>
+<br>
+.action-btn {<br>
+&nbsp;&nbsp;padding: 8px 12px;<br>
+&nbsp;&nbsp;border: none;<br>
+&nbsp;&nbsp;border-radius: 6px;<br>
+&nbsp;&nbsp;cursor: pointer;<br>
+&nbsp;&nbsp;font-size: 12px;<br>
+&nbsp;&nbsp;font-weight: 600;<br>
+&nbsp;&nbsp;transition: all 0.3s;<br>
+}<br>
+<br>
+.favorite-btn {<br>
+&nbsp;&nbsp;background: #f093fb;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+.favorite-btn.active {<br>
+&nbsp;&nbsp;background: #764ba2;<br>
+}<br>
+<br>
+.delete-btn {<br>
+&nbsp;&nbsp;background: #ff6b6b;<br>
+&nbsp;&nbsp;color: white;<br>
+}<br>
+<br>
+.delete-btn:hover {<br>
+&nbsp;&nbsp;background: #ff5252;<br>
+}
+            </div>
+            <span class="copy-feedback" id="css-m3-feedback">✅ Copiado</span>
+          </div>
         </div>
       </div>
-      <div class="hint"><strong>💡 Pista:</strong> Similar a Reto 9 pero sin limpiar inputs</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">Restaura todos los Pokémon</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- RETO 11 -->
-  <div class="section">
-    <h2>✅ Reto 11: Estadísticas en Vivo</h2>
-    <div class="challenge-box">
-      <div class="challenge-title">🎯 Tu misión:</div>
-      <p>Mostrar contadores actualizados (Total, Encontrados, Favoritos).</p>
-      <h3>Código:</h3>
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-filename">js/script.js - Reto 11</span>
-          <button class="copy-btn" onclick="copyCode(this)">📋 Copiar</button>
+      <div class="code-section">
+        <div class="code-header" onclick="toggleCodeSection(this)">
+          <h4>⚙️ JavaScript Completo (Módulo 1+2+3)</h4>
+          <span class="toggle-icon">▼</span>
         </div>
         <div class="code-content">
-          <code>function actualizarEstadisticas() {
-  document.getElementById('totalPokemon').textContent = 
-    pokemonDatabase.length;
-  
-  document.getElementById('foundPokemon').textContent = 
-    pokemonActual.length;
-  
-  document.getElementById('favoritesCount').textContent = 
-    favoritos.length;
-}
-
-renderizarPokemon();
-actualizarEstadisticas();</code>
-        </div>
-      </div>
-      <div class="hint"><strong>💡 Pista:</strong> .length devuelve cantidad de elementos</div>
-      <div class="solution">
-        <div class="solution-header" onclick="toggleSolution(this)">
-          <span class="solution-title">✅ Ver Explicación</span>
-          <span class="solution-toggle">▼</span>
-        </div>
-        <div class="solution-content">
-          <p style="color: #d1d5f0;">Actualiza 3 contadores en tiempo real</p>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this, 'js-m3')">📋 Copiar</button>
+            <div id="js-m3" style="white-space: pre-wrap; word-wrap: break-word;"><span class="comment">// 🔴 BASE DE DATOS</span><br>
+<span class="keyword">let</span> pokemonDatabase = [<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">1</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Pikachu'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Eléctrico'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">35</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">55</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;favorito: <span class="keyword">false</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">4</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Charizard'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Fuego/Volador'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">78</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">84</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;favorito: <span class="keyword">false</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">7</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Blastoise'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Agua'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">79</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">83</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;favorito: <span class="keyword">false</span><br>
+&nbsp;&nbsp;}<br>
+];<br>
+<br>
+<span class="keyword">let</span> filtroActual = <span class="string">'Todos'</span>;<br>
+<span class="keyword">let</span> busquedaActual = <span class="string">''</span>;<br>
+<br>
+<span class="comment">// 💾 GUARDAR EN LOCALSTORAGE</span><br>
+<span class="keyword">function</span> guardarEnLocalStorage() {<br>
+&nbsp;&nbsp;localStorage.setItem(<span class="string">'pokemonData'</span>, JSON.stringify(pokemonDatabase));<br>
+}<br>
+<br>
+<span class="comment">// 📂 CARGAR DEL LOCALSTORAGE</span><br>
+<span class="keyword">function</span> cargarDelLocalStorage() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> datos = localStorage.getItem(<span class="string">'pokemonData'</span>);<br>
+&nbsp;&nbsp;<span class="keyword">if</span> (datos) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pokemonDatabase = JSON.parse(datos);<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<span class="comment">// 🟠 RENDERIZAR CON FILTROS</span><br>
+<span class="keyword">function</span> renderizarPokemon() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> grid = document.getElementById(<span class="string">'pokemonGrid'</span>);<br>
+&nbsp;&nbsp;grid.innerHTML = <span class="string">''</span>;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">const</span> pokemonFiltrados = pokemonDatabase.filter(pokemon =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> coincideNombre = pokemon.nombre.toLowerCase().includes(busquedaActual.toLowerCase());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> coincideTipo = filtroActual === <span class="string">'Todos'</span> || pokemon.tipo.includes(filtroActual);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> coincideNombre && coincideTipo;<br>
+&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">if</span> (pokemonFiltrados.length === <span class="number">0</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid.innerHTML = <span class="string">'&lt;p&gt;No se encontraron Pokémon :/&lt;/p&gt;'</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;pokemonFiltrados.forEach(pokemon =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> card = `<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;${pokemon.tipo}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;HP: ${pokemon.hp} | Ataque: ${pokemon.ataque}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="${pokemon.imagen}" alt="${pokemon.nombre}"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-actions"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="action-btn favorite-btn ${pokemon.favorito ? <span class="string">'active'</span> : <span class="string">''</span>}" onclick="toggleFavorito(${pokemon.id})"&gt;⭐ Favorito&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="action-btn delete-btn" onclick="eliminarPokemon(${pokemon.id})"&gt;🗑️ Eliminar&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;`;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid.innerHTML += card;<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟡 BÚSQUEDA EN TIEMPO REAL</span><br>
+<span class="keyword">function</span> setupSearchListener() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> searchInput = document.getElementById(<span class="string">'searchInput'</span>);<br>
+&nbsp;&nbsp;searchInput.addEventListener(<span class="string">'input'</span>, (e) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;busquedaActual = e.target.value;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟡 FILTROS POR TIPO</span><br>
+<span class="keyword">function</span> setupFilterListeners() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> botones = document.querySelectorAll(<span class="string">'.filter-btn'</span>);<br>
+&nbsp;&nbsp;botones.forEach(boton =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;boton.addEventListener(<span class="string">'click'</span>, (e) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;botones.forEach(b =&gt; b.classList.remove(<span class="string">'active'</span>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.target.classList.add(<span class="string">'active'</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filtroActual = e.target.dataset.filter;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// ➕ AGREGAR POKÉMON</span><br>
+<span class="keyword">function</span> agregarPokemon() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> nombre = document.getElementById(<span class="string">'pokemonName'</span>).value.trim();<br>
+&nbsp;&nbsp;<span class="keyword">const</span> tipo = document.getElementById(<span class="string">'pokemonType'</span>).value.trim();<br>
+&nbsp;&nbsp;<span class="keyword">const</span> hp = parseInt(document.getElementById(<span class="string">'pokemonHp'</span>).value);<br>
+&nbsp;&nbsp;<span class="keyword">const</span> ataque = parseInt(document.getElementById(<span class="string">'pokemonAtaque'</span>).value);<br>
+&nbsp;&nbsp;<span class="keyword">const</span> imagen = document.getElementById(<span class="string">'pokemonImagen'</span>).value.trim();<br>
+<br>
+&nbsp;&nbsp;<span class="keyword">if</span> (!nombre || !tipo || !hp || !ataque || !imagen) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;alert(<span class="string">'Completa todos los campos'</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>;<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;<span class="keyword">const</span> id = Math.max(...pokemonDatabase.map(p =&gt; p.id), <span class="number">0</span>) + <span class="number">1</span>;<br>
+&nbsp;&nbsp;<span class="keyword">const</span> nuevoPokemon = { id, nombre, tipo, hp, ataque, imagen, favorito: <span class="keyword">false</span> };<br>
+&nbsp;&nbsp;pokemonDatabase.push(nuevoPokemon);<br>
+&nbsp;&nbsp;guardarEnLocalStorage();<br>
+&nbsp;&nbsp;renderizarPokemon();<br>
+<br>
+&nbsp;&nbsp;document.getElementById(<span class="string">'pokemonName'</span>).value = <span class="string">''</span>;<br>
+&nbsp;&nbsp;document.getElementById(<span class="string">'pokemonType'</span>).value = <span class="string">''</span>;<br>
+&nbsp;&nbsp;document.getElementById(<span class="string">'pokemonHp'</span>).value = <span class="string">''</span>;<br>
+&nbsp;&nbsp;document.getElementById(<span class="string">'pokemonAtaque'</span>).value = <span class="string">''</span>;<br>
+&nbsp;&nbsp;document.getElementById(<span class="string">'pokemonImagen'</span>).value = <span class="string">''</span>;<br>
+}<br>
+<br>
+<span class="comment">// 🗑️ ELIMINAR POKÉMON</span><br>
+<span class="keyword">function</span> eliminarPokemon(id) {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> indice = pokemonDatabase.findIndex(p =&gt; p.id === id);<br>
+&nbsp;&nbsp;<span class="keyword">if</span> (indice !== -<span class="number">1</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pokemonDatabase.splice(indice, <span class="number">1</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;guardarEnLocalStorage();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<span class="comment">// ⭐ MARCAR/DESMARCAR FAVORITO</span><br>
+<span class="keyword">function</span> toggleFavorito(id) {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> pokemon = pokemonDatabase.find(p =&gt; p.id === id);<br>
+&nbsp;&nbsp;<span class="keyword">if</span> (pokemon) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pokemon.favorito = !pokemon.favorito;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;guardarEnLocalStorage();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<span class="comment">// 📋 SETUP BOTÓN AGREGAR</span><br>
+<span class="keyword">function</span> setupAddPokemonListener() {<br>
+&nbsp;&nbsp;<span class="keyword">const</span> btn = document.getElementById(<span class="string">'addPokemonBtn'</span>);<br>
+&nbsp;&nbsp;btn.addEventListener(<span class="string">'click'</span>, agregarPokemon);<br>
+}<br>
+<br>
+<span class="comment">// 🟢 EJECUTAR AL CARGAR</span><br>
+document.addEventListener(<span class="string">'DOMContentLoaded'</span>, () =&gt; {<br>
+&nbsp;&nbsp;cargarDelLocalStorage();<br>
+&nbsp;&nbsp;renderizarPokemon();<br>
+&nbsp;&nbsp;setupSearchListener();<br>
+&nbsp;&nbsp;setupFilterListeners();<br>
+&nbsp;&nbsp;setupAddPokemonListener();<br>
+});
+            </div>
+            <span class="copy-feedback" id="js-m3-feedback">✅ Copiado</span>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="section">
+      <h2>✅ Checklist Módulo 3</h2>
+      <ul class="checklist">
+        <li>Agregué formulario con 5 inputs</li>
+        <li>Agregué CSS para formulario</li>
+        <li>Agregué CSS para botones de acción</li>
+        <li>Implementé <code>guardarEnLocalStorage()</code></li>
+        <li>Implementé <code>cargarDelLocalStorage()</code></li>
+        <li>Implementé <code>agregarPokemon()</code></li>
+        <li>Implementé <code>eliminarPokemon(id)</code></li>
+        <li>Implementé <code>toggleFavorito(id)</code></li>
+        <li>Actualicé <code>renderizarPokemon()</code> con botones</li>
+        <li>Actualicé <code>DOMContentLoaded</code></li>
+        <li>¡Puedo agregar nuevos Pokémon!</li>
+        <li>¡Puedo eliminar Pokémon!</li>
+        <li>¡Puedo marcar favoritos!</li>
+        <li>¡Los datos se guardan automáticamente!</li>
+      </ul>
+    </div>
+
+    <div class="button-group">
+      <a href="modulo4.html" class="btn btn-primary">
+        Siguiente: Módulo 4 (Quiz Final) →
+      </a>
+      <a href="modulo2.html" class="btn btn-secondary">
+        ← Volver a Módulo 2
+      </a>
+    </div>
   </div>
 
-  <!-- FINAL -->
-  <div class="completion-badge">
-    🎉 ¡Felicidades por completar los 11 Retos! 🎉<br>
-    <span style="font-size: 0.9rem; margin-top: 10px; display: block;">Aprendiste: filter, sort, map, localStorage, classList y más</span>
-  </div>
+  <script>
+    function toggleCodeSection(element) {
+      const header = element;
+      const content = header.nextElementSibling;
+      header.classList.toggle('expanded');
+      content.classList.toggle('expanded');
+    }
 
-  <!-- BOTONES -->
-  <div class="nav-buttons">
-    <a href="modulo2.html" class="btn btn-secondary">← Volver a Módulo 2</a>
-    <a href="modulo4.html" class="btn btn-primary">Ir al Final →</a>
-  </div>
-
-</div>
-
-<script>
-function copyCode(button) {
-  const codeElement = button.closest('.code-wrapper').querySelector('code');
-  const text = codeElement.textContent;
-  
-  navigator.clipboard.writeText(text).then(() => {
-    const originalText = button.textContent;
-    button.textContent = '✅ ¡Copiado!';
-    button.classList.add('copied');
-    
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.classList.remove('copied');
-    }, 2000);
-  });
-}
-
-function toggleSolution(header) {
-  const content = header.nextElementSibling;
-  const toggle = header.querySelector('.solution-toggle');
-  
-  content.classList.toggle('show');
-  toggle.classList.toggle('show');
-}
-</script>
+    function copyCode(button, elementId) {
+      const element = document.getElementById(elementId);
+      let text = element.textContent;
+      text = text.replace(/\u00A0/g, ' ');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = button;
+        btn.style.display = 'none';
+        const feedback = document.getElementById(elementId + '-feedback');
+        feedback.style.display = 'block';
+        setTimeout(() => {
+          btn.style.display = 'block';
+          feedback.style.display = 'none';
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día 10 - Módulo 1: Base de Datos</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container { max-width: 1000px; margin: 0 auto; }
+    
+    header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.3);
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    
+    .section {
+      background: rgba(30,27,75,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102,126,234,0.3);
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      font-size: 1.3rem;
+      color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+    .section p, .section li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #d1d5f0;
+      margin-bottom: 15px;
+    }
+    .section ul { margin-left: 20px; }
+    .section code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #a78bfa;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .objective-box {
+      background: rgba(102,126,234,0.1);
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .objective-box strong { color: #a78bfa; }
+    
+    .code-block {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(102,126,234,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .code-block .comment { color: #888; }
+    .code-block .keyword { color: #667eea; }
+    .code-block .string { color: #4caf50; }
+    .code-block .number { color: #f093fb; }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+    }
+    .btn-secondary {
+      background: rgba(102,126,234,0.2);
+      color: #a78bfa;
+      border: 1px solid #667eea;
+    }
+    .btn-secondary:hover {
+      background: rgba(102,126,234,0.3);
+    }
+    
+    .step-box {
+      background: rgba(118,75,162,0.15);
+      border: 1px solid rgba(167,139,250,0.4);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+    .step-box h3 {
+      color: #a78bfa;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 15px 0;
+    }
+    .checklist li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(102,126,234,0.2);
+    }
+    .checklist li:before {
+      content: "☐ ";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📦 Módulo 1: Base de Datos y Carga Dinámica</h1>
+      <p>Aprende a crear un array con Pokémon y cargarlos automáticamente en la página</p>
+    </header>
+
+    <div class="section">
+      <h2>🎯 ¿Qué vamos a hacer?</h2>
+      <p>
+        En lugar de tener 3 Pokémon escritos directamente en el HTML (como en el Día 5), 
+        vamos a crear una <strong>base de datos en JavaScript</strong> que contenga todos nuestros Pokémon. 
+        Luego, con una función especial, los cargaremos dinámicamente en la página. ¡Es mucho más profesional!
+      </p>
+      
+      <div class="objective-box">
+        <strong>📌 Objetivo:</strong><br>
+        Crear un archivo <code>js/pokedex.js</code> que contenga:
+        <ul style="margin-top: 10px;">
+          <li>Un array con objetos de Pokémon</li>
+          <li>Una función para renderizar (mostrar) todos los Pokémon</li>
+          <li>Cambiar el HTML para que las tarjetas se carguen dinámicamente</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📝 Paso 1: Preparar el HTML</h2>
+      <p>Primero, vamos a modificar nuestro <code>index.html</code> del Día 5.</p>
+
+      <div class="step-box">
+        <h3><span class="step-number">1</span>Eliminar las tarjetas estáticas</h3>
+        <p><strong>¿Qué hacer?</strong> En tu <code>index.html</code>, busca el <code>&lt;div class="pokemon-grid"&gt;</code> 
+        y <strong>BORRA todos las 3 tarjetas</strong> (Pikachu, Charizard, Blastoise).</p>
+        
+        <p><strong>❌ Borra esto:</strong></p>
+        <div class="code-block">
+&lt;div class="pokemon-grid"&gt;<br>
+&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Pikachu&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Eléctrico&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="assets/pikachu.png" alt="Pikachu"&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;<span class="comment">(... el resto de tarjetas ...)</span><br>
+&lt;/div&gt;
+        </div>
+
+        <p><strong>✅ Déjalo así:</strong></p>
+        <div class="code-block">
+&lt;div class="pokemon-grid" id="pokemonGrid"&gt;<br>
+&lt;/div&gt;
+        </div>
+
+        <p><strong>⚠️ Importante:</strong> Nota que agregamos <code>id="pokemonGrid"</code>. 
+        Este ID es muy importante porque JavaScript lo usará para encontrar dónde poner los Pokémon.</p>
+      </div>
+
+      <div class="step-box">
+        <h3><span class="step-number">2</span>Agregar el enlace a JavaScript</h3>
+        <p><strong>¿Qué hacer?</strong> Al final del <code>&lt;body&gt;</code> (antes de cerrar con <code>&lt;/body&gt;</code>), 
+        agregar esta línea:</p>
+
+        <div class="code-block">
+&lt;script src="js/pokedex.js"&gt;&lt;/script&gt;
+        </div>
+
+        <p><strong>Tu &lt;body&gt; debería verse así:</strong></p>
+        <div class="code-block">
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Mi Pokédex&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/header&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="search-bar"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" placeholder="Buscar Pokémon..."&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-grid" id="pokemonGrid"&gt;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;<span class="comment">&lt;!-- JAVASCRIPT --&gt;</span><br>
+&nbsp;&nbsp;&lt;script src="js/pokedex.js"&gt;&lt;/script&gt;<br>
+&lt;/body&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>⚙️ Paso 2: Crear la Base de Datos en JavaScript</h2>
+      <p>Ahora vamos a crear un nuevo archivo <code>js/pokedex.js</code> con toda la magia.</p>
+
+      <div class="step-box">
+        <h3><span class="step-number">3</span>Crear el archivo pokedex.js</h3>
+        <p><strong>¿Qué hacer?</strong></p>
+        <ul>
+          <li>Crea una carpeta llamada <code>js</code> en la raíz de tu proyecto</li>
+          <li>Dentro crea un archivo llamado <code>pokedex.js</code></li>
+          <li>Copia el siguiente código:</li>
+        </ul>
+
+        <div class="code-block">
+<span class="comment">// 🔴 BASE DE DATOS - Array de Pokémon</span><br>
+<span class="keyword">const</span> pokemonDatabase = [<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">1</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Pikachu'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Eléctrico'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">35</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">55</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/pikachu.png'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">4</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Charizard'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Fuego/Volador'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">78</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">84</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/charizard.png'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id: <span class="number">7</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre: <span class="string">'Blastoise'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tipo: <span class="string">'Agua'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hp: <span class="number">79</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ataque: <span class="number">83</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imagen: <span class="string">'assets/blastoise.png'</span><br>
+&nbsp;&nbsp;}<br>
+];<br>
+<br>
+<span class="comment">// 🟠 FUNCIÓN PARA RENDERIZAR POKÉMON</span><br>
+<span class="keyword">function</span> renderizarPokemon() {<br>
+&nbsp;&nbsp;<span class="comment">// 1. Encontrar el elemento HTML donde van a ir los Pokémon</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> grid = document.getElementById(<span class="string">'pokemonGrid'</span>);<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// 2. Limpiar el grid (por si acaso tiene algo)</span><br>
+&nbsp;&nbsp;grid.innerHTML = <span class="string">''</span>;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// 3. Recorrer cada Pokémon de la base de datos</span><br>
+&nbsp;&nbsp;pokemonDatabase.forEach(pokemon =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 4. Crear el HTML de la tarjeta</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> card = `<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="pokemon-card"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;${pokemon.nombre}&lt;/h2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;${pokemon.tipo}&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="${pokemon.imagen}" alt="${pokemon.nombre}"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;`;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 5. Agregar la tarjeta al grid</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid.innerHTML += card;<br>
+&nbsp;&nbsp;});<br>
+}<br>
+<br>
+<span class="comment">// 🟢 EJECUTAR LA FUNCIÓN al cargar la página</span><br>
+document.addEventListener(<span class="string">'DOMContentLoaded'</span>, renderizarPokemon);
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✅ Checklist de pasos completados</h2>
+      <ul class="checklist">
+        <li>Eliminé todas las tarjetas estáticas del HTML</li>
+        <li>Agregué <code>id="pokemonGrid"</code> al div del grid</li>
+        <li>Creé la carpeta <code>js</code> en mi proyecto</li>
+        <li>Creé el archivo <code>js/pokedex.js</code></li>
+        <li>Copié la base de datos de Pokémon</li>
+        <li>Copié la función <code>renderizarPokemon()</code></li>
+        <li>Agregué el enlace a <code>js/pokedex.js</code> al final del HTML</li>
+        <li>¡Abrí mi página en el navegador y veo los 3 Pokémon cargados dinámicamente!</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🤔 ¿Qué está pasando aquí?</h2>
+      
+      <div class="step-box">
+        <h3>📚 Explicación de conceptos</h3>
+        
+        <p><strong>1. Array de objetos:</strong> <code>pokemonDatabase</code> es como una lista de Pokémon. 
+        Cada Pokémon es un objeto con propiedades (id, nombre, tipo, etc.).</p>
+
+        <p><strong>2. forEach():</strong> Es un método que recorre cada elemento del array, uno por uno. 
+        Para cada Pokémon, ejecuta el código dentro de las llaves.</p>
+
+        <p><strong>3. Template literals (backticks):</strong> Las comillas raras `` ` `` permiten escribir variables 
+        dentro del string usando <code>${variable}</code>. Por ejemplo: <code>${pokemon.nombre}</code> obtiene el nombre del Pokémon.</p>
+
+        <p><strong>4. innerHTML:</strong> Es cómo JavaScript inyecta HTML en la página. 
+        Cuando hacemos <code>grid.innerHTML += card</code>, estamos diciendo "agrega esta tarjeta al grid".</p>
+
+        <p><strong>5. DOMContentLoaded:</strong> Este evento espera a que toda la página cargue antes de ejecutar el código JavaScript. 
+        Así nos aseguramos de que el elemento con id="pokemonGrid" ya existe.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎓 Desafío extra</h2>
+      <p><strong>¿Quieres practicar?</strong> Intenta agregar 2 Pokémon más a la base de datos:</p>
+      <ul>
+        <li>Squirtle (Agua, HP: 44, Ataque: 48)</li>
+        <li>Bulbasaur (Planta/Veneno, HP: 45, Ataque: 49)</li>
+      </ul>
+      <p>Necesitarás encontrar o crear imágenes para ellos y agregarlas a la carpeta <code>assets/</code>. 
+      ¡Luego actualiza la página en el navegador y deberían aparecer!</p>
+    </div>
+
+    <div class="button-group">
+      <a href="modulo2.html" class="btn btn-primary">
+        Siguiente: Módulo 2 (Búsqueda y Filtros) →
+      </a>
+      <a href="index.html" class="btn btn-secondary">
+        ← Volver a la Introducción
+      </a>
+    </div>
+  </div>
+</body>
+</html>
