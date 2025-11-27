@@ -12,8 +12,7 @@
             { day: 7, title: "Funciones y Condicionales", description: "Aprende a crear funciones y tomar decisiones en tu código", modules: ["🔧 Funciones", "🔀 If/Else", "🔄 Bucles"], duration: "90 minutos", week: 2 },
             { day: 8, title: "DOM Manipulation", description: "Manipula elementos de la página con JavaScript", modules: ["🌳 DOM", "🎯 Eventos", "✨ Interactividad"], duration: "90 minutos", week: 2 },
             { day: 9, title: "Proyecto: Calculadora", description: "Construye una calculadora funcional con todo lo aprendido", modules: ["🔢 Proyecto", "💻 JavaScript", "🎨 UI/UX"], duration: "120 minutos", week: 2 },
-            { day: 10, title: "Bootstrap, Animaciones y Bonus", description: "Aprende Bootstrap/Tailwind, animaciones 2D y transición", modules: ["🌀 Bootstrap/Tailwind", "🎞️ Animaciones", "🔗 Transiciones"], duration: "90 minutos", week: 2 },
-
+{ day: 10, title: "Pokédex Mejorada", description: "Continúa el proyecto Pokédex con JavaScript avanzado", modules: ["🔍 Búsqueda", "🎯 Filtros", "💾 localStorage"], duration: "90 minutos", week: 2 },
             // SEMANA 3: Backend y Bases de Datos
             { day: 11, title: "Conceptos de Backend y Storage", description: "Arquitectura de backend y persistencia con localStorage", modules: ["⚙️ Backend", "💾 Storage", "⭐ Sistema de favoritos"], duration: "90 minutos", week: 3 },
             { day: 12, title: "APIs, SQL y Comunicación", description: "Fundamentos SQL, APIs reales y comunicación front-back", modules: ["🔌 APIs", "🗄️ SQL", "🌐 Comunicación"], duration: "90 minutos", week: 3 },
@@ -188,3 +187,57 @@ window.location.href = `Dia${dayNumber}/inicio_curso.html`;
             
             console.log('✅ Menú cargado completamente');
         });
+
+        // Función para mostrar el banner de desafíos
+function initializeChallengesBanner() {
+    const completedDays = getCompletedDays();
+    const isDay10Unlocked = completedDays.includes(9) || completedDays.includes(10);
+    const banner = document.getElementById('challenges-banner');
+
+    if (isDay10Unlocked && banner) {
+        banner.innerHTML = `
+        <div style="
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #680191ff, #31024dff);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(195, 0, 255, 0.3);
+            animation: challengePulse 2s infinite;
+        ">
+            <a href="../Desafios/desafio10.html" style="
+                display: inline-block;
+                background: linear-gradient(135deg, #2d5016, #4a7c2c);
+                color: #7bed9f;
+                padding: 16px 40px;
+                font-size: 1.1rem;
+                border: 2px solid #7bed9f;
+                border-radius: 12px;
+                font-weight: 700;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s;
+            ">
+                🏆 DESAFÍOS MINECRAFT - Gana 10 Dólares 💰
+            </a>
+        </div>
+        <style>
+            @keyframes challengePulse {
+                0%, 100% { box-shadow: 0 8px 32px rgba(195, 0, 255, 0.3); }
+                50% { box-shadow: 0 8px 32px rgba(204, 0, 255, 0.6); }
+            }
+        </style>
+        `;
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    initializeStorage();
+    const userName = localStorage.getItem('userName') || 'Usuario';
+    document.getElementById('userName').textContent = userName;
+    
+    renderAllDays();
+    updateProgress();
+    initializeChallengesBanner();  // ← AGREGA ESTA LÍNEA
+    
+    console.log('✅ Menú cargado completamente');
+});
