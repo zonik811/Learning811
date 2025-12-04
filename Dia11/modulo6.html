@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 6 - Proyecto Final y Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section {
+            background: rgba(30, 27, 75, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #a78bfa;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .section li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d5f0;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            margin-left: 20px;
+        }
+
+        .section code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #a78bfa;
+            font-family: 'Courier New', monospace;
+        }
+
+        .objective-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            border: 1px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        /* Exercise Styles */
+        .exercise-box {
+            background: rgba(118, 75, 162, 0.15);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .exercise-box h3 {
+            color: #a78bfa;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .quiz-question {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .quiz-option:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+        .quiz-option.correct {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #f44336;
+        }
+
+        .check-btn {
+            background: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .check-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .result-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .result-message.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            display: block;
+        }
+
+        .result-message.error {
+            background: rgba(244, 67, 54, 0.3);
+            border: 1px solid #f44336;
+            color: #f44336;
+            display: block;
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+            border: 5px solid #ffa500;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .certificate h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .certificate p {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .certificate.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .project-area {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .project-area textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 6px;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .resource-card {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .resource-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Módulo 6: Proyecto Final y Quiz</h1>
+            <p>Demuestra todo lo que has aprendido</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 ¿Qué vamos a hacer?</h2>
+            <p>
+                Es hora de poner en práctica todo lo aprendido. En este módulo final:
+            </p>
+            <ul>
+                <li>🏗️ Diseñarás tu propia base de datos desde cero</li>
+                <li>📝 Responderás un quiz comprehensivo sobre todos los módulos</li>
+                <li>🏆 ¡Obtendrás tu certificado de completitud!</li>
+            </ul>
+        </div>
+
+        <!-- PROYECTO FINAL -->
+        <div class="exercise-box">
+            <h3>🏗️ Proyecto Final: Diseña tu Base de Datos</h3>
+            <p>
+                Imagina que vas a crear una aplicación para una <strong>Biblioteca de Videojuegos</strong>.
+                Diseña la estructura de la base de datos.
+            </p>
+
+            <div class="objective-box">
+                <strong>📋 Requisitos:</strong><br>
+                1. Crea al menos 2 tablas relacionadas<br>
+                2. Define las columnas y sus tipos de datos<br>
+                3. Identifica las Primary Keys<br>
+                4. Piensa en qué datos necesitas almacenar
+            </div>
+
+            <h3>Ejemplo de tablas que podrías necesitar:</h3>
+            <ul>
+                <li><strong>Juegos:</strong> título, género, plataforma, año, precio, etc.</li>
+                <li><strong>Usuarios:</strong> nombre, email, fecha_registro, etc.</li>
+                <li><strong>Prestamos:</strong> quién prestó qué juego y cuándo</li>
+            </ul>
+
+            <div class="project-area">
+                <h4 style="color: #a78bfa; margin-bottom: 15px;">Escribe las queries CREATE TABLE:</h4>
+                <textarea id="projectDesign" placeholder="Ejemplo:
+CREATE TABLE juegos (
+  id INTEGER PRIMARY KEY,
+  titulo VARCHAR(255),
+  genero VARCHAR(100),
+  plataforma VARCHAR(50),
+  precio DECIMAL(10,2)
+);
+
+CREATE TABLE usuarios (
+  id INTEGER PRIMARY KEY,
+  nombre VARCHAR(255),
+  email VARCHAR(255),
+  fecha_registro DATE
+);
+"></textarea>
+            </div>
+
+            <p><strong>💡 Tip:</strong> No hay una respuesta "correcta". Lo importante es que tu diseño tenga sentido
+                para el propósito de la aplicación.</p>
+        </div>
+
+        <!-- QUIZ FINAL -->
+        <div class="exercise-box">
+            <h3>🎮 Quiz Final Comprehensivo</h3>
+            <p>Responde estas preguntas para demostrar tu conocimiento:</p>
+
+            <div class="quiz-question">
+                <p>1. ¿Qué comando SQL usas para obtener datos de una tabla?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q1" value="a">
+                    a) GET
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q1" value="b">
+                    b) SELECT
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q1" value="c">
+                    c) RETRIEVE
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. ¿Cuál es la diferencia principal entre SQL y NoSQL?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q2" value="a">
+                    a) SQL es más rápido que NoSQL
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q2" value="b">
+                    b) SQL tiene estructura fija, NoSQL es flexible
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q2" value="c">
+                    c) NoSQL no puede guardar texto
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. ¿Qué tipo de dato usarías para almacenar un correo electrónico?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q3" value="a">
+                    a) INTEGER
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q3" value="b">
+                    b) VARCHAR
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q3" value="c">
+                    c) BOOLEAN
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>4. ¿Qué hace el comando WHERE en una query?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q4" value="a">
+                    a) Ordena los resultados
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q4" value="b">
+                    b) Filtra los resultados según condiciones
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q4" value="c">
+                    c) Elimina datos
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>5. ¿Cuál comando SQL es PERMANENTE y no se puede deshacer?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q5" value="a">
+                    a) SELECT
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q5" value="b">
+                    b) UPDATE
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q5" value="c">
+                    c) DELETE
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>6. ¿Qué significa PRIMARY KEY?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q6" value="a">
+                    a) La primera columna de la tabla
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q6" value="b">
+                    b) Un identificador único para cada fila
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q6" value="c">
+                    c) La contraseña de la base de datos
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>7. MongoDB es un ejemplo de base de datos:</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q7" value="a">
+                    a) SQL
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q7" value="b">
+                    b) NoSQL
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q7" value="c">
+                    c) Ninguna de las anteriores
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>8. ¿Qué comando usas para agregar nuevos datos a una tabla?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q8" value="a">
+                    a) ADD
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q8" value="b">
+                    b) INSERT INTO
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q8" value="c">
+                    c) CREATE
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>9. ¿Qué significa CRUD?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q9" value="a">
+                    a) Create, Read, Update, Delete
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q9" value="b">
+                    b) Copy, Remove, Upload, Download
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q9" value="c">
+                    c) Connect, Run, Update, Disconnect
+                </label>
+            </div>
+
+            <div class="quiz-question">
+                <p>10. ¿Para qué sirve ORDER BY en SQL?</p>
+                <label class="quiz-option">
+                    <input type="radio" name="q10" value="a">
+                    a) Para ordenar los resultados
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q10" value="b">
+                    b) Para eliminar duplicados
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q10" value="c">
+                    c) Para agrupar datos
+                </label>
+            </div>
+
+            <button class="check-btn" onclick="checkQuiz()">Verificar Respuestas</button>
+            <div class="result-message" id="quizResult"></div>
+        </div>
+
+        <!-- CERTIFICADO -->
+        <div class="certificate" id="certificate">
+            <h2>🏆 ¡Felicitaciones!</h2>
+            <p><strong>Has completado el curso de Bases de Datos</strong></p>
+            <p style="font-size: 1rem; margin-top: 20px;">
+                Ahora conoces los fundamentos de bases de datos, SQL, y cómo diseñar
+                y manipular datos. ¡Estás listo para crear aplicaciones con datos reales!
+            </p>
+            <div style="margin-top: 30px; font-size: 3rem;">🎉</div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Recursos para Seguir Aprendiendo</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>🌐 SQL Online</h4>
+                    <p>Practica SQL en navegador: W3Schools SQL, SQLZoo</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🗄️ Instalar BD</h4>
+                    <p>MySQL, PostgreSQL, SQLite - Descarga gratis</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>📹 Tutoriales</h4>
+                    <p>YouTube: Bases de datos relacionales, diseño de BD</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>🎮 Práctica</h4>
+                    <p>HackerRank SQL, LeetCode Database</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎓 Resumen Completo del Curso</h2>
+            <ul>
+                <li>✅ <strong>Módulo 1:</strong> Qué son las bases de datos y por qué son importantes</li>
+                <li>✅ <strong>Módulo 2:</strong> Tipos de datos, tablas, filas, columnas y Primary Keys</li>
+                <li>✅ <strong>Módulo 3:</strong> SQL vs NoSQL - cuándo usar cada una</li>
+                <li>✅ <strong>Módulo 4:</strong> SELECT, WHERE, ORDER BY para consultar datos</li>
+                <li>✅ <strong>Módulo 5:</strong> INSERT, UPDATE, DELETE para modificar datos</li>
+                <li>✅ <strong>Módulo 6:</strong> Proyecto final y quiz comprehensivo</li>
+            </ul>
+            <p style="margin-top: 20px;">
+                <strong>¡Has completado exitosamente el Día 11! 🎉</strong><br>
+                Ahora tienes las bases para trabajar con datos en cualquier aplicación.
+            </p>
+        </div>
+
+        <div class="button-group">
+            <a href="inicio_curso.html" class="btn btn-primary">
+                🔄 Repasar el Curso
+            </a>
+            <button onclick="completarDia()" class="btn btn-primary">
+                🎉 ¡Completar Día 11!
+            </button>
+            <a href="../menu.html" class="btn btn-secondary">
+                ← Volver al Menú Principal
+            </a>
+        </div>
+    </div>
+
+    <script>
+
+        function completarDia() {
+            // Guardar en localStorage que Día 10 está completado
+            let completedDays = JSON.parse(localStorage.getItem('completedDays')) || [];
+
+            // Agregar día 10 si no está ya
+            if (!completedDays.includes(11)) {
+                completedDays.push(11);
+            }
+
+            localStorage.setItem('completedDays', JSON.stringify(completedDays));
+
+            // Mostrar mensaje
+            alert('🎉 ¡Día 11 completado! Redirigiendo al menú...');
+
+            // Redirigir a menu.html
+            window.location.href = '../menu.html';
+        }
+        function checkQuiz() {
+            const answers = {
+                q1: 'b',  // SELECT
+                q2: 'b',  // SQL fijo, NoSQL flexible
+                q3: 'b',  // VARCHAR
+                q4: 'b',  // Filtra resultados
+                q5: 'c',  // DELETE
+                q6: 'b',  // Identificador único
+                q7: 'b',  // NoSQL
+                q8: 'b',  // INSERT INTO
+                q9: 'a',  // Create Read Update Delete
+                q10: 'a'  // Ordenar resultados
+            };
+
+            let correct = 0;
+            let total = 10;
+
+            for (let question in answers) {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                const options = document.querySelectorAll(`input[name="${question}"]`);
+
+                options.forEach(option => {
+                    const label = option.parentElement;
+                    label.classList.remove('correct', 'incorrect');
+
+                    if (option.value === answers[question]) {
+                        if (selected && selected.value === answers[question]) {
+                            label.classList.add('correct');
+                            correct++;
+                        }
+                    } else if (selected && option === selected) {
+                        label.classList.add('incorrect');
+                    }
+                });
+            }
+
+            const resultDiv = document.getElementById('quizResult');
+            const percentage = (correct / total) * 100;
+
+            if (percentage >= 80) {
+                resultDiv.className = 'result-message success';
+                resultDiv.textContent = `🎉 ¡Excelente! ${correct}/${total} correctas (${percentage}%). ¡Has dominado las bases de datos!`;
+
+                // Show certificate
+                document.getElementById('certificate').classList.add('show');
+
+                // Scroll to certificate
+                setTimeout(() => {
+                    document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            } else if (percentage >= 60) {
+                resultDiv.className = 'result-message success';
+                resultDiv.textContent = `👍 Buen trabajo! ${correct}/${total} correctas (${percentage}%). Revisa los conceptos marcados en verde.`;
+            } else {
+                resultDiv.className = 'result-message error';
+                resultDiv.textContent = `📚 ${correct}/${total} correctas (${percentage}%). Te recomendamos repasar los módulos anteriores.`;
+            }
+        }
+    </script>
+</body>
+
+</html>

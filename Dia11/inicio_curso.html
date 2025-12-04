@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día 11 - Bases de Datos</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .container { max-width: 1000px; margin: 0 auto; }
+    
+    header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.3);
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; color: rgba(255,255,255,0.9); }
+    
+    .section {
+      background: rgba(30,27,75,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102,126,234,0.3);
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    .section p, .section li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #d1d5f0;
+      margin-bottom: 15px;
+    }
+    .section ul { margin-left: 20px; }
+    
+    .objective-box {
+      background: rgba(102,126,234,0.1);
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .objective-box strong { color: #a78bfa; }
+    
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+    }
+    .btn-secondary {
+      background: rgba(102,126,234,0.2);
+      color: #a78bfa;
+      border: 1px solid #667eea;
+    }
+    .btn-secondary:hover {
+      background: rgba(102,126,234,0.3);
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .feature-card {
+      background: rgba(102,126,234,0.05);
+      border: 1px solid rgba(102,126,234,0.3);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      background: rgba(102,126,234,0.1);
+      transform: translateY(-5px);
+    }
+    .feature-card h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      background: rgba(118,75,162,0.15);
+      border: 1px solid rgba(167,139,250,0.4);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+    .info-box h3 {
+      color: #a78bfa;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+
+    .highlight {
+      color: #a78bfa;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🗄️ Día 11: Bases de Datos</h1>
+      <p>Aprende cómo se almacena la información en aplicaciones reales</p>
+    </header>
+
+    <div class="section">
+      <h2>🚀 ¡Bienvenido al Día 11!</h2>
+      <p>
+        ¿Alguna vez te has preguntado cómo <strong>Netflix</strong> recuerda qué series has visto? 
+        ¿O cómo <strong>Instagram</strong> guarda todas tus fotos y comentarios? 
+        ¿O cómo una tienda online sabe cuántos productos tiene en stock?
+      </p>
+      <p>
+        La respuesta es: <span class="highlight">¡BASES DE DATOS!</span> 🎯
+      </p>
+      
+      <div class="objective-box">
+        <strong>📌 Objetivo del día:</strong><br>
+        Entender qué son las bases de datos, por qué son importantes, qué tipos existen, 
+        y aprender los comandos básicos de SQL para crear, leer, actualizar y eliminar información.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✨ ¿Qué vamos a aprender?</h2>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🗄️</div>
+          <h3>¿Qué son las BD?</h3>
+          <p>Concepto de bases de datos y ejemplos del mundo real</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>¿Qué son los Datos?</h3>
+          <p>Tipos de datos, tablas, filas, columnas y relaciones</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Tipos de BD</h3>
+          <p>SQL vs NoSQL: cuándo usar cada una</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>SQL: SELECT</h3>
+          <p>Consultar y filtrar datos con WHERE y ORDER BY</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✏️</div>
+          <h3>SQL: CRUD</h3>
+          <p>Insertar, actualizar y eliminar información</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3>Proyecto Final</h3>
+          <p>Diseña tu propia base de datos y practica SQL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🛠️ ¿Cómo funciona el curso?</h2>
+      
+      <div class="info-box">
+        <h3>📚 Estructura del curso:</h3>
+        <ul>
+          <li><strong>Módulo 1:</strong> ¿Qué son las Bases de Datos? (con quiz interactivo)</li>
+          <li><strong>Módulo 2:</strong> ¿Qué son los Datos? (con ejercicios prácticos)</li>
+          <li><strong>Módulo 3:</strong> Tipos de Bases de Datos (con casos de uso)</li>
+          <li><strong>Módulo 4:</strong> SQL Básico - Parte 1 (con constructor de queries)</li>
+          <li><strong>Módulo 5:</strong> SQL Básico - Parte 2 (con práctica CRUD)</li>
+          <li><strong>Módulo 6:</strong> Proyecto Final y Quiz (¡demuestra lo aprendido!)</li>
+        </ul>
+      </div>
+
+      <p><strong>🎮 Cada módulo incluye ejercicios interactivos</strong> donde podrás practicar lo aprendido de forma divertida.</p>
+      <p>Como siempre, usaremos ejemplos con <strong>Pokémon</strong> para que sea más entretenido. 🔴⚪</p>
+    </div>
+
+    <div class="section">
+      <h2>💡 ¿Por qué son importantes las bases de datos?</h2>
+      <p>Las bases de datos son la <strong>columna vertebral</strong> de prácticamente todas las aplicaciones modernas:</p>
+      <ul>
+        <li>📱 <strong>Aplicaciones móviles</strong> - WhatsApp, TikTok, Twitter</li>
+        <li>🛒 <strong>E-commerce</strong> - Amazon, Mercado Libre, eBay</li>
+        <li>🎮 <strong>Videojuegos</strong> - Guardan tu progreso y puntuaciones</li>
+        <li>🏦 <strong>Bancos</strong> - Tus transacciones y saldos</li>
+        <li>🏥 <strong>Hospitales</strong> - Historiales médicos de pacientes</li>
+        <li>🎓 <strong>Escuelas</strong> - Calificaciones y asistencia</li>
+      </ul>
+      <p>
+        Sin bases de datos, estas aplicaciones <strong>no podrían funcionar</strong>. 
+        ¡Aprender sobre bases de datos te abre las puertas al desarrollo de aplicaciones reales!
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>⚠️ Antes de empezar</h2>
+      <p>
+        Este curso es <strong>100% teórico-práctico con ejemplos interactivos</strong>. 
+        No necesitas instalar ningún programa de bases de datos todavía.
+      </p>
+      <p>
+        Todos los ejercicios funcionan directamente en tu navegador. 
+        Solo necesitas leer con atención y practicar en cada módulo. 💪
+      </p>
+      <p>
+        <strong>Tip:</strong> Completa los módulos en orden. Cada uno construye sobre el anterior.
+      </p>
+    </div>
+
+    <div class="button-group">
+      <a href="modulo1.html" class="btn btn-primary">
+        Comenzar Módulo 1 →
+      </a>
+      <a href="../menu.html" class="btn btn-secondary">
+        ← Volver al Menú
+      </a>
+    </div>
+  </div>
+</body>
+</html>

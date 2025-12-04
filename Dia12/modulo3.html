@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 - ¿Qué es una API?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section {
+            background: rgba(30, 27, 75, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #a78bfa;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .section li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d5f0;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            margin-left: 20px;
+        }
+
+        .section code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #a78bfa;
+            font-family: 'Courier New', monospace;
+        }
+
+        .objective-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .metaphor-box {
+            background: rgba(118, 75, 162, 0.15);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .api-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .api-card {
+            background: rgba(102, 126, 234, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .api-card:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .api-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            border: 1px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        /* Exercise Styles */
+        .exercise-box {
+            background: rgba(118, 75, 162, 0.15);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .exercise-box h3 {
+            color: #a78bfa;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .matching-game {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .matching-column h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .match-item {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+        }
+
+        .match-item:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateX(5px);
+        }
+
+        .match-item.selected {
+            background: rgba(255, 193, 7, 0.3);
+            border-color: #ffc107;
+        }
+
+        .match-item.matched {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+            cursor: default;
+        }
+
+        .result-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .result-message.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            display: block;
+        }
+
+        .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .matching-game {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🔌 Módulo 3: ¿Qué es una API?</h1>
+            <p>El puente de comunicación entre aplicaciones</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 ¿Qué significa API?</h2>
+            <p>
+                <span class="highlight">API</span> significa <strong>Application Programming Interface</strong>
+                (Interfaz de Programación de Aplicaciones).
+            </p>
+            <p>
+                En términos simples, una API es un <strong>conjunto de reglas</strong> que permite que
+                diferentes programas se comuniquen entre sí.
+            </p>
+
+            <div class="objective-box">
+                <strong>💡 Definición simple:</strong><br>
+                Una API es como un <strong>menú en un restaurante</strong>. El menú te dice qué puedes
+                pedir y cómo pedirlo. No necesitas saber cómo se cocina la comida, solo necesitas
+                saber cómo hacer tu pedido.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🍽️ La Metáfora del Restaurante</h2>
+
+            <div class="metaphor-box">
+                <h3 style="color: #a78bfa; margin-top: 0;">Imagina que quieres comer en un restaurante:</h3>
+
+                <p><strong>🙋 TÚ (Cliente)</strong> → Te sientas en la mesa y tienes hambre</p>
+
+                <p><strong>📋 MESERO (API)</strong> → Viene a tu mesa con un menú. Te pregunta qué quieres. Lleva tu
+                    pedido a la cocina.</p>
+
+                <p><strong>👨‍🍳 COCINA (Backend/Servidor)</strong> → Prepara tu comida según el pedido.</p>
+
+                <p><strong>📋 MESERO (API)</strong> → Regresa con tu comida y te la sirve.</p>
+
+                <p><strong>🙋 TÚ (Cliente)</strong> → ¡Disfrutas tu comida!</p>
+            </div>
+
+            <p><strong>En este ejemplo:</strong></p>
+            <ul>
+                <li>El <strong>mesero es la API</strong> - es el intermediario que lleva tu pedido y trae tu comida</li>
+                <li>El <strong>menú son las opciones</strong> (endpoints) que la API ofrece</li>
+                <li>Tu <strong>pedido es la petición</strong> (request)</li>
+                <li>La <strong>comida es la respuesta</strong> (response)</li>
+                <li>No necesitas entrar a la cocina ni saber cocinar - solo pides lo que está en el menú</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ ¿Para qué sirven las APIs?</h2>
+
+            <h3>1. 🔗 Conectar Aplicaciones</h3>
+            <p>Permiten que diferentes aplicaciones trabajen juntas:</p>
+            <ul>
+                <li>Tu app de clima obtiene datos de una API meteorológica</li>
+                <li>Uber usa Google Maps API para mostrar mapas</li>
+                <li>Instagram comparte fotos en Facebook usando la API de Facebook</li>
+            </ul>
+
+            <h3>2. ♻️ Reutilizar Funcionalidad</h3>
+            <p>No necesitas reinventar la rueda:</p>
+            <ul>
+                <li>En vez de programar un sistema de pagos, usas PayPal API o Stripe API</li>
+                <li>En vez de crear tu propio servicio de mapas, usas Google Maps API</li>
+                <li>En vez de programar autenticación, usas Google Login API</li>
+            </ul>
+
+            <h3>3. 🔐 Controlar el Acceso</h3>
+            <p>La API decide qué información puedes ver y qué acciones puedes realizar:</p>
+            <ul>
+                <li>Twitter API limita cuántos tweets puedes obtener por minuto</li>
+                <li>Instagram API no te deja ver posts privados de otros usuarios</li>
+                <li>GitHub API requiere autenticación para ciertas acciones</li>
+            </ul>
+
+            <h3>4. 📊 Compartir Datos de Forma Segura</h3>
+            <p>Las empresas comparten sus datos SIN exponer su código o base de datos:</p>
+            <ul>
+                <li>Netflix no te da acceso directo a su base de datos, te da una API</li>
+                <li>Spotify API te deja buscar canciones sin acceso a su código</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Ejemplos de APIs Famosas</h2>
+
+            <div class="api-examples">
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🗺️</div>
+                    <h4>Google Maps API</h4>
+                    <p>Para mostrar mapas, rutas, y ubicaciones en tus apps</p>
+                </div>
+
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">💳</div>
+                    <h4>Stripe API</h4>
+                    <p>Para procesar pagos con tarjeta de crédito</p>
+                </div>
+
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🐦</div>
+                    <h4>Twitter API</h4>
+                    <p>Para leer y publicar tweets programáticamente</p>
+                </div>
+
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">☁️</div>
+                    <h4>Weather API</h4>
+                    <p>Para obtener datos del clima en tiempo real</p>
+                </div>
+
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🎵</div>
+                    <h4>Spotify API</h4>
+                    <p>Para acceder a música, playlists, y artistas</p>
+                </div>
+
+                <div class="api-card">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🔐</div>
+                    <h4>Google Login API</h4>
+                    <p>Para que los usuarios inicien sesión con su cuenta de Google</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📡 Tipos de APIs</h2>
+
+            <h3>1. APIs Públicas (Open APIs)</h3>
+            <p>Cualquiera puede usarlas (a veces con límites):</p>
+            <ul>
+                <li>PokeAPI - Información de Pokémon</li>
+                <li>OpenWeather API - Datos del clima</li>
+                <li>NASA API - Datos espaciales</li>
+            </ul>
+
+            <h3>2. APIs Privadas (Internal APIs)</h3>
+            <p>Solo para uso interno de una empresa:</p>
+            <ul>
+                <li>API para que el frontend de Amazon hable con su backend</li>
+                <li>API interna de Netflix para gestionar suscripciones</li>
+            </ul>
+
+            <h3>3. APIs de Socios (Partner APIs)</h3>
+            <p>Solo para empresas asociadas con permisos especiales:</p>
+            <ul>
+                <li>Facebook API para apps verificadas</li>
+                <li>APIs bancarias para apps de finanzas autorizadas</li>
+            </ul>
+        </div>
+
+        <!-- EJERCICIO INTERACTIVO -->
+        <div class="exercise-box">
+            <h3>🎮 Ejercicio: Emparejar API con su Uso</h3>
+            <p>Empareja cada API con su caso de uso. Haz clic en un item de cada columna para conectarlos:</p>
+
+            <div class="matching-game">
+                <div class="matching-column">
+                    <h4>APIs</h4>
+                    <div class="match-item api" data-id="maps" onclick="selectItem(this, 'api')">
+                        🗺️ Google Maps API
+                    </div>
+                    <div class="match-item api" data-id="payment" onclick="selectItem(this, 'api')">
+                        💳 Stripe API
+                    </div>
+                    <div class="match-item api" data-id="music" onclick="selectItem(this, 'api')">
+                        🎵 Spotify API
+                    </div>
+                    <div class="match-item api" data-id="translate" onclick="selectItem(this, 'api')">
+                        🌍 Google Translate API
+                    </div>
+                </div>
+
+                <div class="matching-column">
+                    <h4>Casos de Uso</h4>
+                    <div class="match-item use" data-id="music" onclick="selectItem(this, 'use')">
+                        Crear una playlist personalizada
+                    </div>
+                    <div class="match-item use" data-id="payment" onclick="selectItem(this, 'use')">
+                        Procesar un pago en e-commerce
+                    </div>
+                    <div class="match-item use" data-id="translate" onclick="selectItem(this, 'use')">
+                        Traducir texto a otro idioma
+                    </div>
+                    <div class="match-item use" data-id="maps" onclick="selectItem(this, 'use')">
+                        Mostrar rutas de navegación
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-message" id="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>🎓 Resumen del Módulo</h2>
+            <ul>
+                <li>✅ Una <strong>API</strong> es una interfaz que permite que apps se comuniquen</li>
+                <li>✅ API = el <strong>mesero</strong> entre el cliente y el backend</li>
+                <li>✅ Las APIs te permiten <strong>reutilizar funcionalidad</strong> sin programar todo desde cero</li>
+                <li>✅ Existen APIs para: mapas, pagos, autenticación, datos, y mucho más</li>
+                <li>✅ Las APIs <strong>controlan el acceso</strong> y protegen datos sensibles</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <a href="modulo4.html" class="btn btn-primary">
+                Siguiente: Módulo 4 →
+            </a>
+            <a href="modulo2.html" class="btn btn-secondary">
+                ← Módulo Anterior
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let selectedApi = null;
+        let selectedUse = null;
+        let matchedCount = 0;
+
+        function selectItem(element, type) {
+            if (element.classList.contains('matched')) return;
+
+            // Deseleccionar item previo del mismo tipo
+            if (type === 'api') {
+                if (selectedApi) selectedApi.classList.remove('selected');
+                selectedApi = element;
+            } else {
+                if (selectedUse) selectedUse.classList.remove('selected');
+                selectedUse = element;
+            }
+
+            element.classList.add('selected');
+
+            // Si ambos están seleccionados, verificar match
+            if (selectedApi && selectedUse) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const apiId = selectedApi.getAttribute('data-id');
+            const useId = selectedUse.getAttribute('data-id');
+
+            if (apiId === useId) {
+                // Correcto!
+                selectedApi.classList.add('matched');
+                selectedApi.classList.remove('selected');
+                selectedUse.classList.add('matched');
+                selectedUse.classList.remove('selected');
+                matchedCount++;
+
+                if (matchedCount === 4) {
+                    document.getElementById('result').textContent = '🎉 ¡Perfecto! Completaste todos los emparejamientos correctamente.';
+                }
+            } else {
+                // Incorrecto, deseleccionar
+                setTimeout(() => {
+                    selectedApi.classList.remove('selected');
+                    selectedUse.classList.remove('selected');
+                }, 500);
+            }
+
+            selectedApi = null;
+            selectedUse = null;
+        }
+    </script>
+</body>
+
+</html>

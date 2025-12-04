@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 - Servidores y Cliente/Servidor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section {
+            background: rgba(30, 27, 75, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #a78bfa;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .section li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d5f0;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            margin-left: 20px;
+        }
+
+        .section code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #a78bfa;
+            font-family: 'Courier New', monospace;
+        }
+
+        .objective-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .diagram-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .flow-step.client {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+        }
+
+        .flow-step.server {
+            background: rgba(255, 152, 0, 0.2);
+            border-color: #ff9800;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            border: 1px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        /* Exercise Styles */
+        .exercise-box {
+            background: rgba(118, 75, 162, 0.15);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .exercise-box h3 {
+            color: #a78bfa;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .simulator {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .simulator-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .action-btn {
+            background: #4caf50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .message-log {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 200px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            animation: fadeIn 0.3s;
+        }
+
+        .log-entry.client {
+            color: #4caf50;
+        }
+
+        .log-entry.server {
+            color: #ff9800;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🖥️ Módulo 2: Servidores y Cliente/Servidor</h1>
+            <p>Entiende cómo se comunican las aplicaciones</p>
+        </header>
+
+        <div class="section">
+            <h2>🎯 ¿Qué es un Servidor?</h2>
+            <p>
+                Un <span class="highlight">servidor</span> es una computadora (o programa) que está
+                <strong>siempre esperando</strong> recibir peticiones y <strong>responderlas</strong>.
+            </p>
+
+            <div class="objective-box">
+                <strong>💡 Piénsalo así:</strong><br>
+                Un servidor es como un <strong>empleado en una tienda</strong> que está ahí todo el día
+                esperando a que lleguen clientes con preguntas o solicitudes, y les da lo que necesitan.
+            </div>
+
+            <h3>Características de un Servidor</h3>
+            <ul>
+                <li>✅ Está <strong>siempre encendido</strong> (24/7)</li>
+                <li>✅ Tiene una <strong>dirección</strong> para que lo encuentren (IP y puerto)</li>
+                <li>✅ <strong>Escucha peticiones</strong> de muchos clientes a la vez</li>
+                <li>✅ <strong>Procesa</strong> las solicitudes y devuelve respuestas</li>
+                <li>✅ Gestiona <strong>recursos compartidos</strong> (archivos, bases de datos, etc.)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📱 ¿Qué es un Cliente?</h2>
+            <p>
+                Un <span class="highlight">cliente</span> es cualquier aplicación que <strong>hace peticiones</strong>
+                a un servidor para obtener información o realizar acciones.
+            </p>
+
+            <h3>Ejemplos de Clientes</h3>
+            <ul>
+                <li>🌐 <strong>Navegador web</strong> (Chrome, Firefox, Edge)</li>
+                <li>📱 <strong>App móvil</strong> (Instagram, WhatsApp, Netflix)</li>
+                <li>🖥️ <strong>Aplicaciones de escritorio</strong> (Spotify, VS Code)</li>
+                <li>⌚ <strong>Apps de smartwatch</strong></li>
+                <li>🎮 <strong>Consolas de videojuegos</strong></li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Arquitectura Cliente/Servidor</h2>
+            <p>Es el modelo más común de cómo funcionan las aplicaciones modernas:</p>
+
+            <div class="diagram-box">
+                <h4 style="color: #667eea; margin-bottom: 20px;">Flujo de Comunicación</h4>
+                <div class="flow-diagram">
+                    <div class="flow-step client">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📱</div>
+                        <strong>Cliente</strong>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Hace una petición</p>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-step server">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🖥️</div>
+                        <strong>Servidor</strong>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Procesa la petición</p>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-step client">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📱</div>
+                        <strong>Cliente</strong>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Recibe la respuesta</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Ejemplo: Abrir Instagram</h3>
+            <ol>
+                <li><strong>Cliente (tu celular):</strong> "Dame los últimos posts de mis amigos"</li>
+                <li><strong>Servidor Instagram:</strong> Busca los posts en la base de datos</li>
+                <li><strong>Servidor Instagram:</strong> "Aquí están: [lista de posts]"</li>
+                <li><strong>Cliente (tu celular):</strong> Muestra los posts en la pantalla</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🌍 Ejemplos del Mundo Real</h2>
+
+            <h3>WhatsApp</h3>
+            <ul>
+                <li><strong>Cliente:</strong> Tu app de WhatsApp en el celular</li>
+                <li><strong>Servidor:</strong> Servidores de WhatsApp (propiedad de Meta)</li>
+                <li><strong>Comunicación:</strong> Envías un mensaje → servidor lo recibe → servidor lo envía al
+                    destinatario</li>
+            </ul>
+
+            <h3>Netflix</h3>
+            <ul>
+                <li><strong>Cliente:</strong> La app en tu TV, celular o computadora</li>
+                <li><strong>Servidor:</strong> Servidores de Netflix con películas y series</li>
+                <li><strong>Comunicación:</strong> Pides ver una serie → servidor transmite el video → tu cliente lo
+                    reproduce</li>
+            </ul>
+
+            <h3>Gmail</h3>
+            <ul>
+                <li><strong>Cliente:</strong> Tu navegador o la app de Gmail</li>
+                <li><strong>Servidor:</strong> Servidores de Google que almacenan emails</li>
+                <li><strong>Comunicación:</strong> Escribes un email → servidor lo guarda y lo envía → el destinatario
+                    lo recibe</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🏢 Tipos de Servidores</h2>
+
+            <h3>1. 🌐 Servidor Web</h3>
+            <p>Sirve páginas web y archivos HTML, CSS, JavaScript, imágenes, etc.</p>
+            <p><strong>Ejemplo:</strong> Apache, Nginx, IIS</p>
+
+            <h3>2. 🗄️ Servidor de Base de Datos</h3>
+            <p>Almacena y gestiona datos. Responde a consultas SQL.</p>
+            <p><strong>Ejemplo:</strong> MySQL, PostgreSQL, MongoDB</p>
+
+            <h3>3. 📂 Servidor de Archivos</h3>
+            <p>Almacena archivos que múltiples usuarios pueden acceder.</p>
+            <p><strong>Ejemplo:</strong> Google Drive, Dropbox, OneDrive</p>
+
+            <h3>4. 📧 Servidor de Correo</h3>
+            <p>Gestiona el envío y recepción de emails.</p>
+            <p><strong>Ejemplo:</strong> Gmail servers, Outlook servers</p>
+
+            <h3>5. 🎮 Servidor de Juegos</h3>
+            <p>Coordina partidas multijugador en videojuegos.</p>
+            <p><strong>Ejemplo:</strong> Servidores de Fortnite, Minecraft, FIFA</p>
+        </div>
+
+        <!-- EJERCICIO INTERACTIVO -->
+        <div class="exercise-box">
+            <h3>🎮 Simulador: Petición Cliente/Servidor</h3>
+            <p>Simula cómo un cliente hace una petición y el servidor responde:</p>
+
+            <div class="simulator">
+                <div class="simulator-controls">
+                    <button class="action-btn" onclick="sendRequest('login')">🔐 Hacer Login</button>
+                    <button class="action-btn" onclick="sendRequest('posts')">📝 Obtener Posts</button>
+                    <button class="action-btn" onclick="sendRequest('upload')">📤 Subir Foto</button>
+                    <button class="action-btn" onclick="clearLog()">🗑️ Limpiar</button>
+                </div>
+
+                <div class="message-log" id="messageLog">
+                    <div style="color: #888;">Haz clic en un botón para simular una petición...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎓 Resumen del Módulo</h2>
+            <ul>
+                <li>✅ Un <strong>servidor</strong> es una computadora que está siempre esperando peticiones</li>
+                <li>✅ Un <strong>cliente</strong> es una aplicación que hace peticiones al servidor</li>
+                <li>✅ La arquitectura <strong>cliente/servidor</strong> es el modelo estándar</li>
+                <li>✅ Los servidores pueden ser: web, base de datos, archivos, correo, juegos</li>
+                <li>✅ El flujo básico: Cliente pide → Servidor procesa → Cliente recibe</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <a href="modulo3.html" class="btn btn-primary">
+                Siguiente: Módulo 3 →
+            </a>
+            <a href="modulo1.html" class="btn btn-secondary">
+                ← Módulo Anterior
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let requestCount = 0;
+
+        function addLogEntry(message, type) {
+            const log = document.getElementById('messageLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = message;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function sendRequest(type) {
+            if (requestCount === 0) {
+                document.getElementById('messageLog').innerHTML = '';
+            }
+
+            requestCount++;
+            const timestamp = new Date().toLocaleTimeString();
+
+            switch (type) {
+                case 'login':
+                    addLogEntry(`[${timestamp}] 📱 Cliente: Enviando petición de login...`, 'client');
+                    setTimeout(() => {
+                        addLogEntry(`[${timestamp}] 🖥️ Servidor: Verificando credenciales...`, 'server');
+                        setTimeout(() => {
+                            addLogEntry(`[${timestamp}] 🖥️ Servidor: ✅ Login exitoso. Token: abc123xyz`, 'server');
+                            addLogEntry(`[${timestamp}] 📱 Cliente: Sesión iniciada correctamente!`, 'client');
+                        }, 800);
+                    }, 500);
+                    break;
+
+                case 'posts':
+                    addLogEntry(`[${timestamp}] 📱 Cliente: Solicitando últimos posts...`, 'client');
+                    setTimeout(() => {
+                        addLogEntry(`[${timestamp}] 🖥️ Servidor: Consultando base de datos...`, 'server');
+                        setTimeout(() => {
+                            addLogEntry(`[${timestamp}] 🖥️ Servidor: Encontrados 15 posts nuevos`, 'server');
+                            addLogEntry(`[${timestamp}] 📱 Cliente: Mostrando posts en pantalla`, 'client');
+                        }, 1000);
+                    }, 500);
+                    break;
+
+                case 'upload':
+                    addLogEntry(`[${timestamp}] 📱 Cliente: Subiendo imagen (2.5MB)...`, 'client');
+                    setTimeout(() => {
+                        addLogEntry(`[${timestamp}] 🖥️ Servidor: Recibiendo archivo...`, 'server');
+                        setTimeout(() => {
+                            addLogEntry(`[${timestamp}] 🖥️ Servidor: Guardando en base de datos...`, 'server');
+                            setTimeout(() => {
+                                addLogEntry(`[${timestamp}] 🖥️ Servidor: ✅ Imagen guardada exitosamente`, 'server');
+                                addLogEntry(`[${timestamp}] 📱 Cliente: Upload completado!`, 'client');
+                            }, 700);
+                        }, 1000);
+                    }, 500);
+                    break;
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('messageLog').innerHTML = '<div style="color: #888;">Haz clic en un botón para simular una petición...</div>';
+            requestCount = 0;
+        }
+    </script>
+</body>
+
+</html>

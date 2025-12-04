@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día 12 - Backend y APIs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section {
+            background: rgba(30, 27, 75, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .section p,
+        .section li {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d5f0;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            margin-left: 20px;
+        }
+
+        .objective-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .objective-box strong {
+            color: #a78bfa;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            border: 1px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: rgba(102, 126, 234, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: rgba(118, 75, 162, 0.15);
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .info-box h3 {
+            color: #a78bfa;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Día 12: Backend, APIs y Conexión a BD</h1>
+            <p>Descubre cómo funciona el "lado del servidor" en aplicaciones web</p>
+        </header>
+
+        <div class="section">
+            <h2>🚀 ¡Bienvenido al Día 12!</h2>
+            <p>
+                ¿Alguna vez te has preguntado qué pasa cuando haces clic en "Me gusta" en <strong>Instagram</strong>?
+                ¿O cómo <strong>Netflix</strong> sabe qué series recomendarte?
+                ¿O cómo <strong>WhatsApp</strong> envía tus mensajes a la persona correcta?
+            </p>
+            <p>
+                Todo esto sucede gracias al <span class="highlight">¡BACKEND!</span> 🎯
+            </p>
+
+            <div class="objective-box">
+                <strong>📌 Objetivo del día:</strong><br>
+                Entender qué es el backend, cómo funcionan los servidores, qué es una API,
+                los métodos HTTP (GET, POST, PUT, DELETE), y cómo el backend se conecta
+                a las bases de datos para crear aplicaciones completas.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✨ ¿Qué vamos a aprender?</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>¿Qué es Backend?</h3>
+                    <p>La diferencia entre Frontend y Backend, y sus responsabilidades</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Servidores</h3>
+                    <p>Qué son, cómo funcionan y la arquitectura cliente/servidor</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>¿Qué es una API?</h3>
+                    <p>El puente que conecta aplicaciones y permite la comunicación</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>APIs REST</h3>
+                    <p>Métodos HTTP (GET, POST, PUT, DELETE) y códigos de estado</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🗄️</div>
+                    <h3>Conexión a BD</h3>
+                    <p>Cómo el backend se comunica con bases de datos</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Proyecto Final</h3>
+                    <p>Diseña la arquitectura completa de una aplicación</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ ¿Cómo funciona el curso?</h2>
+
+            <div class="info-box">
+                <h3>📚 Estructura del curso:</h3>
+                <ul>
+                    <li><strong>Módulo 1:</strong> ¿Qué es Backend? (con quiz interactivo)</li>
+                    <li><strong>Módulo 2:</strong> Servidores y Cliente/Servidor (con simulador)</li>
+                    <li><strong>Módulo 3:</strong> ¿Qué es una API? (con ejemplos prácticos)</li>
+                    <li><strong>Módulo 4:</strong> APIs REST y HTTP (con constructor de peticiones)</li>
+                    <li><strong>Módulo 5:</strong> Conexión a Bases de Datos (con flujo completo)</li>
+                    <li><strong>Módulo 6:</strong> Proyecto Final y Quiz (¡demuestra lo aprendido!)</li>
+                </ul>
+            </div>
+
+            <p><strong>🎮 Cada módulo incluye ejercicios interactivos</strong> donde podrás practicar lo aprendido de
+                forma visual y divertida.</p>
+            <p>Usaremos ejemplos con aplicaciones que conoces: Instagram, WhatsApp, Netflix, y más. 📱</p>
+        </div>
+
+        <div class="section">
+            <h2>💡 ¿Por qué es importante aprender Backend?</h2>
+            <p>El backend es el <strong>"cerebro"</strong> de cualquier aplicación. Sin backend:</p>
+            <ul>
+                <li>📱 <strong>Redes sociales</strong> no podrían guardar tus posts ni comentarios</li>
+                <li>🛒 <strong>Tiendas online</strong> no sabrían qué productos tienes en el carrito</li>
+                <li>💬 <strong>Apps de mensajería</strong> no podrían enviar mensajes entre usuarios</li>
+                <li>🎮 <strong>Videojuegos online</strong> no tendrían tablas de clasificación</li>
+                <li>🏦 <strong>Apps bancarias</strong> no podrían procesar transferencias</li>
+                <li>🎬 <strong>Streaming</strong> no sabría qué contenido mostrarte</li>
+            </ul>
+            <p>
+                Como desarrollador, entender el backend te permite crear <strong>aplicaciones completas y
+                    funcionales</strong>.
+                ¡Es una habilidad fundamental para cualquier programador!
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ Antes de empezar</h2>
+            <p>
+                Este curso es <strong>100% conceptual con simuladores interactivos</strong>.
+                No vamos a escribir código de backend real todavía (eso requiere conocer lenguajes como Node.js, Python
+                o Java).
+            </p>
+            <p>
+                Lo que SÍ vamos a hacer es entender <strong>cómo funciona todo por dentro</strong>,
+                para que cuando aprendas un lenguaje de backend, ya sepas exactamente qué estás haciendo. 💪
+            </p>
+            <p>
+                <strong>Tip:</strong> Completa los módulos en orden. Cada concepto construye sobre el anterior.
+            </p>
+        </div>
+
+        <div class="button-group">
+            <a href="modulo1.html" class="btn btn-primary">
+                Comenzar Módulo 1 →
+            </a>
+            <a href="../menu.html" class="btn btn-secondary">
+                ← Volver al Menú
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
